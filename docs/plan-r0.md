@@ -1,9 +1,10 @@
 # Plan: R0 — Arranque gobernado de ExpertoGobernanza
 
-**Contexto:** tras reparar el venv (Python 3.12.12 + `an_kla` 0.1.0b6), AN-KLA corre
-y `verify` está verde, pero la memoria está en **revisión 1** (1 fact, 1 event) y
-`AGENTS.md`/`proposal.json` quedaron desincronizados. Falta git, remoto,
-`check_sizes.py` y el primer documento oficial fuente. **Fecha:** 2026-08-06.
+**Contexto:** tras reparar el venv (Python 3.12.12 + `an_kla` 0.1.0b6), AN-KLA corría
+y `verify` estaba verde, pero la memoria estaba en revisión 1 (1 fact, 1 event) y
+`AGENTS.md`/`proposal.json` estaban desincronizados. R0 avanzó: memoria en **revisión 2**
+(2 facts, 2 events), git+remoto privados activos y `check_sizes.py` implementado.
+Falta: el primer documento oficial fuente (T8, humano). **Fecha:** 2026-08-06.
 **Estado:** borrador. **Roadmap:** R0. **Fuente:** iniciativa humana + hallazgos de
 reparación del entorno.
 
@@ -31,8 +32,8 @@ reparación del entorno.
   cita↔fuente (§7) antes de `proceed`.*
 
 ## Tareas (1 tarea = 1 contrato + 1 salida pequeña)
-- [ ] **T1 — sync-agents**: actualizar en `AGENTS.md` el bloque "Estado actual de la
-  memoria" y "PRÓXIMA TAREA" a revisión 1 / 1 fact, con fact-id puntero. → ver Contrato T1.
+- [x] **T1 — sync-agents** ✓: `AGENTS.md` sincronizado (estado de memoria +
+  PRÓXIMA TAREA), bloques consistentes a revisión 2 / 2 facts con fact-id puntero.
 - [x] **T2 — fact-correctivo-venv** ✓: fact `fact-expertogobernanza-venv-reparado-312-2026-08-06`
   commiteado (revisión 1→2) con autoridad `glm-5.2` (model_derived→summary); `verify` ok y
   `retrieve` lo encuentra.
@@ -80,4 +81,4 @@ reparación del entorno.
 - Memoria: `retrieve --query "estado alfa ExpertoGobernanza" --budget 6000`
 - Política: `docs/politica-agentes.md` (§3 tamaños, §5 git, §6 adversarial, §7 fidelidad)
 - Plantillas: `docs/plantillas-agente.md`
-- Fact vigente: `fact-expertogobernanza-alfa-estado-2026-08-06` (revisión 1)
+- Facts vigentes (revisión 2): `fact-expertogobernanza-alfa-estado-2026-08-06` (alfa; claim stale "venv Python 3.10") y `fact-expertogobernanza-venv-reparado-312-2026-08-06` (correctivo).
