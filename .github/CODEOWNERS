@@ -1,0 +1,13 @@
+# CODEOWNERS — ExpertoGobernanza
+#
+# Modelo §5 (proponer/aplicar): el agente propone artefactos + commit/PR; un admin
+# (CODEOWNERS) aplica commit/PR/push. El agente nunca push directo a main ni force.
+# En alfa el admin/mantenedor es:
+
+*   @kristhianmanue1
+
+# Reglas sensibles (cualquiera dispara revisión del admin):
+# - docs/politica-agentes.md, AGENTS.md  (gobernanza; alto impacto §6)
+# - docs/adr/                            (decisiones estratégicas §10)
+# - corpus/derived/                      (corpus normativo; alto impacto §6)
+# - .github/                             (CI / gobernanza de despliegue)
