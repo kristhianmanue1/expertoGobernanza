@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Entornos virtuales (este proyecto y backup del roto)
+.venv/
+.venv.broken-310/
+
+# AN-KLA: memoria local, NO versionar
+.an-kla/
+
+# macOS
+.DS_Store
+
+# Archivos efímeros del ciclo de escritura AN-KLA en raíz
+# (los históricos viven bajo .archive/, que SÍ se versiona)
+/proposal.json
+/authority.json

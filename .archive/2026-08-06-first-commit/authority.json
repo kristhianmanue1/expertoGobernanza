@@ -1,0 +1,23 @@
+{
+  "schema": "an-kla/write-authority-v1",
+  "proposal_sha256": "sha256:04543183bd142564ce55254c688dc9a071738782345cf466e4a7de21936479f6",
+  "base_revision": "sha256:7b230b81c329ae5a189a122f2bd363bb48aabb6cb09e8109d098a21d3e2a466e",
+  "authority_class": "model_derived",
+  "issuer": {
+    "kind": "model",
+    "id": "claude-sonnet-5-cowork",
+    "configuration_fingerprint": "sha256:3b570a564aa47f3f349f0ce6059925f2da6a6dfba1ff75226159b798498d141a"
+  },
+  "evidence": [],
+  "scope": {
+    "streams": [
+      "facts"
+    ],
+    "representations": [
+      "summary"
+    ],
+    "operations": [
+      "add"
+    ]
+  }
+}

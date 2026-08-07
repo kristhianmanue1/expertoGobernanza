@@ -1,0 +1,39 @@
+{
+  "schema": "an-kla/write-proposal-v1",
+  "base_revision": "sha256:7b230b81c329ae5a189a122f2bd363bb48aabb6cb09e8109d098a21d3e2a466e",
+  "stream": "facts",
+  "operation": "add",
+  "requested_representation": "summary",
+  "record": {
+    "id": "fact-expertogobernanza-alfa-estado-2026-08-06",
+    "kind": "project-state",
+    "date": "2026-08-06",
+    "summary": "ExpertoGobernanza, 2026-08-06: AN-KLA instalado (revision 0); docs/politica-agentes.md y docs/plantillas-agente.md adaptados de Codigo Cerebro (riesgo #1 PHI -> fidelidad documental); SS6/SS7 de la politica reescritas con linaje explicito CAGF-A2/A4/A5/A10 (repo constitutional-ai-governance, solo lectura); anadidas practicas de tecnica legal (cita trazable, vigencia verificada, jerarquia normativa, redaccion!=autoridad, trazabilidad de reforma). Falta: git, repo remoto, plan R0, check_sizes.py, check de fidelidad-de-cita.",
+    "indexable_text": "ExpertoGobernanza estado alfa 2026-08-06: AN-KLA instalado y verificado (tag v0.1.0-beta.6, venv Python 3.10), memoria en revision 0 antes de este commit. docs/politica-agentes.md y docs/plantillas-agente.md adoptados y adaptados desde el proyecto hermano Codigo Cerebro: el riesgo #1 se cambio de PHI (datos medicos) a fidelidad documental (normas trazables a documentos oficiales fuente), porque este proyecto genera normas, politicas y procedimientos a partir de documentos oficiales, no gobierna datos medicos. Seccion 6 (ronda adversarial) y seccion 7 (fidelidad documental, legalidad y seguridad) de politica-agentes.md fueron reescritas citando linaje explicito en CAGF (Constitutional AI Governance Framework, repositorio kristhianmanue1/constitutional-ai-governance, conectado en este proyecto solo como referencia de lectura, sin modificarlo): CAGF-A4 Reflexividad Forzada fundamenta el quorum graduado por impacto (1 revisor en contexto fresco para hitos menores; quorum estructural de 3 -autor excluido, revisor adversarial, arbitro- para hitos que publican o modifican una norma); CAGF-A5 Humildad Computacional y CAGF-A10 Integridad del Sustrato fundamentan la fidelidad documental y la separacion entre redactar una norma (capacidad del agente) y promulgarla (autoridad humana institucional); CAGF-A2 Decorrelacion Eterna se declaro como brecha conocida y no resuelta, siguiendo el precedente de CAGF de reclasificar axiomas a doctrinal/deferred en vez de afirmar un cumplimiento falso, porque este proyecto opera con un agente y sus subagentes de un unico proveedor de modelo, sin decorrelacion real entre proveedores todavia. Se anadieron ademas practicas de tecnica legal en la seccion 7.2: cita completa y trazable (instrumento, articulo, fecha de reforma), vigencia verificada nunca asumida por defecto (marcador VIGENCIA-NO-VERIFICADA si hay duda), jerarquia normativa para resolver conflictos entre fuentes (constitucion, tratados, leyes, reglamentos, normas internas, mas los canones lex superior/specialis/posterior), la regla de que redaccion no equivale a autoridad legal (todo artefacto es un borrador con fundamento documental, no asesoria legal, hasta revision por una persona con competencia legal), y trazabilidad de reforma via facts correctivos en AN-KLA cuando una fuente citada cambia. El reparto de roles quedo explicito: el humano aporta documentos e iniciativas y ejerce la autoridad de promulgacion; el agente y sus subagentes ejecutan la redaccion, verificacion y trazabilidad. Estado pendiente al cierre de esta sesion: sin git inicializado, sin repositorio remoto creado, sin plan R0 escrito todavia, sin scripts/check_sizes.py ni check de fidelidad-de-cita implementados. Siguiente accion registrada: escribir docs/plan-r0.md con (1) inicializar git y crear el repositorio remoto privado, (2) implementar scripts/check_sizes.py, (3) identificar el primer documento oficial fuente a procesar y registrar el primer mapeo norma-fuente."
+  },
+  "lineage": {
+    "derived_from_retrieval": false,
+    "refs": [
+      {
+        "kind": "external",
+        "id": "doc:docs/politica-agentes.md"
+      },
+      {
+        "kind": "external",
+        "id": "doc:docs/plantillas-agente.md"
+      },
+      {
+        "kind": "external",
+        "id": "doc:AGENTS.md"
+      },
+      {
+        "kind": "external",
+        "id": "external:constitutional-ai-governance/MANIFIESTO-DEL-ORIGEN.md"
+      },
+      {
+        "kind": "external",
+        "id": "external:constitutional-ai-governance/CAGF-CORE.md"
+      }
+    ]
+  }
+}
