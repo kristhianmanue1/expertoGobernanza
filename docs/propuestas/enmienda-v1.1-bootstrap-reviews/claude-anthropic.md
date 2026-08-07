@@ -1,0 +1,42 @@
+# Revisión adversarial — claude (Anthropic)
+
+> Bootstrap enmienda v1.1 · 2026-08-06 · proveedor: Anthropic · CLI: \`claude -p\` · rol: adversario · conflicto de interés declarado por el revisor.
+
+---
+
+## Hallazgos
+
+- [BLOCKER] Contradicción interna sobre el estado de CAGF-A2: el título dice "**Cambio 1 — §6: quórum adversarial multi-provider (cierra CAGF-A2)**" pero el DoD exige declararla "parcialmente cerrada vía multi-provider" — Fix: renombrar a "mitiga parcialmente CAGF-A2" y dejar la brecha abierta con criterio explícito de cierre.
+- [BLOCKER] El reconciliador reintroduce el punto único de correlación que el cambio pretende eliminar: "el humano (o un **meta-agente**) reconcilia hallazgos y emite `proceed/fix-and-retry/escalate`" — un meta-agente single-provider anula la decorrelación aguas abajo. Fix: la reconciliación es humana por defecto; si es agente, debe ser de proveedor distinto a los tres y sólo puede *agregar*, no descartar hallazgos; todo descarte requiere justificación escrita.
+- [BLOCKER] "alto impacto" vs "menores" no está definido en la enmienda ("Para hitos **menores** basta quorum-lite") y quien clasifica es el propio autor → incentivo directo a auto-degradar el hito y evitar el quórum caro. Fix: lista cerrada de disparadores de alto impacto (cambios de política, ADRs, gates de fidelidad, corpus, despliegue) + regla "ante duda, alto impacto"; la clasificación la audita el revisor.
+- [BLOCKER] La compuerta de vigencia presupone datos que no existen: "(b) estaba vigente en la fecha jurídica relevante" — sin corpus versionado con historial de reformas/transitorios/DOF esto no es código, es una aspiración. Igual "**Compuerta de obligatoriedad:** … (tesis aislada vs jurisprudencia)" sin fuente SCJN/Semanario. Fix: condicionar cada gate a su precondición de datos y declarar `[VIGENCIA-NO-VERIFICABLE]` (no "no verificada") mientras no exista el corpus temporal; prohibir salida `alto` hasta entonces.
+- [HIGH] El gate no es determinista de extremo a extremo: "toda **afirmación normativa** debe pasar…" — detectar y extraer afirmaciones normativas de texto libre es juicio del modelo; el determinismo sólo aplica después de la extracción. Fix: reconocer el eslabón no-determinista, exigir formato estructurado de salida (claim → cita → id de disposición) y medir recall de extracción contra golden set.
+- [HIGH] Autoclasificación de datos sin control técnico: "**Clasificación previa** de cualquier contenido antes de enviarlo a un CLI externo" la hace el mismo agente que quiere enviarlo, y "requiere **autorización explícita del humano**" no tiene mecanismo de aplicación (nada impide que el pane de tmux ya haya enviado el contenido). Fix: control ex-ante — allowlist de rutas/repos ruteables, denylist por defecto para todo lo demás, y que el envío pase por un wrapper que registre hash antes de invocar el CLI.
+- [HIGH] Vacío de régimen legal: nada menciona LGPDPPSO/LFPDPPP, retención y uso para entrenamiento por los proveedores, ni transferencia internacional de datos de un sujeto obligado (IMSS). "`personal/confidencial` → **no enrutar** sin autorización independiente" no cubre que ni siquiera con autorización sea lícito. Fix: añadir requisito de base jurídica + verificación de ToS/retención por proveedor, y prohibición dura (no autorizable por el agente) de datos personales.
+- [HIGH] Prompt idéntico = anclaje compartido: "cada CLI en un pane con el mismo *prompt + artefactos*" decorrela el modelo pero correlaciona el encuadre; además nada impide que el revisor vea el veredicto de otro. Fix: revisión ciega (sin ver salidas ajenas) y prompts con lentes distintos por rol (corrección / viabilidad / seguridad-datos).
+- [HIGH] Roles continuos sin autoridad ni plazo: "personas/roles por designar por el humano" + "quedan `PARCIAL (espera-humano)`" — hoy todo lo jurídicamente decisivo queda en limbo indefinido y el riesgo es que se avance igual. Fix: interino por defecto (humano-promulgador asume los tres), fecha límite de designación, y prohibición explícita de que el agente se autoasigne o simule estos roles.
+- [MED] ADR sin ciclo de vida: se define `{contexto, decisión, consecuencias, alternativas, estado, ítems abiertos}` pero no hay *supersede*, rollback, criterio de reversibilidad, ni desempate si el quórum se divide. Fix: añadir estados `propuesto/aceptado/superado/revertido`, campo "señal de reversión" y regla de desempate (árbitro o humano).
+- [MED] DoD auto-cumplido y sesgado: "Un run debootstrap del quórum multi-provider sobre esta enmienda devuelve `proceed`" — hace del `proceed` la meta (presión a ignorar hallazgos) y es circular: el proceso se valida a sí mismo. Fix: DoD = "run ejecutado con ≥3 proveedores, hallazgos registrados y cada uno resuelto o aceptado por escrito", independientemente del veredicto. (También: typo "debootstrap".)
+- [MED] Nivel `medio` es la salida peligrosa por defecto y no está acotado: "`medio` (parcial: verificación pendiente o vigencia no verificada → marcar `[VIGENCIA-NO-VERIFICADA]`)" — una etiqueta no impide que un usuario la use como definitiva. Fix: definir quién puede consumir `medio`, prohibir su uso en contextos de decisión, y fail-closed (degradar a `bajo`) si el verificador falla o no está disponible.
+- [MED] Reasignación de roles sin piso mínimo: "Si un proveedor no tiene presupuesto/tokens, se reasigna el rol a otro disponible" — permite degradar silenciosamente a 2 o 1 proveedor. Fix: si no hay 3 proveedores distintos, el hito se bloquea o se marca `PARCIAL`, nunca `proceed`.
+- [MED] Falta superficie de ataque del propio pipeline: los CLIs ingieren documentos del corpus (DOF, PDFs) → inyección de prompt hacia los revisores; nada lo menciona. Fix: tratar todo contenido del corpus como no confiable y separar datos de instrucciones en los prompts de revisión.
+- [LOW] Referencias no resueltas dentro de la enmienda: "pasa `check_sizes.py`", "§7.1, AN-KLA minimización", "ADR-0001" — el lector no puede verificar el DoD sin ellas. Fix: enlazar o describir el criterio en una línea.
+- [LOW] Sin presupuesto ni latencia: 3 proveedores por hito de alto impacto tiene costo real y no hay tope ni política de degradación aceptable. Fix: presupuesto por hito y registro de costo en el reporte.
+- [LOW] Ausente el descargo de responsabilidad profesional: en una plataforma de inteligencia normativa nada dice "no constituye asesoría jurídica" ni exige revisión por profesional. Fix: incluirlo como salida obligatoria junto a `response_status`.
+
+## Punto fuerte
+
+La distinción entre gates deterministas (código) y gates de juicio es correcta y es la aportación más valiosa: "Estos gates son **code**, no prompts: su corrección se prueba (DoD ejecutable)". También es honesta —y poco común— la salvedad de la brecha residual: "la decorrelación es de *arquitectura de modelo*, no de *datos de entrenamiento compartidos*". Es verdadera pero incompleta: faltan otras fuentes de correlación (mismo prompt, mismo autor del encuadre, RLHF con preferencias humanas similares, y el reconciliador único). Añadirlas la haría plenamente honesta.
+
+Registrar proveniencia por hallazgo ("qué proveedor/modelo revisó cada hallazgo") es lo que puede convertir el quórum en verificable en lugar de decorativo — pero hoy falta el artefacto: no se especifica dónde se persiste, con qué hash de entrada, ni que sea auditable después. Sin eso, el quórum no es falsable.
+
+## Decisión
+- [ ] proceed  |  [x] fix-and-retry  |  [ ] escalate
+
+Los cuatro BLOCKER son corregibles con edición de texto (definir alto impacto, quitar el meta-agente reconciliador single-provider, alinear título/DoD sobre CAGF-A2, condicionar los gates a sus precondiciones de datos). No requiere escalar: la dirección es correcta, la redacción promete más de lo que la infraestructura sostiene hoy.
+
+## Nota residual
+
+Mi proveedor (Anthropic) es parte del quórum, así que esta revisión no es independiente respecto de la pregunta "¿basta el multi-provider?" — tengo un conflicto estructural al evaluar un mecanismo que me incluye. Trátese como voto, no como árbitro.
+
+Riesgo residual principal que ningún cambio de esta enmienda cubre: la enmienda gobierna el *proceso de construcción*, y los dos temas que difiere a v1.2 (golden set y gobernanza de runtime) son precisamente donde ocurre el daño real a un usuario que recibe una respuesta normativa errónea. Diferirlos es defendible sólo si v1.1 prohíbe explícitamente exponer la plataforma a usuarios finales antes de v1.2 — esa prohibición no está escrita.
