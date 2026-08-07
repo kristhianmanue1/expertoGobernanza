@@ -21,3 +21,7 @@ __pycache__/
 # Corpus: originales oficiales (PDF/binarios grandes) — NO se versionan;
 # se conservan vía hash + URL en corpus/registry.yaml (componente A del dictamen)
 corpus/originals/
+
+# Texto completo extraído (working file grande) — se conservan los extractos por-artículo
+# bajo docs/fuentes/ y los modelos bajo corpus/derived/
+corpus/derived/cpeum_full.txt

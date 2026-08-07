@@ -1,0 +1,52 @@
+{
+  "disposicion_id": "CPEUM:4:Psalud",
+  "id_scheme_note": "provisional (párrafo temático); el esquema final usará ordinal de párrafo cuando el parser lo asigne de forma estable (problema 'artículo bis/ter/párrafos' del dictamen)",
+  "instrumento": {
+    "id": "CPEUM",
+    "nombre_oficial": "Constitución Política de los Estados Unidos Mexicanos",
+    "entrada_camara": 1
+  },
+  "jerarquia_documental": {
+    "articulo": "4o.",
+    "elemento": "párrafo — derecho a la protección de la salud"
+  },
+  "texto_verbatim": "Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud y establecerá la concurrencia de la Federación y las entidades federativas en materia de salubridad general, conforme a lo que dispone la fracción XVI del artículo 73 de esta Constitución. La Ley definirá un sistema de salud para el bienestar, con el fin de garantizar la extensión progresiva, cuantitativa y cualitativa de los servicios de salud para la atención integral y gratuita de las personas que no cuenten con seguridad social.",
+  "vigencia": {
+    "estado": "vigente",
+    "adicionado_dof": "1983-02-03",
+    "ultima_reforma_dof_declarada": "2020-05-08",
+    "verificada_contra_dof_nivel1": false,
+    "marcador": "[VIGENCIA-NO-VERIFICADA contra DOF nivel 1]"
+  },
+  "fuentes_oficiales": [
+    {
+      "tipo": "consolidado_camara",
+      "nivel": 2,
+      "archivo": "corpus/originals/CPEUM.pdf",
+      "sha256": "ca63a23a4b7444ebdbdad93759fbf46bd14c069e587c5878decf89fc9c12ca8e",
+      "fecha_consulta": "2026-08-06",
+      "extracto_verbatim_en": "docs/fuentes/cpeum/art-004.txt"
+    }
+  ],
+  "relaciones_normativas": [
+    {
+      "tipo": "remite_a",
+      "target": "CPEUM:73:XVI",
+      "evidencia": "texto verbatim: «fracción XVI del artículo 73 de esta Constitución»",
+      "verificada": true
+    },
+    {
+      "tipo": "reglamentada_por",
+      "target": "LGS",
+      "target_nombre": "Ley General de Salud",
+      "nota": "[VERIFICAR-FUENTE] al ingestar la LGS (n.º de entrada Cámara a confirmar)",
+      "verificada": false
+    }
+  ],
+  "lineage": {
+    "extraido_de_sha256": "ca63a23a4b7444ebdbdad93759fbf46bd14c069e587c5878decf89fc9c12ca8e",
+    "parser": "pypdf",
+    "fecha_extraccion": "2026-08-06",
+    "notas": "Casing/espaciado pueden tener artefactos del parser; la autoridad es el PDF/DOF, no este extracto."
+  }
+}
