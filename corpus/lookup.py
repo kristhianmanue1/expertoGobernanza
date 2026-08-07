@@ -1,6 +1,6 @@
 """Componente D — lookup exacto determinista de disposiciones del corpus.
 
-Carga los modelos JSON bajo corpus/derived/ y resuelve un id estable (p. ej. CPEUM:4:Psalud)
+Carga los modelos JSON bajo corpus/derived/ y resuelve un id estable (p. ej. CPEUM:4:P4)
 a su texto verbatim + metadata. Determinista: recorrido ordenado, **error duro** ante id
 duplicado o JSON ilegible (fail-loud, no silencioso). Sin LLM.
 """
@@ -43,7 +43,7 @@ def lookup(disposicion_id):
 
 def main():
     ap = argparse.ArgumentParser(description="Lookup exacto determinista (componente D).")
-    ap.add_argument("disposicion_id", help="id estable, p. ej. CPEUM:4:Psalud")
+    ap.add_argument("disposicion_id", help="id estable, p. ej. CPEUM:4:P4")
     args = ap.parse_args()
     r = lookup(args.disposicion_id)
     print(json.dumps(r, ensure_ascii=False, indent=2))

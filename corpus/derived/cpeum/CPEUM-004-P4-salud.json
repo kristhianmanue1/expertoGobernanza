@@ -1,6 +1,9 @@
 {
-  "disposicion_id": "CPEUM:4:Psalud",
-  "id_scheme_note": "provisional (párrafo temático); el esquema final usará ordinal de párrafo cuando el parser lo asigne de forma estable (problema 'artículo bis/ter/párrafos' del dictamen)",
+  "disposicion_id": "CPEUM:4:P4",
+  "id_scheme_version": "ordinal-v1",
+  "id_scheme_note": "Ordinal de párrafo dentro del artículo (4º párrafo del Art. 4, contando desde su párrafo inicial). Orden según el consolidado Cámara (docs/fuentes/cpeum/art-004.txt): P1=igualdad mujer/hombre, P2=decidir hijos, P3=alimentación/maíz, P4=protección a la salud. Marcador fuente: «Párrafo adicionado DOF 03-02-1983. Reformado DOF 08-05-2020». Pendiente de confirmación contra DOF nivel 1.",
+  "aliases": ["CPEUM:4:Psalud"],
+  "alias_note": "Renombrado desde el id temático provisional 'CPEUM:4:Psalud' al ordinal 'CPEUM:4:P4' (M2 del bootstrap del componente F). El alias queda sólo para traza; el id canónico es el ordinal.",
   "instrumento": {
     "id": "CPEUM",
     "nombre_oficial": "Constitución Política de los Estados Unidos Mexicanos",
@@ -8,7 +11,11 @@
   },
   "jerarquia_documental": {
     "articulo": "4o.",
-    "elemento": "párrafo — derecho a la protección de la salud"
+    "elemento": "párrafo 4.º — derecho a la protección de la salud"
+  },
+  "granularidad": {
+    "unidades": "un solo párrafo según la fuente Cámara (un único marcador «Párrafo adicionado DOF 03-02-1983. Reformado DOF 08-05-2020» cubre todo el bloque, incluida la oración sobre el «sistema de salud para el bienestar»)",
+    "nota_m2": "El bootstrap del componente F (hallazgo M2) hipotetizó que eran dos párrafos con historias distintas; la fuente los trata como uno. No se divide; se adopta id ordinal por párrafo. La oración «sistema de salud para el bienestar» NO constituye una frontera de disposición."
   },
   "texto_verbatim": "Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud y establecerá la concurrencia de la Federación y las entidades federativas en materia de salubridad general, conforme a lo que dispone la fracción XVI del artículo 73 de esta Constitución. La Ley definirá un sistema de salud para el bienestar, con el fin de garantizar la extensión progresiva, cuantitativa y cualitativa de los servicios de salud para la atención integral y gratuita de las personas que no cuenten con seguridad social.",
   "vigencia": {

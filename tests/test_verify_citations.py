@@ -23,7 +23,7 @@ def _claim(did, cita):
 
 class TestVerifyGate(unittest.TestCase):
     def test_golden_cpeum_medio(self):
-        r = vc.verify_claim(_claim("CPEUM:4:Psalud", CPEUM_QUOTE))
+        r = vc.verify_claim(_claim("CPEUM:4:P4", CPEUM_QUOTE))
         self.assertEqual(r["gate_version"], "v1")
         self.assertTrue(r["reference_exists"])
         self.assertTrue(r["quote_substring_match"])
@@ -62,12 +62,12 @@ class TestVerifyGate(unittest.TestCase):
         self.assertEqual(r["response_status"], "bajo")
 
     def test_cita_demasiado_corta_bajo(self):
-        r = vc.verify_claim(_claim("CPEUM:4:Psalud", "salud"))
+        r = vc.verify_claim(_claim("CPEUM:4:P4", "salud"))
         self.assertFalse(r["quote_substring_match"])
         self.assertEqual(r["response_status"], "bajo")
 
     def test_cita_solo_espacios_bajo(self):
-        r = vc.verify_claim(_claim("CPEUM:4:Psalud", "    "))
+        r = vc.verify_claim(_claim("CPEUM:4:P4", "    "))
         self.assertFalse(r["quote_substring_match"])
         self.assertEqual(r["response_status"], "bajo")
 
@@ -75,7 +75,7 @@ class TestVerifyGate(unittest.TestCase):
         cita = (CPEUM_QUOTE.upper()
                 .replace("Á", "A").replace("É", "E").replace("Í", "I")
                 .replace("Ó", "O").replace("Ú", "U"))
-        r = vc.verify_claim(_claim("CPEUM:4:Psalud", cita))
+        r = vc.verify_claim(_claim("CPEUM:4:P4", cita))
         self.assertTrue(r["quote_substring_match"])
 
     def test_exit_codes_distintos_por_nivel(self):

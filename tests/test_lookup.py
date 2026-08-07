@@ -12,7 +12,7 @@ from corpus import lookup
 
 class TestLookup(unittest.TestCase):
     def test_existing_id_returns_verbatim(self):
-        r = lookup.lookup("CPEUM:4:Psalud")
+        r = lookup.lookup("CPEUM:4:P4")
         self.assertTrue(r["exists"])
         self.assertEqual(r["instrumento"]["id"], "CPEUM")
         self.assertIn("protección de la salud", r["texto_verbatim"])
