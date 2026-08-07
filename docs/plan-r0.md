@@ -16,14 +16,14 @@ reparación del entorno.
   norma↔fuente recuperable por `retrieve`.
 
 ## Hitos (cada uno dispara ronda adversarial, §6)
-- **H1 — Entorno y docs sincronizados con memoria** [pendiente]: AGENTS.md refleja
-  revisión 1; fact correctivo del venv (3.12) commiteado; JSON obsoletos retirados.
-  *Hito menor → quorum-lite (1 revisor en contexto fresco).*
-- **H2 — Git + remoto privados** [pendiente]: repo local sobre `main`, `.gitignore`
-  correcto, remoto privado enlazado, commit base aplicado.
+- **H1 — Entorno y docs sincronizados con memoria** [tareas-hechas, falta adversarial]:
+  AGENTS.md refleja revisión 2; fact correctivo del venv (3.12) commiteado; JSON obsoletos
+  retirados a `.archive/`. *Hito menor → quorum-lite (1 revisor en contexto fresco).*
+- **H2 — Git + remoto privados** [tareas-hechas, falta adversarial]: repo local sobre
+  `main`, `.gitignore` correcto, remoto privado enlazado, commit base aplicado y pusheado.
   *Hito menor → quorum-lite.*
-- **H3 — Gate de tamaño automatizado** [pendiente]: `scripts/check_sizes.py`
-  implementa la tabla "Duro" de §3 y pasa sobre el árbol.
+- **H3 — Gate de tamaño automatizado** [tareas-hechas, falta adversarial]:
+  `scripts/check_sizes.py` implementa la tabla Duro de §3 y pasa sobre el árbol.
   *Hito menor → quorum-lite.*
 - **H4 — Primer documento oficial fuente referenciado** [pendiente]: doc identificado
   por el humano + fact de mapeo norma↔fuente en AN-KLA (puntero, sin copia verbatim).
@@ -33,18 +33,20 @@ reparación del entorno.
 ## Tareas (1 tarea = 1 contrato + 1 salida pequeña)
 - [ ] **T1 — sync-agents**: actualizar en `AGENTS.md` el bloque "Estado actual de la
   memoria" y "PRÓXIMA TAREA" a revisión 1 / 1 fact, con fact-id puntero. → ver Contrato T1.
-- [ ] **T2 — fact-correctivo-venv**: escribir fact (beta: `add`) corrigiendo "venv
-  Python 3.10"→3.12 y registrando que `docs/plan-r0.md` existe. Autoridad recalculada
-  (model_derived → summary, issuer glm-5.2), base_revision = revisión vigente.
+- [x] **T2 — fact-correctivo-venv** ✓: fact `fact-expertogobernanza-venv-reparado-312-2026-08-06`
+  commiteado (revisión 1→2) con autoridad `glm-5.2` (model_derived→summary); `verify` ok y
+  `retrieve` lo encuentra.
 - [ ] **T3 — cleanup-json**: mover `proposal.json`/`authority.json` obsoletos
   (base_revision rev 0) a `.archive/` o regenerarlos para el siguiente write.
-- [ ] **T4 — git-init**: `git init`, rama `main`, `.gitignore` (ignora `.venv*`,
-  `.an-kla/`, `.DS_Store`, `__pycache__/`), commit base `chore: bootstrap`.
-- [ ] **T5 — git-remote** *(espera-admin)*: enlazar `origin` al repo designado
-  `github.com/kristhianmanue1/expertoGobernanza` (privado; 404 sin auth → existe-bajo-auth
-  o por crear) y `git push -u origin main`; requiere credenciales/push del humano.
-- [ ] **T6 — check-sizes**: implementar `scripts/check_sizes.py` (tabla "Duro" §3;
-  exenciones: generados/lock/data/docs fuente).
+- [x] **T4 — git-init** ✓: `git init` rama `main`; `.gitignore` (ignora `.venv*`,
+  `.an-kla/`, `__pycache__/`, `.DS_Store`, `/proposal.json`, `/authority.json`);
+  commit base `87e69db` sobre `e44c3b1` (fast-forward, autorizado por el admin).
+- [x] **T5 — git-remote** ✓: repo `kristhianmanue1/expertoGobernanza` (privado, ya
+  existía con solo `LICENSE` Apache); `origin` enlazado y `git push -u origin main`
+  exitoso con credenciales `gh` del admin (cuenta `kristhianmanue1`).
+- [x] **T6 — check-sizes** ✓: `scripts/check_sizes.py` (140 líneas) implementa la tabla
+  Duro §3; exit 0 sobre el árbol; detecta violación de prueba (850 > 800); exenciones
+  correctas (`.venv*`, `.an-kla/`, lock, data, docs fuente).
 - [ ] **T7 — github-skeleton** *(diferible a R1)*: `.github/` con CI (lint+sizes),
   `CODEOWNERS`, `SECURITY.md`, `CONTRIBUTING.md`, PR template.
 - [ ] **T10 — metodología fuentes legales MX**: redactar `docs/fuentes-legal-mx.md`

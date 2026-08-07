@@ -69,8 +69,10 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal.
 
 ### Estado actual de la memoria (referencia)
-- Revisión 1. `facts: 1`, `events: 1`, `episodes: 0`. Único fact vigente: `fact-expertogobernanza-alfa-estado-2026-08-06` (estado alfa); contiene la claim stale "venv Python 3.10" — fact correctivo planificado como T2 de `docs/plan-r0.md`.
-- Siguiente acción: ejecutar `docs/plan-r0.md` (R0, ya redactado); arrancar por T1 (este sync).
+- Revisión 2. `facts: 2`, `events: 2`, `episodes: 0`. Facts: `alfa-estado-2026-08-06`
+  (estado alfa; claim stale "venv Python 3.10") y `venv-reparado-312-2026-08-06` (correctivo).
+- Siguiente acción: cerrar H1/H2/H3 con rondas adversariales; luego T7 (diferible a R1) o
+  T8 (requiere doc fuente del humano).
 
 ### Anti-patrones a evitar
 - Guardar un `record` solo con campos estructurados y sin `indexable_text`/`text` -> queda inaccesible (`no_text`).
@@ -128,8 +130,7 @@ Python 3.12. `docs/politica-agentes.md` y
 `docs/plantillas-agente.md` adoptados el mismo día (adaptados de un proyecto
 hermano, "Código Cerebro", a este dominio).
 
-> **PRÓXIMA TAREA:** ejecutar `docs/plan-r0.md` (R0, ya redactado). Orden sin
-> bloqueos: T1 (sync AGENTS.md) → T4 (`git init` + `.gitignore`) → T6
-> (`scripts/check_sizes.py`). Bloqueadas por el humano: T5 (remoto GitHub
-> privado) y T8 (aporta el primer documento oficial fuente). Hitos y
-> contratos detallados en `docs/plan-r0.md`.
+> **PRÓXIMA TAREA:** R0 en curso (T1–T6 ✓). Faltan: rondas adversariales de H1/H2/H3
+> (gate §6), T7 (`.github/`, diferible a R1) y T8/T9 (requiere que el humano aporte el
+> primer documento oficial fuente — corpus de leyes mexicanas: CPEUM + Ley General de
+> Salud + reglamentos/NOM). Detalle en `docs/plan-r0.md`.
