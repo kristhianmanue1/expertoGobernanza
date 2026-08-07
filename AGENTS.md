@@ -69,9 +69,10 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal.
 
 ### Estado actual de la memoria (referencia)
-- Revisión 3. `facts: 3`, `events: 3`, `episodes: 0`. Facts: `alfa-estado-2026-08-06`,
-  `venv-reparado-312-2026-08-06` y `mvp-slice-salud-2026-08-06` (MVP: componentes A/B/D/F,
-  slice CPEUM:4:Psalud → LGS:1 verificado, verificador gate v1).
+- Revisión 4. `facts: 4`, `events: 4`, `episodes: 0`. Facts: `alfa-estado-2026-08-06`,
+  `venv-reparado-312-2026-08-06`, `mvp-slice-salud-2026-08-06` y
+  `politica-v1.1-adoptada-2026-08-07` (política v1.1 vigente; enmienda multi-provider
+  fusionada, commit `2860f55`).
 - Siguiente acción MVP: tests/golden set (B4), granularidad por-párrafo (M2), reconciliar
   vigencia con DOF nivel 1, eje estructural IMSS (LOAPF/LFEP/Reglamento Interior).
 
