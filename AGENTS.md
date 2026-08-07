@@ -69,10 +69,11 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal.
 
 ### Estado actual de la memoria (referencia)
-- Revisión 2. `facts: 2`, `events: 2`, `episodes: 0`. Facts: `alfa-estado-2026-08-06`
-  (estado alfa; claim stale "venv Python 3.10") y `venv-reparado-312-2026-08-06` (correctivo).
-- Siguiente acción: cerrar H1/H2/H3 con rondas adversariales; luego T7 (diferible a R1) o
-  T8 (requiere doc fuente del humano).
+- Revisión 3. `facts: 3`, `events: 3`, `episodes: 0`. Facts: `alfa-estado-2026-08-06`,
+  `venv-reparado-312-2026-08-06` y `mvp-slice-salud-2026-08-06` (MVP: componentes A/B/D/F,
+  slice CPEUM:4:Psalud → LGS:1 verificado, verificador gate v1).
+- Siguiente acción MVP: tests/golden set (B4), granularidad por-párrafo (M2), reconciliar
+  vigencia con DOF nivel 1, eje estructural IMSS (LOAPF/LFEP/Reglamento Interior).
 
 ### Anti-patrones a evitar
 - Guardar un `record` solo con campos estructurados y sin `indexable_text`/`text` -> queda inaccesible (`no_text`).
@@ -130,7 +131,10 @@ líneas (el detalle y las plantillas están en el doc):
 `docs/plantillas-agente.md` adoptados el mismo día (adaptados de un proyecto
 hermano, "Código Cerebro", a este dominio).
 
-> **PRÓXIMA TAREA:** R0 en curso (T1–T6 ✓). Faltan: rondas adversariales de H1/H2/H3
-> (gate §6), T7 (`.github/`, diferible a R1) y T8/T9 (requiere que el humano aporte el
-> primer documento oficial fuente — corpus de leyes mexicanas: CPEUM + Ley General de
-> Salud + reglamentos/NOM). Detalle en `docs/plan-r0.md`.
+> **PRÓXIMA TAREA:** R0 cerrado (T1–T6 ✓, H1/H2/H3 adversarial-ok). En curso: **MVP honesto**
+> del slice eje-salud — componentes A/B/D/F ✓ (CPEUM+LGS cargados, lookup + verificador gate
+> v1 con fixes del quórum multi-provider). Enmienda de gobernanza **v1.1-revisada** propuesta
+> (validada sobre artefacto distinto, rompe circularidad). ADR-0001 (Plataforma de inteligencia
+> normativa). Siguiente: tests/golden set, reconciliar vigencia con DOF nivel 1, eje
+> estructural IMSS (LOAPF/LFEP), y adoption humana de la enmienda. Detalle en `docs/plan-r0.md`
+> y `docs/adr/0001-plataforma-inteligencia-normativa.md`.
