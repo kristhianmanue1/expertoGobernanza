@@ -104,8 +104,8 @@ ubicación* (abajo), **no** los conteos de líneas.
 > **Duro = ley:** un check ejecutable (p. ej. `scripts/check_sizes.py` en
 > pre-commit/CI) valida el "duro" y puede romper el build/bloquear merge.
 > **Objetivo = advisory:** lo juzga la ronda adversarial (§6); es smell-test.
-> **[pendiente]** `scripts/check_sizes.py` aún no existe en este proyecto —
-> queda como tarea de arranque (R0) antes del primer commit de código no trivial.
+> `scripts/check_sizes.py` existe desde R0 (T6 ✓) y valida el "duro" (gate de
+> pre-commit/CI). Integrarlo al pipeline cuando exista CI (T7/R1).
 
 **Presupuesto de lectura por tarea (lo que de verdad protege el contexto):** más
 que el tamaño de un archivo, importa el **agregado** que una tarea lee (30 archivos
@@ -171,8 +171,9 @@ El modo de fallo del agente es **quedarse sin contexto a mitad de una tarea**, n
 - El agente **nunca** push directo a `main` ni a ramas protegidas, **nunca**
   `--force` sin autorización explícita, **nunca** commitea datos sensibles o
   secretos (§7).
-- En alfa, donde git aún no está inicializado en este proyecto, el "admin" es el
-  mantenedor humano; el agente deja todo listo (staging virtual + mensaje).
+- En alfa, git ya está inicializado y el remoto privado enlazado (R0, T4/T5 ✓);
+  mientras no haya CI/CODEOWNERS automáticos, el "admin" sigue siendo el
+  mantenedor humano que aplica commit/push, y el agente propone.
 
 ---
 
@@ -306,9 +307,10 @@ técnica legislativa como obligatorias, no como sugerencia:
 - **Jerarquía normativa para resolver conflictos:** cuando dos fuentes citadas
   chocan, se resuelve por el orden jerárquico del sistema jurídico aplicable
   (constitución > tratados > leyes generales/federales > reglamentos > normas
-  internas) y, dentro del mismo nivel, por los cánones *lex superior*, *lex
-  specialis*, *lex posterior* — nunca por preferencia editorial o conveniencia
-  narrativa del agente.
+  internas) `[VERIFICAR-FUENTE: cita exacta y vigencia en CPEUM + jurisprudencia
+  SCJN al construir T10; no afirmar como hecho hasta verificar]` y, dentro del
+  mismo nivel, por los cánones *lex superior*, *lex specialis*, *lex posterior*
+  — nunca por preferencia editorial o conveniencia narrativa del agente.
 - **Redacción ≠ autoridad (no ejercicio no autorizado de la abogacía):** todo
   artefacto que el agente produce es un **borrador con fundamento documental**,
   no asesoría legal ni una norma en vigor (CAGF-A10, arriba). El artefacto
@@ -333,7 +335,8 @@ Repo **privado** hasta pasar los criterios de salida alfa. Conventional Commits
 (`feat:`, `fix:`, `docs:`, `refactor:`). PRs pequeños (< 400 líneas diff
 idealmente). Ramas de vida corta (`feat/`, `fix/`). CI obligatorio (lint+test).
 `SECURITY.md`, `CONTRIBUTING.md`, `LICENSE`, `CODEOWNERS`. Tags semver por hito.
-**[pendiente]** el repositorio remoto de este proyecto aún no está creado/enlazado.
+Repositorio remoto privado creado y enlazado (R0, T5 ✓); faltan `.github/`
+(CI, CODEOWNERS, plantillas) — diferible a R1 (T7).
 
 ---
 

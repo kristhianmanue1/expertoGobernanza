@@ -59,7 +59,7 @@ La escritura nueva usa exclusivamente `plan-write` -> `commit-write-plan`.
 La canonicalización es `json.dumps(sort_keys=True, separators=(",",":"), ensure_ascii=False, allow_nan=False)`.
 La forma segura de calcular los hashes es usar las funciones del propio paquete:
 ```python
-import sys; sys.path.insert(0, ".venv/lib/python3.10/site-packages")
+import sys; sys.path.insert(0, f".venv/lib/python{sys.version_info.major}.{sys.version_info.minor}/site-packages")
 from an_kla.canonical import digest_json
 p_sha = digest_json(proposal)          # authority.proposal_sha256
 cfg_fp = digest_json({"agent":"...","model":"..."})  # issuer.configuration_fingerprint
@@ -123,10 +123,10 @@ líneas (el detalle y las plantillas están en el doc):
    estado** (git/PR/push, AN-KLA, DoD, adversarial) en `OK/PARCIAL/BLOQ` + próximos
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
-**Estado actual:** alfa temprana. Sin git inicializado aún, sin repositorio
-remoto creado; **roadmap R0 definido** en `docs/plan-r0.md`. AN-KLA instalado
-y verificado (revisión 1, 1 fact/1 event) el 2026-08-06; venv reparado a
-Python 3.12. `docs/politica-agentes.md` y
+**Estado actual:** alfa temprana. Git inicializado y remoto privado activo
+(`kristhianmanue1/expertoGobernanza`, `main`); **roadmap R0 en curso** en
+`docs/plan-r0.md` (T1–T6 ✓). AN-KLA instalado y verificado (revisión 2,
+2 facts/2 events) el 2026-08-06; venv reparado a Python 3.12. `docs/politica-agentes.md` y
 `docs/plantillas-agente.md` adoptados el mismo día (adaptados de un proyecto
 hermano, "Código Cerebro", a este dominio).
 

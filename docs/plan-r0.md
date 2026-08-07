@@ -36,8 +36,9 @@ reparación del entorno.
 - [x] **T2 — fact-correctivo-venv** ✓: fact `fact-expertogobernanza-venv-reparado-312-2026-08-06`
   commiteado (revisión 1→2) con autoridad `glm-5.2` (model_derived→summary); `verify` ok y
   `retrieve` lo encuentra.
-- [ ] **T3 — cleanup-json**: mover `proposal.json`/`authority.json` obsoletos
-  (base_revision rev 0) a `.archive/` o regenerarlos para el siguiente write.
+- [x] **T3 — cleanup-json** ✓: `proposal.json`/`authority.json` obsoletos
+  (base_revision rev 0) movidos a `.archive/2026-08-06-first-commit/`; raíz
+  gitignora los efímeros del ciclo de escritura.
 - [x] **T4 — git-init** ✓: `git init` rama `main`; `.gitignore` (ignora `.venv*`,
   `.an-kla/`, `__pycache__/`, `.DS_Store`, `/proposal.json`, `/authority.json`);
   commit base `87e69db` sobre `e44c3b1` (fast-forward, autorizado por el admin).
