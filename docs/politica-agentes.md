@@ -1,11 +1,15 @@
 # Política de trabajo para agentes de IA
 
-**Versión:** 1.0 · **Estado:** propuesta v1, en adopción · **Proyecto:** ExpertoGobernanza
+**Versión:** 1.1 · **Estado:** adoptada (reconciliación humana 2026-08-07) · **Proyecto:** ExpertoGobernanza
 **Entrada corta:** `AGENTS.md`. **Plantillas:** `docs/plantillas-agente.md`.
 
 Esta política rige cómo trabajan los agentes de IA en este repositorio. Es
-**obligatoria** para todo trabajo no trivial. Es versión 1.0 y se mejora con el
-mismo proceso que describe (ronda adversarial en hitos).
+**obligatoria** para todo trabajo no trivial. Es versión 1.1 y se mejora con el
+mismo proceso que describe (ronda adversarial en hitos). **Qué cambió en v1.1:** la
+enmienda de gobernanza `docs/propuestas/enmienda-gobernanza-v1.1-revisada.md`
+(quórum adversarial multi-provider §6, compuertas deterministas §7.3-7.4, roles §9,
+ADR §10) se fusionó tras cumplir su DoD (run multi-provider sobre artefacto distinto
+—componente F— + reconciliación humana). Historial: §13.
 
 ---
 
@@ -75,12 +79,12 @@ the Middle" (Liu et al., TACL 2023) mostró que la info relevante se recuerda
 mejor al **inicio/final** que al medio. Esa cita fundamenta la *regla de
 ubicación* (abajo), **no** los conteos de líneas.
 
-> Nota de adopción (confirmado): este proyecto opera con **un agente y sus
-> subagentes de un único proveedor de modelo** (no multi-proveedor por ahora).
-> Esto no afecta el presupuesto de lectura de abajo, pero **sí** afecta el
-> quórum de la ronda adversarial — ver la brecha de decorrelación (CAGF-A2)
-> declarada en §6. Ajustar esta nota cuando el proyecto incorpore más de un
-> proveedor de modelo.
+> Nota de adopción (v1.1): el proyecto opera con **multi-provider decorrelacionado por
+> arquitectura de modelo** (glm-5.2 + Anthropic + Moonshot verificados en el primer
+> ejercicio, 2026-08-06). Esto no afecta el presupuesto de lectura de abajo, pero **sí**
+> eleva el quórum de la ronda adversarial para hitos de alto impacto (§6). La decorrelación
+> es de **arquitectura**, no de **datos de entrenamiento** — la brecha residual (CAGF-A2)
+> se declara **mitigada parcialmente**, no cerrada (§6).
 
 **Dos niveles (clave):**
 - **Always-on (cargado cada sesión):** `AGENTS.md` e instrucciones. Mínimos y
@@ -189,33 +193,47 @@ por mayoría, **incluyendo al menos un adversario** que argumente en contra.
 Heredamos la lógica de A4 — no el número mecánicamente — porque el proyecto
 todavía no cumple su precondición de decorrelación (siguiente párrafo).
 
-**Brecha declarada (honestidad radical; precedente CAGF A8/A10):** este
-proyecto opera, por ahora, con **un agente y sus subagentes de un único
-proveedor de modelo** — no multi-proveedor. A4 exige verificadores
-*decorrelados* (CAGF-A2); un solo proveedor no logra decorrelación epistémica
-real: un subagente en contexto fresco reduce el sesgo de "seguir defendiendo lo
-que ya escribí", pero no es una fuente de juicio independiente en el sentido de
-A2 (misma arquitectura, mismos datos de entrenamiento, mismo proveedor). Se
-declara esta brecha explícitamente en vez de afirmar un cumplimiento que no
-existe — es el mismo movimiento que CAGF hizo al reclasificar A8/A10 como
-*doctrinal/deferred* cuando encontró que su mecanismo no sostenía lo que
-afirmaba. Mejora agendada: revisar este quórum cuando el proyecto incorpore
-más de un proveedor de modelo.
+**Brecha residual — mitigada parcialmente (honestidad radical; precedente CAGF A8/A10):**
+A4 exige verificadores *decorrelados* (CAGF-A2). Desde v1.1 el proyecto opera con
+**multi-provider**: el primer ejercicio (2026-08-06) logró decorrelación **real de
+arquitectura de modelo** con **≥3 proveedores distintos** (glm-5.2 + Anthropic + Moonshot),
+identificados por **modelo subyacente**, no por CLI — opencode/cline son herramientas y
+pueden correr el mismo modelo, así que no cuentan como decorrelación. **Brecha residual
+declarada (no cerrada):** la decorrelación es de arquitectura, **no de datos de
+entrenamiento**; además la reasignación por presupuesto/auth erosiona el quórum (en ese
+ejercicio cayeron 2/4 proveedores). Redeclarar la brecha como "mayormente cerrada" exige
+**≥3 runs con proveniencia archivada sobre artefactos distintos**. Mientras tanto: A2 =
+**mitigada parcialmente**, no resuelta. (Movimiento análogo al de CAGF reclasificando
+A8/A10 como *doctrinal/deferred* al hallar que su mecanismo no sostenía lo que afirmaba.)
 
-**Quórum graduado (CAGF ordena A3 por delante de A4 en su precedencia de
-axiomas — la economía acotada limita cuánto quórum es exigible):**
+**Quórum graduado (CAGF ordena A3 por delante de A4 — la economía acotada limita cuánto
+quórum es exigible):**
 - **Hito de bajo impacto** (no publica ni modifica una norma, no cambia un
   contrato público): **quórum-lite** — 1 revisor en contexto fresco
-  (subagent/Task), nunca el autor. Es un quórum por debajo del A4 pleno,
-  declarado así; se justifica por A3 (el costo de convocar 3 revisores por
-  cada hito menor excede su valor).
-- **Hito de alto impacto** (publica o modifica una norma/política/
-  procedimiento, o cambia un contrato público): **quórum estructural de 3** —
-  autor (excluido de revisar su propio trabajo), revisor adversarial con
-  mandato explícito de argumentar en contra, y árbitro de empate si los dos
-  anteriores no coinciden. Esto aproxima la *forma* de A4 (n≥3, mayoría, al
-  menos un adversario) sin cerrar la brecha de decorrelación de A2, que sigue
-  declarada arriba mientras el proyecto sea single-provider.
+  (subagent/Task), nunca el autor; proveedor distinto si es factible. Es un quórum
+  por debajo del A4 pleno, declarado así; se justifica por A3 (convocar 3 revisores
+  por cada hito menor excede su valor).
+- **Hito de alto impacto** — **lista cerrada de disparadores:** (i) cambios a esta
+  política, (ii) ADR estratégico (§10), (iii) compuertas de fidelidad §7.3, (iv) corpus
+  normativo, (v) despliegue a usuarios finales. Regla **"ante la duda, alto impacto"**;
+  la clasificación la **audita el revisor** (no la decide en solitario el autor).
+- **Quórum estructural de alto impacto:** **≥3 proveedores distintos** (autor excluido +
+  adversario + árbitro, cada uno de un proveedor diferente por modelo subyacente).
+  Aproxima la *forma* de A4 (n≥3, mayoría, ≥1 adversario) sin cerrar la brecha residual.
+- **Reconciliación de hallazgos:** por defecto **humana**. Si es un agente, debe ser de
+  un **proveedor distinto a los 3 del quórum**, **sólo agrega** hallazgos; todo **descarte
+  requiere justificación escrita** (evita reintroducir single-provider).
+- **Regla de agregación:** **cualquier BLOCKER de cualquier proveedor bloquea**
+  (`fix-and-retry`); para MED, **mayoría** de los revisores.
+- **Reasignación:** si un proveedor carece de presupuesto/tokens y, tras reasignar, quedan
+  **<3 proveedores distintos**, el hito queda **`PARCIAL (espera-humano)`, nunca `proceed`**.
+- **Ceguera + lentes:** los revisores **no ven** las salidas ajenas (evita anclaje por
+  prompt compartido); cada rol recibe un **lente** distinto (corrección / viabilidad /
+  seguridad-de-datos).
+- **Operativa (tmux):** una sesión lanza cada CLI en un *pane* con prompt+artefacto
+  (filtrado por §7.4); cada salida se captura con su proveedor/modelo y se persiste como
+  evidencia auditable (la *proveniencia por hallazgo* es lo que vuelve el quórum
+  verificable).
 
 **Disparador:** alcanzar un hito del plan (§2). No es opcional ni subjetivo: si
 el plan marca hito, hay ronda (con el quórum que le corresponda según arriba).
@@ -238,7 +256,7 @@ el plan marca hito, hay ronda (con el quórum que le corresponda según arriba).
   **gate**, no decorado.
 - **Dónde caen las salidas:** los hallazgos y la decisión `proceed/fix/escalate`
   van en el **PR/commit** (git es su hogar); sólo una **lección arquitectónica no
-  derivable del diff** va a AN-KLA (criterio §9.1).
+  derivable del diff** va a AN-KLA (criterio §11.1).
 
 ---
 
@@ -319,13 +337,69 @@ técnica legislativa como obligatorias, no como sugerencia:
   terceros.
 - **Trazabilidad de reforma:** cuando la fuente que respalda una norma ya
   redactada se reforma, no se edita en silencio el artefacto — se registra la
-  reforma como hecho nuevo en AN-KLA (fact correctivo, ver §9, dado que la beta
+  reforma como hecho nuevo en AN-KLA (fact correctivo, ver §11, dado que la beta
   no permite `supersede`) enlazando la versión vieja y la nueva de la fuente, y
   se marca el artefacto afectado para revisión.
 - **Trazabilidad del propio trabajo (linaje agente↔fuente↔norma, CAGF-A6):**
   cada norma generada mantiene, además de la cita a su fuente oficial, un
-  enlace al artefacto/tarea/hito que la produjo (§9.1), de forma que un humano
+  enlace al artefacto/tarea/hito que la produjo (§11.1), de forma que un humano
   pueda reconstruir quién/qué la propuso y bajo qué revisión pasó.
+
+### 7.3 Compuertas deterministas y niveles de confianza (linaje: CAGF-A5)
+
+§7.1-7.2 declaran la fidelidad como contrato duro, pero sus gates son **no
+deterministas** (pasan por §6). Se añaden gates **deterministas en código**,
+**versionados** a la existencia real de su corpus (no aspiracionales). Implementación
+de referencia: `corpus/verify_citations.py` (componente F, gate v1).
+
+- **Verificador de citas — por versiones:**
+  - **v1 (hoy, sin corpus temporal):** (a) la disposición **existe** en el corpus,
+    (c) el fragmento citado **aparece** verbatim (subcadena normalizada, longitud ≥
+    mínimo) y (d) la fuente oficial está **resuelta** (sha256 64-hex válido y, si el
+    original es accesible, **recomputado** y coincidente). Default
+    `[VIGENCIA-NO-VERIFICABLE]`. **Prohibido** emitir nivel `alto` (inalcanzable por
+    construcción: `GATE_VERSION='v1'`).
+  - **v2 (con corpus temporal):** añade (b) estaba **vigente en la fecha jurídica
+    relevante** (reformas/transitorios/DOF). Hasta entonces (b) se marca, no se afirma.
+- **Determinismo extremo-a-extremo reconocido:** la **extracción** de afirmaciones
+  normativas de texto libre es **juicio del modelo** (eslabón no determinista). Se exige
+  **salida estructurada** `claim → cita → id de disposición` y se **mide el recall de
+  extracción** contra un golden set. El gate determinista actúa **sobre la estructura**,
+  no sobre el texto libre.
+- **Regla fija block/degrade (sin discreción del modelo):** fallo en (a)/(c)/(d) →
+  **bloquear** (`bajo`); fallo sólo en (b) → **degradar a `medio`**. El modelo no elige.
+- **Compuerta de obligatoriedad (jurisprudencia):** requiere metadatos SCJN explícitos
+  (época, instancia, contradicción); ante ausencia, **default = no vinculante**.
+- **Niveles de confianza:** `alto` (citas verificadas + vigencia confirmada — reservado
+  a v2), `medio` (verificación parcial / vigencia no verificada — **prohibido en
+  contextos de decisión**, consumible sólo como borrador), `bajo` (sin respaldo → no se
+  emite como respuesta). Si el verificador falla o no está disponible → **fail-closed a
+  `bajo`**. Códigos de salida: `0=alto, 2=medio, 1=bajo` (un shell/CI que exija exit 0
+  **no promueve** un `medio` a decisión).
+- Estos gates son **code**: su corrección se prueba con **DoD ejecutable** (golden set de
+  casos positivos y negativos) y ellos mismos pasan ronda adversarial §6 al
+  implementarse.
+
+### 7.4 Datos en la revisión multi-provider (linaje: CAGF-A10)
+
+El quórum de §6 enruta artefactos a proveedores externos; eso introduce un riesgo de
+datos que esta política no podía tratar como binaria (§7.1). Régimen obligatorio:
+
+- **Clasificación ex-ante por configuración machine-readable** (no por el agente que
+  envía): **allowlist** de rutas/repos ruteables (`público`: leyes/DOF/Cámara/SCJN, docs
+  de gobernanza del proyecto); **denylist por defecto** para todo lo demás. El **router
+  tmux filtra antes de invocar** el CLI y **registra un hash** del contenido enviado.
+  - `público` → enrutamiento permitido.
+  - `interno-institucional` (manuales, Normateca, procedimientos IMSS) → **siempre
+    anonimizado o denegado, sin discreción del agente** + **autorización explícita del
+    humano**.
+  - `personal/confidencial` → **prohibición dura: no enrutable, no autorizable por el
+    agente.**
+- **Régimen legal:** base jurídica (LFPDPPP) + **check de ToS/retención por proveedor**;
+  para contenido no-público se exige **API sin retención / sin entrenamiento**. Se declara
+  **transferencia internacional** cuando el proveedor esté fuera de México.
+- **Declaración del agente:** en el reporte (§12) declara qué contenido envió, a qué
+  proveedor/modelo y con qué hash.
 
 ---
 
@@ -340,7 +414,48 @@ Repositorio remoto privado creado y enlazado (R0, T5 ✓); faltan `.github/`
 
 ---
 
-## 9. Dónde vive cada cosa (continuidad)
+## 9. Roles operativos continuos (linaje: CAGF-A10 — Integridad del Sustrato)
+
+La gobernanza requiere roles con autoridad sostenida, no sólo un agente que redacta.
+Mientras no estén designados formalmente, las decisiones que los requieren quedan
+`PARCIAL (espera-humano)`.
+
+- **Interino por defecto = humano-promulgador:** asume los tres roles hasta el
+  nombramiento. Hay **fecha límite** de designación. **Prohibido** que el agente se
+  autoasigne o simule estos roles (§7.2: redactar ≠ promulgar).
+- **Responsable jurídico del corpus:** desempata discrepancias entre fuentes. Sus
+  desempates **no son unipersonales**: se registran como **ADR-lite con quórum-lite** (§6).
+- **Custodio / data steward:** mantenimiento continuo del corpus — hashes, procedencia,
+  bitácora de reformas, integridad de los originales (§7.1, componente A).
+- **Product owner:** decide dirección/alcance vía ADRs (§10).
+
+## 10. Decisiones estratégicas (ADR) y prohibición de despliegue temprano
+
+### 10.1 ADR — Architecture Decision Records
+
+- Todo ADR vive en `docs/adr/NNNN-*.md` con
+  `{contexto, decisión, consecuencias, alternativas, estado, ítems abiertos}`.
+- **Estados:** `{propuesto, aceptado, supersedido, revertido}`. **Revertir** un ADR =
+  otro ADR de la misma clase. Campo **"señal de reversión"**.
+- **Dos clases (criterio de clase: si toca contrato público, norma publicada o
+  despliegue → estratégico):**
+  - **Estratégico** (producto/arquitectura/alcance/política) → quórum §6 multi-provider.
+  - **Táctico** (renombrar una fuente, cambiar un hash) → quorum-lite.
+
+### 10.2 DoD no-circular y prohibición de exposición temprana (transversal a v1.1)
+
+- **DoD no-circular:** la adopción de un cambio de gobernanza (como esta misma enmienda)
+  requiere un run multi-provider con **≥3 proveedores** sobre **un artefacto distinto**
+  (no sobre sí mismo), con hallazgos **registrados y resueltos/aceptados por escrito**,
+  **independientemente del veredicto**. El `proceed` no es la meta; la meta es evidencia
+  archivada. (Cumplido para v1.1: run sobre el componente F, 2026-08-06.)
+- **Prohibición de exposición temprana:** v1.1 **prohíbe exponer la plataforma a usuarios
+  finales** antes de v1.2 (golden set validado + gobernanza de runtime). Mientras tanto,
+  sólo uso interno/borrador con HITL.
+
+---
+
+## 11. Dónde vive cada cosa (continuidad)
 
 - `AGENTS.md`: entrada condensada + punteros (este doc, AN-KLA, roadmap).
 - `docs/politica-agentes.md` (este archivo): la política.
@@ -349,10 +464,10 @@ Repositorio remoto privado creado y enlazado (R0, T5 ✓); faltan `.github/`
   norma→fuente). Recuperar con `retrieve` (recordar: requiere `indexable_text`;
   budget ≥ bytes del registro). **Un fact = resumen + `indexable_text` (términos
   clave buscables) + puntero; sin copia verbatim, siempre con `indexable_text`**
-  (ver §9.1).
+  (ver §11.1).
 - `.github/*` (cuando se inicialice git): CI, PR template, CODEOWNERS, Dependabot.
 
-### 9.1 Cuándo escribir en AN-KLA (criterio)
+### 11.1 Cuándo escribir en AN-KLA (criterio)
 
 **Escribe sólo si se cumplen TODAS:**
 1. **Durable**: importará más allá de esta sesión (decisión, roadmap, arquitectura,
@@ -384,11 +499,11 @@ sólo lo **apunta**.
 
 ---
 
-## 10. Reporte estándar al orquestador (fin de ronda)
+## 12. Reporte estándar al orquestador (fin de ronda)
 
 Todo agente **termina con un reporte breve y estructurado** al orquestador humano,
 para que decida rápido (aplicar / escalar / reasignar). Es un artefacto (reglas §3
-y §9: <400 líneas objetivo, punteros no contenido). Plantilla en
+y §11: <400 líneas objetivo, punteros no contenido). Plantilla en
 `docs/plantillas-agente.md`.
 
 **Principios:** mostrar **evidencia** del éxito, no afirmarlo (tests/cmds/salidas
@@ -443,15 +558,29 @@ defecto —el reporte precede la acción del admin—; `OK` sólo en un **report
 confirmación posterior** que verifique que el admin aplicó una propuesta previa.
 **En alfa (sin git hasta que se inicialice):** commit=`PARCIAL (espera-admin,
 staging virtual)`, PR/push=`NA`.
-"AN-KLA" lleva el **fact-id** (puntero, §9.1) o `NA`. **Fila obligatoria
+"AN-KLA" lleva el **fact-id** (puntero, §11.1) o `NA`. **Fila obligatoria
 `Fidelidad documental / Secretos (§7)`** (es el riesgo #1 del proyecto):
 `OK`=toda afirmación normativa citada y verificada contra su documento fuente,
 sin secretos en el diff; `BLOQ`+acción en caso contrario.
 
 ---
 
-## 11. Cómo se mejora esta política
+## 13. Cómo se mejora esta política
 
-Esta política es **versión 1.0** y se trata como cualquier artefacto: cambios vía
-plan + contrato + ronda adversarial al cerrar la edición como hito. El historial
-de cambios vive en git (CHANGELOG) cuando se inicialice.
+Esta política es **versión 1.1** y se trata como cualquier artefacto: cambios vía
+plan + contrato + ronda adversarial al cerrar la edición como hito. El historial de
+cambios vive en git (CHANGELOG) cuando se inicialice.
+
+### Changelog
+
+- **v1.1 (2026-08-07, adoptada):** fusión de la enmienda de gobernanza
+  `docs/propuestas/enmienda-gobernanza-v1.1-revisada.md` tras cumplir su DoD no-circular
+  (run multi-provider sobre artefacto distinto — componente F, 2026-08-06 — + reconciliación
+  humana). Cambios: §3 nota de adopción (single→multi-provider); §6 quórum adversarial
+  multi-provider + regla de agregación + ceguera/lentes (CAGF-A2 mitigada parcialmente);
+  §7.3 compuertas deterministas + niveles de confianza; §7.4 datos en revisión
+  multi-provider; §9 roles operativos continuos; §10 ADR (estados/clases/rollback) + DoD
+  no-circular + prohibición de exposición temprana. Evidencia: relatoría
+  `docs/relatorias/2026-08-06-bootstrap-multi-provider.md` y reviews verbatim en
+  `docs/propuestas/`.
+- **v1.0:** versión inicial (arranque R0).

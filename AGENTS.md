@@ -105,12 +105,13 @@ líneas (el detalle y las plantillas están en el doc):
 5. **Git = proponer/aplicar**: el agente propone artefactos + commit/PR; un
    **admin** (CODEOWNERS) aplica `commit/PR/push`. Nunca push directo a `main`,
    nunca `--force`, nunca datos sensibles/secretos.
-6. **Ronda adversarial en TODO hito** (linaje CAGF-A4): quórum graduado por
-   impacto — 1 revisor en contexto fresco para hitos menores, quórum
-   estructural de 3 (autor excluido + adversarial + árbitro) para hitos que
-   publican/modifican una norma. Brecha declarada: single-provider, sin
-   decorrelación real de CAGF-A2 todavía (ver §6). Sin `proceed` no hay merge
-   ni promulgación.
+6. **Ronda adversarial en TODO hito** (linaje CAGF-A4): quórum graduado —
+   quorum-lite (1 revisor en contexto fresco) para hitos menores; **≥3 proveedores
+   distintos** (multi-provider por **modelo subyacente**) para alto impacto (cambios de
+   política / ADR estratégico / compuertas de fidelidad / corpus / despliegue). CAGF-A2
+   **mitigada parcialmente** (decorrelación de arquitectura, no de entrenamiento).
+   Regla de agregación: cualquier BLOCKER bloquea; reasignación que deje <3 → `PARCIAL`.
+   Sin `proceed` no hay merge ni promulgación (ver §6).
 7. **Fidelidad documental primero** (linaje CAGF-A5/A10): jamás se afirma
    contenido normativo sin respaldo citado y vigente; redactar una norma no
    equivale a promulgarla (eso es del humano). Riesgo #1 del proyecto; incluye
@@ -118,7 +119,7 @@ líneas (el detalle y las plantillas están en el doc):
    trazabilidad de reforma) — ver §7.
 8. **GitHub**: repo privado hasta criterios alfa; Conventional Commits; PRs < 400
    líneas; CI verde obligatorio.
-9. **Reporte de fin de ronda** (§10): entrega al orquestador un **encabezado de
+9. **Reporte de fin de ronda** (§12): entrega al orquestador un **encabezado de
    metadata** (estado global + **modelo/versión** + plan/fase + fecha + hito) +
    resumen + lógica (decisión de subagentes) + DoD con evidencia + **tabla de
    estado** (git/PR/push, AN-KLA, DoD, adversarial) en `OK/PARCIAL/BLOQ` + próximos
@@ -126,15 +127,14 @@ líneas (el detalle y las plantillas están en el doc):
 
 **Estado actual:** alfa temprana. Git inicializado y remoto privado activo
 (`kristhianmanue1/expertoGobernanza`, `main`); **roadmap R0 en curso** en
-`docs/plan-r0.md` (T1–T6 ✓). AN-KLA instalado y verificado (revisión 2,
-2 facts/2 events) el 2026-08-06; venv reparado a Python 3.12. `docs/politica-agentes.md` y
-`docs/plantillas-agente.md` adoptados el mismo día (adaptados de un proyecto
-hermano, "Código Cerebro", a este dominio).
+`docs/plan-r0.md` (T1–T6 ✓). AN-KLA instalado y verificado (revisión 3,
+3 facts/3 events) el 2026-08-06; venv reparado a Python 3.12. `docs/politica-agentes.md`
+**v1.1 adoptada** (2026-08-07: enmienda multi-provider fusionada; §6 quórum ≥3 proveedores,
+§7.3-7.4 compuertas+datos, §9 roles, §10 ADR). ADR-0001 (Plataforma de inteligencia
+normativa).
 
-> **PRÓXIMA TAREA:** R0 cerrado (T1–T6 ✓, H1/H2/H3 adversarial-ok). En curso: **MVP honesto**
-> del slice eje-salud — componentes A/B/D/F ✓ (CPEUM+LGS cargados, lookup + verificador gate
-> v1 con fixes del quórum multi-provider). Enmienda de gobernanza **v1.1-revisada** propuesta
-> (validada sobre artefacto distinto, rompe circularidad). ADR-0001 (Plataforma de inteligencia
-> normativa). Siguiente: tests/golden set, reconciliar vigencia con DOF nivel 1, eje
-> estructural IMSS (LOAPF/LFEP), y adoption humana de la enmienda. Detalle en `docs/plan-r0.md`
-> y `docs/adr/0001-plataforma-inteligencia-normativa.md`.
+> **PRÓXIMA TAREA:** R0 cerrado (T1–T6 ✓). MVP slice eje-salud: componentes A/B/D/F ✓
+> (CPEUM+LGS cargados, lookup + verificador gate v1 con fixes del quórum multi-provider).
+> Siguiente: **tests/golden set (B4)**, granularidad por-párrafo (M2), reconciliar vigencia
+> con DOF nivel 1, eje estructural IMSS (LOAPF/LFEP/Reglamento Interior). Detalle en
+> `docs/plan-r0.md` y `docs/adr/0001-plataforma-inteligencia-normativa.md`.
