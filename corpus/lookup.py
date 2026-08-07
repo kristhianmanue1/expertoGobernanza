@@ -1,8 +1,8 @@
 """Componente D — lookup exacto determinista de disposiciones del corpus.
 
-Carga los modelos JSON bajo corpus/derived/ y resuelve un identificador estable
-(p. ej. CPEUM:4:Psalud) a su texto verbatim + metadata. Sin LLM, sin heurística:
-puramente determinista (clave exacta).
+Carga los modelos JSON bajo corpus/derived/ y resuelve un id estable (p. ej. CPEUM:4:Psalud)
+a su texto verbatim + metadata. Determinista: recorrido ordenado, **error duro** ante id
+duplicado o JSON ilegible (fail-loud, no silencioso). Sin LLM.
 """
 import argparse
 import json
@@ -15,14 +15,20 @@ DERIVED = ROOT / "derived"
 
 def load_index():
     idx = {}
-    for jf in DERIVED.rglob("*.json"):
+    for jf in sorted(DERIVED.rglob("*.json")):
         try:
             m = json.loads(jf.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
-            continue
+        except (OSError, ValueError) as e:
+            raise RuntimeError(f"corpus ilegible {jf}: {e}") from e
         did = m.get("disposicion_id")
-        if did:
-            idx[did] = m
+        if not did:
+            continue
+        if did in idx:
+            raise RuntimeError(
+                f"disposicion_id duplicado '{did}' en {jf} y {idx[did]['_source_file']}"
+            )
+        m["_source_file"] = str(jf)
+        idx[did] = m
     return idx
 
 
@@ -30,16 +36,9 @@ def lookup(disposicion_id):
     m = load_index().get(disposicion_id)
     if not m:
         return {"exists": False, "disposicion_id": disposicion_id}
-    return {
-        "exists": True,
-        "disposicion_id": disposicion_id,
-        "instrumento": m.get("instrumento"),
-        "jerarquia_documental": m.get("jerarquia_documental"),
-        "texto_verbatim": m.get("texto_verbatim"),
-        "vigencia": m.get("vigencia"),
-        "relaciones_normativas": m.get("relaciones_normativas", []),
-        "fuentes_oficiales": m.get("fuentes_oficiales", []),
-    }
+    out = {k: v for k, v in m.items() if k != "_source_file"}
+    out["exists"] = True
+    return out
 
 
 def main():
