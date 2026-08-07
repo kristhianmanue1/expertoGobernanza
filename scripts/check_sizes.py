@@ -6,6 +6,7 @@ excede su límite "Duro". Exenta generados/lock/data, docs fuente y entornos.
 """
 import argparse
 import os
+import subprocess
 import sys
 
 EXEMPT_DIRS = {
@@ -96,14 +97,36 @@ def walk(root):
             yield rel, full
 
 
+def tracked_files(root):
+    try:
+        r = subprocess.run(
+            ["git", "-C", root, "ls-files", "--"],
+            capture_output=True, text=True, timeout=15,
+        )
+    except Exception:
+        return None
+    if r.returncode != 0:
+        return None
+    out = []
+    for line in r.stdout.splitlines():
+        if not line:
+            continue
+        full = os.path.join(root, line)
+        if os.path.isfile(full):
+            out.append((line, full))
+    return out or None
+
+
 def main():
     ap = argparse.ArgumentParser(description="Gate de tamaño §3 (tabla Duro).")
     ap.add_argument("root", nargs="?", default=".", help="raíz a revisar (default: .)")
     args = ap.parse_args()
 
+    files = tracked_files(args.root) or list(walk(args.root))
+
     rows = []
     violations = []
-    for rel, full in walk(args.root):
+    for rel, full in files:
         name = os.path.basename(rel)
         if is_exempt(rel, name):
             continue
