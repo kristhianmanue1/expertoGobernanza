@@ -53,13 +53,17 @@ alcanzable. Esto cambia el cálculo de gobernanza.
 - **Adoptar el dictamen tal cual (fases 0–5 completas):** descartada; confunde visión final
   con primer paso y la gobernanza no la ampara hoy.
 
-## Ítems abiertos (decisión humana — bloquean)
-- **Dominio:** confirmar interpretación "federal general + IMSS piloto" (¿o sólo uno?).
-- **Responsable jurídico del corpus** (rol/persona con autoridad para desempatar discrepancias de fuentes).
+## Ítems resueltos (2026-08-06)
+- **Dominio:** ✓ **federal** (leyes públicas); **IMSS = piloto de prueba**.
+- **Norma inicial / corpus:** ver `docs/propuestas/corpus-inicial-analisis-2026-08-06.md`. Target jerárquico CPEUM → LGS → LSS → normativa IMSS; **MVP = rebanada vertical** (traza-desde-el-origen + start-small). Nombres `[VERIFICAR-FUENTE]` (la Cámara da 403 a fetch automatizado).
+- **Responsable jurídico del corpus:** **DEUDA** (diferido); interino = humano-promulgador (enmienda v1.1-revisada Cambio 4).
+
+## Ítems aún abiertos (decisión humana)
 - **Custodio/data steward** continuo del corpus.
-- **Repos OSS** (`ingteranalvarez/lex-mx`, `JoshuaPozos/leyes-mexicanas-markdown`): usar como semilla sí/no (requiere auditar licencia/procedencia).
-- **Autorización para rutear contenido por proveedores externos** y **qué proveedores** forman el quórum estable.
-- **Equipo jurídico** disponible para el golden set (define si Fases 3–4 son alcanzables).
+- **Repos OSS** (`ingteranalvarez/lex-mx`, `JoshuaPozos/leyes-mexicanas-markdown`): usar como semilla sí/no (auditar licencia/procedencia).
+- **Autorización para rutear contenido por proveedores externos** y proveedores del quórum estable (el bootstrap usó glm-5.2 + claude + kimi).
+- **Equipo jurídico** para el golden set (define si Fases 3–4 son alcanzables).
+- **Texto oficial** del instrumento raíz del slice (la Cámara bloquea fetch auto → hace falta proveerlo o autorizar un canal de descarga para el componente A).
 
 ## Próximas acciones (propuestas)
 1. Humano resuelve los ítems abiertos (mínimo: dominio + responsable jurídico + autorización multi-provider).
