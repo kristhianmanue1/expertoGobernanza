@@ -1,0 +1,34 @@
+# Registro de fuentes — componente A del dictamen (2026-08-06)
+#
+# Procedencia de cada instrumento oficial cargado al corpus. Los originales (PDF, etc.)
+# NO se versionan (ver .gitignore: corpus/originals/); se conservan vía hash + URL.
+#
+# Niveles de fuente (dictamen §2): 1=DOF (primaria), 2=Cámara de Diputados (consolidada,
+# "sólo informativo" según su propio aviso), 3=SCJN/SJF, 4=derivados.
+# §7: vigencia_verificada=false hasta reconciliar con DOF (nivel 1).
+
+fuentes:
+  - id: CPEUM
+    nombre_oficial: "Constitución Política de los Estados Unidos Mexicanos"
+    tipo: constitucion
+    autoridad: "Congreso de la Unión"
+    # --- procedencia del archivo cargado ---
+    fuente_archivo: "Cámara de Diputados (consolidado, nivel 2 — informativo según su aviso)"
+    nivel: 2
+    url_descarga: "https://www.diputados.gob.mx/LeyesBiblio/pdf/CPEUM.pdf"
+    url_camara_ref: "https://www.diputados.gob.mx/LeyesBiblio/ref/cpeum.htm"
+    archivo_local: "corpus/originals/CPEUM.pdf"
+    bytes: 3141703
+    paginas: 414
+    sha256: "ca63a23a4b7444ebdbdad93759fbf46bd14c069e587c5878decf89fc9c12ca8e"
+    fecha_consulta: "2026-08-06"
+    # --- estado de vigencia y fuente primaria (nivel 1: DOF) ---
+    fecha_publicacion_dof: "1917-02-05"
+    fecha_ultima_reforma_dof_declarada: "2026-06-02"   # declarada por la Cámara
+    url_dof_nivel1: null        # TODO: permalink DOF (nivel 1, primario) — pendiente
+    vigencia_verificada: false  # §7: false hasta reconciliar con DOF
+    notas: >-
+      Según Cámara (cpeum.htm), DOF 2026-06-02 = reforma en materia de Poder Judicial
+      + nueva causal de nulidad de elecciones por intervención extranjera. El archivo
+      descargado es el consolidado de la Cámara (nivel 2); el DOF primario (nivel 1)
+      queda pendiente de cargar/reconciliar.

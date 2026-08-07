@@ -17,3 +17,7 @@ __pycache__/
 # (los históricos viven bajo .archive/, que SÍ se versiona)
 /proposal.json
 /authority.json
+
+# Corpus: originales oficiales (PDF/binarios grandes) — NO se versionan;
+# se conservan vía hash + URL en corpus/registry.yaml (componente A del dictamen)
+corpus/originals/
