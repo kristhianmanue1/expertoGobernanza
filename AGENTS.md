@@ -69,12 +69,12 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal.
 
 ### Estado actual de la memoria (referencia)
-- Revisión 4. `facts: 4`, `events: 4`, `episodes: 0`. Facts: `alfa-estado-2026-08-06`,
-  `venv-reparado-312-2026-08-06`, `mvp-slice-salud-2026-08-06` y
-  `politica-v1.1-adoptada-2026-08-07` (política v1.1 vigente; enmienda multi-provider
-  fusionada, commit `2860f55`).
-- Siguiente acción MVP: tests/golden set (B4), granularidad por-párrafo (M2), reconciliar
-  vigencia con DOF nivel 1, eje estructural IMSS (LOAPF/LFEP/Reglamento Interior).
+- Revisión 5. `facts: 5`, `events: 4`, `episodes: 0`. Facts: `alfa-estado-2026-08-06`,
+  `venv-reparado-312-2026-08-06`, `mvp-slice-salud-2026-08-06`,
+  `politica-v1.1-adoptada-2026-08-07` y `sprint-b4-router-m2-ci-2026-08-07`
+  (B4 golden set ✓, router §7.4 ✓, id ordinal `CPEUM:4:P4` ✓, CI `.github/` ✓, ADR-0002 firma propuesto).
+- Siguiente acción: reconciliar vigencia con DOF nivel 1, eje estructural IMSS
+  (LOAPF/LFEP/Reglamento Interior), designar roles §9, recall de extracción (v1.2).
 
 ### Anti-patrones a evitar
 - Guardar un `record` solo con campos estructurados y sin `indexable_text`/`text` -> queda inaccesible (`no_text`).
@@ -126,16 +126,13 @@ líneas (el detalle y las plantillas están en el doc):
    estado** (git/PR/push, AN-KLA, DoD, adversarial) en `OK/PARCIAL/BLOQ` + próximos
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
-**Estado actual:** alfa temprana. Git inicializado y remoto privado activo
-(`kristhianmanue1/expertoGobernanza`, `main`); **roadmap R0 en curso** en
-`docs/plan-r0.md` (T1–T6 ✓). AN-KLA instalado y verificado (revisión 3,
-3 facts/3 events) el 2026-08-06; venv reparado a Python 3.12. `docs/politica-agentes.md`
-**v1.1 adoptada** (2026-08-07: enmienda multi-provider fusionada; §6 quórum ≥3 proveedores,
-§7.3-7.4 compuertas+datos, §9 roles, §10 ADR). ADR-0001 (Plataforma de inteligencia
-normativa).
+**Estado actual:** alfa temprana. Git + remoto privado activos (`kristhianmanue1/expertoGobernanza`,
+`main`); R0 cerrado (T1–T6 ✓). AN-KLA rev 5 (5 facts). `docs/politica-agentes.md` **v1.1
+adoptada** (§6 quórum ≥3 proveedores, §7.3-7.4 compuertas+datos, §9 roles, §10 ADR). MVP
+eje-salud: componentes A/B/D/F ✓ + **golden set `tests/` (27 tests)**, **router §7.4**
+(`review_routing/`), **id ordinal `CPEUM:4:P4`**, **CI `.github/`**, ADR-0001 + ADR-0002 (firma, propuesto).
 
-> **PRÓXIMA TAREA:** R0 cerrado (T1–T6 ✓). MVP slice eje-salud: componentes A/B/D/F ✓
-> (CPEUM+LGS cargados, lookup + verificador gate v1 con fixes del quórum multi-provider).
-> Siguiente: **tests/golden set (B4)**, granularidad por-párrafo (M2), reconciliar vigencia
-> con DOF nivel 1, eje estructural IMSS (LOAPF/LFEP/Reglamento Interior). Detalle en
-> `docs/plan-r0.md` y `docs/adr/0001-plataforma-inteligencia-normativa.md`.
+> **PRÓXIMA TAREA:** reconciliar vigencia con **DOF nivel 1**, eje estructural **IMSS**
+> (LOAPF/LFEP/Reglamento Interior), designar **roles §9** (jurídico/custodio/PO — interino =
+> humano), **recall de extracción** (golden set del eslabón LLM, v1.2). Detalle en
+> `docs/plan-r0.md`, `docs/adr/0001-*` y `docs/adr/0002-*`.
