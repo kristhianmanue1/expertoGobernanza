@@ -2,15 +2,17 @@
 
 > **Artefactos:** router `review_routing/` + id ordinal `CPEUM:4:P4`. **Bundle sha256:**
 > `66ec4a5b56735ffcc6197ec1ba752ed835ede4151637ac71c1516802a91b1d49` (6 archivos).
-> **Autor:** opencode/glm-5.2 (EXCLUIDO de votar; no revisa su propia obra).
-> **Revisores:** claude (Anthropic) + cline (modelo subyacente POR DECLARAR).
+> **Autor:** opencode/glm-5.2 (zai-coding-plan) — EXCLUIDO de votar; no revisa su propia obra.
+> **Revisores:** claude (Anthropic) + cline/**qwen-max** (Alibaba).
+> **Quórum:** glm-5.2 + Anthropic + Alibaba = **3 familias distintas → VÁLIDO** (§6 satisfecho; A2 mitigada parcialmente como siempre).
 > **Decisión consolidada:** la hace el humano; el autor (opencode) sólo sintetiza, sin voto.
+> **gemini (Google):** árbitro opcional, no requerido (auth inestable en ejercicios previos).
 
 ## Cómo usar este archivo (orquestador = humano, en tmux)
 1. Abre 2 panes. En cada, pega el **BRIEF COMÚN** + **sólo su lente** (A para claude, B para cline).
 2. Cada revisor trabaja **ciego** (no ve el otro pane) y declara modelo subyacente + conflicto de interés.
 3. Vuelve con las dos salidas verbatim; opencode reconcilia (agrega, no descarta sin justificación).
-4. **Validez del quórum:** requiere ≥3 proveedores distintos por **modelo subyacente**. Hoy: glm-5.2 (autor) + Anthropic (claude) + cline(???). **Si cline corre glm-5.2 o Claude, el quórum cae a `PARCIAL`** (no hay 3 familias); esa condición la verifica el orquestador al declarar el modelo de cline.
+4. **Validez del quórum:** ✓ **VÁLIDO** — glm-5.2 (autor) + Anthropic (claude) + Alibaba (qwen-max) = 3 familias distintas por modelo subyacente. Si uno de los dos revisores no puede correr, cae a `PARCIAL` (requeriría un 3.º externo, p. ej. gemini).
 
 ---
 
