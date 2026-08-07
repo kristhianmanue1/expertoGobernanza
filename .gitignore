@@ -25,3 +25,6 @@ corpus/originals/
 # Texto completo extraído (working file grande) — se conservan los extractos por-artículo
 # bajo docs/fuentes/ y los modelos bajo corpus/derived/
 corpus/derived/*_full.txt
+
+# Bitácora del router de revisión multi-provider (§7.4) — NO versionar (data de auditoría local)
+logs/

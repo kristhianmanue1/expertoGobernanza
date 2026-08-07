@@ -1,0 +1,30 @@
+{
+  "_doc": "Clasificación ex-ante de contenido para revisión multi-provider (política-agentes.md §7.4). El router filtra ANTES de invocar un CLI externo y registra un hash del bundle enviado. La clasificación la hace esta config (no el agente que envía) para evitar autoclasificación sin control técnico ex-ante.",
+  "classification": {
+    "publico": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "docs/politica-agentes.md",
+      "docs/plantillas-agente.md",
+      "docs/adr/**",
+      "docs/propuestas/**",
+      "docs/relatorias/**",
+      "corpus/derived/**",
+      "corpus/registry.yaml",
+      "corpus/lookup.py",
+      "corpus/verify_citations.py",
+      "tests/**",
+      "scripts/**",
+      "review_routing/**"
+    ],
+    "interno_institucional": [],
+    "personal_confidencial": []
+  },
+  "default": "deny",
+  "reglas": {
+    "publico": "enrutamiento permitido",
+    "interno_institucional": "siempre anonimizado o denegado; requiere autorización explícita del humano",
+    "personal_confidencial": "prohibición dura: no enrutable, no autorizable por el agente",
+    "deny": "default deny — no clasificado como público"
+  }
+}
