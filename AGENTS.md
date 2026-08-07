@@ -69,12 +69,13 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal.
 
 ### Estado actual de la memoria (referencia)
-- Revisión 5. `facts: 5`, `events: 4`, `episodes: 0`. Facts: `alfa-estado-2026-08-06`,
+- Revisión 6. `facts: 6`, `events: 4`, `episodes: 0`. Facts: `alfa-estado-2026-08-06`,
   `venv-reparado-312-2026-08-06`, `mvp-slice-salud-2026-08-06`,
-  `politica-v1.1-adoptada-2026-08-07` y `sprint-b4-router-m2-ci-2026-08-07`
-  (B4 golden set ✓, router §7.4 ✓, id ordinal `CPEUM:4:P4` ✓, CI `.github/` ✓, ADR-0002 firma propuesto).
-- Siguiente acción: reconciliar vigencia con DOF nivel 1, eje estructural IMSS
-  (LOAPF/LFEP/Reglamento Interior), designar roles §9, recall de extracción (v1.2).
+  `politica-v1.1-adoptada-2026-08-07`, `sprint-b4-router-m2-ci-2026-08-07` y
+  `estado-2026-08-07-post-ronda` (router §7.4 **estable** tras ronda claude+codex PROCEED;
+  main pusheado a `2ca2250`).
+- Siguiente acción: vigencia DOF nivel 1, eje IMSS (LOAPF/LFEP/Reglamento Interior),
+  roles §9, recall de extracción (v1.2), harness de revisión (egress/log/bundle), ronda sobre M2.
 
 ### Anti-patrones a evitar
 - Guardar un `record` solo con campos estructurados y sin `indexable_text`/`text` -> queda inaccesible (`no_text`).
@@ -126,11 +127,12 @@ líneas (el detalle y las plantillas están en el doc):
    estado** (git/PR/push, AN-KLA, DoD, adversarial) en `OK/PARCIAL/BLOQ` + próximos
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
-**Estado actual:** alfa temprana. Git + remoto privado activos (`kristhianmanue1/expertoGobernanza`,
-`main`); R0 cerrado (T1–T6 ✓). AN-KLA rev 5 (5 facts). `docs/politica-agentes.md` **v1.1
+**Estado actual:** alfa temprana. Git + remoto privado **sincronizados** (`kristhianmanue1/expertoGobernanza`,
+`main` = `2ca2250`); R0 cerrado. AN-KLA rev 6 (6 facts). `docs/politica-agentes.md` **v1.1
 adoptada** (§6 quórum ≥3 proveedores, §7.3-7.4 compuertas+datos, §9 roles, §10 ADR). MVP
-eje-salud: componentes A/B/D/F ✓ + **golden set `tests/` (27 tests)**, **router §7.4**
-(`review_routing/`), **id ordinal `CPEUM:4:P4`**, **CI `.github/`**, ADR-0001 + ADR-0002 (firma, propuesto).
+eje-salud: componentes A/B/D/F ✓ + **golden set `tests/` (34 tests)**, **router §7.4 estable**
+(`review_routing/`, ronda adversarial claude+codex → PROCEED), **id ordinal `CPEUM:4:P4`**,
+**CI `.github/`**, ADR-0001 + ADR-0002 (firma, propuesto).
 
 > **PRÓXIMA TAREA:** reconciliar vigencia con **DOF nivel 1**, eje estructural **IMSS**
 > (LOAPF/LFEP/Reglamento Interior), designar **roles §9** (jurídico/custodio/PO — interino =
