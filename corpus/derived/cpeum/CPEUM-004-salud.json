@@ -39,8 +39,8 @@
       "tipo": "reglamentada_por",
       "target": "LGS",
       "target_nombre": "Ley General de Salud",
-      "nota": "[VERIFICAR-FUENTE] al ingestar la LGS (n.º de entrada Cámara a confirmar)",
-      "verificada": false
+      "evidencia": "LGS Art.1 verbatim: «reglamenta el derecho a la protección de la salud... en los términos del artículo 4o. de la Constitución»",
+      "verificada": true
     }
   ],
   "lineage": {

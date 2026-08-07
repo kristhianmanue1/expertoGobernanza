@@ -32,3 +32,23 @@ fuentes:
       + nueva causal de nulidad de elecciones por intervención extranjera. El archivo
       descargado es el consolidado de la Cámara (nivel 2); el DOF primario (nivel 1)
       queda pendiente de cargar/reconciliar.
+
+  - id: LGS
+    nombre_oficial: "Ley General de Salud"
+    tipo: ley_federal_reglamentaria
+    autoridad: "Congreso de la Unión (reglamentaria del Art. 4 CPEUM, según su Art. 1)"
+    fuente_archivo: "Cámara de Diputados (consolidado, nivel 2 — informativo según su aviso)"
+    nivel: 2
+    url_descarga: "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGS.pdf"
+    archivo_local: "corpus/originals/LGS.pdf"
+    bytes: 3286114
+    paginas: 376
+    sha256: "a2d3f947b369e4383f2f27a4e9bd819a3dba768ab9bae527e6388e30c1f9e06c"
+    fecha_consulta: "2026-08-06"
+    fecha_publicacion_dof: "1984-02-07"
+    fecha_ultima_reforma_dof_declarada: "2026-01-15"   # índice Cámara; Art.1 reformado 2023-05-29
+    url_dof_nivel1: null        # TODO: permalink DOF (nivel 1, primario) — pendiente
+    vigencia_verificada: false
+    notas: >-
+      Art. 1 LGS (verbatim) reglamenta el derecho a la protección de la salud en los
+      términos del Art. 4o. CPEUM. Consolidado Cámara (nivel 2); DOF primario pendiente.

@@ -24,4 +24,4 @@ corpus/originals/
 
 # Texto completo extraído (working file grande) — se conservan los extractos por-artículo
 # bajo docs/fuentes/ y los modelos bajo corpus/derived/
-corpus/derived/cpeum_full.txt
+corpus/derived/*_full.txt
