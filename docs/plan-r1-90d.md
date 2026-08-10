@@ -317,10 +317,11 @@ Quorum-lite interno OK (CLI). Multi si se publicitan métricas.
 manuales; cola E5-02+; no internos).  
 **DoD:** [x] Clasificación + URLs índice + reglas router/auth.
 
-### R1-E5-02 · Registry + descarga LOAPF (si público autorizado) · P1 · AGENT+ADMIN · M · Dep: E5-01, E1-01
+### R1-E5-02 · Registry + descarga LOAPF · P1 · **HECHO exploración 2026-08-10**
 
-**DoD:** [ ] Entrada registry nivel 2/1; hash; `vigencia_verificada` acorde verdad;
-original local gitignored; **sin** claims normativos sin marca.
+**Salida:** LOAPF.pdf (local), registry, `LOAPF:1`, art-001.txt.  
+**DoD:** [x] Hash `3edf486e…`; nivel 2; vigencia **false**; lookup+test.  
+**Pendiente F5:** traza DOF con alcance para eventual `true`.
 
 ### R1-E5-03 · Registry LFEP · P1 · AGENT+ADMIN · M · Dep: E5-02 patrón
 
