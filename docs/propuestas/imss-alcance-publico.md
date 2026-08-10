@@ -72,7 +72,7 @@ El auditor de **manuales** del dictamen vive sobre todo en el **eje 3**.
 
 | Orden | Ticket | Acción |
 |------:|--------|--------|
-| 1 | E5-02 | Registry + PDF LOAPF (nivel 2) + exploración DOF (false hasta F5) |
+| 1 | E5-02 | **HECHO 2026-08-10** — LOAPF.pdf + registry + `LOAPF:1` (false hasta F5) |
 | 2 | E5-03 | Idem LFEP |
 | 3 | (nuevo) LSS | Registry LSS + 1 disposición naturaleza IMSS si aplica |
 | 4 | E5-04 | Reglamento Interior **solo** si URL pública verificable |
