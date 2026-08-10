@@ -1,34 +1,37 @@
 # Plan R1 — 90 días: verdad jurídica + auditor usable
 
 **Contexto:** análisis crítico 2026-08-10: gobernanza fuerte, cadena DOF abierta,
-sin auditor de documento, roles §9 vacíos. **Fecha:** 2026-08-10.  
-**Estado:** borrador (listo para ejecución por agentes). **Roadmap:** R1.  
-**Fuente:** análisis de sesión + ADR-0001 + `docs/ops-github.md` + memoria AN-KLA.  
+sin auditor de documento. **Fecha:** 2026-08-10.  
+**Estado:** **en-curso** (E0 + E1-01 + fix adversarial pre-E1 aplicados).  
+**Roadmap:** R1. **Fuente:** plan + `docs/fuentes-legal-mx.md` + ronda
+`docs/propuestas/r1-plan-adversarial-pre-e1/RONDA.md`.  
 **Ejecutores:** agentes de IA + admin humano (CODEOWNERS). **No es** promulgación
 normativa ni asesoría legal.
 
 ## Objetivo y criterio de cierre global
 
-**Objetivo:** en ~90 días, (1) al menos una disposición del slice salud con
-**vigencia DOF nivel 1**, (2) roles §9 designados (aunque interinos con fecha),
-(3) un **auditor de documento** medible (citas + `verify_claim` + matriz FP/FN),
-(4) higiene de planes/ADR, (5) camino claro a IMSS **público** sin romper §7.4,
-(6) reanudación de Actions cuando haya presupuesto.
+**Objetivo:** en ~90 días, (1) al menos una **disposición** del slice salud con
+**traza primaria DOF de alcance que la cubra** (no solo reforma del cuerpo),
+(2) roles §9 designados, (3) auditor de documento medible con banner si corpus
+no verificado, (4) higiene planes/ADR, (5) IMSS **público** sin romper §7.4,
+(6) reanudación Actions cuando haya presupuesto.
 
 **Cierre global (verificable):**
 
 | KPI | Meta R1 |
 |-----|---------|
-| `vigencia_verificada: true` en registry (slice) | ≥1 disposición, ideal 2 (CPEUM:4:P4 + LGS:1) |
-| Roles §9 en doc firmado por humano | 3/3 (jurídico, custodio, PO) con fecha |
-| CLI auditor + 1 doc piloto + matriz FP/FN | existe, tests, doc < límites §3 |
-| ADR-0001 | aceptado / superado / rechazado (no “propuesta” eterna) |
-| `plan-r0.md` | marcado cerrado u obsoleto |
-| CI remoto | humo verde **o** régimen DoD local vigente documentado |
-| Golden recall LLM (v1.2) | al menos diseño + 1 fixture; ideal suite mínima |
+| Vigencia slice | ≥1 disposición (`CPEUM:4:P4` y/o LGS Art.1) con `vigencia_verificada: true` **y** `trazas_publicacion` con `cubre_disposiciones` que la incluya + `revision_vigencia` |
+| Roles §9 | 3/3 en `docs/roles-r1.md` (interinos OK con fecha) |
+| CLI auditor + piloto + matriz FP/FN | existe; salida con banner si vigencia slice false |
+| ADR-0001 | aceptado / superado / rechazado |
+| `plan-r0.md` | cerrado/histórico |
+| CI remoto | humo verde **o** DoD local documentado |
+| Golden recall LLM | diseño + ≥1 fixture (ideal suite) |
 
-Sin roles + sin DOF, el resto se etiqueta `PARCIAL (espera-humano)` y **no** se
-promete “auditoría confiable” al exterior.
+**Tickets cerrados (changelog):** E0-01, E0-02, E0-03 diferido, E1-01, E1-05 diseño,
+fix adversarial F1–F7 (docs 2026-08-10).  
+
+Sin traza de **alcance** al slice, **no** se promete “auditoría confiable” al exterior.
 
 ---
 
@@ -147,6 +150,15 @@ existan trabajos del auditor** (post H3 / matriz FP/FN), no antes.
 **Salida:** sí/no a semillas `lex-mx` / similares + razón licencia/procedencia.  
 **DoD:** [ ] ADR-lite o sección en corpus-inicial. Default si empty: **no usar** OSS.
 
+### R1-E0-05 · Doble control vigencia (F5) · P0 · HUMAN+AGENT · S · **DOC HECHO**
+
+**Salida:** control en `docs/roles-r1.md` + campos `revision_vigencia` en
+metodología.  
+**DoD operativo en cada PR de `vigencia_verificada: true`:**
+
+- [ ] `revision_vigencia` rellenado por humano
+- [ ] multi-provider en H1 **o** `auto_revision_declarada: true` explícito
+
 ---
 
 ## Epic E1 — Vigencia DOF nivel 1 (slice salud) · H1
@@ -165,36 +177,37 @@ campos registry, procedimiento A–F, multi-eje, visión vigilancia DOF) +
 
 **Git:** `docs/fuentes-legal-mx.md`. **Adv:** con H1 (al cerrar E1-02..04).
 
-### R1-E1-02 · Ingerir evidencia DOF CPEUM Art.4 slice · P0 · AGENT+ADMIN · M · Dep: E0-02, E1-01
+### R1-E1-02 · Ingerir evidencia DOF CPEUM Art.4 slice · P0 · AGENT+ADMIN · M · Dep: E0-02, E1-01, F1–F5 docs
 
-**Salida:** actualización `corpus/registry.yaml` (CPEUM): `url_dof_nivel1`,
-`vigencia_verificada: true` **solo si** evidencia real; notas de reforma; hash
-recomputable si hay PDF/nivel1 local. Posible `docs/fuentes/cpeum/` nota de
-consulta (sin copiar ley entera si no hace falta).  
+**Salida:** `registry.yaml` (CPEUM) + `trazas_publicacion` con **alcance** que
+cubra `CPEUM:4:P4` (F2); secundarias como `claim_secundario`; hash texto trabajo.  
 **DoD:**
 
-- [ ] `vigencia_verificada: true` **únicamente** con URL/identificador DOF y fecha
-- [ ] Si duda: dejar `false` + `[VIGENCIA-NO-VERIFICADA]` — **no inventar**
-- [ ] sha256 de archivo local coincide si `originals/` presente
-- [ ] Test o check script: registry parseable; flag documentado
+- [ ] Checklist `fuentes-legal-mx.md` §8 completo
+- [ ] `vigencia_verificada: true` **solo** si §4.2 post-adversarial se cumple
+      (traza cubre disposición + revision_vigencia); si no → `false` + notas
+- [ ] **Prohibido** usar solo reforma 2026-06-02 (u otra) sin demostrar cobertura
+      del Art. 4 párrafo salud
+- [ ] sha256 coherente si hay original local
 - [ ] DoD base tests verdes
 
-**Git:** `fix(corpus): vigencia DOF CPEUM slice` / `docs(corpus): …`.  
-**Nota agente:** si no hay acceso DOF en entorno, **PARCIAL** + checklist para admin
-(descarga manual path). No marcar true.
+**Git:** `docs(corpus): traza DOF CPEUM slice` / `fix(corpus): …`.  
+**Exploración OK:** PR con búsquedas y `false` sin pretender H1 cerrado.
 
 ### R1-E1-03 · Ingerir evidencia DOF LGS Art.1 · P0 · AGENT+ADMIN · M · Dep: E1-02 patrón
 
-Igual que E1-02 para LGS.  
-**DoD:** análogo LGS. Preferir mismo PR solo si diff &lt;400; si no, PR separado.
+Análogo E1-02 para LGS / disposición Art. 1 (`LGS-001` o id canónico).  
+**DoD:** traza con `cubre_disposiciones` del id LGS del slice.
 
 ### R1-E1-04 · Tests de no-regresión de vigencia · P0 · AGENT · S · Dep: E1-02
 
-**Salida:** `tests/test_registry_vigencia.py` (&lt;80 L).  
+**Salida:** `tests/test_registry_vigencia.py` (&lt;120 L).  
 **DoD:**
 
-- [ ] Falla si `vigencia_verificada` true sin `url_dof_nivel1` (o campo canónico doc)
-- [ ] Pasa con registry actual
+- [ ] Falla si `vigencia_verificada: true` sin traza nivel 1 (url **o**
+      identificadores_diario)
+- [ ] Falla si `true` sin `cubre_disposiciones` / `no_cubre_slice` / alcance
+- [ ] Pasa con registry actual (todo `false`)
 - [ ] `unittest discover` verde; tamaños OK
 
 ### R1-E1-05 · Gate v1.1 — ¿habilitar `alto`? (diseño) · P1 · AGENT · S · **DISEÑO HECHO 2026-08-10**
@@ -252,12 +265,16 @@ qué es vigente (política, ops-github, plan-r1) vs archivo (`propuestas/`).
 
 ## Epic E3 — Auditor de documento (MVP honesto) · H3
 
+> **F6:** H3 puede avanzar en paralelo a H1, pero el CLI **debe** emitir banner
+> `CORPUS_VIGENCIA_NO_VERIFICADA` (o equivalente) mientras el slice no tenga
+> disposición con vigencia true + alcance. Prohibido marketing “confiable”.
+
 ### R1-E3-01 · Contrato de interfaz del auditor · P0 · AGENT · S
 
 **Salida:** `docs/propuestas/auditor-v0-contrato.md` (&lt;120 L): CLI,
-entrada/salida JSON schema (campos), niveles gate, no-LLM en v0.  
-**DoD:** [ ] Schema de salida con `disposicion_id`, `cita`, `nivel`, `reasons`;
-límites tamaño.
+entrada/salida JSON schema (campos), niveles gate, no-LLM en v0, **banner F6**.  
+**DoD:** [ ] Schema con `disposicion_id`, `cita`, `nivel`, `reasons`,
+`corpus_vigencia_banner`; límites tamaño.
 
 ### R1-E3-02 · Fixture documento piloto (citas pre-etiquetadas) · P0 · AGENT · S · Dep: E3-01
 
@@ -526,4 +543,7 @@ Siguiente ticket en cola: …
 
 | Fecha | Cambio |
 |-------|--------|
-| 2026-08-10 | Creación R1 90d desde análisis crítico; tickets E0–E8 |
+| 2026-08-10 | Creación R1 90d; tickets E0–E8 |
+| 2026-08-10 | E0-01/02 hechos; E0-03 diferido; E1-01 metodología |
+| 2026-08-10 | Ronda adversarial pre-E1 → **fix-and-retry**; F1–F7 aplicados en docs |
+| 2026-08-10 | Estado **en-curso**; KPI vigencia a nivel disposición+alcance; E0-05; E3 banner |

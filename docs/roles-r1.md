@@ -32,6 +32,21 @@ en este archivo (nueva fila + fecha; no borrar historia).
 - Esta designación **no** autoriza por sí sola el envío de material interno IMSS
   a proveedores externos (ver `docs/autorizacion-fuentes-r1.md`).
 
+## Control compensatorio (F5) — tres roles en una persona
+
+Mientras jurídico = custodio = PO (interinato), **antes** de
+`vigencia_verificada: true` o de promesa exterior de calidad:
+
+1. Completar en registry `revision_vigencia` (`revisado_por`, `fecha`).
+2. Preferible: segundo revisor humano o ronda adversarial **multi-provider**
+   (H1) sobre el PR de vigencia.
+3. Si no hay segundo revisor: `auto_revision_declarada: true` **y** no omitir
+   la ronda adversarial del hito (no cuenta como `proceed` silencioso).
+4. El agente autor del PR de registry **no** rellena `revisado_por` con su
+   id de modelo; lo rellena el humano interino (o declara auto_revision).
+
+Ticket plan: `R1-E0-05` (doble control vigencia).
+
 ## Enlaces
 
 - Política: `docs/politica-agentes.md` §9  

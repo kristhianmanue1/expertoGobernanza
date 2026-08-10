@@ -141,6 +141,7 @@ líneas (el detalle y las plantillas están en el doc):
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** plan **`docs/plan-r1-90d.md`**. Metodología fuentes:
-> `docs/fuentes-legal-mx.md` (E1-01 ✓). Cola: **E1-02/03** traza DOF CPEUM/LGS →
-> E1-04 tests vigencia; o E2 higiene. Ops: `docs/ops-github.md` §5.
+> **PRÓXIMA TAREA:** plan **`docs/plan-r1-90d.md`** (en-curso; fix adversarial F1–F7
+> en `docs/fuentes-legal-mx.md`). Cola: **E1-02/03** traza DOF con **alcance** al
+> slice (o E1-04 tests; E2 higiene). No `vigencia true` sin cubre_disposiciones.
+> Ronda: `docs/propuestas/r1-plan-adversarial-pre-e1/RONDA.md`.

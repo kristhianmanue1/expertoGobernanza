@@ -13,14 +13,14 @@ fidelidad + plan de corpus). Para `proceed` formal de H1 se recomienda **re-rond
 
 ## Decisión
 
-- [ ] proceed
-- [x] **fix-and-retry** → corregir hallazgos BLOCKER/HIGH listados antes de
-      ejecutar E1-02/03 con `vigencia_verificada: true`
+- [ ] proceed *(H1 corpus aún no)*
+- [x] **fix-and-retry** (docs) → **fixes F1–F7 aplicados 2026-08-10** en
+      `fuentes-legal-mx.md`, plan, roles, auth, gate diseño, registry comments
 - [ ] escalate
 
-**Regla práctica:** se puede seguir con **E2 higiene** y con **borradores de
-búsqueda DOF** (`vigencia_verificada: false` + notas), pero **no** cerrar H1 ni
-marcar vigencia true hasta absorber fixes F1–F6 (abajo).
+**Post-fix (docs):** E1-02/03 pueden ejecutarse; `vigencia_verificada: true`
+solo con checklist §8 + alcance al slice + `revision_vigencia`. Re-ronda
+**multi-provider** sigue recomendada al cerrar H1.
 
 ---
 
@@ -211,4 +211,18 @@ primaria del slice salud.
 ## Notas
 
 - Esta ronda **no** sustituye quórum ≥3 de §6 para el cierre formal de H1.
-- No se modificó código ni registry de vigencia en esta ronda (solo el informe).
+- Informe inicial: solo hallazgos. **Aplicación de fixes (docs):** mismo día;
+  sin marcar `vigencia_verificada: true` en CPEUM/LGS; sin código de gate v1.1.
+
+## Aplicación de fixes (checklist)
+
+| Fix | Dónde | Estado |
+|-----|--------|--------|
+| F1 tres capas | `fuentes-legal-mx.md` §1.1 | hecho |
+| F2 alcance traza | §4.2, §5 C, checklist §8, plan E1-02/03 | hecho |
+| F3 glosa vigencia | §1.3 | hecho |
+| F4 techo medio texto no primario | §5 D, §6, `gate-confianza-multieje-v1.md` | hecho |
+| F5 doble control | `roles-r1.md`, E0-05, `revision_vigencia` | hecho |
+| F6 banner auditor | plan E3 | hecho |
+| F7 desempate R1 | §1.2 | hecho |
+| M3/M5/M8 | registry comments, auth allowlist, identificadores_diario | hecho |

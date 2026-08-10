@@ -27,12 +27,21 @@ Jiménez (roles interinos §9 — `docs/roles-r1.md`).
 
 ## 2. Multi-provider (rondas adversarial / extracción)
 
-**Autorizado:** rutear a proveedores del quórum (p. ej. Anthropic/Claude,
-OpenAI/Codex, y otros ya usados en el proyecto) **únicamente**:
+**Autorizado:** rutear a proveedores del quórum **únicamente**:
 
 - docs de gobernanza del repo;
 - textos y extractos de **fuentes públicas** federales ya clasificadas como
   públicas en el corpus / esta autorización.
+
+**Allowlist de proveedores/CLIs (M5) — ampliar solo por enmienda a este doc:**
+
+| CLI / superficie | Familia / notas |
+|------------------|-----------------|
+| `claude` (Anthropic) | Revisión adversarial |
+| `codex` (OpenAI) | Revisión adversarial |
+| Otros (kimi, gemini, qwen, opencode, cline, glm, …) | Solo si el admin confirma disponibilidad y se añade fila aquí |
+
+Si un CLI no está en la tabla: **no** enviar corpus legal hasta enmienda.
 
 **No autorizado (default):**
 

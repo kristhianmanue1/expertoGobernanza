@@ -35,21 +35,36 @@ no expone **por qué** un claim es medio/bajo ni permite multi-fuente.
 }
 ```
 
-### Agregación (determinista, sin LLM)
+### Agregación (determinista, sin LLM) — post F4 adversarial
 
 1. Si `existencia` o `match_textual` fallan → **bajo**.
 2. Si hash de fuente irresoluble / inválido → **bajo** (como v1).
 3. Si A+C OK y `vigencia.verificada` false → techo **medio**.
-4. Si A+C OK y `vigencia.verificada` true y `coherencia` ≠ `discrepancia`
-   y hay traza nivel 1 → **alto** (solo cuando el código v1.1 se active).
-5. Si `coherencia` = `discrepancia` → techo **medio** + reason `discrepancia_fuentes`
-   aunque vigencia estuviera true (forzar revisión jurídica).
+4. Si A+C OK y el **archivo de trabajo** es nivel ≥2 **y** no hay apoyo primario
+   del texto de la **disposición** citada → techo **medio** + reason
+   `texto_trabajo_no_primario` (aunque el instrumento tenga traza DOF de otro
+   alcance).
+5. Si `coherencia` = `discrepancia` → techo **medio** + `discrepancia_fuentes`.
+6. **alto** (solo código v1.1 + H1): A+C OK; `vigencia.verificada` true con
+   traza cuyo `cubre_disposiciones` incluye el id citado; E ≠ discrepancia;
+   y no aplica (4).
+
+Ejes JSON ampliados (diseño):
+
+```json
+"procedencia": {
+  "nivel_archivo": 2,
+  "tiene_traza_nivel1": true,
+  "traza_cubre_disposicion": false,
+  "reason": "texto_trabajo_no_primario"
+}
+```
 
 ### Compatibilidad
 
-- CLI actual: seguir exit codes `0=alto, 2=medio, 1=bajo`.
-- Tests golden del slice: no romper; añadir casos cuando exista v1.1.
-- `alto` sigue prohibido en producción hasta ticket de implementación + H1.
+- CLI actual: exit codes `0=alto, 2=medio, 1=bajo`.
+- Tests golden: no romper; añadir casos v1.1 después.
+- `alto` **prohibido** en producción hasta F1–F4 en datos + ticket código + H1.
 
 ## Fuera de alcance de este diseño
 
