@@ -13,13 +13,14 @@ FIXTURE = ROOT / "tests" / "fixtures" / "piloto-salud-citas.json"
 
 
 class TestAuditDocument(unittest.TestCase):
-    def test_banner_no_verificada_hoy(self):
-        self.assertEqual(ad.corpus_vigencia_banner(), ad.BANNER_NO)
+    def test_banner_parcial_ok_tras_h1(self):
+        # H1: CPEUM/LGS con vigencia_verificada true en registry
+        self.assertEqual(ad.corpus_vigencia_banner(), ad.BANNER_OK)
 
     def test_fixture_audit(self):
         out = ad.audit(FIXTURE)
         self.assertEqual(out["auditor_version"], "v0")
-        self.assertEqual(out["corpus_vigencia_banner"], ad.BANNER_NO)
+        self.assertEqual(out["corpus_vigencia_banner"], ad.BANNER_OK)
         self.assertEqual(out["summary"]["n"], 3)
         # dos citas golden suelen ser medio; una inventada bajo
         self.assertGreaterEqual(out["summary"]["bajo"], 1)
@@ -35,7 +36,7 @@ class TestAuditDocument(unittest.TestCase):
         )
         self.assertEqual(r.returncode, 1)
         data = json.loads(r.stdout)
-        self.assertEqual(data["corpus_vigencia_banner"], ad.BANNER_NO)
+        self.assertEqual(data["corpus_vigencia_banner"], ad.BANNER_OK)
 
     def test_lista_plana(self):
         import tempfile

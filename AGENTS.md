@@ -141,6 +141,6 @@ líneas (el detalle y las plantillas están en el doc):
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** plan R1. E2-01/05 + E3 auditor v0 ✓
-> (`scripts/audit_document.py`, banner F6). Cola: **humano** DOF+F5 → H1; E3-04
-> matriz FP/FN; E2-02 ADR-0001; E4 recall. Mapa: `docs/README.md`.
+> **PRÓXIMA TAREA:** plan R1. **H1 slice salud** ✓ (CPEUM:4:P4 + LGS:1,
+> `vigencia_verificada: true`, F5 Jiménez 2026-08-10). Cola: E3-04 matriz FP/FN;
+> E2-02 ADR-0001; E4 recall; ronda multi H1 formal. Mapa: `docs/README.md`.

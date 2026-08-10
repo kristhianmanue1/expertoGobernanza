@@ -20,7 +20,7 @@ no verificado, (4) higiene planes/ADR, (5) IMSS **público** sin romper §7.4,
 
 | KPI | Meta R1 |
 |-----|---------|
-| Vigencia slice | ≥1 disposición (`CPEUM:4:P4` y/o LGS Art.1) con `vigencia_verificada: true` **y** `trazas_publicacion` con `cubre_disposiciones` que la incluya + `revision_vigencia` |
+| Vigencia slice | **HECHO 2026-08-10:** CPEUM:4:P4 + LGS:1 con `true`, traza alcance + F5 (Jiménez) |
 | Roles §9 | 3/3 en `docs/roles-r1.md` (interinos OK con fecha) |
 | CLI auditor + piloto + matriz FP/FN | existe; salida con banner si vigencia slice false |
 | ADR-0001 | aceptado / superado / rechazado |
@@ -177,31 +177,18 @@ campos registry, procedimiento A–F, multi-eje, visión vigilancia DOF) +
 
 **Git:** `docs/fuentes-legal-mx.md`. **Adv:** con H1 (al cerrar E1-02..04).
 
-### R1-E1-02 · Ingerir evidencia DOF CPEUM Art.4 slice · P0 · AGENT+ADMIN · M · **EXPLORACIÓN 2026-08-10**
+### R1-E1-02 · Ingerir evidencia DOF CPEUM Art.4 slice · P0 · **HECHO H1 2026-08-10**
 
-**Salida:** `registry.yaml` CPEUM con `slice_mvp_disposiciones`, secundarias,
-`trazas_publicacion` candidatas (1983-02-03; 2020-05-08 codigo=5593045;
-2026-06-02 marcada `no_cubre_slice`). **`vigencia_verificada: false`**.  
-**DoD:**
+**Salida:** `vigencia_verificada: true`; traza principal DOF 08-05-2020
+`codigo=5593045` cubre `CPEUM:4:P4`; F5 Jiménez; 2026-06-02 `no_cubre_slice`.  
+**DoD:** [x] Humano OK + registry + rules tests.
 
-- [x] Candidatos DOF con alcance hacia `CPEUM:4:P4` documentados
-- [x] Reforma cuerpo 2026-06-02 explícitamente `no_cubre_slice: true` (F2)
-- [x] Sin `true` (falta confirmación UI DOF + `revision_vigencia` humana F5)
-- [ ] **Cierre H1:** humano abre notas DOF, confirma texto vs P4, rellena
-      `revision_vigencia` y solo entonces evalúa `true`
+### R1-E1-03 · Ingerir evidencia DOF LGS Art.1 · P0 · **HECHO H1 2026-08-10**
 
-**Git:** exploración en registry; H1 pendiente de humano.
-
-### R1-E1-03 · Ingerir evidencia DOF LGS Art.1 · P0 · AGENT+ADMIN · M · **EXPLORACIÓN 2026-08-10**
-
-**Salida:** `registry.yaml` LGS con `slice_mvp_disposiciones: [LGS:1]`, secundarias,
-trazas candidatas 1984-02-07 (publicación) y 2023-05-29 (reforma Art.1); 2026-01-15
-`no_cubre_slice` hasta leer decreto. **`vigencia_verificada: false`**.  
-**DoD:**
-
-- [x] Candidatos + F2 en última reforma cuerpo
-- [x] Sin `true` (falta permalink DOF + F5 humano)
-- [ ] Cierre H1: confirmar decretos en dof.gob.mx vs texto `LGS:1`
+**Salida:** `vigencia_verificada: true`; traza principal DOF 29-05-2023 cubre
+`LGS:1` (lectura F5 vía acervo Cámara del decreto); 1984=nacimiento; 2026-01-15
+`no_cubre_slice`.  
+**DoD:** [x] Humano OK + registry + rules tests.
 
 ### R1-E1-04 · Tests de no-regresión de vigencia · P0 · AGENT · S · **HECHO 2026-08-10**
 
