@@ -99,6 +99,29 @@ Basta contrastar con el consolidado Art. 1; traza primaria = publicación **21-1
 
 ---
 
+## C2) LFEP — `LFEP:5` (IMSS + ley específica) — **lookup listo; F5 traza pendiente**
+
+### Texto en el repo
+
+> El Instituto Mexicano del Seguro Social, el ISSSTE, el INFONAVIT, el ISSFAM, el INPI y los demás organismos de estructura análoga… se regirán por sus **leyes específicas** en cuanto a las estructuras de sus órganos de gobierno y vigilancia, pero en cuanto a su funcionamiento, operación, desarrollo y control, en lo que no se oponga a aquellas leyes específicas, se sujetarán a las disposiciones de la presente Ley.
+
+Marcador consolidado: *Párrafo reformado DOF 04-01-2001, 21-05-2003, 08-05-2023, **16-07-2025***.
+
+### Ligas
+
+| Uso | URL |
+|-----|-----|
+| PDF | https://www.diputados.gob.mx/LeyesBiblio/pdf/LFEP.pdf |
+| DOF claim | **16/07/2025** (+ reformas previas del párrafo) — confirmar si toca el párrafo del IMSS |
+
+### Checklist
+
+- [ ] ¿Art. 5 nombra al **IMSS** y **leyes específicas**?  
+- [ ] ¿16-07-2025 cubre ese párrafo (no solo el de Comisión Antimonopolio)?  
+- [ ] Decisión: false | true para traza de **LFEP:5**
+
+---
+
 ## C) LFEP — `LFEP:1`
 
 ### Texto en el repo

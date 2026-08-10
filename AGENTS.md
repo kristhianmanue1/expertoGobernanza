@@ -141,6 +141,6 @@ líneas (el detalle y las plantillas están en el doc):
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** F5 eje IMSS **cerrado** (LOAPF/LFEP/LSS:5/RIIMSS true +
-> `traza_disposicion` vs `ultima_reforma_cuerpo`). Cola: **LFEP:5** sugerido;
-> ADR-0001; multi E5. Manuales internos fuera. Mapa: `docs/README.md`.
+> **PRÓXIMA TAREA:** eje IMSS: F5 true + **`LFEP:5`** (primacía ley específica;
+> F5 traza Art.5 pendiente). Cola: F5 LFEP:5 / ADR-0001 / multi. Manuales fuera.
+> Mapa: `docs/README.md`.
