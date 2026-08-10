@@ -56,13 +56,114 @@ En el PR / reporte §12:
 - Marcar **CI remoto: SUSPENDIDO (billing)** y puntero a este doc — **no** fingir verde.
 - Estado global razonable: `PARCIAL (ci-billing)` si el resto está OK; no es `BLOQ` de producto.
 
-Cuando Actions vuelva (nuevo mes / presupuesto):
+## 5. Checklist — cuando vuelva Actions (mes / presupuesto)
 
-1. Confirmar un run verde en `main` o en un PR de humo.
-2. Preferible: reactivar o añadir **branch protection** en `main` exigiendo el check de CI (hoy no hay protection).
-3. Dejar de usar el modo sustituto; este doc se actualiza (fact correctivo / nota de cierre).
+**No activar branch protection antes de tener al menos un run verde real.**
+Si se exige el check y el runner sigue caído, **nadie puede mergear**.
 
-## 5. Política de agentes (lectura operativa)
+### 5.1 Detectar que el runner ya arranca
+
+```bash
+# Billing / runs recientes (admin)
+gh run list --limit 5
+# Abrir el último fallido: si ya hay log de unittest/check_sizes, no es billing
+gh run view <RUN_ID> --log-failed 2>&1 | head -40
+```
+
+Criterio de “Actions vivo”:
+
+- [ ] Un job del workflow `CI` dura **más de ~15 s** (no muere en 3–5 s).
+- [ ] El log muestra pasos `Compilación` / `Golden set` / `Gate de tamaño`.
+- [ ] **No** aparece annotation de *payments* / *spending limit*.
+
+### 5.2 Humo de verificación (obligatorio antes de protection)
+
+```bash
+# Opción A — re-ejecutar un workflow en main (si el evento lo permite)
+gh workflow run CI --ref main   # si el workflow tiene workflow_dispatch; si no, B
+
+# Opción B — PR de humo vacío/docs (recomendado)
+git checkout -b chore/ci-smoke-$(date +%Y%m%d)
+# cambio mínimo (p. ej. una línea en este doc: "smoke <fecha>")
+git push -u origin HEAD
+gh pr create --title "chore(ci): humo post-billing" --body "DoD: validar runner Actions."
+gh pr checks   # esperar "Tests + gate de tamaño" = pass
+```
+
+- [ ] Check **“Tests + gate de tamaño”** = **success** en el PR de humo (o en push a `main`).
+- [ ] DoD local sigue verde en paralelo (regresión de entorno).
+
+### 5.3 Branch protection en `main` (admin, solo tras 5.2 verde)
+
+Objetivo mínimo (alfa): PRs obligatorios + check de CI requerido + sin force-push.
+
+```bash
+# Nombre exacto del check = name del job en .github/workflows/ci.yml
+# hoy: "Tests + gate de tamaño"
+REPO=kristhianmanue1/expertoGobernanza
+
+gh api -X PUT "repos/${REPO}/branches/main/protection" \
+  --input - <<'JSON'
+{
+  "required_status_checks": {
+    "strict": true,
+    "contexts": ["Tests + gate de tamaño"]
+  },
+  "enforce_admins": false,
+  "required_pull_request_reviews": {
+    "required_approving_review_count": 0
+  },
+  "restrictions": null,
+  "allow_force_pushes": false,
+  "allow_deletions": false
+}
+JSON
+
+# Verificar
+gh api "repos/${REPO}/branches/main/protection" --jq '{
+  checks: .required_status_checks.contexts,
+  strict: .required_status_checks.strict,
+  allow_force: .allow_force_pushes.enabled
+}'
+```
+
+Notas:
+
+- `enforce_admins: false` deja escape de emergencia al admin; subir a `true` cuando el
+  equipo confíe en el runner estable.
+- Si el plan GitHub no permite protection rules en privados, documentar la limitación
+  aquí y mantener DoD local + CODEOWNERS como control social.
+- **No** exigir checks que no existan en el workflow (rompe todos los PR).
+
+- [ ] Protection aplicada y `gh api …/protection` devuelve el contexto esperado.
+- [ ] Un PR de prueba no mergea sin el check verde (o el UI lo bloquea).
+
+### 5.4 Cierre del modo “DoD local sustituye CI”
+
+1. Actualizar **este doc**:
+   - Cabecera: `Estado: Actions operativo desde <fecha>` (o añadir fila en §8 historial).
+   - §3–4: marcar como régimen **histórico / de contingencia**, no default.
+2. Memoria AN-KLA: `supersede` del fact
+   `github-actions-billing-suspendido-2026-08-10` por uno
+   `github-actions-operativo-<fecha>` (puntero a este doc + run verde).
+3. Reportes §12: volver a exigir **CI remoto verde** (o `PARCIAL` solo por otras causas).
+4. Opcional: borrar ramas `chore/ci-smoke-*` remotas tras merge.
+
+- [ ] Doc + fact actualizados; agentes ya no asumen billing eterno.
+
+### 5.5 Si el presupuesto se agota otra vez
+
+1. Revertir a §3–4 (DoD local) **sin** drama de producto.
+2. **Quitar o relajar** branch protection que exija el check de CI (si no, merges
+   bloqueados). Comando de emergencia (admin):
+
+```bash
+gh api -X DELETE "repos/${REPO}/branches/main/protection"
+```
+
+3. Nueva fila en historial (§8) + fact correctivo / supersede.
+
+## 6. Política de agentes (lectura operativa)
 
 - **Calidad no se relaja:** lint/tests/tamaños siguen siendo ley; solo cambia *dónde* se ejecutan (local vs runner).
 - **Agente propone; admin aplica** push/merge a `main` (`docs/politica-agentes.md` §5).
@@ -70,7 +171,7 @@ Cuando Actions vuelva (nuevo mes / presupuesto):
 - Ronda adversarial (§6) **independiente** de Actions: sigue aplicando según impacto del hito.
 - Releases: puede crearlas el admin sin pipeline; el artefacto de release debe citar el commit y el DoD local si CI estaba caído.
 
-## 6. Cómo detectar “fallo por billing” vs fallo de tests
+## 7. Cómo detectar “fallo por billing” vs fallo de tests
 
 | Señal | Interpretación |
 |-------|----------------|
@@ -78,16 +179,17 @@ Cuando Actions vuelva (nuevo mes / presupuesto):
 | Log con `unittest` / `check_sizes` / traceback | Fallo real de código — **no mergear** |
 | `statusCheckRollup` FAILURE + sin log de steps útiles | Tratar como billing hasta probar DoD local |
 
-## 7. Historial breve
+## 8. Historial breve
 
 | Fecha | Evento |
 |-------|--------|
 | 2026-08-07 | CI en `main` aún **success** (p. ej. push `264b15b`) |
-| 2026-08-10 | Actions suspendido por presupuesto; PR #1 mergeado con DoD local; este doc creado |
+| 2026-08-10 | Actions suspendido por presupuesto; PR #1/#2 con DoD local; este doc + §5 checklist reanudación |
+| *(pendiente)* | Actions vivo + humo verde + (opcional) branch protection — marcar §5.4 |
 
-## 8. Enlaces
+## 9. Enlaces
 
-- Workflow: `.github/workflows/ci.yml`
+- Workflow: `.github/workflows/ci.yml` (job name = contexto de protection)
 - Contribuir: `.github/CONTRIBUTING.md`
 - Política: `docs/politica-agentes.md` §5 (git), §8 (GitHub), §12 (reporte)
-- Memoria: fact `github-actions-billing-suspendido-2026-08-10` (si existe en AN-KLA)
+- Memoria: fact `github-actions-billing-suspendido-2026-08-10`

@@ -27,6 +27,8 @@ ciclo de la cuenta (p. ej. mensual). Mientras tanto:
 1. Ejecuta el **DoD local** de la sección “Antes de abrir un PR” y pégalo en el PR.
 2. El admin puede mergear con evidencia local; no marques “CI verde” en el reporte.
 3. Detalle y checklist: **`docs/ops-github.md`** (fuente de verdad).
+4. Cuando renueve el presupuesto: checklist de reanudación en **`docs/ops-github.md` §5**
+   (humo verde → luego branch protection; no al revés).
 
 Commits, ramas, PRs, merges, tags y releases **siguen operativos** con admin/`gh`.
 

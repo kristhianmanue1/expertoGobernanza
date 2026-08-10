@@ -142,5 +142,5 @@ tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos 
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
 > **PRÓXIMA TAREA:** vigencia **DOF nivel 1**; eje **IMSS** (LOAPF/LFEP/RI); roles
-> §9; recall extracción v1.2; reponer/esperar billing Actions. Detalle:
-> `docs/plan-r0.md`, `docs/ops-github.md`, `docs/adr/0001-*`, `docs/adr/0002-*`.
+> §9; recall extracción v1.2. Cuando vuelva Actions: `docs/ops-github.md` **§5**
+> (humo → protection → cierre modo DoD local). Detalle: `docs/plan-r0.md`, ADRs.
