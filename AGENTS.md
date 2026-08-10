@@ -75,8 +75,8 @@ Mínimos válidos:
 
 ### Estado actual de la memoria (referencia)
 - AN-KLA **0.1.0b11** / plantilla contexto **0.1.0-beta.11**; identidad store **complete**.
-- Revisión **9**. `facts: 9` (1 `sustituida`), `events: 9`, `episodes: 0`. Vigentes
-  relevantes: `github-actions-billing-suspendido-2026-08-10`,
+- Revisión **10**. `facts: 10` (1 `sustituida`), `events: 10`. Vigentes: `plan-r1-90d-2026-08-10`,
+  `github-actions-billing-suspendido-2026-08-10`,
   `an-kla-migrado-beta11-2026-08-10`,
   `fact-expertogobernanza-alfa-estado-corregido-2026-08-10`,
   `estado-2026-08-07-post-ronda` (router §7.4 **estable**), resto en retrieve.
@@ -141,6 +141,5 @@ líneas (el detalle y las plantillas están en el doc):
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** vigencia **DOF nivel 1**; eje **IMSS** (LOAPF/LFEP/RI); roles
-> §9; recall extracción v1.2. Cuando vuelva Actions: `docs/ops-github.md` **§5**
-> (humo → protection → cierre modo DoD local). Detalle: `docs/plan-r0.md`, ADRs.
+> **PRÓXIMA TAREA:** ejecutar **`docs/plan-r1-90d.md`** (cola: E8-01 → E2 higiene →
+> **HUMAN E0 roles/DOF** → E1 vigencia → E3 auditor). Ops CI: `docs/ops-github.md` §5.
