@@ -1,0 +1,49 @@
+{
+  "disposicion_id": "LFEP:1",
+  "instrumento": {
+    "id": "LFEP",
+    "nombre_oficial": "Ley Federal de las Entidades Paraestatales"
+  },
+  "jerarquia_documental": {
+    "articulo": "1o.",
+    "elemento": "objeto — organización, funcionamiento y control de entidades paraestatales"
+  },
+  "texto_verbatim": "La presente Ley, Reglamentaria en lo conducente del artículo 90 de la Constitución Política de los Estados Unidos Mexicanos, tiene por objeto regular la organización, funcionamiento y control de las entidades paraestatales de la Administración Pública Federal. Las relaciones del Ejecutivo Federal, o de sus dependencias, con las entidades paraestatales, en cuanto unidades auxiliares de la Administración Pública Federal, se sujetarán, en primer término, a lo establecido en esta Ley y sus disposiciones reglamentarias y, sólo en lo no previsto, a otras disposiciones según la materia que corresponda.",
+  "vigencia": {
+    "estado": "vigente",
+    "ultima_reforma_dof_declarada": "2025-07-16",
+    "verificada_contra_dof_nivel1": false,
+    "marcador": "[VIGENCIA-NO-VERIFICADA contra DOF nivel 1 — exploración E5-03]"
+  },
+  "fuentes_oficiales": [
+    {
+      "tipo": "consolidado_camara",
+      "nivel": 2,
+      "archivo": "corpus/originals/LFEP.pdf",
+      "sha256": "c0f203a9c6ebb990db8a2a43559ecf19e904f7c0757d0f334f7f4fb044aa6a12",
+      "fecha_consulta": "2026-08-10",
+      "extracto_verbatim_en": "docs/fuentes/lfep/art-001.txt"
+    }
+  ],
+  "relaciones_normativas": [
+    {
+      "tipo": "reglamentaria_de",
+      "target": "CPEUM:90",
+      "evidencia": "Art.1 LFEP: reglamentaria en lo conducente del artículo 90 CPEUM",
+      "verificada": false,
+      "nota": "CPEUM Art.90 no está aún como disposición en derived; verificar al expandir"
+    },
+    {
+      "tipo": "complementa",
+      "target": "LOAPF:1",
+      "evidencia": "LFEP regula entidades paraestatales que LOAPF articula en la APF",
+      "verificada": false
+    }
+  ],
+  "lineage": {
+    "extraido_de_sha256": "c0f203a9c6ebb990db8a2a43559ecf19e904f7c0757d0f334f7f4fb044aa6a12",
+    "parser": "pypdf",
+    "fecha_extraccion": "2026-08-10",
+    "notas": "Espaciado normalizado; autoridad = PDF Cámara"
+  }
+}

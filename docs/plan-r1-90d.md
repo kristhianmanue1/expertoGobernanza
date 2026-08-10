@@ -323,9 +323,11 @@ manuales; cola E5-02+; no internos).
 **DoD:** [x] Hash `3edf486e…`; nivel 2; vigencia **false**; lookup+test.  
 **Pendiente F5:** traza DOF con alcance para eventual `true`.
 
-### R1-E5-03 · Registry LFEP · P1 · AGENT+ADMIN · M · Dep: E5-02 patrón
+### R1-E5-03 · Registry LFEP · P1 · **HECHO exploración 2026-08-10**
 
-Análogo E5-02.
+**Salida:** LFEP.pdf (local), registry, `LFEP:1`, art-001.txt.  
+**DoD:** [x] Hash `c0f203a9…`; nivel 2; vigencia **false**; lookup+test.  
+**Pendiente F5:** traza DOF con alcance para eventual `true`.
 
 ### R1-E5-04 · Registry Reglamento Interior IMSS (público) · P1 · AGENT+ADMIN · M · Dep: E5-03
 
