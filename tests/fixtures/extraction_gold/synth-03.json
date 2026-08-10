@@ -1,0 +1,12 @@
+{
+  "doc_id": "synth-salud-03",
+  "texto": "Documento sin citas normativas del corpus de salud del MVP.",
+  "gold_claims": [],
+  "traps": [
+    {
+      "claim_id": "t1",
+      "cita_texto": "Cualquier extractor no debe inventar el artículo 4 constitucional aquí",
+      "must_find": false
+    }
+  ]
+}

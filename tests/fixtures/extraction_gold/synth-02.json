@@ -1,0 +1,13 @@
+{
+  "doc_id": "synth-salud-02",
+  "texto": "Solo referencia a LGS: Es de aplicación en toda la República y sus disposiciones son de orden público e interés social según la ley general de salud en su artículo primero.",
+  "gold_claims": [
+    {
+      "claim_id": "g1",
+      "disposicion_id": "LGS:1",
+      "cita_texto": "Es de aplicación en toda la República y sus disposiciones son de orden público e interés social",
+      "must_find": true
+    }
+  ],
+  "traps": []
+}
