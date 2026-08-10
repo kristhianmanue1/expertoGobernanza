@@ -14,6 +14,9 @@
 #   ultima_reforma_cuerpo: {fecha, cubre_disposicion: false}  ← NO es traza del artículo
 #   trazas_publicacion[]: alcance, cubre_disposiciones[] | no_cubre_slice, url|ids
 #   revision_vigencia: {revisado_por, fecha, auto_revision_declarada}
+# vigencia_verificada es resumen del instrumento, NO autoridad por disposición.
+# Resolver cada disposición con registry_rules.resolve_disposicion_vigencia;
+# en slices múltiples, traza_disposiciones[].f5 es obligatoria y autoritativa.
 # NUNCA usar ultima_reforma_cuerpo.fecha como "origen" de una disposición del slice.
 
 fuentes:
@@ -212,7 +215,7 @@ fuentes:
     paginas: 206
     sha256: "3edf486e601217f5f595f94f56832d8845cbd9193b6494af52473237252bcc5f"
     fecha_consulta: "2026-08-10"
-    slice_mvp_disposiciones: ["LOAPF:1"]
+    slice_mvp_disposiciones: ["LOAPF:1:P3"]
     eje: estructura_imss
     fecha_publicacion_dof: "1976-12-29"
     # claim cuerpo (NO es traza de LOAPF:1)
@@ -222,12 +225,28 @@ fuentes:
       cubre_disposicion: false
       nota: "DOF 07-05-2026 (humano: Art. 36, no LOAPF:1)"
     traza_disposicion_principal:
-      disposicion_id: "LOAPF:1"
+      disposicion_id: "LOAPF:1:P3"
       fecha: "1976-12-29"
       tipo_acto: publicacion
       cubre_disposicion: true
       identificadores_diario: "DOF 29-12-1976 publicación original LOAPF"
-      nota: "F5 2026-08-10: traza del Art.1; párrafo 2 tiene reformas históricas (p.ej. 18-03-2025) sin anular bases del Art.1"
+      url: "https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_orig_29dic76_ima.pdf"
+      nota: "F5 2026-08-10: sólo párrafo 3, APF paraestatal; no cubre el agregado LOAPF:1"
+    traza_disposiciones:
+      - disposicion_id: "LOAPF:1:P3"
+        fecha: "1976-12-29"
+        tipo_acto: publicacion
+        cubre_disposicion: true
+        identificadores_diario: "DOF 29-12-1976 publicación original LOAPF, Art.1 ¶3"
+        url: "https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_orig_29dic76_ima.pdf"
+        f5: true
+    reformas_parciales:
+      - disposicion_id: "LOAPF:1:P2"
+        fecha: "2025-03-18"
+        tipo_acto: reforma
+        cubre_slice: false
+        identificadores_diario: "DOF 18-03-2025, Artículo Décimo: reforma Art.1 ¶2 LOAPF"
+        url: "https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_ref76_18mar25.pdf"
     url_dof_nivel1: null
     vigencia_verificada: true
     fecha_consulta_vigencia: "2026-08-10"
@@ -237,7 +256,7 @@ fuentes:
       revisado_por: "Kristhian Manuel Jiménez"
       fecha: "2026-08-10"
       auto_revision_declarada: true
-      nota: "F5: texto cuadra; 07-05-2026 no cubre LOAPF:1 (Art.36)"
+      nota: "F5: LOAPF:1:P3 cuadra con publicación original; ¶2 reformado 18-03-2025; 07-05-2026 sólo Art.36"
     fuentes_secundarias_consultadas:
       - organo: Camara_Diputados
         nivel: 2
@@ -253,13 +272,23 @@ fuentes:
       - tipo_acto: publicacion
         organo: DOF
         nivel: 1
-        alcance: articulo
-        cubre_disposiciones: ["LOAPF:1"]
+        alcance: parrafo
+        cubre_disposiciones: ["LOAPF:1:P3"]
         no_cubre_slice: false
         url: null
         fecha_dof: "1976-12-29"
         identificadores_diario: "DOF 29-12-1976 publicación original LOAPF"
-        nota: "CONFIRMADO F5: traza del slice LOAPF:1 (bases APF centralizada/paraestatal)."
+        nota: "CONFIRMADO F5: traza del slice LOAPF:1:P3 (APF paraestatal); no cubre ¶2."
+      - tipo_acto: reforma
+        organo: DOF
+        nivel: 1
+        alcance: parrafo
+        cubre_disposiciones: []
+        no_cubre_slice: true
+        url: "https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_ref76_18mar25.pdf"
+        fecha_dof: "2025-03-18"
+        identificadores_diario: "DOF 18-03-2025 reforma Art.1 ¶2 LOAPF"
+        nota: "No cubre el párrafo 3 usado por Q2."
       - tipo_acto: reforma
         organo: DOF
         nivel: 1
@@ -271,9 +300,9 @@ fuentes:
         identificadores_diario: "DOF 07-05-2026 (Art.36; no LOAPF:1)"
         nota: "CONFIRMADO F5: no es traza de LOAPF:1."
     notas: >-
-      F5 2026-08-10: vigencia_verificada true para LOAPF:1. Distinguir
-      traza_disposicion_principal vs ultima_reforma_cuerpo (no confundir 2026-05-07
-      con procedencia del Art.1).
+      F5 2026-08-10: vigencia verificada sólo para LOAPF:1:P3. El agregado
+      LOAPF:1 mezcla ¶2 reformado 18-03-2025 con ¶1/¶3 y no tiene una fecha única.
+      La reforma de cuerpo 07-05-2026 cubre Art.36, no el slice.
 
   - id: LFEP
     nombre_oficial: "Ley Federal de las Entidades Paraestatales"
@@ -295,7 +324,7 @@ fuentes:
     ultima_reforma_cuerpo:
       fecha: "2025-07-16"
       cubre_disposicion: false
-      nota: "No atribuir a LFEP:1. Puede tocar LFEP:5 (marcador consolidado) — ver traza_disposiciones"
+      nota: "Decreto DOF reforma Art.5 ¶1; no atribuir a LFEP:1"
     traza_disposicion_principal:
       disposicion_id: "LFEP:1"
       fecha: "1986-05-14"
@@ -315,10 +344,10 @@ fuentes:
         fecha: "2025-07-16"
         tipo_acto: reforma
         cubre_disposicion: true
-        claim_secundario: true
-        identificadores_diario: "DOF 16-07-2025 (marcador consolidado Art.5 ¶1: reformado 04-01-2001, 21-05-2003, 08-05-2023, 16-07-2025)"
-        f5: false
-        nota: "Pendiente F5 humana; claim de consolidado Cámara. Conecta IMSS + ley específica + LFEP residual."
+        url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5763164&fecha=16/07/2025"
+        identificadores_diario: "DOF 16-07-2025 codigo=5763164, Artículo Segundo: reforma Art.5 ¶1 LFEP"
+        f5: true
+        nota: "F5 cerrado: el decreto cubre el párrafo que nombra IMSS y leyes específicas; no identifica por nombre a la LSS."
     url_dof_nivel1: null
     vigencia_verificada: true
     fecha_consulta_vigencia: "2026-08-10"
@@ -328,7 +357,7 @@ fuentes:
       revisado_por: "Kristhian Manuel Jiménez"
       fecha: "2026-08-10"
       auto_revision_declarada: true
-      nota: "F5: LFEP:1 true. LFEP:5 ingerida 2026-08-10; F5 de traza Art.5 pendiente (claim 16-07-2025)."
+      nota: "F5: LFEP:1 y LFEP:5 true. Decreto DOF 16-07-2025 codigo=5763164 verificado; la remisión textual sigue siendo genérica."
     fuentes_secundarias_consultadas:
       - organo: Camara_Diputados
         nivel: 2
@@ -339,6 +368,11 @@ fuentes:
         nivel: 2
         claim_secundario: true
         url: "https://www.diputados.gob.mx/LeyesBiblio/ref/lfep.htm"
+        fecha_consulta: "2026-08-10"
+      - organo: DOF
+        nivel: 1
+        claim_secundario: false
+        url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5763164&fecha=16/07/2025"
         fecha_consulta: "2026-08-10"
     trazas_publicacion:
       - tipo_acto: publicacion
@@ -357,12 +391,10 @@ fuentes:
         alcance: articulo
         cubre_disposiciones: ["LFEP:5"]
         no_cubre_slice: false
-        url: null
+        url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5763164&fecha=16/07/2025"
         fecha_dof: "2025-07-16"
-        identificadores_diario: "DOF 16-07-2025 (marcador consolidado Art.5 ¶1 + ¶ CN Antimonopolio)"
-        nota: >-
-          CLAIM consolidado: párrafo IMSS reformado hasta 16-07-2025. NO es F5 cerrado
-          para LFEP:5 (falta lectura del decreto). NO cubre LFEP:1.
+        identificadores_diario: "DOF 16-07-2025 codigo=5763164, Artículo Segundo"
+        nota: "CONFIRMADO F5: reforma Art.5 ¶1 y adiciona ¶3; no cubre LFEP:1."
       - tipo_acto: reforma
         organo: DOF
         nivel: 1
@@ -374,8 +406,8 @@ fuentes:
         identificadores_diario: "DOF 16-07-2025 (resto del cuerpo; ver traza Art.5 aparte)"
         nota: "No usar como traza de LFEP:1."
     notas: >-
-      F5 LFEP:1 true. LFEP:5 ingerida (IMSS y análogos: leyes específicas + LFEP
-      residual). Cadena IMSS: LSS:5 (OPD) + LFEP:5 (primacía ley específica) + RIIMSS:1.
+      F5 LFEP:1 y LFEP:5 true. LFEP:5 afirma primacía de “sus leyes específicas”
+      y LFEP residual, pero no nombra la LSS: la arista LFEP:5→LSS sigue interpretativa.
 
   - id: LSS
     nombre_oficial: "Ley del Seguro Social"
@@ -406,6 +438,20 @@ fuentes:
       identificadores_diario: "DOF 20-12-2001 reforma Art.5 LSS"
       url_secundaria_lectura: "https://www.diputados.gob.mx/LeyesBiblio/pdf/LSS.pdf"
       nota: "F5: consolidado marca «Artículo reformado DOF 20-12-2001»; OPD/IMSS"
+    traza_disposiciones:
+      - disposicion_id: "LSS:5"
+        fecha: "2001-12-20"
+        tipo_acto: reforma
+        cubre_disposicion: true
+        identificadores_diario: "DOF 20-12-2001 reforma Art.5 LSS"
+        f5: true
+      - disposicion_id: "LSS:1"
+        fecha: "1995-12-21"
+        tipo_acto: publicacion
+        cubre_disposicion: true
+        identificadores_diario: "DOF 21-12-1995 publicación LSS"
+        f5: false
+        nota: "Pendiente F5 humana; no heredar vigencia verificada de LSS:5."
     url_dof_nivel1: null
     vigencia_verificada: true
     fecha_consulta_vigencia: "2026-08-10"

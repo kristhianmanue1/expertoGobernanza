@@ -12,9 +12,10 @@
   "vigencia": {
     "estado": "vigente",
     "ultima_reforma_dof_declarada": "2025-07-16",
-    "verificada_contra_dof_nivel1": false,
-    "marcador": "[VIGENCIA-NO-VERIFICADA DOF nivel 1 — claim consolidado 16-07-2025; F5 pendiente disposición]",
-    "traza_claim_secundario": "Párrafo reformado DOF 04-01-2001, 21-05-2003, 08-05-2023, 16-07-2025",
+    "verificada_contra_dof_nivel1": true,
+    "marcador": "F5 disposición verificada: DOF 16-07-2025 codigo=5763164 reforma Art.5 párrafo primero",
+    "traza": "DOF 16-07-2025 codigo=5763164, Artículo Segundo",
+    "nota_semantica": "El texto remite genéricamente a las leyes específicas; no nombra a la Ley del Seguro Social.",
     "registry_ref": "corpus/registry.yaml#LFEP"
   },
   "fuentes_oficiales": [
@@ -25,6 +26,13 @@
       "sha256": "c0f203a9c6ebb990db8a2a43559ecf19e904f7c0757d0f334f7f4fb044aa6a12",
       "fecha_consulta": "2026-08-10",
       "extracto_verbatim_en": "docs/fuentes/lfep/art-005.txt"
+    },
+    {
+      "tipo": "decreto_dof",
+      "nivel": 1,
+      "url": "https://www.dof.gob.mx/nota_detalle.php?codigo=5763164&fecha=16/07/2025",
+      "fecha_consulta": "2026-08-10",
+      "cobertura": "Artículo Segundo: reforma el párrafo primero y adiciona un párrafo tercero al artículo 5o. LFEP; este slice IMSS modela el párrafo primero"
     }
   ],
   "relaciones_normativas": [
@@ -39,7 +47,7 @@
       "target": "LSS",
       "evidencia": "se regirán por sus leyes específicas en cuanto a órganos de gobierno y vigilancia",
       "verificada": false,
-      "nota": "Ley específica del IMSS = LSS (eje); LFEP aplica en lo no opuesto"
+      "nota": "La identificación ley específica del IMSS = LSS requiere una fuente adicional; no se infiere del texto de LFEP:5"
     },
     {
       "tipo": "relaciona_con",

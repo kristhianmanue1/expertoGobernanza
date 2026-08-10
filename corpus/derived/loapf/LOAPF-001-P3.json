@@ -1,0 +1,58 @@
+{
+  "disposicion_id": "LOAPF:1:P3",
+  "instrumento": {
+    "id": "LOAPF",
+    "nombre_oficial": "Ley Orgánica de la Administración Pública Federal"
+  },
+  "jerarquia_documental": {
+    "articulo": "1o.",
+    "elemento": "párrafo tercero — composición de la APF paraestatal"
+  },
+  "texto_verbatim": "Los organismos descentralizados, las empresas de participación estatal, las instituciones nacionales de crédito, las organizaciones auxiliares nacionales de crédito, las instituciones nacionales de seguros y de fianzas y los fideicomisos, componen la administración pública paraestatal.",
+  "vigencia": {
+    "estado": "vigente",
+    "ultima_reforma_dof_declarada": "1976-12-29",
+    "verificada_contra_dof_nivel1": true,
+    "marcador": "F5 párrafo 3: publicación original DOF 29-12-1976",
+    "traza": "LOAPF original 29-12-1976; el decreto 18-03-2025 reforma sólo el párrafo 2",
+    "registry_ref": "corpus/registry.yaml#LOAPF",
+    "nota_cuerpo": "ultima_reforma_cuerpo 2026-05-07 (Art.36) no cubre LOAPF:1:P3"
+  },
+  "fuentes_oficiales": [
+    {
+      "tipo": "consolidado_camara",
+      "nivel": 2,
+      "archivo": "corpus/originals/LOAPF.pdf",
+      "sha256": "3edf486e601217f5f595f94f56832d8845cbd9193b6494af52473237252bcc5f",
+      "fecha_consulta": "2026-08-10",
+      "extracto_verbatim_en": "docs/fuentes/loapf/art-001-p3.txt"
+    },
+    {
+      "tipo": "publicacion_original_dof",
+      "nivel": 1,
+      "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_orig_29dic76_ima.pdf",
+      "fecha_consulta": "2026-08-10"
+    },
+    {
+      "tipo": "decreto_reforma_no_cubre_slice",
+      "nivel": 1,
+      "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_ref76_18mar25.pdf",
+      "fecha_consulta": "2026-08-10",
+      "cobertura": "Artículo Décimo reforma sólo LOAPF:1:P2"
+    }
+  ],
+  "relaciones_normativas": [
+    {
+      "tipo": "define_marco",
+      "target": "administracion_publica_paraestatal",
+      "evidencia": "El párrafo tercero enumera organismos descentralizados y otras entidades como componentes de la APF paraestatal",
+      "verificada": true
+    }
+  ],
+  "lineage": {
+    "extraido_de_sha256": "3edf486e601217f5f595f94f56832d8845cbd9193b6494af52473237252bcc5f",
+    "parser": "pypdf",
+    "fecha_extraccion": "2026-08-10",
+    "notas": "Segmentación manual del párrafo 3; no hereda la reforma del párrafo 2"
+  }
+}

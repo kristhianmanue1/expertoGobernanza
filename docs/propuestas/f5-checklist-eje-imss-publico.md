@@ -31,7 +31,7 @@ Decisión: dejar false | true para esta disposición
 1. **LSS:5** (naturaleza IMSS — más valioso para el piloto)  
 2. **RIIMSS:1** (objeto del Instituto)  
 3. **LFEP:1** (marco paraestatal)  
-4. **LOAPF:1** (APF centralizada/paraestatal)  
+4. **LOAPF:1:P3** (APF paraestatal; granularidad de párrafo)
 5. Opcional: **LSS:1** (observancia general)
 
 Home DOF para búsquedas: https://www.dof.gob.mx/
@@ -99,7 +99,7 @@ Basta contrastar con el consolidado Art. 1; traza primaria = publicación **21-1
 
 ---
 
-## C2) LFEP — `LFEP:5` (IMSS + ley específica) — **lookup listo; F5 traza pendiente**
+## C2) LFEP — `LFEP:5` (IMSS + leyes específicas) — **F5 cerrado**
 
 ### Texto en el repo
 
@@ -112,13 +112,21 @@ Marcador consolidado: *Párrafo reformado DOF 04-01-2001, 21-05-2003, 08-05-2023
 | Uso | URL |
 |-----|-----|
 | PDF | https://www.diputados.gob.mx/LeyesBiblio/pdf/LFEP.pdf |
-| DOF claim | **16/07/2025** (+ reformas previas del párrafo) — confirmar si toca el párrafo del IMSS |
+| Índice de reformas | https://www.diputados.gob.mx/LeyesBiblio/ref/lfep.htm |
+| Decreto DOF nivel 1 | https://www.dof.gob.mx/nota_detalle.php?codigo=5763164&fecha=16/07/2025 |
 
 ### Checklist
 
-- [ ] ¿Art. 5 nombra al **IMSS** y **leyes específicas**?  
-- [ ] ¿16-07-2025 cubre ese párrafo (no solo el de Comisión Antimonopolio)?  
-- [ ] Decisión: false | true para traza de **LFEP:5**
+- [x] Art. 5 nombra al **IMSS** y remite genéricamente a sus **leyes específicas**.
+- [x] El artículo segundo del decreto DOF **16-07-2025** reforma el primer
+  párrafo y adiciona un tercero al Art. 5.
+- [x] El texto consolidado cuadra con el extracto versionado del repositorio.
+- [x] Decisión: `true` para la traza F5 de **LFEP:5**.
+
+**Reserva semántica:** el primer párrafo no identifica por nombre a la Ley del
+Seguro Social. Por ello, F5 no vuelve recorrible por sí solo el arco
+`LFEP:5 → LSS`; esa relación conserva estado `disputed` hasta contar con fuente
+adicional que cubra objeto y relación específicos.
 
 ---
 
@@ -145,11 +153,11 @@ Marcador consolidado: *Párrafo reformado DOF 04-01-2001, 21-05-2003, 08-05-2023
 
 ---
 
-## D) LOAPF — `LOAPF:1`
+## D) LOAPF — `LOAPF:1:P3`
 
 ### Texto en el repo
 
-> La presente Ley establece las bases de organización de la Administración Pública Federal, centralizada y paraestatal. La Oficina de la Presidencia de la República, las Secretarías de Estado y la Consejería Jurídica del Ejecutivo Federal, integran la Administración Pública Centralizada. Los organismos descentralizados, las empresas de participación estatal, las instituciones nacionales de crédito, las organizaciones auxiliares nacionales de crédito, las instituciones nacionales de seguros y de fianzas y los fideicomisos, componen la administración pública paraestatal.
+> Los organismos descentralizados, las empresas de participación estatal, las instituciones nacionales de crédito, las organizaciones auxiliares nacionales de crédito, las instituciones nacionales de seguros y de fianzas y los fideicomisos, componen la administración pública paraestatal.
 
 ### Ligas
 
@@ -157,14 +165,17 @@ Marcador consolidado: *Párrafo reformado DOF 04-01-2001, 21-05-2003, 08-05-2023
 |-----------|-----|-----|
 | 1 | PDF consolidado | https://www.diputados.gob.mx/LeyesBiblio/pdf/LOAPF.pdf |
 | 2 | Índice reformas | https://www.diputados.gob.mx/LeyesBiblio/ref/loapf.htm |
-| 3 | DOF publicación | **29/12/1976** + *Ley Orgánica de la Administración Pública Federal* |
-| 4 | DOF última reforma claim | **~07/05/2026** (índice `LOAPF_ref81`) — solo si toca Art. 1 |
+| 3 | Publicación original | https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_orig_29dic76_ima.pdf |
+| 4 | Reforma Art. 1, párrafo 2 | https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_ref76_18mar25.pdf — no cubre P3 |
 
 ### Checklist
 
-- [ ] ¿Art. 1 distingue APF **centralizada** y **paraestatal** (organismos descentralizados…)?  
-- [ ] ¿Cuadra con el repo?  
-- [ ] ¿La reforma reciente del cuerpo cubre o no el Art. 1?
+- [x] El tercer párrafo ubica organismos descentralizados y demás entidades en
+  la APF paraestatal.
+- [x] El texto cuadra con el extracto `art-001-p3.txt`.
+- [x] La reforma de **18-03-2025** modifica el segundo párrafo, no el tercero.
+- [x] Decisión: `LOAPF:1:P3` usa publicación original **29-12-1976** como traza;
+  `LOAPF:1` agregado no recibe una fecha única de reforma.
 
 ---
 
@@ -207,7 +218,7 @@ RIIMSS:1
 LFEP:1
   …
 
-LOAPF:1
+LOAPF:1:P3
   …
 
 revision_vigencia:
