@@ -4,11 +4,12 @@
 <!-- 1-3 líneas, sin marketing. -->
 
 ## Contrato (DoD) y verificación
-- [ ] `python -m unittest discover -s tests` verde
-- [ ] `python scripts/check_sizes.py` exit 0
+- [ ] `python -m unittest discover -s tests` verde (**local** si Actions está suspendido)
+- [ ] `python scripts/check_sizes.py` exit 0 (**local** si Actions está suspendido)
 - [ ] Cada afirmación normativa cita fuente verificable (§7); o marca `[VIGENCIA-NO-VERIFICADA]`
 - [ ] Sin secretos / datos personales en claro (§7.1)
 - [ ] Si el agente envió contenido a proveedores externos: router §7.4 clasificó + log de hash
+- [ ] CI remoto: `verde` / `SUSPENDIDO (billing)` — si suspendido, no fingir verde; ver `docs/ops-github.md`
 
 ## Impacto y adversarial (§6)
 - [ ] Clasificación: `menor` (quorum-lite) / `alto` (≥3 proveedores distintos)
