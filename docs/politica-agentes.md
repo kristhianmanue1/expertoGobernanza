@@ -337,9 +337,10 @@ técnica legislativa como obligatorias, no como sugerencia:
   terceros.
 - **Trazabilidad de reforma:** cuando la fuente que respalda una norma ya
   redactada se reforma, no se edita en silencio el artefacto — se registra la
-  reforma como hecho nuevo en AN-KLA (fact correctivo, ver §11, dado que la beta
-  no permite `supersede`) enlazando la versión vieja y la nueva de la fuente, y
-  se marca el artefacto afectado para revisión.
+  reforma en AN-KLA con `operation=supersede` del fact de mapeo (mismo stream,
+  target vigente; ver §11 y AN-KLA beta.8+) o, si no hay target idéntico, un fact
+  correctivo `add` enlazando versión vieja y nueva de la fuente; se marca el
+  artefacto afectado para revisión.
 - **Trazabilidad del propio trabajo (linaje agente↔fuente↔norma, CAGF-A6):**
   cada norma generada mantiene, además de la cita a su fuente oficial, un
   enlace al artefacto/tarea/hito que la produjo (§11.1), de forma que un humano
@@ -484,13 +485,13 @@ Mientras no estén designados formalmente, las decisiones que los requieren qued
 confirmar · es **duplicado** (haz `retrieve` antes, **best-effort — ver abajo**,
 para no crear otra cadena `v1/v2/v3`).
 
-**Mantenimiento y dedup (limitaciones de la beta):** los punteros usan **rutas de
-doc estables**. Si el doc canónico se mueve, escribe un *fact correctivo* (la beta
-no permite `supersede`) cuyo `indexable_text` lleva **ambas** rutas vieja y nueva
-verbatim, para que cualquiera sea grep-eable. La dedup con `retrieve` es
-**best-effort**: `retrieve` no ve facts `no_text` previos (así puede acumularse
-una cadena de correcciones), así que **siempre** incluye `indexable_text` al
-primer write.
+**Mantenimiento y dedup:** los punteros usan **rutas de doc estables**. Si el doc
+canónico se mueve, preferí `operation=supersede` del fact-puntero (target por
+`id`, mismo stream) con el nuevo puntero; si no hay id estable, un fact
+correctivo `add` cuyo `indexable_text` lleva **ambas** rutas vieja y nueva
+verbatim. `derived_from_retrieval` no puede `supersede`. La dedup con `retrieve`
+es **best-effort**: no ve facts `no_text` ni los `sustituida`, así que **siempre**
+incluye `indexable_text` al primer write.
 
 **Principio:** AN-KLA es para **contexto de reanudación sin hogar en un archivo**
 (decisiones y su *por qué*, estado del roadmap, lecciones, "dónde están las
