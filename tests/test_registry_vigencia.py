@@ -116,7 +116,16 @@ class TestLiveRegistryFile(unittest.TestCase):
         trues = re.findall(
             r"(?m)^[ \t]*vigencia_verificada:\s*true\b", text, flags=re.I
         )
-        self.assertGreaterEqual(len(trues), 2, msg="CPEUM y LGS slice H1")
+        # salud CPEUM+LGS + eje IMSS LOAPF+LFEP+LSS+RIIMSS
+        self.assertGreaterEqual(len(trues), 6, msg="slices H1 salud + estructura IMSS")
+
+    def test_traza_vs_cuerpo_fields_documented(self):
+        text = REGISTRY.read_text(encoding="utf-8")
+        self.assertIn("traza_disposicion_principal:", text)
+        self.assertIn("ultima_reforma_cuerpo:", text)
+        # LSS: no confundir 2026 cuerpo con 2001 Art.5
+        self.assertIn("2001-12-20", text)
+        self.assertIn("cubre_disposicion: false", text)
 
     def test_h1_estructuras_cumplen_rules(self):
         # Espejo mínimo de las entradas true post-F5 (sin parser YAML)

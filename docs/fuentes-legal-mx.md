@@ -40,6 +40,18 @@
 Un claim de cita opera sobre **disposición + texto de trabajo**.  
 Un claim de publicidad DOF opera sobre un **acto** con **alcance** declarado.
 
+### 1.1-bis Fechas: no confundir cuerpo vs disposición (mejora F5 2026-08-10)
+
+| Campo | Significado | Error típico de agente |
+|-------|-------------|------------------------|
+| `vigencia_verificada: true` | Ancla de **procedencia** reconciliada (con F5) para el alcance declarado | “La norma entera está al día en DOF de la última reforma del cuerpo” |
+| `traza_disposicion_principal` | Fecha/tipo/acto que **cubre** la disposición del slice (`cubre_disposicion: true`) | Usar 2012/2026 del cuerpo como si fuera del Art. 1 |
+| `ultima_reforma_cuerpo` | Última reforma del **ordenamiento** (`cubre_disposicion: false` si no toca el slice) | Concluir “LSS:5 proviene de 2026-01-15” |
+| `fecha_ultima_reforma_dof_declarada` | Claim nivel 2 del índice (legado); preferir los dos campos de arriba | Tratarlo como traza del artículo |
+
+**Regla:** un agente **nunca** debe reportar la fecha de `ultima_reforma_cuerpo` como
+procedencia de una disposición si `cubre_disposicion: false`.
+
 ### 1.2 Desempate entre fuentes en R1 (F7)
 
 El agente **no** resuelve conflictos con “lex superior/specialis/posterior” sin
