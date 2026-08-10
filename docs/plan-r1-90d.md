@@ -106,39 +106,41 @@ H6 (Actions) ── independiente cuando haya presupuesto
 
 > Sin esto el agente no puede “cerrar” confianza. Tickets HUMAN no se automatizan.
 
-### R1-E0-01 · Designar roles §9 · P0 · HUMAN · S
+### R1-E0-01 · Designar roles §9 · P0 · HUMAN · S · **HECHO 2026-08-10**
 
-**Salida:** párrafo en `docs/politica-agentes.md` §9 o `docs/roles-r1.md` (<150 L)
-con: nombre/handle, rol (jurídico | custodio | PO), vigencia desde/hasta, interino
-sí/no.  
+**Salida:** `docs/roles-r1.md` — Kristhian Manuel Jiménez **interino** en los tres
+roles (jurídico, custodio, PO); revisión interinato 2026-11-10.  
 **DoD:**
 
-- [ ] Archivo existe y lista 3 roles (aunque sea la misma persona interina)
-- [ ] Fecha límite de designación formal si son interinos
-- [ ] Commit humano o PR firmado/merge admin
-- [ ] Fact AN-KLA puntero (AGENT tras merge): `roles-r1-designados-<fecha>`
+- [x] Archivo existe y lista 3 roles
+- [x] Fecha límite de designación formal / revisión de interinato
+- [x] Merge a main (admin)
+- [x] Fact AN-KLA puntero (AGENT): `roles-r1-designados-2026-08-10`
 
-**Git:** `docs/roles-r1.md` o enmienda §9. **Adv:** quorum-lite al merge.
+**Git:** `docs/roles-r1.md`. **Adv:** quorum-lite al merge del paquete E0.
 
-### R1-E0-02 · Autorizar canal DOF + multi-provider público · P0 · HUMAN · S
+### R1-E0-02 · Autorizar canal DOF + multi-provider público · P0 · HUMAN · S · **HECHO 2026-08-10**
 
-**Salida:** nota en `docs/ops-github.md` o `docs/fuentes-legal-mx.md` (si se crea):
-autorización para (a) descargar/consultar DOF nivel 1 del slice, (b) rutear **solo
-textos públicos** a proveedores del quórum.  
+**Salida:** `docs/autorizacion-fuentes-r1.md` — canales
+https://dof.gob.mx/ y https://www.ordenjuridico.gob.mx/ para **analizar**;
+multi-provider **solo** textos públicos; interno IMSS no autorizado.  
 **DoD:**
 
-- [ ] Autorización explícita (quién, qué, hasta cuándo)
-- [ ] Lista de proveedores permitidos / prohibidos
-- [ ] Interno IMSS: **no autorizado** por defecto
+- [x] Autorización explícita (quién, qué, canales)
+- [x] Lista permitido / prohibido (multi-provider + interno)
+- [x] Interno IMSS: **no autorizado** por defecto
+- [ ] Recordar: no implica `vigencia_verificada: true` automático (E1)
 
-**Bloquea:** R1-E1-*, partes de H5.
+**Bloquea (levantado para abrir E1):** R1-E1-* puede arrancar; cada vigencia
+sigue requiriendo evidencia por instrumento.
 
-### R1-E0-03 · Umbral FP del auditor (exploratorio) · P1 · HUMAN · S
+### R1-E0-03 · Umbral FP del auditor (exploratorio) · P1 · HUMAN · S · **DIFERIDO**
 
-**Salida:** 3–5 líneas en plan o `docs/adr/` lite: umbral FP aceptable para piloto
-interno (ej. “exploratorio, no publicar al exterior hasta FP&lt;X en N citas”).  
-**DoD:** [ ] Número o regla cualitativa firmada por PO/jurídico.  
-**Bloquea:** promesas externas en H3/H4.
+**Decisión 2026-08-10 (PO interino):** idea **aceptada**, umbral numérico **cuando
+existan trabajos del auditor** (post H3 / matriz FP/FN), no antes.  
+**Salida provisional:** §3 de `docs/autorizacion-fuentes-r1.md`.  
+**DoD (cuando se reactive):** [ ] Número o regla cualitativa firmada.  
+**Bloquea aún:** promesas externas de calidad del auditor en H3/H4.
 
 ### R1-E0-04 · Decisión OSS leyes MX · P2 · HUMAN · S
 
