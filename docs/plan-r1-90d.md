@@ -177,38 +177,34 @@ campos registry, procedimiento A–F, multi-eje, visión vigilancia DOF) +
 
 **Git:** `docs/fuentes-legal-mx.md`. **Adv:** con H1 (al cerrar E1-02..04).
 
-### R1-E1-02 · Ingerir evidencia DOF CPEUM Art.4 slice · P0 · AGENT+ADMIN · M · Dep: E0-02, E1-01, F1–F5 docs
+### R1-E1-02 · Ingerir evidencia DOF CPEUM Art.4 slice · P0 · AGENT+ADMIN · M · **EXPLORACIÓN 2026-08-10**
 
-**Salida:** `registry.yaml` (CPEUM) + `trazas_publicacion` con **alcance** que
-cubra `CPEUM:4:P4` (F2); secundarias como `claim_secundario`; hash texto trabajo.  
+**Salida:** `registry.yaml` CPEUM con `slice_mvp_disposiciones`, secundarias,
+`trazas_publicacion` candidatas (1983-02-03; 2020-05-08 codigo=5593045;
+2026-06-02 marcada `no_cubre_slice`). **`vigencia_verificada: false`**.  
 **DoD:**
 
-- [ ] Checklist `fuentes-legal-mx.md` §8 completo
-- [ ] `vigencia_verificada: true` **solo** si §4.2 post-adversarial se cumple
-      (traza cubre disposición + revision_vigencia); si no → `false` + notas
-- [ ] **Prohibido** usar solo reforma 2026-06-02 (u otra) sin demostrar cobertura
-      del Art. 4 párrafo salud
-- [ ] sha256 coherente si hay original local
-- [ ] DoD base tests verdes
+- [x] Candidatos DOF con alcance hacia `CPEUM:4:P4` documentados
+- [x] Reforma cuerpo 2026-06-02 explícitamente `no_cubre_slice: true` (F2)
+- [x] Sin `true` (falta confirmación UI DOF + `revision_vigencia` humana F5)
+- [ ] **Cierre H1:** humano abre notas DOF, confirma texto vs P4, rellena
+      `revision_vigencia` y solo entonces evalúa `true`
 
-**Git:** `docs(corpus): traza DOF CPEUM slice` / `fix(corpus): …`.  
-**Exploración OK:** PR con búsquedas y `false` sin pretender H1 cerrado.
+**Git:** exploración en registry; H1 pendiente de humano.
 
 ### R1-E1-03 · Ingerir evidencia DOF LGS Art.1 · P0 · AGENT+ADMIN · M · Dep: E1-02 patrón
 
 Análogo E1-02 para LGS / disposición Art. 1 (`LGS-001` o id canónico).  
 **DoD:** traza con `cubre_disposiciones` del id LGS del slice.
 
-### R1-E1-04 · Tests de no-regresión de vigencia · P0 · AGENT · S · Dep: E1-02
+### R1-E1-04 · Tests de no-regresión de vigencia · P0 · AGENT · S · **HECHO 2026-08-10**
 
-**Salida:** `tests/test_registry_vigencia.py` (&lt;120 L).  
+**Salida:** `corpus/registry_rules.py` + `tests/test_registry_vigencia.py`.  
 **DoD:**
 
-- [ ] Falla si `vigencia_verificada: true` sin traza nivel 1 (url **o**
-      identificadores_diario)
-- [ ] Falla si `true` sin `cubre_disposiciones` / `no_cubre_slice` / alcance
-- [ ] Pasa con registry actual (todo `false`)
-- [ ] `unittest discover` verde; tamaños OK
+- [x] Falla si `true` sin traza/alcance/cover/revision (F2/F5)
+- [x] Pasa registry actual (todo `false`; exploraciones con trazas candidatas OK)
+- [x] `unittest discover` verde
 
 ### R1-E1-05 · Gate v1.1 — ¿habilitar `alto`? (diseño) · P1 · AGENT · S · **DISEÑO HECHO 2026-08-10**
 

@@ -24,7 +24,7 @@ fuentes:
     nombre_oficial: "Constitución Política de los Estados Unidos Mexicanos"
     tipo: constitucion
     autoridad: "Congreso de la Unión"
-    # --- procedencia del archivo cargado ---
+    # --- procedencia del archivo cargado (capa texto de trabajo) ---
     fuente_archivo: "Cámara de Diputados (consolidado, nivel 2 — informativo según su aviso)"
     nivel: 2
     url_descarga: "https://www.diputados.gob.mx/LeyesBiblio/pdf/CPEUM.pdf"
@@ -34,16 +34,74 @@ fuentes:
     paginas: 414
     sha256: "ca63a23a4b7444ebdbdad93759fbf46bd14c069e587c5878decf89fc9c12ca8e"
     fecha_consulta: "2026-08-06"
-    # --- estado de vigencia y fuente primaria (nivel 1: DOF) ---
+    # --- slice MVP (capa disposición) ---
+    slice_mvp_disposiciones: ["CPEUM:4:P4"]
+    # --- estado de vigencia / procedencia primaria ---
+    # Claims nivel 2 (Cámara) — NO bastan para vigencia_verificada true (M3/F2)
     fecha_publicacion_dof: "1917-02-05"
-    fecha_ultima_reforma_dof_declarada: "2026-06-02"   # declarada por la Cámara
-    url_dof_nivel1: null        # TODO: permalink DOF (nivel 1, primario) — pendiente
-    vigencia_verificada: false  # §7: false hasta reconciliar con DOF
+    fecha_ultima_reforma_dof_declarada: "2026-06-02"   # claim Cámara (cuerpo); NO cubre slice salud
+    url_dof_nivel1: null
+    vigencia_verificada: false
+    fecha_consulta_vigencia: "2026-08-10"
+    vacatio_o_transitorio: unknown
+    coherencia_multi_fuente: no_evaluado
+    fuentes_secundarias_consultadas:
+      - organo: Camara_Diputados
+        nivel: 2
+        claim_secundario: true
+        url: "https://www.diputados.gob.mx/LeyesBiblio/ref/cpeum.htm"
+        fecha_consulta: "2026-08-10"
+      - organo: Camara_Diputados
+        nivel: 2
+        claim_secundario: true
+        url: "https://www.diputados.gob.mx/LeyesBiblio/ref/dof/CPEUM_ref_242_08may20.pdf"
+        fecha_consulta: "2026-08-10"
+        nota: "Copia/imagen del decreto de reforma Art. 4o en acervo Cámara (no sustituye DOF)"
+    # Candidatos DOF al slice CPEUM:4:P4 (exploración E1-02) — NO true hasta lectura+F5
+    trazas_publicacion:
+      - tipo_acto: reforma
+        organo: DOF
+        nivel: 1
+        alcance: articulo
+        cubre_disposiciones: ["CPEUM:4:P4"]
+        no_cubre_slice: false
+        url: "https://dof.gob.mx/nota_detalle.php?codigo=5593045&fecha=08/05/2020"
+        fecha_dof: "2020-05-08"
+        identificadores_diario: "DOF 08-05-2020 codigo=5593045"
+        nota: >-
+          Candidato: decreto que reforma/adiciona art. 4o CPEUM (marcador consolidado
+          «Reformado DOF 08-05-2020» en derived CPEUM:4:P4). PENDIENTE: abrir nota en
+          dof.gob.mx, contrastar texto del decreto con párrafo P4 del consolidado, y
+          revision_vigencia humana. No habilita vigencia_verificada true solo.
+      - tipo_acto: adicion
+        organo: DOF
+        nivel: 1
+        alcance: parrafo
+        cubre_disposiciones: ["CPEUM:4:P4"]
+        no_cubre_slice: false
+        url: null
+        fecha_dof: "1983-02-03"
+        identificadores_diario: "DOF 03-02-1983 adición párrafo protección a la salud Art. 4"
+        nota: >-
+          Candidato por marcador consolidado «Párrafo adicionado DOF 03-02-1983».
+          Permalink DOF no fijado en exploración 2026-08-10; acervo Cámara imagen
+          CPEUM_ref_100_03feb83_ima.pdf (secundario).
+      - tipo_acto: reforma
+        organo: DOF
+        nivel: 1
+        alcance: instrumento
+        cubre_disposiciones: []
+        no_cubre_slice: true
+        url: null
+        fecha_dof: "2026-06-02"
+        identificadores_diario: "DOF 2026-06-02 (claim Cámara: Poder Judicial)"
+        nota: >-
+          Claim secundario de última reforma del CUERPO. Explicitamente NO cubre el
+          slice salud Art. 4 P4 (F2). No usar para H1 del MVP salud.
     notas: >-
-      Según Cámara (cpeum.htm), DOF 2026-06-02 = reforma en materia de Poder Judicial
-      + nueva causal de nulidad de elecciones por intervención extranjera. El archivo
-      descargado es el consolidado de la Cámara (nivel 2); el DOF primario (nivel 1)
-      queda pendiente de cargar/reconciliar.
+      Exploración E1-02 (2026-08-10): candidatos DOF 1983-02-03 y 2020-05-08 para
+      CPEUM:4:P4; vigencia_verificada false hasta confirmación en UI DOF + F5.
+      Texto de trabajo sigue consolidado Cámara nivel 2 (F4 techo medio en citas).
 
   - id: LGS
     nombre_oficial: "Ley General de Salud"
