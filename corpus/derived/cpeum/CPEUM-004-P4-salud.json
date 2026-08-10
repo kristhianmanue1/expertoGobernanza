@@ -2,7 +2,9 @@
   "disposicion_id": "CPEUM:4:P4",
   "id_scheme_version": "ordinal-v1",
   "id_scheme_note": "Ordinal de párrafo dentro del artículo (4º párrafo del Art. 4, contando desde su párrafo inicial). Orden según el consolidado Cámara (docs/fuentes/cpeum/art-004.txt): P1=igualdad mujer/hombre, P2=decidir hijos, P3=alimentación/maíz, P4=protección a la salud. Marcador fuente: «Párrafo adicionado DOF 03-02-1983. Reformado DOF 08-05-2020». Pendiente de confirmación contra DOF nivel 1.",
-  "aliases": ["CPEUM:4:Psalud"],
+  "aliases": [
+    "CPEUM:4:Psalud"
+  ],
   "alias_note": "Renombrado desde el id temático provisional 'CPEUM:4:Psalud' al ordinal 'CPEUM:4:P4' (M2 del bootstrap del componente F). El alias queda sólo para traza; el id canónico es el ordinal.",
   "instrumento": {
     "id": "CPEUM",
@@ -22,8 +24,10 @@
     "estado": "vigente",
     "adicionado_dof": "1983-02-03",
     "ultima_reforma_dof_declarada": "2020-05-08",
-    "verificada_contra_dof_nivel1": false,
-    "marcador": "[VIGENCIA-NO-VERIFICADA contra DOF nivel 1]"
+    "verificada_contra_dof_nivel1": true,
+    "marcador": "procedencia_primaria_reconciliada_slice (F5 2026-08-10; DOF 08-05-2020 codigo=5593045; no aplicabilidad casuística)",
+    "traza": "DOF 08-05-2020 codigo=5593045; revision_vigencia Kristhian Manuel Jiménez",
+    "registry_ref": "corpus/registry.yaml#CPEUM"
   },
   "fuentes_oficiales": [
     {

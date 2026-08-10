@@ -40,11 +40,19 @@ fuentes:
     # Claims nivel 2 (Cámara) — NO bastan para vigencia_verificada true (M3/F2)
     fecha_publicacion_dof: "1917-02-05"
     fecha_ultima_reforma_dof_declarada: "2026-06-02"   # claim Cámara (cuerpo); NO cubre slice salud
-    url_dof_nivel1: null
-    vigencia_verificada: false
+    url_dof_nivel1: "https://dof.gob.mx/nota_detalle.php?codigo=5593045&fecha=08/05/2020"
+    vigencia_verificada: true
     fecha_consulta_vigencia: "2026-08-10"
     vacatio_o_transitorio: unknown
-    coherencia_multi_fuente: no_evaluado
+    coherencia_multi_fuente: alineado
+    revision_vigencia:
+      revisado_por: "Kristhian Manuel Jiménez"
+      fecha: "2026-08-10"
+      auto_revision_declarada: true
+      nota: >-
+        Humano confirmó DOF 08-05-2020 codigo=5593045: reforma párrafo cuarto Art. 4o
+        (protección de la salud / sistema de salud para el bienestar); texto cuadra con
+        CPEUM:4:P4. Reforma general cuerpo 02-06-2026 no es traza del párrafo de salud.
     fuentes_secundarias_consultadas:
       - organo: Camara_Diputados
         nivel: 2
@@ -56,8 +64,7 @@ fuentes:
         claim_secundario: true
         url: "https://www.diputados.gob.mx/LeyesBiblio/ref/dof/CPEUM_ref_242_08may20.pdf"
         fecha_consulta: "2026-08-10"
-        nota: "Copia/imagen del decreto de reforma Art. 4o en acervo Cámara (no sustituye DOF)"
-    # Candidatos DOF al slice CPEUM:4:P4 (exploración E1-02) — NO true hasta lectura+F5
+        nota: "Copia/imagen del decreto de reforma Art. 4o en acervo Cámara (apoyo)"
     trazas_publicacion:
       - tipo_acto: reforma
         organo: DOF
@@ -69,10 +76,9 @@ fuentes:
         fecha_dof: "2020-05-08"
         identificadores_diario: "DOF 08-05-2020 codigo=5593045"
         nota: >-
-          Candidato: decreto que reforma/adiciona art. 4o CPEUM (marcador consolidado
-          «Reformado DOF 08-05-2020» en derived CPEUM:4:P4). PENDIENTE: abrir nota en
-          dof.gob.mx, contrastar texto del decreto con párrafo P4 del consolidado, y
-          revision_vigencia humana. No habilita vigencia_verificada true solo.
+          CONFIRMADO humano 2026-08-10: reforma expresa del párrafo cuarto Art. 4o;
+          incorpora protección de la salud y sistema de salud para el bienestar;
+          coincide materialmente con CPEUM:4:P4 del repo. Traza principal del slice.
       - tipo_acto: adicion
         organo: DOF
         nivel: 1
@@ -83,9 +89,8 @@ fuentes:
         fecha_dof: "1983-02-03"
         identificadores_diario: "DOF 03-02-1983 adición párrafo protección a la salud Art. 4"
         nota: >-
-          Candidato por marcador consolidado «Párrafo adicionado DOF 03-02-1983».
-          Permalink DOF no fijado en exploración 2026-08-10; acervo Cámara imagen
-          CPEUM_ref_100_03feb83_ima.pdf (secundario).
+          Antecedente (adición del párrafo). Marcador consolidado conservado;
+          permalink DOF no fijado. No sustituye la traza 2020 de la redacción vigente.
       - tipo_acto: reforma
         organo: DOF
         nivel: 1
@@ -94,14 +99,15 @@ fuentes:
         no_cubre_slice: true
         url: null
         fecha_dof: "2026-06-02"
-        identificadores_diario: "DOF 2026-06-02 (claim Cámara: Poder Judicial)"
+        identificadores_diario: "DOF 02-06-2026 / claim 2026-06-02 (cuerpo; no slice salud)"
         nota: >-
-          Claim secundario de última reforma del CUERPO. Explicitamente NO cubre el
-          slice salud Art. 4 P4 (F2). No usar para H1 del MVP salud.
+          Reforma(s) generales del cuerpo posteriores. Humano 2026-08-10: NO modifican
+          la traza del párrafo de salud; consolidado sigue atribuyendo P4 a 08-05-2020.
     notas: >-
-      Exploración E1-02 (2026-08-10): candidatos DOF 1983-02-03 y 2020-05-08 para
-      CPEUM:4:P4; vigencia_verificada false hasta confirmación en UI DOF + F5.
-      Texto de trabajo sigue consolidado Cámara nivel 2 (F4 techo medio en citas).
+      H1 parcial CPEUM (2026-08-10): vigencia_verificada true para ancla de procedencia
+      del slice CPEUM:4:P4 (DOF 08-05-2020 codigo=5593045 + F5). Texto de trabajo sigue
+      consolidado Cámara nivel 2 (F4: techo medio en citas si gate multi-eje). No certifica
+      aplicabilidad casuística ni bitemporalidad.
 
   - id: LGS
     nombre_oficial: "Ley General de Salud"
@@ -121,30 +127,52 @@ fuentes:
     # Claims nivel 2 — no bastan para vigencia_verificada true
     fecha_publicacion_dof: "1984-02-07"
     fecha_ultima_reforma_dof_declarada: "2026-01-15"   # claim Cámara (cuerpo LGS)
-    url_dof_nivel1: null
-    vigencia_verificada: false
+    url_dof_nivel1: null   # traza vigente del Art.1: DOF 29-05-2023 (ver trazas; lectura vía acervo Cámara + F5)
+    vigencia_verificada: true
     fecha_consulta_vigencia: "2026-08-10"
     vacatio_o_transitorio: unknown
-    coherencia_multi_fuente: no_evaluado
+    coherencia_multi_fuente: alineado
+    revision_vigencia:
+      revisado_por: "Kristhian Manuel Jiménez"
+      fecha: "2026-08-10"
+      auto_revision_declarada: true
+      nota: >-
+        Humano confirmó reforma Art. 1o LGS DOF 29-05-2023 (lectura del decreto vía
+        https://www.diputados.gob.mx/LeyesBiblio/ref/lgs/LGS_ref135_29may23.pdf);
+        texto cuadra con LGS:1. Publicación 07-02-1984 = nacimiento de la ley, no
+        redacción vigente del Art.1. Reformas 15-01-2026 no sustituyen traza del Art.1.
     fuentes_secundarias_consultadas:
       - organo: Camara_Diputados
         nivel: 2
         claim_secundario: true
         url: "https://www.diputados.gob.mx/LeyesBiblio/ref/lgs.htm"
         fecha_consulta: "2026-08-10"
-        nota: "Índice reformas LGS; orig DOF 07-02-1984; ref Art.1 marcada 29-05-2023 en consolidado"
       - organo: Camara_Diputados
         nivel: 2
         claim_secundario: true
         url: "https://www.diputados.gob.mx/LeyesBiblio/ref/lgs/LGS_ref135_29may23.pdf"
         fecha_consulta: "2026-08-10"
-        nota: "Acervo Cámara del decreto DOF 29-05-2023 (Sistema Salud para el Bienestar) — no sustituye DOF"
+        nota: "Acervo Cámara del decreto DOF 29-05-2023 — soporte de lectura humana F5"
       - organo: Orden_Juridico
         nivel: 2
         claim_secundario: true
         url: "http://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo11037.html"
         fecha_consulta: "2026-08-10"
     trazas_publicacion:
+      - tipo_acto: reforma
+        organo: DOF
+        nivel: 1
+        alcance: articulo
+        cubre_disposiciones: ["LGS:1"]
+        no_cubre_slice: false
+        url: null
+        fecha_dof: "2023-05-29"
+        identificadores_diario: "DOF 29-05-2023 reforma LGS Art.1 (Sistema Salud para el Bienestar)"
+        nota: >-
+          CONFIRMADO humano 2026-08-10: reforma expresa del Art. 1o.; texto resultante
+          cuadra con LGS:1. Lectura del decreto vía acervo Cámara LGS_ref135_29may23.pdf
+          (secundario); permalink nota_detalle DOF no fijado. Traza principal de la
+          redacción vigente de LGS:1.
       - tipo_acto: publicacion
         organo: DOF
         nivel: 1
@@ -155,23 +183,8 @@ fuentes:
         fecha_dof: "1984-02-07"
         identificadores_diario: "DOF 07-02-1984 publicación original Ley General de Salud"
         nota: >-
-          Candidato: nueva ley en DOF 07-02-1984 (índice Cámara LGS_orig; sidof/notas
-          históricas). Incluye Art. 1 originario reglamentario del Art. 4o CPEUM.
-          Permalink nota_detalle no fijado en exploración 2026-08-10. PENDIENTE UI DOF.
-      - tipo_acto: reforma
-        organo: DOF
-        nivel: 1
-        alcance: articulo
-        cubre_disposiciones: ["LGS:1"]
-        no_cubre_slice: false
-        url: null
-        fecha_dof: "2023-05-29"
-        identificadores_diario: "DOF 29-05-2023 reforma LGS (marcador consolidado Art.1 «reformado DOF 29-05-2023»)"
-        nota: >-
-          Candidato: decreto que reforma/adiciona/deroga disposiciones LGS (Sistema de
-          Salud para el Bienestar); marcador en docs/fuentes/lgs/art-001.txt y LGS:1 JSON.
-          Acervo Cámara LGS_ref135_29may23.pdf. Permalink DOF (codigo) PENDIENTE confirmar
-          en dof.gob.mx. No habilita vigencia_verificada true solo.
+          Antecedente de promulgación/nacimiento de la LGS (incluye Art.1 originario).
+          Humano: no es la fuente de la redacción vigente de LGS:1 (eso es 29-05-2023).
       - tipo_acto: reforma
         organo: DOF
         nivel: 1
@@ -180,12 +193,11 @@ fuentes:
         no_cubre_slice: true
         url: null
         fecha_dof: "2026-01-15"
-        identificadores_diario: "DOF 15-01-2026 (claim Cámara: última reforma cuerpo LGS)"
+        identificadores_diario: "DOF 15-01-2026 (claim Cámara: reformas cuerpo LGS)"
         nota: >-
-          Claim secundario de última reforma del CUERPO (índice Cámara). Explicitamente
-          NO se asume cobertura de LGS:1 sin leer el decreto (F2). No usar a ciegas para H1.
+          Reformas generales del cuerpo. Humano 2026-08-10: consolidado sigue atribuyendo
+          Art. 1o a DOF 29-05-2023; no sustituyen la traza de LGS:1.
     notas: >-
-      Exploración E1-03 (2026-08-10): candidatos DOF 1984-02-07 (publicación) y
-      2023-05-29 (reforma Art.1 según consolidado); 2026-01-15 no_cubre_slice hasta
-      verificar. vigencia_verificada false hasta UI DOF + revision_vigencia (F5).
-      Disposición slice: LGS:1. Texto trabajo consolidado Cámara nivel 2.
+      H1 parcial LGS (2026-08-10): vigencia_verificada true para ancla de procedencia
+      de LGS:1 (DOF 29-05-2023 + F5). Texto trabajo consolidado Cámara nivel 2.
+      No certifica aplicabilidad casuística.
