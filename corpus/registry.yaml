@@ -266,3 +266,68 @@ fuentes:
       LOAPF:1 (bases APF centralizada/paraestatal). vigencia_verificada false hasta
       traza DOF con alcance + revision_vigencia. Eje estructura_imss (ver
       docs/propuestas/imss-alcance-publico.md).
+
+  - id: LFEP
+    nombre_oficial: "Ley Federal de las Entidades Paraestatales"
+    tipo: ley_federal
+    autoridad: "Congreso de la Unión"
+    fuente_archivo: "Cámara de Diputados (consolidado, nivel 2 — informativo según su aviso)"
+    nivel: 2
+    url_descarga: "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFEP.pdf"
+    url_camara_ref: "https://www.diputados.gob.mx/LeyesBiblio/ref/lfep.htm"
+    archivo_local: "corpus/originals/LFEP.pdf"
+    bytes: 776900
+    paginas: 55
+    sha256: "c0f203a9c6ebb990db8a2a43559ecf19e904f7c0757d0f334f7f4fb044aa6a12"
+    fecha_consulta: "2026-08-10"
+    slice_mvp_disposiciones: ["LFEP:1"]
+    eje: estructura_imss
+    fecha_publicacion_dof: "1986-05-14"
+    fecha_ultima_reforma_dof_declarada: "2025-07-16"  # claim índice Cámara LFEP_ref19_16jul25
+    url_dof_nivel1: null
+    vigencia_verificada: false
+    fecha_consulta_vigencia: "2026-08-10"
+    vacatio_o_transitorio: unknown
+    coherencia_multi_fuente: no_evaluado
+    fuentes_secundarias_consultadas:
+      - organo: Camara_Diputados
+        nivel: 2
+        claim_secundario: true
+        url: "https://www.diputados.gob.mx/LeyesBiblio/ref/lfep.htm"
+        fecha_consulta: "2026-08-10"
+      - organo: Camara_Diputados
+        nivel: 2
+        claim_secundario: true
+        url: "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFEP.pdf"
+        fecha_consulta: "2026-08-10"
+        nota: "PDF consolidado descargado; sha256 en este registro"
+    trazas_publicacion:
+      - tipo_acto: publicacion
+        organo: DOF
+        nivel: 1
+        alcance: instrumento
+        cubre_disposiciones: ["LFEP:1"]
+        no_cubre_slice: false
+        url: null
+        fecha_dof: "1986-05-14"
+        identificadores_diario: "DOF 14-05-1986 publicación original LFEP (claim Cámara)"
+        nota: >-
+          Candidato: publicación original. Permalink DOF no fijado en E5-03.
+          PENDIENTE F5 humano.
+      - tipo_acto: reforma
+        organo: DOF
+        nivel: 1
+        alcance: instrumento
+        cubre_disposiciones: []
+        no_cubre_slice: true
+        url: null
+        fecha_dof: "2025-07-16"
+        identificadores_diario: "DOF 16-07-2025 (claim índice Cámara LFEP_ref19)"
+        nota: >-
+          Claim de última reforma del CUERPO. No asumir cobertura de LFEP:1 sin
+          leer el decreto (F2).
+    notas: >-
+      E5-03 (2026-08-10): ingesta consolidado Cámara LFEP.pdf (55 pp). Lookup
+      LFEP:1 (objeto: organización/funcionamiento/control de entidades paraestatales;
+      reglamentaria en lo conducente del Art. 90 CPEUM). vigencia false hasta DOF+F5.
+      Eje estructura_imss.

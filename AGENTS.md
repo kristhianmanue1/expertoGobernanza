@@ -141,6 +141,6 @@ líneas (el detalle y las plantillas están en el doc):
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** plan R1. E5-02 LOAPF ingerido (nivel 2, `LOAPF:1`, vigencia
-> **false**). Cola: **E5-03 LFEP**; F5 LOAPF si cierras DOF; ADR-0001; multi H1.
+> **PRÓXIMA TAREA:** plan R1. E5-02/03 LOAPF+LFEP ingeridos (`LOAPF:1`, `LFEP:1`,
+> vigencia **false**). Cola: **LSS** o E5-04 RI público; F5 LOAPF/LFEP; ADR-0001.
 > Mapa: `docs/README.md`.
