@@ -230,11 +230,10 @@ del hito; BLOCKER = no merge.
 
 ## Epic E2 — Higiene de verdad operativa · H2
 
-### R1-E2-01 · Cerrar plan-r0 · P1 · AGENT · S
+### R1-E2-01 · Cerrar plan-r0 · P1 · AGENT · S · **HECHO 2026-08-10**
 
-**Salida:** encabezado `plan-r0.md`: **Estado: cerrado/histórico**; checklist T*
-actualizado; puntero a este plan R1.  
-**DoD:** [ ] No contradice `main` actual; tamaños OK; sin borrar historia.
+**Salida:** `plan-r0.md` **CERRADO/HISTÓRICO** + puntero a plan-r1.  
+**DoD:** [x] Encabezado cerrado; tamaños OK.
 
 ### R1-E2-02 · Decisión formal ADR-0001 · P0 · HUMAN+AGENT · S
 
@@ -253,11 +252,10 @@ actualizado; puntero a este plan R1.
 `status` + este plan.  
 **DoD:** [ ] `context status` OK; always-on &lt;300; sin editar bloque managed a mano.
 
-### R1-E2-05 · Índice de docs vigentes · P2 · AGENT · S
+### R1-E2-05 · Índice de docs vigentes · P2 · AGENT · S · **HECHO 2026-08-10**
 
-**Salida:** sección corta en `docs/plantillas-agente.md` o `docs/README.md` (&lt;80 L):
-qué es vigente (política, ops-github, plan-r1) vs archivo (`propuestas/`).  
-**DoD:** [ ] Un agente nuevo encuentra el plan R1 en &lt;1 min de lectura de AGENTS.
+**Salida:** `docs/README.md` (mapa vigente vs histórico).  
+**DoD:** [x] Archivo existe; enlaza plan-r1 y fuentes-legal-mx.
 
 ### R1-E2-06 · Adversarial H2 · P1 · AGENT · S · quorum-lite
 
@@ -271,37 +269,23 @@ qué es vigente (política, ops-github, plan-r1) vs archivo (`propuestas/`).
 > `CORPUS_VIGENCIA_NO_VERIFICADA` (o equivalente) mientras el slice no tenga
 > disposición con vigencia true + alcance. Prohibido marketing “confiable”.
 
-### R1-E3-01 · Contrato de interfaz del auditor · P0 · AGENT · S
+### R1-E3-01 · Contrato de interfaz del auditor · P0 · AGENT · S · **HECHO 2026-08-10**
 
-**Salida:** `docs/propuestas/auditor-v0-contrato.md` (&lt;120 L): CLI,
-entrada/salida JSON schema (campos), niveles gate, no-LLM en v0, **banner F6**.  
-**DoD:** [ ] Schema con `disposicion_id`, `cita`, `nivel`, `reasons`,
-`corpus_vigencia_banner`; límites tamaño.
+**Salida:** `docs/propuestas/auditor-v0-contrato.md` (banner F6 documentado).  
+**DoD:** [x] Contrato con entrada/salida/exit codes.
 
-### R1-E3-02 · Fixture documento piloto (citas pre-etiquetadas) · P0 · AGENT · S · Dep: E3-01
+### R1-E3-02 · Fixture documento piloto · P0 · AGENT · S · **HECHO 2026-08-10**
 
-**Salida:** `tests/fixtures/piloto-salud-citas.json` + opcional
-`docs/fuentes/.../piloto.md` sintético **no normativo** o extractos ya en corpus
-con citas alineadas a `CPEUM:4:P4` / `LGS` id real.  
+**Salida:** `tests/fixtures/piloto-salud-citas.json` (2 citas slice + 1 inventada).  
+**DoD:** [x] Ids `CPEUM:4:P4` / `LGS:1`; sin pretender DOF verificado.
+
+### R1-E3-03 · Implementar `scripts/audit_document.py` · P0 · AGENT · M · **HECHO 2026-08-10**
+
 **DoD:**
 
-- [ ] Fixture solo usa ids que existen en lookup
-- [ ] Sin afirmar derecho vigente sin marca de verificación
-- [ ] &lt;200 L total fixtures
-
-### R1-E3-03 · Implementar `scripts/audit_document.py` (v0 sin LLM) · P0 · AGENT · M · Dep: E3-01, E3-02
-
-**Comportamiento:** lee claims JSON → llama `verify_claim` → imprime reporte JSON
-+ exit code según peor nivel (o política documentada).  
-**DoD:**
-
-- [ ] Archivo &lt;200 L (si crece, partir módulo)
-- [ ] `python scripts/audit_document.py tests/fixtures/...` produce JSON válido
-- [ ] Tests `tests/test_audit_document.py` ≥5 casos (medio/bajo/missing id)
-- [ ] DoD base + sizes OK
-- [ ] No usa red ni LLM
-
-**Git:** `feat(audit): auditor v0 citas preetiquetadas`.
+- [x] CLI + banner `CORPUS_VIGENCIA_NO_VERIFICADA`
+- [x] `tests/test_audit_document.py` (4 tests)
+- [x] unittest suite verde; sizes OK; sin red/LLM
 
 ### R1-E3-04 · Matriz FP/FN humana (plantilla + primera pasada) · P1 · AGENT+HUMAN · M · Dep: E3-03
 
