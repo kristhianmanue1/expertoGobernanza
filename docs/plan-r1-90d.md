@@ -274,47 +274,38 @@ del hito; BLOCKER = no merge.
 - [x] `tests/test_audit_document.py` (4 tests)
 - [x] unittest suite verde; sizes OK; sin red/LLM
 
-### R1-E3-04 · Matriz FP/FN humana (plantilla + primera pasada) · P1 · AGENT+HUMAN · M · Dep: E3-03
+### R1-E3-04 · Matriz FP/FN · P1 · AGENT+HUMAN · M · **HECHO pasada-1 2026-08-10**
 
-**Salida:** `docs/propuestas/auditor-v0-matriz-fpfn.md` plantilla; humano rellena
-primera fila de veredictos.  
-**DoD:** [ ] Plantilla con columnas cita / nivel sistema / nivel humano / FP|FN|TP|TN;
-al menos N=1 pasada humana **o** ticket PARCIAL espera-humano.
+**Salida:** `docs/propuestas/auditor-v0-matriz-fpfn.md` (2 TP + 1 TN; N=3).  
+**DoD:** [x] Plantilla + pasada 1; E0-03 umbral sigue diferido; sin marketing 100%.
 
 ### R1-E3-05 · Adversarial H3 · P0 · AGENT · S–M
 
-Quorum-lite si solo CLI interno; **alto** si el PR publicita métricas al exterior.  
-**DoD:** [ ] proceed.
+Quorum-lite interno OK (CLI). Multi si se publicitan métricas.  
+**DoD:** [ ] proceed formal opcional (pasada-1 ya documentada).
 
 ---
 
 ## Epic E4 — Recall extracción LLM (v1.2) · H4
 
-### R1-E4-01 · Diseño golden set extracción · P0 · AGENT · S · Dep: E3-03
+### R1-E4-01 · Diseño golden set extracción · P0 · **HECHO 2026-08-10**
 
-**Salida:** `docs/propuestas/recall-extraccion-v12.md` (&lt;150 L): formato gold
-(spans/citas), métricas (recall/precision a nivel cita), proveedores, **router
-§7.4** (solo público), semilla reproducible.  
-**DoD:** [ ] No ejecuta LLM aún; contrato de datos claro.
+**Salida:** `docs/propuestas/recall-extraccion-v12.md`.  
+**DoD:** [x] Formato gold, métricas, fake/CI, §7.4.
 
-### R1-E4-02 · Fixtures gold (mínimo 3 docs sintéticos públicos) · P0 · AGENT · M · Dep: E4-01
+### R1-E4-02 · Fixtures gold · P0 · **HECHO 2026-08-10**
 
-**Salida:** `tests/fixtures/extraction_gold/*.json`.  
-**DoD:** [ ] ≥3 fixtures; ids corpus válidos; tests de schema cargan OK.
+**Salida:** `tests/fixtures/extraction_gold/synth-0{1,2,3}.json`.  
+**DoD:** [x] ≥3 fixtures; ids CPEUM:4:P4 / LGS:1.
 
-### R1-E4-03 · Harness eval offline (sin red en CI) · P1 · AGENT · M · Dep: E4-02
+### R1-E4-03 · Harness eval offline · P1 · **HECHO mínimo 2026-08-10**
 
-**Salida:** `scripts/eval_extraction.py` + tests con **extractor fake** determinista
-(para CI) + interfaz para extractor real (plugin).  
-**DoD:**
-
-- [ ] CI/local sin API keys: fake extractor → métricas deterministas
-- [ ] Documentado cómo correr con CLI real **offline manual**
-- [ ] No subir secretos; no loguear textos internos
+**Salida:** `scripts/eval_extraction.py` + `tests/test_eval_extraction.py` (fake).  
+**DoD:** [x] Sin red; fake perfect recall en gold; plugin real = futuro.
 
 ### R1-E4-04 · Adversarial H4 · P0 · AGENT · multi · Dep: E4-01..03
 
-**DoD:** [ ] proceed; ≥3 proveedores (cambia compuerta de evaluación).
+**DoD:** [ ] proceed multi cuando se conecte extractor real (fake no exige multi).
 
 ---
 

@@ -23,4 +23,5 @@
 | [`fuentes/`](fuentes/) | Extractos de trabajo del slice (no primarios DOF) |
 
 **Código corpus:** `corpus/registry.yaml`, `corpus/lookup.py`, `corpus/verify_citations.py`,
-`scripts/audit_document.py` (auditor v0).
+`scripts/audit_document.py` (auditor v0), `scripts/eval_extraction.py` (fake offline).  
+**Eval:** `docs/propuestas/auditor-v0-matriz-fpfn.md`, `docs/propuestas/recall-extraccion-v12.md`.

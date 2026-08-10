@@ -1,0 +1,25 @@
+{
+  "doc_id": "synth-salud-01",
+  "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+  "gold_claims": [
+    {
+      "claim_id": "g1",
+      "disposicion_id": "CPEUM:4:P4",
+      "cita_texto": "Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud",
+      "must_find": true
+    },
+    {
+      "claim_id": "g2",
+      "disposicion_id": "LGS:1",
+      "cita_texto": "La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos",
+      "must_find": true
+    }
+  ],
+  "traps": [
+    {
+      "claim_id": "t1",
+      "cita_texto": "El artículo inventado 999 garantiza vacaciones eternas en la Constitución mexicana",
+      "must_find": false
+    }
+  ]
+}
