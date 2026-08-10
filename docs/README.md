@@ -24,4 +24,5 @@
 
 **Código corpus:** `corpus/registry.yaml`, `corpus/lookup.py`, `corpus/verify_citations.py`,
 `scripts/audit_document.py` (auditor v0), `scripts/eval_extraction.py` (fake offline).  
-**Eval:** `docs/propuestas/auditor-v0-matriz-fpfn.md`, `docs/propuestas/recall-extraccion-v12.md`.
+**Eval:** `docs/propuestas/auditor-v0-matriz-fpfn.md`, `docs/propuestas/recall-extraccion-v12.md`.  
+**IMSS:** `docs/propuestas/imss-alcance-publico.md` (público vs interno; no manuales).
