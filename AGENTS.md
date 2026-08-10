@@ -75,14 +75,13 @@ Mínimos válidos:
 
 ### Estado actual de la memoria (referencia)
 - AN-KLA **0.1.0b11** / plantilla contexto **0.1.0-beta.11**; identidad store **complete**.
-- Revisión **8**. `facts: 8` (1 `sustituida`), `events: 8`, `episodes: 0`. Vigentes
-  relevantes: `an-kla-migrado-beta11-2026-08-10`,
-  `fact-expertogobernanza-alfa-estado-corregido-2026-08-10` (supersede del alfa stale),
-  `venv-reparado-312-2026-08-06`, `mvp-slice-salud-2026-08-06`,
-  `politica-v1.1-adoptada-2026-08-07`, `sprint-b4-router-m2-ci-2026-08-07`,
-  `estado-2026-08-07-post-ronda` (router §7.4 **estable**).
-- Siguiente acción: vigencia DOF nivel 1, eje IMSS (LOAPF/LFEP/Reglamento Interior),
-  roles §9, recall de extracción (v1.2), harness de revisión (egress/log/bundle), ronda sobre M2.
+- Revisión **9**. `facts: 9` (1 `sustituida`), `events: 9`, `episodes: 0`. Vigentes
+  relevantes: `github-actions-billing-suspendido-2026-08-10`,
+  `an-kla-migrado-beta11-2026-08-10`,
+  `fact-expertogobernanza-alfa-estado-corregido-2026-08-10`,
+  `estado-2026-08-07-post-ronda` (router §7.4 **estable**), resto en retrieve.
+- Siguiente acción: vigencia DOF nivel 1, eje IMSS, roles §9, recall v1.2; ops:
+  DoD local mientras Actions esté en billing (`docs/ops-github.md`).
 
 ### Anti-patrones a evitar
 - Guardar un `record` solo con campos estructurados y sin `indexable_text`/`text` -> queda inaccesible (`no_text`).
@@ -126,22 +125,22 @@ líneas (el detalle y las plantillas están en el doc):
    equivale a promulgarla (eso es del humano). Riesgo #1 del proyecto; incluye
    prácticas de técnica legal (jerarquía normativa, vigencia verificada,
    trazabilidad de reforma) — ver §7.
-8. **GitHub**: repo privado hasta criterios alfa; Conventional Commits; PRs < 400
-   líneas; CI verde obligatorio.
+8. **GitHub**: repo privado; Conventional Commits; PRs < 400 líneas. **Calidad CI
+   obligatoria**; si Actions está **suspendido por billing** (renueva con el ciclo,
+   p. ej. mensual) → **DoD local** + no fingir CI verde. Admin sigue con ramas/PR/
+   merge/release. Fuente: `docs/ops-github.md`.
 9. **Reporte de fin de ronda** (§12): entrega al orquestador un **encabezado de
    metadata** (estado global + **modelo/versión** + plan/fase + fecha + hito) +
    resumen + lógica (decisión de subagentes) + DoD con evidencia + **tabla de
    estado** (git/PR/push, AN-KLA, DoD, adversarial) en `OK/PARCIAL/BLOQ` + próximos
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
-**Estado actual:** alfa temprana. Git + remoto privado **sincronizados** (`kristhianmanue1/expertoGobernanza`,
-`main` = `2ca2250`); R0 cerrado. AN-KLA rev 6 (6 facts). `docs/politica-agentes.md` **v1.1
-adoptada** (§6 quórum ≥3 proveedores, §7.3-7.4 compuertas+datos, §9 roles, §10 ADR). MVP
-eje-salud: componentes A/B/D/F ✓ + **golden set `tests/` (34 tests)**, **router §7.4 estable**
-(`review_routing/`, ronda adversarial claude+codex → PROCEED), **id ordinal `CPEUM:4:P4`**,
-**CI `.github/`**, ADR-0001 + ADR-0002 (firma, propuesto).
+**Estado actual:** alfa temprana. Git + remoto privado **sincronizados**
+(`kristhianmanue1/expertoGobernanza`, `main` = `fa3242a`+). AN-KLA **0.1.0b11**
+(rev 8, identidad complete). Política v1.1. MVP eje-salud A/B/D/F + golden set 34
+tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
+presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** reconciliar vigencia con **DOF nivel 1**, eje estructural **IMSS**
-> (LOAPF/LFEP/Reglamento Interior), designar **roles §9** (jurídico/custodio/PO — interino =
-> humano), **recall de extracción** (golden set del eslabón LLM, v1.2). Detalle en
-> `docs/plan-r0.md`, `docs/adr/0001-*` y `docs/adr/0002-*`.
+> **PRÓXIMA TAREA:** vigencia **DOF nivel 1**; eje **IMSS** (LOAPF/LFEP/RI); roles
+> §9; recall extracción v1.2; reponer/esperar billing Actions. Detalle:
+> `docs/plan-r0.md`, `docs/ops-github.md`, `docs/adr/0001-*`, `docs/adr/0002-*`.

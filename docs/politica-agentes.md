@@ -408,10 +408,17 @@ datos que esta política no podía tratar como binaria (§7.1). Régimen obligat
 
 Repo **privado** hasta pasar los criterios de salida alfa. Conventional Commits
 (`feat:`, `fix:`, `docs:`, `refactor:`). PRs pequeños (< 400 líneas diff
-idealmente). Ramas de vida corta (`feat/`, `fix/`). CI obligatorio (lint+test).
-`SECURITY.md`, `CONTRIBUTING.md`, `LICENSE`, `CODEOWNERS`. Tags semver por hito.
-Repositorio remoto privado creado y enlazado (R0, T5 ✓); faltan `.github/`
-(CI, CODEOWNERS, plantillas) — diferible a R1 (T7).
+idealmente). Ramas de vida corta (`feat/`, `fix/`). **Calidad de CI obligatoria**
+(lint+test+`check_sizes`): preferente en GitHub Actions; si Actions está
+**suspendido por presupuesto/billing** (ciclo p. ej. mensual), el gate es el
+**DoD local** documentado en `docs/ops-github.md` — no se omite la verificación,
+solo el runner remoto. En el reporte §12: `CI remoto: SUSPENDIDO (billing)` +
+evidencia local; no se afirma “CI verde” falso.
+
+Admin (CODEOWNERS / cuenta con permiso) puede **commits, ramas, PRs, merges,
+tags y releases** con o sin Actions. `SECURITY.md`, `CONTRIBUTING.md`, `LICENSE`,
+`CODEOWNERS`, workflow en `.github/workflows/ci.yml` (R0/R1 ✓). Detalle ops:
+`docs/ops-github.md`.
 
 ---
 

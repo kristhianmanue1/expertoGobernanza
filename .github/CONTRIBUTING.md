@@ -17,6 +17,18 @@ El trabajo se rige por `docs/politica-agentes.md` (v1.1). Resumen operativo:
 - **Conventional Commits:** `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `ci:`.
 - Ramas cortas (`feat/`, `fix/`). PRs < 400 líneas diff idealmente. Nunca `--force` a main.
 - El agente **propone** commit/PR; un **admin** (CODEOWNERS) aplica push a `main`.
+- Admin puede abrir/mergear PRs, tags y **releases** aunque Actions no corra (ver abajo).
+
+## GitHub Actions y presupuesto (ops)
+Si el check de CI falla en segundos con mensaje de *payments* / *spending limit*, **no es
+un fallo de tests**: el runner no arranca. El presupuesto de Actions se renueva con el
+ciclo de la cuenta (p. ej. mensual). Mientras tanto:
+
+1. Ejecuta el **DoD local** de la sección “Antes de abrir un PR” y pégalo en el PR.
+2. El admin puede mergear con evidencia local; no marques “CI verde” en el reporte.
+3. Detalle y checklist: **`docs/ops-github.md`** (fuente de verdad).
+
+Commits, ramas, PRs, merges, tags y releases **siguen operativos** con admin/`gh`.
 
 ## Ronda adversarial (§6)
 - Hito menor → quorum-lite (1 revisor en contexto fresco).
