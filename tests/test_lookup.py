@@ -22,6 +22,13 @@ class TestLookup(unittest.TestCase):
         self.assertTrue(r["exists"])
         self.assertEqual(r["instrumento"]["id"], "LOAPF")
         self.assertIn("paraestatal", r["texto_verbatim"].lower())
+        self.assertFalse(r["vigencia"]["verificada_contra_dof_nivel1"])
+
+    def test_loapf_art1_parrafo3_es_slice_verificado(self):
+        r = lookup.lookup("LOAPF:1:P3")
+        self.assertTrue(r["exists"])
+        self.assertTrue(r["vigencia"]["verificada_contra_dof_nivel1"])
+        self.assertIn("organismos descentralizados", r["texto_verbatim"].lower())
 
     def test_lfep_art1_lookup(self):
         r = lookup.lookup("LFEP:1")

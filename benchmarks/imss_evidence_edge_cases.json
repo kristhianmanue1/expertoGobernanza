@@ -1,0 +1,50 @@
+{
+  "benchmark_id": "R1-BENCH-IMSS-EE-01",
+  "evaluation_date": "2026-08-10",
+  "cases": [
+    {
+      "id": "Q1",
+      "question": "¿Qué disposición define al IMSS como organismo público descentralizado?",
+      "candidate_edge_ids": [
+        "LSS:5|define_naturaleza|IMSS",
+        "LSS:5|define_naturaleza_falsa|IMSS"
+      ],
+      "expected_outcome": "answerable",
+      "expected_traversable_edge_ids": ["LSS:5|define_naturaleza|IMSS"]
+    },
+    {
+      "id": "Q2",
+      "question": "¿Qué disposición ubica a los organismos descentralizados en la APF paraestatal?",
+      "candidate_edge_ids": [
+        "LOAPF:1:P3|ubica_clase|administracion_publica_paraestatal",
+        "LOAPF:1:P3|ubica_clase_sin_fuente|administracion_publica_paraestatal"
+      ],
+      "expected_outcome": "answerable",
+      "expected_traversable_edge_ids": ["LOAPF:1:P3|ubica_clase|administracion_publica_paraestatal"]
+    },
+    {
+      "id": "Q3",
+      "question": "¿Qué disposición atribuye al IMSS organizar y administrar el Seguro Social?",
+      "candidate_edge_ids": [
+        "RIIMSS:1|define_objeto|Seguro_Social",
+        "RIIMSS:1|define_objeto_hash_invalido|Seguro_Social"
+      ],
+      "expected_outcome": "answerable",
+      "expected_traversable_edge_ids": ["RIIMSS:1|define_objeto|Seguro_Social"]
+    },
+    {
+      "id": "Q4",
+      "question": "¿Puede afirmarse automáticamente que LFEP:5 remite específicamente a la LSS?",
+      "candidate_edge_ids": ["LFEP:5|remite_a_ley_especifica|LSS"],
+      "expected_outcome": "blocked",
+      "expected_traversable_edge_ids": []
+    },
+    {
+      "id": "Q5",
+      "question": "¿Puede concluirse automáticamente que LSS:5 integra al IMSS al régimen de LFEP:1?",
+      "candidate_edge_ids": ["LSS:5|integra_regimen|LFEP:1"],
+      "expected_outcome": "blocked",
+      "expected_traversable_edge_ids": []
+    }
+  ]
+}

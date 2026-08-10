@@ -1,0 +1,301 @@
+{
+  "catalog_id": "R1-BENCH-IMSS-EE-01-candidates",
+  "edges": [
+    {
+      "schema_version": "evidence-edge/v0",
+      "edge_id": "LSS:5|define_naturaleza|IMSS",
+      "subject": {"id": "LSS:5", "kind": "disposicion"},
+      "predicate": "define_naturaleza",
+      "object": {"id": "IMSS", "kind": "entidad"},
+      "claim_class": "textual",
+      "evidence": {
+        "quote": "organismo público descentralizado con personalidad jurídica y patrimonio propios, de integración operativa tripartita, en razón de que a la misma concurren los sectores público, social y privado, denominado Instituto Mexicano del Seguro Social",
+        "source_ref": "corpus/derived/lss/LSS-005.json",
+        "source_document_sha256": "8a28a16e1dce1f8e666f4cce5ed19745bc912b2ab1ca49787d5d4bef229398ed"
+      },
+      "evidence_scope": {
+        "source_level": 2,
+        "source_granularity": "articulo",
+        "source_disposition_id": "LSS:5",
+        "covers_subject": true,
+        "covers_object": true,
+        "covers_relation": true
+      },
+      "validity": {
+        "source_disposition_id": "LSS:5",
+        "trace_date": "2001-12-20",
+        "trace_source_level": 1,
+        "identificadores_diario": "DOF 20-12-2001 reforma Art.5 LSS",
+        "trace_url": null,
+        "trace_covers_disposition": true
+      },
+      "verification": {
+        "status": "verified",
+        "reviewed_by": "Kristhian Manuel Jiménez",
+        "reviewed_at": "2026-08-10",
+        "reason": "F5 explícito de LSS:5 y cita textual de su naturaleza"
+      },
+      "inheritance": "prohibited",
+      "gate_version": "evidence-edge-gate/v0"
+    },
+    {
+      "schema_version": "evidence-edge/v0",
+      "edge_id": "LOAPF:1:P3|ubica_clase|administracion_publica_paraestatal",
+      "subject": {"id": "LOAPF:1:P3", "kind": "disposicion"},
+      "predicate": "ubica_clase",
+      "object": {"id": "administracion_publica_paraestatal", "kind": "concepto"},
+      "claim_class": "textual",
+      "evidence": {
+        "quote": "Los organismos descentralizados, las empresas de participación estatal, las instituciones nacionales de crédito, las organizaciones auxiliares nacionales de crédito, las instituciones nacionales de seguros y de fianzas y los fideicomisos, componen la administración pública paraestatal",
+        "source_ref": "corpus/derived/loapf/LOAPF-001-P3.json",
+        "source_document_sha256": "3edf486e601217f5f595f94f56832d8845cbd9193b6494af52473237252bcc5f"
+      },
+      "evidence_scope": {
+        "source_level": 2,
+        "source_granularity": "parrafo",
+        "source_disposition_id": "LOAPF:1:P3",
+        "covers_subject": true,
+        "covers_object": true,
+        "covers_relation": true
+      },
+      "validity": {
+        "source_disposition_id": "LOAPF:1:P3",
+        "trace_date": "1976-12-29",
+        "trace_source_level": 1,
+        "identificadores_diario": "DOF 29-12-1976 LOAPF:1:P3",
+        "trace_url": "https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_orig_29dic76_ima.pdf",
+        "trace_covers_disposition": true
+      },
+      "verification": {
+        "status": "verified",
+        "reviewed_by": "Kristhian Manuel Jiménez",
+        "reviewed_at": "2026-08-10",
+        "reason": "F5 explícito de LOAPF:1:P3; la reforma de 18-03-2025 sólo cubre P2"
+      },
+      "inheritance": "prohibited",
+      "gate_version": "evidence-edge-gate/v0"
+    },
+    {
+      "schema_version": "evidence-edge/v0",
+      "edge_id": "RIIMSS:1|define_objeto|Seguro_Social",
+      "subject": {"id": "RIIMSS:1", "kind": "disposicion"},
+      "predicate": "define_objeto",
+      "object": {"id": "Seguro_Social", "kind": "concepto"},
+      "claim_class": "textual",
+      "evidence": {
+        "quote": "tiene por objeto organizar y administrar el Seguro Social",
+        "source_ref": "corpus/derived/riimss/RIIMSS-001.json",
+        "source_document_sha256": "cd79b9644431626cddcf218cd71ec5d24a4fd5ecbe7755cf5b614649a2ea08b0"
+      },
+      "evidence_scope": {
+        "source_level": 2,
+        "source_granularity": "articulo",
+        "source_disposition_id": "RIIMSS:1",
+        "covers_subject": true,
+        "covers_object": true,
+        "covers_relation": true
+      },
+      "validity": {
+        "source_disposition_id": "RIIMSS:1",
+        "trace_date": "2006-09-18",
+        "trace_source_level": 1,
+        "identificadores_diario": "DOF 18-09-2006 codigo=4931715",
+        "trace_url": null,
+        "trace_covers_disposition": true
+      },
+      "verification": {
+        "status": "verified",
+        "reviewed_by": "Kristhian Manuel Jiménez",
+        "reviewed_at": "2026-08-10",
+        "reason": "F5 explícito de RIIMSS:1 y cita textual de su objeto"
+      },
+      "inheritance": "prohibited",
+      "gate_version": "evidence-edge-gate/v0"
+    },
+    {
+      "schema_version": "evidence-edge/v0",
+      "edge_id": "LFEP:5|remite_a_ley_especifica|LSS",
+      "subject": {"id": "LFEP:5", "kind": "disposicion"},
+      "predicate": "remite_a_ley_especifica",
+      "object": {"id": "LSS", "kind": "instrumento"},
+      "claim_class": "remision_normativa",
+      "evidence": {
+        "quote": "se regirán por sus leyes específicas",
+        "source_ref": "corpus/derived/lfep/LFEP-005.json",
+        "source_document_sha256": "c0f203a9c6ebb990db8a2a43559ecf19e904f7c0757d0f334f7f4fb044aa6a12"
+      },
+      "evidence_scope": {
+        "source_level": 2,
+        "source_granularity": "articulo",
+        "source_disposition_id": "LFEP:5",
+        "covers_subject": true,
+        "covers_object": false,
+        "covers_relation": false
+      },
+      "validity": {
+        "source_disposition_id": "LFEP:5",
+        "trace_date": "2025-07-16",
+        "trace_source_level": 1,
+        "identificadores_diario": "DOF 16-07-2025 codigo=5763164, Artículo Segundo",
+        "trace_url": "https://www.dof.gob.mx/nota_detalle.php?codigo=5763164&fecha=16/07/2025",
+        "trace_covers_disposition": true
+      },
+      "verification": {
+        "status": "disputed",
+        "reviewed_by": "Kristhian Manuel Jiménez",
+        "reviewed_at": "2026-08-10",
+        "reason": "F5 de LFEP:5 cerrado; el texto no identifica por nombre a la LSS ni cubre esa relación específica"
+      },
+      "inheritance": "prohibited",
+      "gate_version": "evidence-edge-gate/v0"
+    },
+    {
+      "schema_version": "evidence-edge/v0",
+      "edge_id": "LSS:5|integra_regimen|LFEP:1",
+      "subject": {"id": "LSS:5", "kind": "disposicion"},
+      "predicate": "integra_regimen",
+      "object": {"id": "LFEP:1", "kind": "disposicion"},
+      "claim_class": "jerarquia_interpretativa",
+      "evidence": {
+        "quote": "organismo público descentralizado con personalidad jurídica y patrimonio propios",
+        "source_ref": "corpus/derived/lss/LSS-005.json",
+        "source_document_sha256": "8a28a16e1dce1f8e666f4cce5ed19745bc912b2ab1ca49787d5d4bef229398ed"
+      },
+      "evidence_scope": {
+        "source_level": 2,
+        "source_granularity": "articulo",
+        "source_disposition_id": "LSS:5",
+        "covers_subject": true,
+        "covers_object": false,
+        "covers_relation": false
+      },
+      "validity": {
+        "source_disposition_id": "LSS:5",
+        "trace_date": "2001-12-20",
+        "trace_source_level": 1,
+        "identificadores_diario": "DOF 20-12-2001 reforma Art.5 LSS",
+        "trace_url": null,
+        "trace_covers_disposition": true
+      },
+      "verification": {
+        "status": "disputed",
+        "reviewed_by": "Kristhian Manuel Jiménez",
+        "reviewed_at": "2026-08-10",
+        "reason": "El texto de LSS:5 está verificado; no identifica LFEP:1 ni cubre la inferencia integra_regimen"
+      },
+      "inheritance": "prohibited",
+      "gate_version": "evidence-edge-gate/v0"
+    },
+    {
+      "schema_version": "evidence-edge/v0",
+      "edge_id": "LSS:5|define_naturaleza_falsa|IMSS",
+      "subject": {"id": "LSS:5", "kind": "disposicion"},
+      "predicate": "define_naturaleza_falsa",
+      "object": {"id": "IMSS", "kind": "entidad"},
+      "claim_class": "textual",
+      "evidence": {
+        "quote": "El IMSS es una sociedad mercantil privada con fines de lucro",
+        "source_ref": "corpus/derived/lss/LSS-005.json",
+        "source_document_sha256": "8a28a16e1dce1f8e666f4cce5ed19745bc912b2ab1ca49787d5d4bef229398ed"
+      },
+      "evidence_scope": {
+        "source_level": 2,
+        "source_granularity": "articulo",
+        "source_disposition_id": "LSS:5",
+        "covers_subject": true,
+        "covers_object": true,
+        "covers_relation": true
+      },
+      "validity": {
+        "source_disposition_id": "LSS:5",
+        "trace_date": "2001-12-20",
+        "trace_source_level": 1,
+        "identificadores_diario": "DOF 20-12-2001 reforma Art.5 LSS",
+        "trace_url": null,
+        "trace_covers_disposition": true
+      },
+      "verification": {
+        "status": "verified",
+        "reviewed_by": "control adversarial preregistrado",
+        "reviewed_at": "2026-08-10",
+        "reason": "Control negativo: una cita fabricada nunca debe recorrer"
+      },
+      "inheritance": "prohibited",
+      "gate_version": "evidence-edge-gate/v0"
+    },
+    {
+      "schema_version": "evidence-edge/v0",
+      "edge_id": "LOAPF:1:P3|ubica_clase_sin_fuente|administracion_publica_paraestatal",
+      "subject": {"id": "LOAPF:1:P3", "kind": "disposicion"},
+      "predicate": "ubica_clase_sin_fuente",
+      "object": {"id": "administracion_publica_paraestatal", "kind": "concepto"},
+      "claim_class": "textual",
+      "evidence": {
+        "quote": "componen la administración pública paraestatal",
+        "source_ref": "corpus/derived/loapf/NO-EXISTE.json",
+        "source_document_sha256": "3edf486e601217f5f595f94f56832d8845cbd9193b6494af52473237252bcc5f"
+      },
+      "evidence_scope": {
+        "source_level": 2,
+        "source_granularity": "parrafo",
+        "source_disposition_id": "LOAPF:1:P3",
+        "covers_subject": true,
+        "covers_object": true,
+        "covers_relation": true
+      },
+      "validity": {
+        "source_disposition_id": "LOAPF:1:P3",
+        "trace_date": "1976-12-29",
+        "trace_source_level": 1,
+        "identificadores_diario": "DOF 29-12-1976 LOAPF:1:P3",
+        "trace_url": "https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_orig_29dic76_ima.pdf",
+        "trace_covers_disposition": true
+      },
+      "verification": {
+        "status": "verified",
+        "reviewed_by": "control adversarial preregistrado",
+        "reviewed_at": "2026-08-10",
+        "reason": "Control negativo: una fuente inexistente nunca debe recorrer"
+      },
+      "inheritance": "prohibited",
+      "gate_version": "evidence-edge-gate/v0"
+    },
+    {
+      "schema_version": "evidence-edge/v0",
+      "edge_id": "RIIMSS:1|define_objeto_hash_invalido|Seguro_Social",
+      "subject": {"id": "RIIMSS:1", "kind": "disposicion"},
+      "predicate": "define_objeto_hash_invalido",
+      "object": {"id": "Seguro_Social", "kind": "concepto"},
+      "claim_class": "textual",
+      "evidence": {
+        "quote": "tiene por objeto organizar y administrar el Seguro Social",
+        "source_ref": "corpus/derived/riimss/RIIMSS-001.json",
+        "source_document_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "evidence_scope": {
+        "source_level": 2,
+        "source_granularity": "articulo",
+        "source_disposition_id": "RIIMSS:1",
+        "covers_subject": true,
+        "covers_object": true,
+        "covers_relation": true
+      },
+      "validity": {
+        "source_disposition_id": "RIIMSS:1",
+        "trace_date": "2006-09-18",
+        "trace_source_level": 1,
+        "identificadores_diario": "DOF 18-09-2006 codigo=4931715",
+        "trace_url": null,
+        "trace_covers_disposition": true
+      },
+      "verification": {
+        "status": "verified",
+        "reviewed_by": "control adversarial preregistrado",
+        "reviewed_at": "2026-08-10",
+        "reason": "Control negativo: un hash divergente nunca debe recorrer"
+      },
+      "inheritance": "prohibited",
+      "gate_version": "evidence-edge-gate/v0"
+    }
+  ]
+}

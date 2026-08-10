@@ -12,6 +12,15 @@
 | [`politica-agentes.md`](politica-agentes.md) | Política v1.1 |
 | [`ops-github.md`](ops-github.md) | CI billing + DoD local |
 | [`plantillas-agente.md`](plantillas-agente.md) | Plantillas plan/contrato/reporte |
+| [`gobernanza/expediente-probatorio-rondas-2026-08-10.md`](gobernanza/expediente-probatorio-rondas-2026-08-10.md) | Ejemplo probatorio de gobernanza adversarial aplicada |
+| [`relatorias/2026-08-10-arquitectura-evidence-edge-gobernanza.md`](relatorias/2026-08-10-arquitectura-evidence-edge-gobernanza.md) | Relatoría de ejecución arquitectura→EvidenceEdge |
+| [`propuestas/2026-08-10-benchmark-imss-evidenceedge/RECONCILIACION.md`](propuestas/2026-08-10-benchmark-imss-evidenceedge/RECONCILIACION.md) | Benchmark IMSS falsable: cierre adversarial |
+| [`propuestas/2026-08-10-benchmark-imss-evidenceedge/RESULTADOS-R3.md`](propuestas/2026-08-10-benchmark-imss-evidenceedge/RESULTADOS-R3.md) | R3: F5 LFEP, LOAPF por párrafo y gate permanente |
+| [`propuestas/2026-08-10-benchmark-imss-evidenceedge/RECONCILIACION-R3.md`](propuestas/2026-08-10-benchmark-imss-evidenceedge/RECONCILIACION-R3.md) | R3: cierre adversarial 3/3 y reservas administrativas |
+| [`propuestas/2026-08-10-akoma-ntoso-lss5-spike/RECONCILIACION.md`](propuestas/2026-08-10-akoma-ntoso-lss5-spike/RECONCILIACION.md) | Spike AKN LSS:5: decisión y límites |
+| [`relatorias/2026-08-10-benchmark-imss-akoma-ntoso.md`](relatorias/2026-08-10-benchmark-imss-akoma-ntoso.md) | Relatoría benchmark→spike AKN |
+| [`gobernanza/paquete-admin-2026-08-10-imss-f5-gate.md`](gobernanza/paquete-admin-2026-08-10-imss-f5-gate.md) | Paquete de adopción administrativa de los pasos 1–4 |
+| [`relatorias/2026-08-10-cierre-f5-lfep-loapf-gate.md`](relatorias/2026-08-10-cierre-f5-lfep-loapf-gate.md) | Relatoría de ejecución R3 |
 
 **Archivo / histórico:**
 
@@ -23,6 +32,7 @@
 | [`fuentes/`](fuentes/) | Extractos de trabajo del slice (no primarios DOF) |
 
 **Código corpus:** `corpus/registry.yaml`, `corpus/lookup.py`, `corpus/verify_citations.py`,
+`corpus/evidence_edge.py` (contrato EvidenceEdge v0, no-herencia),
 `scripts/audit_document.py` (auditor v0), `scripts/eval_extraction.py` (fake offline).  
 **Eval:** `docs/propuestas/auditor-v0-matriz-fpfn.md`, `docs/propuestas/recall-extraccion-v12.md`.  
 **IMSS:** `docs/propuestas/imss-alcance-publico.md` (público vs interno; no manuales).  

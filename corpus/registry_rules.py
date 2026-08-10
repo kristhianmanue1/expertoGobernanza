@@ -6,14 +6,153 @@ post-adversarial F1–F5 para impedir `vigencia_verificada: true` incompleto.
 from __future__ import annotations
 
 ALCANCE_OK = frozenset({"instrumento", "articulo", "parrafo"})
+ALCANCE_DISPOSICION_OK = frozenset({"articulo", "parrafo"})
+
+
+def _resultado_vigencia(
+    disposicion_id: str, verificada: bool, fuente: str, razon: str
+) -> dict:
+    return {
+        "disposicion_id": disposicion_id,
+        "verificada": verificada,
+        "fuente": fuente,
+        "razon": razon,
+    }
+
+
+def resolve_disposicion_vigencia(fuente: dict, disposicion_id: str) -> dict:
+    """Resuelve vigencia por disposición, de forma explícita y fail-closed.
+
+    ``vigencia_verificada`` es solo un resumen del instrumento: nunca basta para
+    afirmar la vigencia de cada disposición del slice. Si existe
+    ``traza_disposiciones``, esa tabla es autoritativa y no se hace fallback a
+    trazas más generales cuando falta una entrada o su F5 es falso.
+    """
+    if not isinstance(disposicion_id, str) or not disposicion_id.strip():
+        return _resultado_vigencia("", False, "ninguna", "disposicion_id_invalido")
+
+    if not isinstance(fuente, dict):
+        return _resultado_vigencia(
+            disposicion_id, False, "ninguna", "fuente_invalida"
+        )
+
+    if fuente.get("vigencia_verificada") is not True:
+        return _resultado_vigencia(
+            disposicion_id, False, "instrumento", "instrumento_no_verificado"
+        )
+
+    revision = fuente.get("revision_vigencia") or {}
+    revision_ok = (
+        isinstance(revision, dict)
+        and bool(revision.get("revisado_por"))
+        and bool(revision.get("fecha"))
+    )
+    trazas_disposicion = fuente.get("traza_disposiciones")
+    if trazas_disposicion is not None:
+        if not isinstance(trazas_disposicion, list):
+            return _resultado_vigencia(
+                disposicion_id, False, "traza_disposiciones", "tabla_invalida"
+            )
+        coincidencias = [
+            traza
+            for traza in trazas_disposicion
+            if isinstance(traza, dict)
+            and traza.get("disposicion_id") == disposicion_id
+        ]
+        if len(coincidencias) > 1:
+            return _resultado_vigencia(
+                disposicion_id,
+                False,
+                "traza_disposiciones",
+                "traza_duplicada",
+            )
+        if not coincidencias:
+            return _resultado_vigencia(
+                disposicion_id,
+                False,
+                "traza_disposiciones",
+                "sin_traza_explicita",
+            )
+        traza = coincidencias[0]
+        if (
+            traza.get("f5") is True
+            and traza.get("cubre_disposicion") is True
+            and traza.get("fecha")
+            and (traza.get("url") or traza.get("identificadores_diario"))
+            and revision_ok
+        ):
+            return _resultado_vigencia(
+                disposicion_id, True, "traza_disposiciones", "f5_explicito"
+            )
+        return _resultado_vigencia(
+            disposicion_id,
+            False,
+            "traza_disposiciones",
+            "f5_no_verificado",
+        )
+
+    principal = fuente.get("traza_disposicion_principal") or {}
+    if isinstance(principal, dict) and principal.get("disposicion_id") == disposicion_id:
+        if (
+            principal.get("cubre_disposicion") is True
+            and principal.get("fecha")
+            and (principal.get("url") or principal.get("identificadores_diario"))
+            and revision_ok
+        ):
+            return _resultado_vigencia(
+                disposicion_id,
+                True,
+                "traza_disposicion_principal",
+                "traza_exacta_con_revision",
+            )
+        return _resultado_vigencia(
+            disposicion_id,
+            False,
+            "traza_disposicion_principal",
+            "traza_principal_incompleta",
+        )
+
+    matched_publication = False
+    for traza in fuente.get("trazas_publicacion") or []:
+        if not isinstance(traza, dict):
+            continue
+        cubre = traza.get("cubre_disposiciones")
+        if not isinstance(cubre, list) or disposicion_id not in cubre:
+            continue
+        matched_publication = True
+        if (
+            traza.get("alcance") in ALCANCE_DISPOSICION_OK
+            and (traza.get("url") or traza.get("identificadores_diario"))
+            and revision_ok
+        ):
+            return _resultado_vigencia(
+                disposicion_id,
+                True,
+                "trazas_publicacion",
+                "traza_exacta_con_revision",
+            )
+    if matched_publication:
+        return _resultado_vigencia(
+            disposicion_id,
+            False,
+            "trazas_publicacion",
+            "traza_publicacion_incompleta",
+        )
+
+    return _resultado_vigencia(
+        disposicion_id, False, "ninguna", "sin_traza_explicita"
+    )
 
 
 def validate_fuente(fuente: dict) -> list[str]:
     """Devuelve lista de errores; vacía si la fuente es estructuralmente OK."""
     errs: list[str] = []
     fid = fuente.get("id") or "?"
-    if not fuente.get("vigencia_verificada"):
+    vigencia = fuente.get("vigencia_verificada")
+    if vigencia is False or vigencia is None:
         return errs
+    if vigencia is not True:
+        return [f"{fid}: vigencia_verificada exige booleano"]
 
     trazas = fuente.get("trazas_publicacion") or []
     url1 = fuente.get("url_dof_nivel1")
@@ -43,8 +182,11 @@ def validate_fuente(fuente: dict) -> list[str]:
         cubre = t.get("cubre_disposiciones")
         if cubre is None and "no_cubre_slice" not in t:
             errs.append(f"{pref}: falta cubre_disposiciones o no_cubre_slice")
-        elif isinstance(cubre, list) and len(cubre) > 0:
-            any_cover = True
+        elif cubre is not None:
+            if not isinstance(cubre, list):
+                errs.append(f"{pref}: cubre_disposiciones debe ser lista")
+            elif len(cubre) > 0:
+                any_cover = True
         if t.get("no_cubre_slice") is True:
             any_explicit_no_slice = True
 
@@ -56,6 +198,65 @@ def validate_fuente(fuente: dict) -> list[str]:
     rev = fuente.get("revision_vigencia") or {}
     if not isinstance(rev, dict) or not rev.get("revisado_por") or not rev.get("fecha"):
         errs.append(f"{fid}: falta revision_vigencia.revisado_por/fecha (F5)")
+
+    principal = fuente.get("traza_disposicion_principal")
+    if principal is not None:
+        if not isinstance(principal, dict):
+            errs.append(f"{fid}: traza_disposicion_principal no es objeto")
+        else:
+            if not principal.get("disposicion_id"):
+                errs.append(f"{fid}: traza principal sin disposicion_id")
+            if principal.get("cubre_disposicion") is not True:
+                errs.append(f"{fid}: traza principal no cubre disposición")
+            if not principal.get("fecha"):
+                errs.append(f"{fid}: traza principal sin fecha")
+            if not (principal.get("url") or principal.get("identificadores_diario")):
+                errs.append(f"{fid}: traza principal sin url ni identificadores_diario")
+
+    disposiciones = fuente.get("slice_mvp_disposiciones") or []
+    detalle = fuente.get("traza_disposiciones")
+    por_id = {}
+    if detalle is not None:
+        if not isinstance(detalle, list):
+            errs.append(f"{fid}: traza_disposiciones debe ser lista")
+        else:
+            duplicados = set()
+            for i, traza in enumerate(detalle):
+                if not isinstance(traza, dict):
+                    errs.append(f"{fid}: traza_disposiciones[{i}] no es objeto")
+                    continue
+                disposicion_id = traza.get("disposicion_id")
+                if not disposicion_id:
+                    errs.append(f"{fid}: traza_disposiciones[{i}] sin disposicion_id")
+                    continue
+                if disposicion_id in por_id:
+                    duplicados.add(disposicion_id)
+                por_id[disposicion_id] = traza
+                if not isinstance(traza.get("f5"), bool):
+                    errs.append(f"{fid}: {disposicion_id} sin f5 booleano explícito")
+                if not isinstance(traza.get("cubre_disposicion"), bool):
+                    errs.append(
+                        f"{fid}: {disposicion_id} sin cubre_disposicion booleano"
+                    )
+                if not traza.get("fecha"):
+                    errs.append(f"{fid}: {disposicion_id} sin fecha")
+                if not (traza.get("url") or traza.get("identificadores_diario")):
+                    errs.append(
+                        f"{fid}: {disposicion_id} sin url ni identificadores_diario"
+                    )
+            for disposicion_id in sorted(duplicados):
+                errs.append(f"{fid}: {disposicion_id} duplicada en traza_disposiciones")
+
+    if isinstance(disposiciones, list) and len(disposiciones) > 1:
+        if not isinstance(detalle, list):
+            errs.append(
+                f"{fid}: slice multidisposición exige traza_disposiciones explícita"
+            )
+        else:
+            for disposicion_id in disposiciones:
+                traza = por_id.get(disposicion_id)
+                if not isinstance(traza, dict):
+                    errs.append(f"{fid}: {disposicion_id} sin traza_disposiciones")
 
     return errs
 

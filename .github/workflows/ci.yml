@@ -22,5 +22,7 @@ jobs:
         run: python -m py_compile corpus/*.py scripts/*.py review_routing/*.py
       - name: Golden set (unittest)
         run: python -m unittest discover -s tests
+      - name: Benchmark IMSS EvidenceEdge
+        run: python scripts/benchmark_imss_edges.py --allow-missing-originals
       - name: Gate de tamaño §3 (check_sizes)
         run: python scripts/check_sizes.py
