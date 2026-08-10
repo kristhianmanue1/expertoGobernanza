@@ -9,8 +9,15 @@
 # Metodología completa: docs/fuentes-legal-mx.md
 # Auth canales: docs/autorizacion-fuentes-r1.md
 # §7: vigencia_verificada=true solo con traza nivel 1 usable (no solo home DOF).
-# Extensión opcional por fuente: trazas_publicacion[], fuentes_secundarias_consultadas,
-# coherencia_multi_fuente (alineado|discrepancia|no_evaluado) — ver fuentes-legal-mx.md §4.
+# Extensión (fuentes-legal-mx.md §4, post-adversarial F1–F5):
+#   trazas_publicacion[]: tipo_acto, alcance (instrumento|articulo|parrafo),
+#     cubre_disposiciones[], no_cubre_slice, url | identificadores_diario
+#   fuentes_secundarias_consultadas[]: claim_secundario: true
+#   coherencia_multi_fuente, fecha_consulta_vigencia, vacatio_o_transitorio
+#   revision_vigencia: {revisado_por, fecha, auto_revision_declarada}
+# fecha_*_declarada / claims Cámara = nivel 2 hasta traza DOF con alcance del slice.
+# vigencia_verificada:true exige traza que CUBRA la disposición del MVP (no solo
+# "última reforma" de otro título del mismo cuerpo).
 
 fuentes:
   - id: CPEUM
