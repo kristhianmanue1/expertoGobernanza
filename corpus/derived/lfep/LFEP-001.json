@@ -11,9 +11,12 @@
   "texto_verbatim": "La presente Ley, Reglamentaria en lo conducente del artículo 90 de la Constitución Política de los Estados Unidos Mexicanos, tiene por objeto regular la organización, funcionamiento y control de las entidades paraestatales de la Administración Pública Federal. Las relaciones del Ejecutivo Federal, o de sus dependencias, con las entidades paraestatales, en cuanto unidades auxiliares de la Administración Pública Federal, se sujetarán, en primer término, a lo establecido en esta Ley y sus disposiciones reglamentarias y, sólo en lo no previsto, a otras disposiciones según la materia que corresponda.",
   "vigencia": {
     "estado": "vigente",
-    "ultima_reforma_dof_declarada": "2025-07-16",
-    "verificada_contra_dof_nivel1": false,
-    "marcador": "[VIGENCIA-NO-VERIFICADA contra DOF nivel 1 — exploración E5-03]"
+    "ultima_reforma_dof_declarada": "1986-05-14",
+    "verificada_contra_dof_nivel1": true,
+    "marcador": "procedencia_primaria_reconciliada_slice (F5 2026-08-10; pub. DOF 14-05-1986)",
+    "traza": "DOF 14-05-1986 LFEP:1; revision_vigencia Kristhian Manuel Jiménez",
+    "registry_ref": "corpus/registry.yaml#LFEP",
+    "nota_cuerpo": "ultima_reforma_cuerpo 2025-07-16 no cubre LFEP:1"
   },
   "fuentes_oficiales": [
     {

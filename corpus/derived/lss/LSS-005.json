@@ -12,8 +12,11 @@
   "vigencia": {
     "estado": "vigente",
     "ultima_reforma_dof_declarada": "2001-12-20",
-    "verificada_contra_dof_nivel1": false,
-    "marcador": "[VIGENCIA-NO-VERIFICADA contra DOF nivel 1 — exploración LSS E5]"
+    "verificada_contra_dof_nivel1": true,
+    "marcador": "procedencia_primaria_reconciliada_slice (F5 2026-08-10; DOF 20-12-2001; no aplicabilidad casuística)",
+    "traza": "DOF 20-12-2001 Art.5; revision_vigencia Kristhian Manuel Jiménez",
+    "registry_ref": "corpus/registry.yaml#LSS",
+    "nota_cuerpo": "ultima_reforma_cuerpo 2026-01-15 no cubre LSS:5"
   },
   "fuentes_oficiales": [
     {
