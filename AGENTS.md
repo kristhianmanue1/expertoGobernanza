@@ -74,14 +74,12 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal. Scope de `supersede` no puede ser `derived_from_retrieval`.
 
 ### Estado actual de la memoria (referencia)
-- AN-KLA **0.1.0b11** / plantilla contexto **0.1.0-beta.11**; identidad store **complete**.
-- Revisión **10**. `facts: 10` (1 `sustituida`), `events: 10`. Vigentes: `plan-r1-90d-2026-08-10`,
-  `github-actions-billing-suspendido-2026-08-10`,
-  `an-kla-migrado-beta11-2026-08-10`,
-  `fact-expertogobernanza-alfa-estado-corregido-2026-08-10`,
-  `estado-2026-08-07-post-ronda` (router §7.4 **estable**), resto en retrieve.
-- Siguiente acción: vigencia DOF nivel 1, eje IMSS, roles §9, recall v1.2; ops:
-  DoD local mientras Actions esté en billing (`docs/ops-github.md`).
+- AN-KLA **0.1.0b11** / plantilla **0.1.0-beta.11**; identidad **complete**; rev **15**
+  (`facts: 15`). Fact de reanudación: **`estado-2026-08-10-r1-h1-eje-imss`**.
+- Query: `retrieve --query "estado R1 H1 IMSS LOAPF LFEP LSS RIIMSS" --budget 6000`
+- Otros: `plan-r1-90d-2026-08-10`, `roles-r1-designados-2026-08-10`,
+  `an-kla-migrado-beta11-2026-08-10`, `github-actions-billing-suspendido-2026-08-10`.
+- Git estado en fact: `main` ~`22468e6`+ (actualizar al retomar con `git log -1`).
 
 ### Anti-patrones a evitar
 - Guardar un `record` solo con campos estructurados y sin `indexable_text`/`text` -> queda inaccesible (`no_text`).
