@@ -192,10 +192,16 @@ campos registry, procedimiento A–F, multi-eje, visión vigilancia DOF) +
 
 **Git:** exploración en registry; H1 pendiente de humano.
 
-### R1-E1-03 · Ingerir evidencia DOF LGS Art.1 · P0 · AGENT+ADMIN · M · Dep: E1-02 patrón
+### R1-E1-03 · Ingerir evidencia DOF LGS Art.1 · P0 · AGENT+ADMIN · M · **EXPLORACIÓN 2026-08-10**
 
-Análogo E1-02 para LGS / disposición Art. 1 (`LGS-001` o id canónico).  
-**DoD:** traza con `cubre_disposiciones` del id LGS del slice.
+**Salida:** `registry.yaml` LGS con `slice_mvp_disposiciones: [LGS:1]`, secundarias,
+trazas candidatas 1984-02-07 (publicación) y 2023-05-29 (reforma Art.1); 2026-01-15
+`no_cubre_slice` hasta leer decreto. **`vigencia_verificada: false`**.  
+**DoD:**
+
+- [x] Candidatos + F2 en última reforma cuerpo
+- [x] Sin `true` (falta permalink DOF + F5 humano)
+- [ ] Cierre H1: confirmar decretos en dof.gob.mx vs texto `LGS:1`
 
 ### R1-E1-04 · Tests de no-regresión de vigencia · P0 · AGENT · S · **HECHO 2026-08-10**
 

@@ -141,6 +141,6 @@ líneas (el detalle y las plantillas están en el doc):
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** plan R1. E1-04 ✓ (`registry_rules`); E1-02 exploración CPEUM
-> (candidatos DOF 1983/2020, **false**). Cola: **humano** confirmar notas DOF +
-> F5 → o E1-03 LGS exploración; E2 higiene. No `vigencia true` sin checklist §8.
+> **PRÓXIMA TAREA:** plan R1. E1-02/03 exploración CPEUM+LGS (candidatos DOF,
+> **false**); E1-04 ✓. Cola: **humano** confirmar DOF + F5 para H1; o E2 higiene;
+> E3 auditor. No `vigencia true` sin checklist §8.

@@ -107,6 +107,7 @@ fuentes:
     nombre_oficial: "Ley General de Salud"
     tipo: ley_federal_reglamentaria
     autoridad: "Congreso de la Unión (reglamentaria del Art. 4 CPEUM, según su Art. 1)"
+    # --- texto de trabajo (capa 3) ---
     fuente_archivo: "Cámara de Diputados (consolidado, nivel 2 — informativo según su aviso)"
     nivel: 2
     url_descarga: "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGS.pdf"
@@ -115,10 +116,76 @@ fuentes:
     paginas: 376
     sha256: "a2d3f947b369e4383f2f27a4e9bd819a3dba768ab9bae527e6388e30c1f9e06c"
     fecha_consulta: "2026-08-06"
+    # --- slice MVP (capa disposición; id lookup = LGS:1) ---
+    slice_mvp_disposiciones: ["LGS:1"]
+    # Claims nivel 2 — no bastan para vigencia_verificada true
     fecha_publicacion_dof: "1984-02-07"
-    fecha_ultima_reforma_dof_declarada: "2026-01-15"   # índice Cámara; Art.1 reformado 2023-05-29
-    url_dof_nivel1: null        # TODO: permalink DOF (nivel 1, primario) — pendiente
+    fecha_ultima_reforma_dof_declarada: "2026-01-15"   # claim Cámara (cuerpo LGS)
+    url_dof_nivel1: null
     vigencia_verificada: false
+    fecha_consulta_vigencia: "2026-08-10"
+    vacatio_o_transitorio: unknown
+    coherencia_multi_fuente: no_evaluado
+    fuentes_secundarias_consultadas:
+      - organo: Camara_Diputados
+        nivel: 2
+        claim_secundario: true
+        url: "https://www.diputados.gob.mx/LeyesBiblio/ref/lgs.htm"
+        fecha_consulta: "2026-08-10"
+        nota: "Índice reformas LGS; orig DOF 07-02-1984; ref Art.1 marcada 29-05-2023 en consolidado"
+      - organo: Camara_Diputados
+        nivel: 2
+        claim_secundario: true
+        url: "https://www.diputados.gob.mx/LeyesBiblio/ref/lgs/LGS_ref135_29may23.pdf"
+        fecha_consulta: "2026-08-10"
+        nota: "Acervo Cámara del decreto DOF 29-05-2023 (Sistema Salud para el Bienestar) — no sustituye DOF"
+      - organo: Orden_Juridico
+        nivel: 2
+        claim_secundario: true
+        url: "http://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo11037.html"
+        fecha_consulta: "2026-08-10"
+    trazas_publicacion:
+      - tipo_acto: publicacion
+        organo: DOF
+        nivel: 1
+        alcance: instrumento
+        cubre_disposiciones: ["LGS:1"]
+        no_cubre_slice: false
+        url: null
+        fecha_dof: "1984-02-07"
+        identificadores_diario: "DOF 07-02-1984 publicación original Ley General de Salud"
+        nota: >-
+          Candidato: nueva ley en DOF 07-02-1984 (índice Cámara LGS_orig; sidof/notas
+          históricas). Incluye Art. 1 originario reglamentario del Art. 4o CPEUM.
+          Permalink nota_detalle no fijado en exploración 2026-08-10. PENDIENTE UI DOF.
+      - tipo_acto: reforma
+        organo: DOF
+        nivel: 1
+        alcance: articulo
+        cubre_disposiciones: ["LGS:1"]
+        no_cubre_slice: false
+        url: null
+        fecha_dof: "2023-05-29"
+        identificadores_diario: "DOF 29-05-2023 reforma LGS (marcador consolidado Art.1 «reformado DOF 29-05-2023»)"
+        nota: >-
+          Candidato: decreto que reforma/adiciona/deroga disposiciones LGS (Sistema de
+          Salud para el Bienestar); marcador en docs/fuentes/lgs/art-001.txt y LGS:1 JSON.
+          Acervo Cámara LGS_ref135_29may23.pdf. Permalink DOF (codigo) PENDIENTE confirmar
+          en dof.gob.mx. No habilita vigencia_verificada true solo.
+      - tipo_acto: reforma
+        organo: DOF
+        nivel: 1
+        alcance: instrumento
+        cubre_disposiciones: []
+        no_cubre_slice: true
+        url: null
+        fecha_dof: "2026-01-15"
+        identificadores_diario: "DOF 15-01-2026 (claim Cámara: última reforma cuerpo LGS)"
+        nota: >-
+          Claim secundario de última reforma del CUERPO (índice Cámara). Explicitamente
+          NO se asume cobertura de LGS:1 sin leer el decreto (F2). No usar a ciegas para H1.
     notas: >-
-      Art. 1 LGS (verbatim) reglamenta el derecho a la protección de la salud en los
-      términos del Art. 4o. CPEUM. Consolidado Cámara (nivel 2); DOF primario pendiente.
+      Exploración E1-03 (2026-08-10): candidatos DOF 1984-02-07 (publicación) y
+      2023-05-29 (reforma Art.1 según consolidado); 2026-01-15 no_cubre_slice hasta
+      verificar. vigencia_verificada false hasta UI DOF + revision_vigencia (F5).
+      Disposición slice: LGS:1. Texto trabajo consolidado Cámara nivel 2.
