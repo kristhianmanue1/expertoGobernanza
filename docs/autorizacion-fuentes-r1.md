@@ -19,9 +19,11 @@ Jiménez (roles interinos §9 — `docs/roles-r1.md`).
 2. Jerarquía y duda: política §7; en duda → `[VIGENCIA-NO-VERIFICADA]`.
 3. Preferir **permalink o identificador estable** del acto (DOF) al copiar URLs de
    búsqueda genéricas.
-4. Hash SHA-256 + `fecha_consulta` al cargar archivos al corpus (metodología en
-   `docs/fuentes-legal-mx.md` cuando exista; mientras tanto `registry.yaml`).
+4. Hash SHA-256 + `fecha_consulta` al cargar archivos al corpus (metodología:
+   **`docs/fuentes-legal-mx.md`**; campos en `corpus/registry.yaml`).
 5. **Sin copia verbatim masiva** a memoria AN-KLA; la memoria apunta al doc.
+6. Niveles y score multi-eje: `docs/fuentes-legal-mx.md` §2 y §6;
+   diseño gate: `docs/propuestas/gate-confianza-multieje-v1.md`.
 
 ## 2. Multi-provider (rondas adversarial / extracción)
 
