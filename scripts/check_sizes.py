@@ -27,6 +27,9 @@ EXEMPT_EXT = {
     ".json", ".toml", ".yaml", ".yml", ".ini", ".cfg", ".csv", ".log",
     ".png", ".jpg", ".jpeg", ".gif", ".pdf", ".zip", ".gz", ".tar",
 }
+VENDORED_GENERATED_PREFIXES = {
+    os.path.join("interop", "akn", "schema"),
+}
 
 LIMITS = {
     "always_on": 300,
@@ -52,6 +55,11 @@ def is_exempt(rel, name):
     if name in EXEMPT_FILES:
         return True
     if parts[0] == "docs" and len(parts) > 1 and parts[1] == "fuentes":
+        return True
+    if any(
+        rel == prefix or rel.startswith(prefix + os.sep)
+        for prefix in VENDORED_GENERATED_PREFIXES
+    ):
         return True
     ext = os.path.splitext(name)[1].lower()
     if ext in EXEMPT_EXT:
