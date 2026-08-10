@@ -51,11 +51,12 @@ El auditor de **manuales** del dictamen vive sobre todo en el **eje 3**.
 
 ## 4. Naturaleza jurídica del IMSS
 
-- Hipótesis de trabajo (marco 2026-08-06): **organismo público descentralizado /
-  entidad paraestatal**, no “desconcentrado” coloquial.  
-- Confirmación: al ingerir **LSS** + referencias LOAPF/LFEP (`[VERIFICAR-FUENTE]`
-  en artículos concretos).  
-- **No afirmar** en artefactos “el IMSS es OPD” como hecho cerrado hasta esa traza.
+- Texto de trabajo **LSS:5** (consolidado Cámara): el IMSS es **organismo público
+  descentralizado** con personalidad jurídica y patrimonio propios, tripartita y
+  organismo fiscal autónomo.  
+- Ancla DOF de ese artículo: **pendiente F5** (`vigencia_verificada: false` en
+  registry LSS). Hasta entonces: citar como texto de trabajo nivel 2, no como
+  vigencia primaria cerrada.
 
 ## 5. Reglas operativas para agentes
 
@@ -74,7 +75,7 @@ El auditor de **manuales** del dictamen vive sobre todo en el **eje 3**.
 |------:|--------|--------|
 | 1 | E5-02 | **HECHO 2026-08-10** — LOAPF.pdf + registry + `LOAPF:1` (false hasta F5) |
 | 2 | E5-03 | **HECHO 2026-08-10** — LFEP.pdf + registry + `LFEP:1` (false hasta F5) |
-| 3 | (nuevo) LSS | Registry LSS + 1 disposición naturaleza IMSS si aplica |
+| 3 | LSS | **HECHO exploración 2026-08-10** — LSS.pdf + `LSS:5` (OPD) + `LSS:1` (false) |
 | 4 | E5-04 | Reglamento Interior **solo** si URL pública verificable |
 | 5 | E5-05 | 1 disposición lookup por instrumento + tests |
 | 6 | E5-06 | Adversarial multi del paquete corpus |
