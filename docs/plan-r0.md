@@ -1,12 +1,15 @@
 # Plan: R0 — Arranque gobernado de ExpertoGobernanza
 
+> **Estado: CERRADO / HISTÓRICO** (2026-08-10). No es la cola de trabajo actual.  
+> Continuar en **`docs/plan-r1-90d.md`**. Corpus CPEUM/LGS y CI esqueleto superaron T7/T8
+> de facto; T8 formal de “primer mapeo” quedó absorbido por el MVP slice y R1 E1.
+
 **Contexto:** tras reparar el venv (Python 3.12.12 + `an_kla` 0.1.0b6), AN-KLA corría
 y `verify` estaba verde, pero la memoria estaba en revisión 1 (1 fact, 1 event) y
 `AGENTS.md`/`proposal.json` estaban desincronizados. R0 avanzó: memoria en **revisión 2**
 (2 facts, 2 events), git+remoto privados activos y `check_sizes.py` implementado.
-Falta: el primer documento oficial fuente (T8, humano). **Fecha:** 2026-08-06.
-**Estado:** borrador. **Roadmap:** R0. **Fuente:** iniciativa humana + hallazgos de
-reparación del entorno.
+**Fecha:** 2026-08-06. **Roadmap:** R0 (cerrado). **Fuente:** iniciativa humana +
+hallazgos de reparación del entorno.
 
 ## Objetivo y criterio de cierre
 - Objetivo: dejar el proyecto con entorno saneado, memoria y docs sincronizados,

@@ -1,0 +1,18 @@
+{
+  "documento_id": "piloto-salud-v0",
+  "notas": "Citas pre-etiquetadas del slice; no es dictamen jurídico. Vigencia corpus no verificada DOF.",
+  "claims": [
+    {
+      "disposicion_id": "CPEUM:4:P4",
+      "cita_texto": "Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud"
+    },
+    {
+      "disposicion_id": "LGS:1",
+      "cita_texto": "La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos"
+    },
+    {
+      "disposicion_id": "LGS:1",
+      "cita_texto": "texto inventado que no aparece en el corpus legal de ninguna forma posible"
+    }
+  ]
+}
