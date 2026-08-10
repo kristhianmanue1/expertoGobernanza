@@ -141,5 +141,6 @@ líneas (el detalle y las plantillas están en el doc):
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** ejecutar **`docs/plan-r1-90d.md`** (cola: E8-01 → E2 higiene →
-> **HUMAN E0 roles/DOF** → E1 vigencia → E3 auditor). Ops CI: `docs/ops-github.md` §5.
+> **PRÓXIMA TAREA:** plan **`docs/plan-r1-90d.md`**. E0-01/02 **hechos** (`docs/roles-r1.md`,
+> `docs/autorizacion-fuentes-r1.md`); E0-03 FP **diferido**. Cola: E2 higiene →
+> **E1-01** procedimiento DOF → E1 vigencia. Ops: `docs/ops-github.md` §5.
