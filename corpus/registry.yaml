@@ -405,3 +405,70 @@ fuentes:
       con personalidad y patrimonio propios, tripartita, organismo fiscal autónomo).
       vigencia_verificada false hasta DOF+F5. Cierra hipótesis de naturaleza OPD
       a nivel de texto de trabajo (aún sin ancla primaria).
+
+  - id: RIIMSS
+    nombre_oficial: "Reglamento Interior del Instituto Mexicano del Seguro Social"
+    tipo: reglamento
+    autoridad: "Ejecutivo Federal / IMSS (publicación DOF; consolidado portal IMSS)"
+    fuente_archivo: "Portal oficial IMSS (PDF reglamentos; nivel 2 institucional — no DOF raw)"
+    nivel: 2
+    url_descarga: "https://www.imss.gob.mx/sites/all/statics/pdf/reglamentos/RIIMSS.pdf"
+    url_camara_ref: "https://www.diputados.gob.mx/LeyesBiblio/norma/reglamento.htm"
+    url_orden_juridico: "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88802.html"
+    archivo_local: "corpus/originals/RIIMSS.pdf"
+    bytes: 480635
+    paginas: 86
+    sha256: "cd79b9644431626cddcf218cd71ec5d24a4fd5ecbe7755cf5b614649a2ea08b0"
+    fecha_consulta: "2026-08-10"
+    slice_mvp_disposiciones: ["RIIMSS:1"]
+    eje: estructura_imss
+    fecha_publicacion_dof: "2006-09-18"
+    fecha_ultima_reforma_dof_declarada: "2012-08-23"  # claim público: última reforma DOF 23-08-2012
+    url_dof_nivel1: null
+    vigencia_verificada: false
+    fecha_consulta_vigencia: "2026-08-10"
+    vacatio_o_transitorio: unknown
+    coherencia_multi_fuente: no_evaluado
+    fuentes_secundarias_consultadas:
+      - organo: IMSS_portal
+        nivel: 2
+        claim_secundario: true
+        url: "https://www.imss.gob.mx/sites/all/statics/pdf/reglamentos/RIIMSS.pdf"
+        fecha_consulta: "2026-08-10"
+        nota: "PDF institucional público; sha256 en este registro"
+      - organo: Camara_Diputados
+        nivel: 2
+        claim_secundario: true
+        url: "https://www.diputados.gob.mx/LeyesBiblio/regla/n323.doc"
+        fecha_consulta: "2026-08-10"
+        nota: "WORD Cámara (índice reglamentos federales)"
+      - organo: Orden_Juridico
+        nivel: 2
+        claim_secundario: true
+        url: "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88802.html"
+        fecha_consulta: "2026-08-10"
+    trazas_publicacion:
+      - tipo_acto: publicacion
+        organo: DOF
+        nivel: 1
+        alcance: instrumento
+        cubre_disposiciones: ["RIIMSS:1"]
+        no_cubre_slice: false
+        url: null
+        fecha_dof: "2006-09-18"
+        identificadores_diario: "DOF 18-09-2006 publicación RIIMSS (claim público)"
+        nota: "Candidato publicación. Permalink DOF no fijado. PENDIENTE F5."
+      - tipo_acto: reforma
+        organo: DOF
+        nivel: 1
+        alcance: instrumento
+        cubre_disposiciones: []
+        no_cubre_slice: true
+        url: null
+        fecha_dof: "2012-08-23"
+        identificadores_diario: "DOF 23-08-2012 última reforma declarada (claim público)"
+        nota: "Claim última reforma del cuerpo; no asumir cobertura de Art.1 sin leer decreto (F2)."
+    notas: >-
+      E5-04 (2026-08-10): RIIMSS es PÚBLICO (portal IMSS + índices Cámara/OJ).
+      No es manual interno. Lookup RIIMSS:1 (objeto del Instituto). vigencia false
+      hasta traza DOF + F5. Manuales/procedimientos no publicados siguen fuera.

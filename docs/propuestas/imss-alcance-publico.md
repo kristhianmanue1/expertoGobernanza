@@ -76,7 +76,7 @@ El auditor de **manuales** del dictamen vive sobre todo en el **eje 3**.
 | 1 | E5-02 | **HECHO 2026-08-10** — LOAPF.pdf + registry + `LOAPF:1` (false hasta F5) |
 | 2 | E5-03 | **HECHO 2026-08-10** — LFEP.pdf + registry + `LFEP:1` (false hasta F5) |
 | 3 | LSS | **HECHO exploración 2026-08-10** — LSS.pdf + `LSS:5` (OPD) + `LSS:1` (false) |
-| 4 | E5-04 | Reglamento Interior **solo** si URL pública verificable |
+| 4 | E5-04 | **HECHO 2026-08-10** — RIIMSS.pdf portal IMSS + `RIIMSS:1` (false hasta F5) |
 | 5 | E5-05 | 1 disposición lookup por instrumento + tests |
 | 6 | E5-06 | Adversarial multi del paquete corpus |
 

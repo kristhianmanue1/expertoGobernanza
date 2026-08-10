@@ -43,6 +43,14 @@ class TestLookup(unittest.TestCase):
         self.assertTrue(r["exists"])
         self.assertIn("orden público", r["texto_verbatim"].lower())
 
+    def test_riimss_art1_lookup(self):
+        r = lookup.lookup("RIIMSS:1")
+        self.assertTrue(r["exists"])
+        self.assertEqual(r["instrumento"]["id"], "RIIMSS")
+        t = r["texto_verbatim"].lower()
+        self.assertIn("instituto mexicano del seguro social", t)
+        self.assertIn("seguro social", t)
+
     def test_missing_id_not_exists(self):
         r = lookup.lookup("NO:EX:ISTE")
         self.assertFalse(r["exists"])

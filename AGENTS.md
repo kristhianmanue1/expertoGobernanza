@@ -141,6 +141,6 @@ líneas (el detalle y las plantillas están en el doc):
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** plan R1. Eje estructura: LOAPF+LFEP+LSS ingeridos
-> (`LOAPF:1`, `LFEP:1`, `LSS:5` OPD, vigencia **false**). Cola: E5-04 RI público;
-> F5 LOAPF/LFEP/LSS; ADR-0001. Mapa: `docs/README.md`.
+> **PRÓXIMA TAREA:** plan R1. Eje IMSS público: LOAPF+LFEP+LSS+**RIIMSS**
+> (`RIIMSS:1`, vigencia **false**). Cola: F5 de estructura; E5-05 lookups;
+> ADR-0001; multi. Manuales internos **siguen fuera**. Mapa: `docs/README.md`.
