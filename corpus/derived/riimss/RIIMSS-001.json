@@ -1,0 +1,50 @@
+{
+  "disposicion_id": "RIIMSS:1",
+  "instrumento": {
+    "id": "RIIMSS",
+    "nombre_oficial": "Reglamento Interior del Instituto Mexicano del Seguro Social"
+  },
+  "jerarquia_documental": {
+    "articulo": "1.",
+    "elemento": "objeto del Instituto — organizar y administrar el Seguro Social"
+  },
+  "texto_verbatim": "El Instituto Mexicano del Seguro Social, en los términos consagrados en Ley del Seguro Social, tiene por objeto organizar y administrar el Seguro Social, que es el instrumento básico de la seguridad social, establecido como un servicio público de carácter nacional, para garantizar el derecho a la salud, la asistencia médica, la protección de los medios de subsistencia y los servicios sociales necesarios para el bienestar individual y colectivo, así como el otorgamiento de una pensión que, en su caso y previo cumplimiento de los requisitos legales, será garantizada por el Estado.",
+  "vigencia": {
+    "estado": "vigente",
+    "ultima_reforma_dof_declarada": "2012-08-23",
+    "verificada_contra_dof_nivel1": false,
+    "marcador": "[VIGENCIA-NO-VERIFICADA contra DOF nivel 1 — exploración E5-04]"
+  },
+  "fuentes_oficiales": [
+    {
+      "tipo": "consolidado_portal_institucional",
+      "nivel": 2,
+      "archivo": "corpus/originals/RIIMSS.pdf",
+      "sha256": "cd79b9644431626cddcf218cd71ec5d24a4fd5ecbe7755cf5b614649a2ea08b0",
+      "fecha_consulta": "2026-08-10",
+      "extracto_verbatim_en": "docs/fuentes/riimss/art-001.txt",
+      "url": "https://www.imss.gob.mx/sites/all/statics/pdf/reglamentos/RIIMSS.pdf",
+      "nota": "Portal oficial IMSS; última reforma declarada DOF 23-08-2012 (marcadores públicos)"
+    }
+  ],
+  "relaciones_normativas": [
+    {
+      "tipo": "desarrolla",
+      "target": "LSS:5",
+      "evidencia": "RIIMSS organiza al IMSS definido en LSS Art.5",
+      "verificada": false
+    },
+    {
+      "tipo": "desarrolla",
+      "target": "LSS:1",
+      "evidencia": "objeto en términos de la LSS",
+      "verificada": false
+    }
+  ],
+  "lineage": {
+    "extraido_de_sha256": "cd79b9644431626cddcf218cd71ec5d24a4fd5ecbe7755cf5b614649a2ea08b0",
+    "parser": "pypdf",
+    "fecha_extraccion": "2026-08-10",
+    "notas": "Fuente pública portal IMSS; no es DOF raw"
+  }
+}

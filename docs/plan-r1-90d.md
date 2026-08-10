@@ -335,9 +335,11 @@ manuales; cola E5-02+; no internos).
 **DoD:** [x] Hash `8a28a16e…`; vigencia **false**; tests lookup.  
 **Pendiente F5:** DOF Art.5 (2001-12-20 candidato) + cuerpo.
 
-### R1-E5-04 · Registry Reglamento Interior IMSS (público) · P1 · AGENT+ADMIN · M · Dep: E5-03b
+### R1-E5-04 · Registry Reglamento Interior IMSS (público) · P1 · **HECHO exploración 2026-08-10**
 
-Solo si hay texto **público** (DOF/portal); si no → PARCIAL + no forzar.
+**Salida:** RIIMSS.pdf (portal IMSS público), registry, `RIIMSS:1`.  
+**DoD:** [x] Fuente pública (no manual interno); hash; vigencia **false**; lookup+test.  
+**Pendiente F5:** DOF 18-09-2006 / reforma 23-08-2012.
 
 ### R1-E5-05 · Slice lookup: 1 disposición por instrumento · P1 · AGENT · M · Dep: E5-02..04
 
