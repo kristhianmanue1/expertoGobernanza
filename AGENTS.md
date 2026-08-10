@@ -141,7 +141,6 @@ líneas (el detalle y las plantillas están en el doc):
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** plan **`docs/plan-r1-90d.md`** (en-curso; fix adversarial F1–F7
-> en `docs/fuentes-legal-mx.md`). Cola: **E1-02/03** traza DOF con **alcance** al
-> slice (o E1-04 tests; E2 higiene). No `vigencia true` sin cubre_disposiciones.
-> Ronda: `docs/propuestas/r1-plan-adversarial-pre-e1/RONDA.md`.
+> **PRÓXIMA TAREA:** plan R1. E1-04 ✓ (`registry_rules`); E1-02 exploración CPEUM
+> (candidatos DOF 1983/2020, **false**). Cola: **humano** confirmar notas DOF +
+> F5 → o E1-03 LGS exploración; E2 higiene. No `vigencia true` sin checklist §8.
