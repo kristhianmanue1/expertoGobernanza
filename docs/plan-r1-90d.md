@@ -311,11 +311,11 @@ Quorum-lite interno OK (CLI). Multi si se publicitan métricas.
 
 ## Epic E5 — Eje IMSS público (estructura OPD) · H5
 
-### R1-E5-01 · Alcance público vs interno (matriz) · P0 · AGENT · S · Dep: E0-01, E0-02
+### R1-E5-01 · Alcance público vs interno (matriz) · P0 · **HECHO 2026-08-10**
 
-**Salida:** `docs/propuestas/imss-alcance-publico.md` (&lt;100 L): LOAPF, LFEP,
-Reglamento Interior IMSS = ¿público? rutas; **manuales internos = fuera**.  
-**DoD:** [ ] Cada instrumento con clasificación y fuente URL pública o “no ingerir”.
+**Salida:** `docs/propuestas/imss-alcance-publico.md` (matriz LOAPF/LFEP/LSS/RI/
+manuales; cola E5-02+; no internos).  
+**DoD:** [x] Clasificación + URLs índice + reglas router/auth.
 
 ### R1-E5-02 · Registry + descarga LOAPF (si público autorizado) · P1 · AGENT+ADMIN · M · Dep: E5-01, E1-01
 

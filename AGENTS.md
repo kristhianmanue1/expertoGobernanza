@@ -141,6 +141,6 @@ líneas (el detalle y las plantillas están en el doc):
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
-> **PRÓXIMA TAREA:** plan R1. H1 ✓ · E3-04 matriz ✓ · E4 fake/eval ✓.
-> Cola: **E2-02 ADR-0001** (humano); E5 IMSS público; plugin LLM extracción;
-> ronda multi H1/H4. Mapa: `docs/README.md`.
+> **PRÓXIMA TAREA:** plan R1. E5-01 alcance IMSS ✓
+> (`docs/propuestas/imss-alcance-publico.md`). Cola: **E5-02 LOAPF** (ingesta
+> pública); E2-02 ADR-0001 (humano); plugin LLM E4; multi H1. Mapa: `docs/README.md`.
