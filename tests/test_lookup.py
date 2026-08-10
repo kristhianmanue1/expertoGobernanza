@@ -17,6 +17,12 @@ class TestLookup(unittest.TestCase):
         self.assertEqual(r["instrumento"]["id"], "CPEUM")
         self.assertIn("protección de la salud", r["texto_verbatim"])
 
+    def test_loapf_art1_lookup(self):
+        r = lookup.lookup("LOAPF:1")
+        self.assertTrue(r["exists"])
+        self.assertEqual(r["instrumento"]["id"], "LOAPF")
+        self.assertIn("paraestatal", r["texto_verbatim"].lower())
+
     def test_missing_id_not_exists(self):
         r = lookup.lookup("NO:EX:ISTE")
         self.assertFalse(r["exists"])
