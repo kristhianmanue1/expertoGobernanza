@@ -43,12 +43,14 @@ Con credenciales admin (`gh` / push):
 Mientras Actions esté suspendido, el **gate de merge** es el mismo contrato que CI ejecutaría, pero **en la máquina del autor/admin**:
 
 ```bash
-python -m py_compile corpus/*.py scripts/*.py review_routing/*.py
-python -m unittest discover -s tests          # esperado: 34+ OK
-python scripts/check_sizes.py                 # exit 0
+./scripts/ci_check.sh                         # gate canónico; PDF originales requeridos
 # si la tarea tocó memoria / contexto de agentes:
 .venv/bin/python -m an_kla --project-root . verify
 ```
+
+El workflow remoto ejecuta el mismo benchmark con `--allow-missing-originals`
+porque los PDF del corpus no se versionan. Por ello, el rehash de originales es
+una garantía adicional exclusiva del gate local y debe constar en el PR.
 
 En el PR / reporte §12:
 
@@ -184,7 +186,7 @@ gh api -X DELETE "repos/${REPO}/branches/main/protection"
 | Fecha | Evento |
 |-------|--------|
 | 2026-08-07 | CI en `main` aún **success** (p. ej. push `264b15b`) |
-| 2026-08-10 | Actions suspendido por presupuesto; PR #1/#2 con DoD local; este doc + §5 checklist reanudación |
+| 2026-08-10 | Actions suspendido por presupuesto; gate local incorpora benchmark IMSS y rehash de PDF |
 | *(pendiente)* | Actions vivo + humo verde + (opcional) branch protection — marcar §5.4 |
 
 ## 9. Enlaces

@@ -3,13 +3,15 @@
 El trabajo se rige por `docs/politica-agentes.md` (v1.1). Resumen operativo:
 
 ## Antes de abrir un PR
-1. **Contrato verificable:** cada cambio trae su DoD como checks ejecutables (tests,
+1. **Gate local canónico:** ejecuta `./scripts/ci_check.sh`; incluye sintaxis,
+   suite, benchmark IMSS con originales, tamaños y whitespace.
+2. **Contrato verificable:** cada cambio trae su DoD como checks ejecutables (tests,
    `check_sizes`, archivo existe y < N, norma citada a su fuente). Sin check, no es PR.
-2. **Gate de tamaño (§3):** ejecuta `python scripts/check_sizes.py` → exit 0. Líneas
+3. **Gate de tamaño (§3):** ejecuta `python scripts/check_sizes.py` → exit 0. Líneas
    "Duro": código <800, artefacto <800, doc on-demand <1500, always-on (`AGENTS.md`) <300.
-3. **Tests:** `python -m unittest discover -s tests` → verde. Sin nuevas dependencias salvo
+4. **Tests:** `python -m unittest discover -s tests` → verde. Sin nuevas dependencias salvo
    necesidad justificada (y entonces pinéalas en `requirements.txt` con hash).
-4. **Fidelidad documental (§7):** toda afirmación normativa cita instrumento + artículo +
+5. **Fidelidad documental (§7):** toda afirmación normativa cita instrumento + artículo +
    fecha de reforma verificada. Vigencia: si no se verificó contra DOF nivel 1, marca
    `[VIGENCIA-NO-VERIFICADA]`. Redactar ≠ promulgar (el agente propone; un humano aplica).
 
