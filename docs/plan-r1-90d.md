@@ -151,19 +151,19 @@ existan trabajos del auditor** (post H3 / matriz FP/FN), no antes.
 
 ## Epic E1 — Vigencia DOF nivel 1 (slice salud) · H1
 
-### R1-E1-01 · Procedimiento de procedencia DOF (doc) · P0 · AGENT · S · Dep: E0-02
+### R1-E1-01 · Procedimiento de procedencia DOF (doc) · P0 · AGENT · S · Dep: E0-02 · **HECHO 2026-08-10**
 
-**Entradas:** `corpus/registry.yaml`, política §7.  
-**Salida:** `docs/fuentes-legal-mx.md` (<800 L artefacto o <1500 doc_ref si no
-`plan-`/`contrato`) con: niveles 1–4, cómo registrar permalink DOF, hash, fecha
-reforma, fecha consulta, regla no-copia-verbatim.  
+**Entradas:** `corpus/registry.yaml`, política §7, auth E0-02.  
+**Salida:** `docs/fuentes-legal-mx.md` (niveles 1–4, tipo→primaria→secundaria,
+campos registry, procedimiento A–F, multi-eje, visión vigilancia DOF) +
+`docs/propuestas/gate-confianza-multieje-v1.md` + comentarios en registry.  
 **DoD:**
 
-- [ ] Archivo existe; cada regla normativa cita fuente o se marca metodología
-- [ ] `check_sizes` OK
-- [ ] No afirma vigencia de un artículo concreto sin evidencia
+- [x] Archivo metodología existe; sin afirmar vigencia de artículo concreto
+- [x] `check_sizes` OK
+- [x] Auth y plan enlazan a la metodología
 
-**Git:** `docs/fuentes-legal-mx.md`. **Adv:** con H1.
+**Git:** `docs/fuentes-legal-mx.md`. **Adv:** con H1 (al cerrar E1-02..04).
 
 ### R1-E1-02 · Ingerir evidencia DOF CPEUM Art.4 slice · P0 · AGENT+ADMIN · M · Dep: E0-02, E1-01
 
@@ -197,13 +197,13 @@ Igual que E1-02 para LGS.
 - [ ] Pasa con registry actual
 - [ ] `unittest discover` verde; tamaños OK
 
-### R1-E1-05 · Gate v1.1 — ¿habilitar `alto`? (diseño) · P1 · AGENT · S · Dep: E1-02, E0-01
+### R1-E1-05 · Gate v1.1 — ¿habilitar `alto`? (diseño) · P1 · AGENT · S · **DISEÑO HECHO 2026-08-10**
 
-**Salida:** propuesta corta `docs/propuestas/gate-v1.1-alto-diseno.md` (&lt;150 L):
-criterios legales+técnicos para `alto`; **default recomendado:** no habilitar hasta
-jurídico firme.  
-**DoD:** [ ] Doc existe; no cambia código sin ticket de implementación.  
-**Implementación código** = ticket futuro tras HUMAN accept.
+**Salida:** `docs/propuestas/gate-confianza-multieje-v1.md` + §6 de
+`fuentes-legal-mx.md`. **Default:** no habilitar `alto` en código hasta H1 +
+aceptación jurídica.  
+**DoD:** [x] Doc existe; no cambia código de gate aún.  
+**Implementación código** = ticket futuro `feat(corpus): gate v1.1 multi-eje`.
 
 ### R1-E1-06 · Ronda adversarial H1 · P0 · AGENT (multi) · M · Dep: E1-02..04
 

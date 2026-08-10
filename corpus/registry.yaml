@@ -3,9 +3,14 @@
 # Procedencia de cada instrumento oficial cargado al corpus. Los originales (PDF, etc.)
 # NO se versionan (ver .gitignore: corpus/originals/); se conservan vía hash + URL.
 #
-# Niveles de fuente (dictamen §2): 1=DOF (primaria), 2=Cámara de Diputados (consolidada,
-# "sólo informativo" según su propio aviso), 3=SCJN/SJF, 4=derivados.
-# §7: vigencia_verificada=false hasta reconciliar con DOF (nivel 1).
+# Niveles de fuente: 1=primaria (publicidad del acto, tip. DOF federal),
+# 2=consolidada/institucional (Cámara, Orden Jurídico — informativo),
+# 3=jurisprudencial (SCJN/SJF), 4=derivados del corpus.
+# Metodología completa: docs/fuentes-legal-mx.md
+# Auth canales: docs/autorizacion-fuentes-r1.md
+# §7: vigencia_verificada=true solo con traza nivel 1 usable (no solo home DOF).
+# Extensión opcional por fuente: trazas_publicacion[], fuentes_secundarias_consultadas,
+# coherencia_multi_fuente (alineado|discrepancia|no_evaluado) — ver fuentes-legal-mx.md §4.
 
 fuentes:
   - id: CPEUM
