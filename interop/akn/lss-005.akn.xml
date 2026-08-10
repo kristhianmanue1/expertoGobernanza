@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://docs.oasis-open.org/legaldocml/ns/akn/3.0 https://docs.oasis-open.org/legaldocml/akn-core/v1.0/os/part2-specs/schemas/akomantoso30.xsd">
+  <portion includedIn="#lss">
+    <meta>
+      <identification source="#codex">
+        <FRBRWork>
+          <FRBRthis value="/akn/mx/act/1995-12-21/lss/!main~art_5" />
+          <FRBRuri value="/akn/mx/act/1995-12-21/lss" />
+          <FRBRalias value="LSS:5" name="internal-disposition-id" />
+          <FRBRalias value="LSS" name="internal-instrument-id" />
+          <FRBRdate date="1995-12-21" name="enactment" />
+          <FRBRauthor href="#congreso" as="#author" />
+          <FRBRcountry value="mx" />
+          <FRBRname value="lss" />
+          <FRBRprescriptive value="true" />
+        </FRBRWork>
+        <FRBRExpression>
+          <FRBRthis value="/akn/mx/act/1995-12-21/lss/spa@2026-01-15/!main~art_5" />
+          <FRBRuri value="/akn/mx/act/1995-12-21/lss/spa@2026-01-15" />
+          <FRBRalias value="LSS:5" name="internal-disposition-id" />
+          <FRBRdate date="2026-01-15" name="version" />
+          <FRBRdate date="2001-12-20" name="last-amendment-of-portion" />
+          <FRBRauthor href="#camara" as="#editor" />
+          <FRBRauthoritative value="false" />
+          <FRBRlanguage language="spa" />
+        </FRBRExpression>
+        <FRBRManifestation>
+          <FRBRthis value="/akn/mx/act/1995-12-21/lss/spa@2026-01-15/!main~art_5.xml" />
+          <FRBRuri value="/akn/mx/act/1995-12-21/lss/spa@2026-01-15.xml" />
+          <FRBRdate date="2026-08-10" name="generation" />
+          <FRBRauthor href="#codex" as="#editor" />
+          <FRBRportion from="#art_5" />
+          <FRBRformat value="xml" />
+        </FRBRManifestation>
+      </identification>
+      <references source="#codex">
+        <original eId="lss" href="/akn/mx/act/1995-12-21/lss" showAs="Ley del Seguro Social" />
+        <TLCOrganization eId="congreso" href="/akn/ontology/organization/mx/congreso-union" showAs="Congreso de la Unión" />
+        <TLCOrganization eId="camara" href="/akn/ontology/organization/mx/camara-diputados" showAs="Cámara de Diputados" />
+        <TLCOrganization eId="codex" href="/akn/ontology/organization/eg/openai-codex" showAs="OpenAI Codex — conversión no autoritativa" />
+        <TLCRole eId="author" href="/akn/ontology/role/author" showAs="Autor" />
+        <TLCRole eId="editor" href="/akn/ontology/role/editor" showAs="Editor" />
+      </references>
+    </meta>
+    <portionBody>
+      <article eId="art_5">
+        <num>Artículo 5.</num>
+        <content eId="art_5__content">
+          <p>La organización y administración del Seguro Social, en los términos consignados en esta Ley, están a cargo del organismo público descentralizado con personalidad jurídica y patrimonio propios, de integración operativa tripartita, en razón de que a la misma concurren los sectores público, social y privado, denominado Instituto Mexicano del Seguro Social, el cual tiene también el carácter de organismo fiscal autónomo.</p>
+        </content>
+      </article>
+    </portionBody>
+  </portion>
+</akomaNtoso>
