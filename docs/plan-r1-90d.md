@@ -329,9 +329,15 @@ manuales; cola E5-02+; no internos).
 **DoD:** [x] Hash `c0f203a9…`; nivel 2; vigencia **false**; lookup+test.  
 **Pendiente F5:** traza DOF con alcance para eventual `true`.
 
-### R1-E5-04 · Registry Reglamento Interior IMSS (público) · P1 · AGENT+ADMIN · M · Dep: E5-03
+### R1-E5-03b · Registry LSS (naturaleza IMSS) · P1 · **HECHO exploración 2026-08-10**
 
-Análogo; si no hay consolidado confiable → PARCIAL + no forzar.
+**Salida:** LSS.pdf, registry, `LSS:5` (OPD) + `LSS:1`, extractos.  
+**DoD:** [x] Hash `8a28a16e…`; vigencia **false**; tests lookup.  
+**Pendiente F5:** DOF Art.5 (2001-12-20 candidato) + cuerpo.
+
+### R1-E5-04 · Registry Reglamento Interior IMSS (público) · P1 · AGENT+ADMIN · M · Dep: E5-03b
+
+Solo si hay texto **público** (DOF/portal); si no → PARCIAL + no forzar.
 
 ### R1-E5-05 · Slice lookup: 1 disposición por instrumento · P1 · AGENT · M · Dep: E5-02..04
 

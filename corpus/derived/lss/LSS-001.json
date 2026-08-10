@@ -1,0 +1,35 @@
+{
+  "disposicion_id": "LSS:1",
+  "instrumento": {
+    "id": "LSS",
+    "nombre_oficial": "Ley del Seguro Social"
+  },
+  "jerarquia_documental": {
+    "articulo": "1.",
+    "elemento": "observancia general y carácter de orden público"
+  },
+  "texto_verbatim": "La presente Ley es de observancia general en toda la República, en la forma y términos que la misma establece, sus disposiciones son de orden público y de interés social.",
+  "vigencia": {
+    "estado": "vigente",
+    "ultima_reforma_dof_declarada": "2026-01-15",
+    "verificada_contra_dof_nivel1": false,
+    "marcador": "[VIGENCIA-NO-VERIFICADA contra DOF nivel 1 — exploración LSS E5]"
+  },
+  "fuentes_oficiales": [
+    {
+      "tipo": "consolidado_camara",
+      "nivel": 2,
+      "archivo": "corpus/originals/LSS.pdf",
+      "sha256": "8a28a16e1dce1f8e666f4cce5ed19745bc912b2ab1ca49787d5d4bef229398ed",
+      "fecha_consulta": "2026-08-10",
+      "extracto_verbatim_en": "docs/fuentes/lss/art-001.txt"
+    }
+  ],
+  "relaciones_normativas": [],
+  "lineage": {
+    "extraido_de_sha256": "8a28a16e1dce1f8e666f4cce5ed19745bc912b2ab1ca49787d5d4bef229398ed",
+    "parser": "pypdf",
+    "fecha_extraccion": "2026-08-10",
+    "notas": "Espaciado normalizado; autoridad = PDF Cámara"
+  }
+}
