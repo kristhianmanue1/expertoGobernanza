@@ -51,12 +51,11 @@ El auditor de **manuales** del dictamen vive sobre todo en el **eje 3**.
 
 ## 4. Naturaleza jurídica del IMSS
 
-- Texto de trabajo **LSS:5** (consolidado Cámara): el IMSS es **organismo público
-  descentralizado** con personalidad jurídica y patrimonio propios, tripartita y
-  organismo fiscal autónomo.  
-- Ancla DOF de ese artículo: **pendiente F5** (`vigencia_verificada: false` en
-  registry LSS). Hasta entonces: citar como texto de trabajo nivel 2, no como
-  vigencia primaria cerrada.
+- **LSS:5** (F5 true): IMSS = OPD tripartita / organismo fiscal autónomo (DOF 20-12-2001).  
+- **LFEP:5** (lookup; F5 traza pendiente): IMSS (y análogos) se rigen por **leyes
+  específicas** en órganos de gobierno/vigilancia; en lo demás, LFEP si no se opone.  
+- Cadena de trabajo: `LSS:5` (naturaleza) + `LFEP:5` (primacía ley específica) +
+  `RIIMSS:1` (objeto/organización) + `LOAPF:1`/`LFEP:1` (marco APF/paraestatal).
 
 ## 5. Reglas operativas para agentes
 
@@ -78,7 +77,7 @@ El auditor de **manuales** del dictamen vive sobre todo en el **eje 3**.
 | 3 | LSS | **HECHO exploración 2026-08-10** — LSS.pdf + `LSS:5` (OPD) + `LSS:1` (false) |
 | 4 | E5-04 | **HECHO 2026-08-10** — RIIMSS.pdf portal IMSS + `RIIMSS:1` (false hasta F5) |
 | 5 | E5-05 | Lookups ya: LOAPF:1, LFEP:1, LSS:5, RIIMSS:1 — ampliar si hace falta |
-| 5b | **LFEP:5** (sugerido) | Primacía de ley específica del IMSS / conexión OPD más directa que LFEP:1 solo |
+| 5b | **LFEP:5** | **HECHO lookup 2026-08-10** — IMSS + leyes específicas + LFEP residual; F5 traza DOF pendiente |
 | 6 | E5-06 | Adversarial multi del paquete corpus |
 
 ## 7. Fuera de alcance R1 (explícito)

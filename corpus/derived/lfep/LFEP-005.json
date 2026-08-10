@@ -1,0 +1,63 @@
+{
+  "disposicion_id": "LFEP:5",
+  "instrumento": {
+    "id": "LFEP",
+    "nombre_oficial": "Ley Federal de las Entidades Paraestatales"
+  },
+  "jerarquia_documental": {
+    "articulo": "5o.",
+    "elemento": "organismos análogos IMSS/ISSSTE/etc. — leyes específicas + LFEP residual"
+  },
+  "texto_verbatim": "El Instituto Mexicano del Seguro Social, el Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado, el Instituto del Fondo Nacional de Vivienda para los Trabajadores, el Instituto de Seguridad Social para las Fuerzas Armadas, el Instituto Nacional de los Pueblos Indígenas y los demás organismos de estructura análoga que hubiere, se regirán por sus leyes específicas en cuanto a las estructuras de sus órganos de gobierno y vigilancia, pero en cuanto a su funcionamiento, operación, desarrollo y control, en lo que no se oponga a aquellas leyes específicas, se sujetarán a las disposiciones de la presente Ley.",
+  "vigencia": {
+    "estado": "vigente",
+    "ultima_reforma_dof_declarada": "2025-07-16",
+    "verificada_contra_dof_nivel1": false,
+    "marcador": "[VIGENCIA-NO-VERIFICADA DOF nivel 1 — claim consolidado 16-07-2025; F5 pendiente disposición]",
+    "traza_claim_secundario": "Párrafo reformado DOF 04-01-2001, 21-05-2003, 08-05-2023, 16-07-2025",
+    "registry_ref": "corpus/registry.yaml#LFEP"
+  },
+  "fuentes_oficiales": [
+    {
+      "tipo": "consolidado_camara",
+      "nivel": 2,
+      "archivo": "corpus/originals/LFEP.pdf",
+      "sha256": "c0f203a9c6ebb990db8a2a43559ecf19e904f7c0757d0f334f7f4fb044aa6a12",
+      "fecha_consulta": "2026-08-10",
+      "extracto_verbatim_en": "docs/fuentes/lfep/art-005.txt"
+    }
+  ],
+  "relaciones_normativas": [
+    {
+      "tipo": "menciona",
+      "target": "IMSS",
+      "evidencia": "Art.5 LFEP nombra expresamente al Instituto Mexicano del Seguro Social",
+      "verificada": true
+    },
+    {
+      "tipo": "remite_a_ley_especifica",
+      "target": "LSS",
+      "evidencia": "se regirán por sus leyes específicas en cuanto a órganos de gobierno y vigilancia",
+      "verificada": false,
+      "nota": "Ley específica del IMSS = LSS (eje); LFEP aplica en lo no opuesto"
+    },
+    {
+      "tipo": "relaciona_con",
+      "target": "LSS:5",
+      "evidencia": "LSS:5 define OPD; LFEP:5 fija primacía de ley específica + LFEP residual",
+      "verificada": false
+    },
+    {
+      "tipo": "relaciona_con",
+      "target": "LFEP:1",
+      "evidencia": "marco general entidades paraestatales",
+      "verificada": false
+    }
+  ],
+  "lineage": {
+    "extraido_de_sha256": "c0f203a9c6ebb990db8a2a43559ecf19e904f7c0757d0f334f7f4fb044aa6a12",
+    "parser": "pypdf",
+    "fecha_extraccion": "2026-08-10",
+    "notas": "Espaciado normalizado; autoridad = PDF Cámara"
+  }
+}

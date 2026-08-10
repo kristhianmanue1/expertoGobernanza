@@ -30,6 +30,13 @@ class TestLookup(unittest.TestCase):
         self.assertIn("entidades paraestatales", r["texto_verbatim"].lower())
         self.assertIn("artículo 90", r["texto_verbatim"].lower())
 
+    def test_lfep_art5_imss_ley_especifica(self):
+        r = lookup.lookup("LFEP:5")
+        self.assertTrue(r["exists"])
+        t = r["texto_verbatim"].lower()
+        self.assertIn("instituto mexicano del seguro social", t)
+        self.assertIn("leyes específicas", t)
+
     def test_lss_art5_imss_opd(self):
         r = lookup.lookup("LSS:5")
         self.assertTrue(r["exists"])
