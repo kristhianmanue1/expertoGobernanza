@@ -348,7 +348,7 @@ fuentes:
         identificadores_diario: "DOF 16-07-2025 codigo=5763164, Artículo Segundo: reforma Art.5 ¶1 LFEP"
         f5: true
         nota: "F5 cerrado: el decreto cubre el párrafo que nombra IMSS y leyes específicas; no identifica por nombre a la LSS."
-    url_dof_nivel1: null
+    url_dof_nivel1: "https://www.dof.gob.mx/nota_detalle.php?codigo=5763164&fecha=16/07/2025"
     vigencia_verificada: true
     fecha_consulta_vigencia: "2026-08-10"
     vacatio_o_transitorio: unknown
