@@ -31,3 +31,12 @@ logs/
 
 # Spikes locales (wheels, venv, reportes full con paths)
 .spikes/
+
+# e.firma (FIEL) del SAT: la llave privada (.key) y derivados NUNCA entran al
+# repo. El .cer público tampoco se versiona: el ADR-0005 registra serial + hash
+# para verificación; el certificado vive fuera del repo, en control del humano.
+*.key
+*.cer
+*.pem
+*.p12
+*.pfx

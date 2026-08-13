@@ -142,7 +142,7 @@ F5 **cerrado** (5/6 disposiciones verificadas; LSS:1 opcional pendiente) +
 golden set 135 tests + router §7.4 estable + EvidenceEdge gobernado + Skevi
 adoptado (gate `skevi:registry`, estándar vendorizado en `docs/skevi/`). CI
 workflow en `.github/` (**runners suspendidos por presupuesto** → DoD local;
-ver `docs/ops-github.md`). ADR-0001/0002/0003/0004 aceptados.
+ver `docs/ops-github.md`). ADR-0001/0002/0003/0004/0005 aceptados.
 
 > **PRÓXIMA TAREA:** backlog **humano-gateado**: roles §9 (designación) / auth
 > DOF nivel 1 / aceptar ADR-0001/0002. Eje IMSS F5 cerrado. Cola agent-actionable:
