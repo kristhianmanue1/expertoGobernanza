@@ -76,8 +76,8 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal. Scope de `supersede` no puede ser `derived_from_retrieval`.
 
 ### Estado actual de la memoria (referencia)
-- AN-KLA **0.1.0b14** / plantilla **0.1.0-beta.11**; identidad **complete**; rev **17**
-  (`facts: 17`). Fact de reanudación: **`estado-2026-08-13-skevi-imss-cerrado`**.
+- AN-KLA **0.1.0b14** / plantilla **0.1.0-beta.11**; identidad **complete**; rev **18**
+  (`facts: 18`). Fact de reanudación: **`estado-2026-08-13-harness-plan-pausa`**.
 - Query: `retrieve --query "estado R1 H1 IMSS LOAPF LFEP LSS RIIMSS" --budget 6000`
 - Otros: `plan-r1-90d-2026-08-10`, `roles-r1-designados-2026-08-10`,
   `an-kla-migrado-beta11-2026-08-10`, `github-actions-billing-suspendido-2026-08-10`.
