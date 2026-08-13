@@ -16,13 +16,15 @@ Checkpoint, refute y compactación requieren sus contratos y autoridad vigentes.
 
 > Sección NO gestionada (fuera del bloque administrado). Edita libremente.
 > Instalado 2026-08-06 (beta.6); migrado a **v0.1.0-beta.11** el 2026-08-10
-> (paquete + identidad legacy + contexto; store rev 6 intacta).
+> (paquete + identidad legacy + contexto; store rev 6 intacta); actualizado a
+> **v0.1.0-beta.14** el 2026-08-13 (binario 0.1.0b14; plantilla administrada y
+> store intactos en beta.11/rev 16; añade subject_ref/G-VIEW + guía primer write).
 
 ### Dónde está todo
-- Binario: `.venv/bin/python -m an_kla` (venv Python 3.12; tag **`v0.1.0-beta.11`** / `0.1.0b11`, pin git `65cfc1ac…` desde repo privado `kristhianmanue1/an-kla-memory`; backup venv roto histórico en `.venv.broken-310`).
+- Binario: `.venv/bin/python -m an_kla` (venv Python 3.12; tag **`v0.1.0-beta.14`** / `0.1.0b14`, pin git `58b11945…` desde repo privado `kristhianmanue1/an-kla-memory`; backup venv roto histórico en `.venv.broken-310`). Plantilla administrada sigue en `0.1.0-beta.11`.
 - Memoria local: `.an-kla/memory/` (NO versionar). Estado en `.an-kla/context/`. Identidad de store/proyecto adoptada (beta.11).
 - Contrato detallado: `AN-KLA.md`. Esquemas: `an_kla schema list` / `schema show <nombre>`.
-- Actualizar: pin exacto por tag + `upgrade inspect/apply/verify` (y `identity` si el store es legacy); no uses `main` ni PyPI.
+- Actualizar (store no-legacy, ya beta.11+): `pip install` tag exacto desde el repo privado (vía `gh auth setup-git` o clon con `gh`) + `context plan --operation update` (preview) + `context update`. La ruta `upgrade inspect/apply/verify` + `identity` aplica sólo a stores legacy beta.8. No uses `main` ni PyPI. beta.12+ no cambia plantilla/store: el `context update` suele ser `noop`.
 
 ### Ciclo de escritura gobernado (OBLIGATORIO para guardar algo nuevo)
 ```bash
@@ -74,8 +76,8 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal. Scope de `supersede` no puede ser `derived_from_retrieval`.
 
 ### Estado actual de la memoria (referencia)
-- AN-KLA **0.1.0b11** / plantilla **0.1.0-beta.11**; identidad **complete**; rev **15**
-  (`facts: 15`). Fact de reanudación: **`estado-2026-08-10-r1-h1-eje-imss`**.
+- AN-KLA **0.1.0b14** / plantilla **0.1.0-beta.11**; identidad **complete**; rev **16**
+  (`facts: 16`). Fact de reanudación: **`estado-2026-08-10-r1-h1-eje-imss`**.
 - Query: `retrieve --query "estado R1 H1 IMSS LOAPF LFEP LSS RIIMSS" --budget 6000`
 - Otros: `plan-r1-90d-2026-08-10`, `roles-r1-designados-2026-08-10`,
   `an-kla-migrado-beta11-2026-08-10`, `github-actions-billing-suspendido-2026-08-10`.
@@ -134,11 +136,20 @@ líneas (el detalle y las plantillas están en el doc):
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
 **Estado actual:** alfa temprana. Git + remoto privado **sincronizados**
-(`kristhianmanue1/expertoGobernanza`, `main` = `fa3242a`+). AN-KLA **0.1.0b11**
-(rev 8, identidad complete). Política v1.1. MVP eje-salud A/B/D/F + golden set 34
+(`kristhianmanue1/expertoGobernanza`, `main` = `987dcac`+). AN-KLA **0.1.0b14**
+(rev 16, identidad complete). Política v1.1. MVP eje-salud A/B/D/F + golden set 34
 tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
 presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
 
 > **PRÓXIMA TAREA:** eje IMSS: F5 true + **`LFEP:5`** (primacía ley específica;
 > F5 traza Art.5 pendiente). Cola: F5 LFEP:5 / ADR-0001 / multi. Manuales fuera.
 > Mapa: `docs/README.md`.
+
+<!-- skevi:registry:start -->
+[skevi]
+policy     = docs/politica-agentes.md
+standard   = docs/skevi/estandar-diseno-software.md
+templates  = docs/plantillas-agente.md
+ops_github = docs/ops-github.md
+docs_index = docs/README.md
+<!-- skevi:registry:end -->
