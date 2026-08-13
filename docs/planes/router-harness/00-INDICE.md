@@ -40,3 +40,15 @@ bitácora append-only con cadena de hash (tamper-evident).
   sigue denegando hasta que exista).
 - Firma criptográfica del bundle con e.firma (capa legal, ADR-0005; el sello aquí
   es SHA-256 determinista, no firma legal).
+
+## Ronda adversarial 2026-08-13 (sobre el diseño, pre-ejecución)
+
+Decisión: `fix-and-retry` → hallazgos incorporados al plan antes de ejecutar.
+
+| # | Hallazgo | Nivel | Resolución |
+|---|---|---|---|
+| F1 | Cadena de hash no previene reemplazo total (truncate + rebuild) | HIGH | `verify_chain` con `anchor_hash` externo commiteado a git (§2 + RH-T03) |
+| F2 | `verify_seal` TOCTOU (lee repo en vivo, no lo sellado) | HIGH | Sello envuelve bundle autocontenido; `verify_seal` opera sobre el bundle, no el repo (§2 + RH-T01) |
+| F3 | "Bypass detectable por ausencia de log" sobredeclarado | MED | Corregido: NO es detectable; el control es disciplina + log como único registro sancionado (§2) |
+| F4 | `classification` en manifest circular (inferida del bundle) | MED | Re-clasifica con `router.classify(path, config)` (§2 + RH-T01) |
+| F5 | Desacople patrón CLI (workspace vs lista de archivos) | MED | RH-T05 sólo dry-run; invocación real (RH-T07) resuelve el wrapper por CLI (§2 + RH-T07) |

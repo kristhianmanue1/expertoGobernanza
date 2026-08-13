@@ -14,19 +14,22 @@
 
 - Archivos: `review_routing/seal.py` (nuevo), `review_routing/__init__.py` (si hace
   falta export).
-- **Entradas:** `decision` (salida de `router.route`), `provider`, `model`,
-  `config_sha256`. Construye `manifest` (path, classification inferida de la
-  ausencia en denied → "publico", bytes, sha256 por archivo), `bundle_sha256`
-  (ya viene en decision), `seal_sha256` (canonical).
-- `verify_seal(seal, content_getter)` re-hashes vía `content_getter(path)->bytes`,
-  recomputa manifest + `seal_sha256`, compara.
+- **Entradas:** `decision` (salida de `router.route`), `config`, `provider`, `model`,
+  `config_sha256`. Por cada path en `decision["bundle"]`, **re-clasifica con
+  `router.classify(path, config)`** → `manifest.classification` (no infiere de la
+  pertenencia al bundle; F4). Lee el contenido del repo **una vez al sellar** y lo
+  guarda en un bundle autocontenido. Calcula `seal_sha256` (canonical).
+- `verify_seal(seal, bundle_content)` re-hashes el **contenido del bundle** (inmutable),
+  no el repo vivo (F2: sin TOCTOU). Recomputa manifest + `seal_sha256`, compara.
 - **Dep:** ninguna.
 
 **DoD:**
 - [ ] `python -m py_compile review_routing/seal.py` limpio.
 - [ ] `build_seal` produce un dict con los 8 campos del §2 y `seal_sha256` = 64 hex.
-- [ ] `verify_seal(build_seal(d,p,m,c), getter)` → `(True, "ok")`.
-- [ ] Mutar 1 byte del contenido → `verify_seal` → `(False, ...)`.
+- [ ] `manifest[*].classification` viene de `router.classify`, no de inferencia (F4).
+- [ ] `verify_seal(build_seal(d,c,p,m,cs), su_bundle)` → `(True, "ok")`.
+- [ ] Mutar 1 byte del **contenido del bundle** → `verify_seal` → `(False, ...)`.
+- [ ] Mutar el repo **después** de sellar NO afecta `verify_seal` (TOCTOU cerrado, F2).
 - [ ] `check_sizes.py` en verde; `seal.py` < 200 líneas.
 
 ### RH-T02 · Tests del sello (`tests/test_seal.py`)
@@ -49,9 +52,11 @@
 
 - `append(seal, response_sha256, logpath)`: lee última entrada (o genesis
   `sha256:` + 64 ceros para seq=1), construye entry con `seq`+1, `prev_hash`,
-  `entry_hash` (canonical), escribe 1 línea JSON.
-- `verify_chain(logpath)`: recorre, recomputa cada `entry_hash`, verifica
-  `prev_hash` enlaces + `seq` monótono. Devuelve `("OK"|"BROKEN", [hallazgos])`.
+  `entry_hash` (canonical), escribe 1 línea JSON. **Devuelve el `entry_hash`** (para
+  que el humano lo ancle a git; F1).
+- `verify_chain(logpath, anchor_hash=None)`: recorre, recomputa cada `entry_hash`,
+  verifica `prev_hash` enlaces + `seq` monótono. Si `anchor_hash` != None, verifica
+  que el último `entry_hash` == `anchor_hash` (F1: ancla externa vs reemplazo total).
 - **Dep:** RH-T01 (usa `seal_sha256`).
 
 **DoD:**
@@ -61,6 +66,9 @@
 - [ ] Borrar entrada del medio → `("BROKEN", [...])`.
 - [ ] Reordenar dos entradas → `("BROKEN", [...])`.
 - [ ] `seq` no monótono → `("BROKEN", [...])`.
+- [ ] **F1:** truncar el log y reconstruir desde genesis → `verify_chain(log, anchor=hash_anterior)`
+      → `("BROKEN", [...])` (el último hash difiere del ancla). Sin ancla, declara que
+      sólo certifica consistencia interna.
 
 ### RH-T04 · Tests de la cadena (`tests/test_audit_log.py`)
 
@@ -113,15 +121,19 @@
 - Extiende el gateway: tras sellar, escribe bundle sellado a temp, invoca el CLI
   externo (subprocess) apuntando al temp, captura stdout, `response_sha256`,
   `audit_log.append`.
-- **Gated:** este task requiere un proveedor real disponible y autorizado
-  (`docs/autorizacion-fuentes-r1.md`). No bloquea H0–H2. Puede quedar como diseño
-  listo hasta que se ejecute una revisión multi-provider real.
+- **Gated + abierto (F5):** este task requiere un proveedor real disponible y
+  autorizado (`docs/autorizacion-fuentes-r1.md`), **y** debe resolver el desacople
+  patrón-de-invocación: CLIs como `codex -C /worktree` o `claude` consumen un
+  *workspace*, no un temp con archivos sueltos. La adaptación (wrapper por CLI) se
+  diseña aquí, no se pre-asume. No bloquea H0–H2.
 - **Dep:** RH-T05, RH-T06, + proveedor autorizado.
 
 **DoD:**
 - [ ] Una invocación real (p. ej. claude) vía gateway deja entrada en `audit_log`.
 - [ ] `verify_chain` sobre esa entrada → `OK`.
-- [ ] El CLI externo recibe el temp sellado, NO el repo completo.
+- [ ] El CLI externo recibe el bundle sellado, NO el repo completo.
+- [ ] El desacople workspace-vs-lista está resuelto y documentado (wrapper por CLI
+      o adaptación del modo de invocación).
 
 ### RH-T08 · ADR + ronda adversarial (cierre de hito)
 
