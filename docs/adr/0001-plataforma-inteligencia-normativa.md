@@ -1,6 +1,8 @@
 # ADR-0001 — Adopción de "Plataforma de inteligencia normativa" + quórum multi-provider
 
-> **Estado:** Propuesta (pendiente confirmar interpretación de dominio + responsable jurídico).
+> **Estado:** Aceptado (2026-08-13). La dirección y el MVP se ejecutaron; los
+> ítems abiertos materiales se resolvieron (ver §"Resolución 2026-08-13"). Los
+> diferenciales (repos OSS seed, equipo jurídico golden set) quedan diferidos.
 > **Fecha:** 2026-08-06. **Autor:** agente (síntesis). **Autoridad que adopta:** humano orquestador (§7.2).
 > **Insumos:** `docs/propuestas/2026-08-06-dictamen-plataforma-normativa-input.md`,
 > `docs/propuestas/analisis-dictamen-2026-08-06.md`.
@@ -70,3 +72,28 @@ alcanzable. Esto cambia el cálculo de gobernanza.
 2. Extender la política (extensiones 1–3) y **revisar la extensión con el quórum multi-provider** (primer uso real del A4+A2).
 3. Ejecutar el **MVP honesto** sobre una sola norma como spike, midiendo falsos positivos.
 4. Con evidencia, decidir la adopción formal de las fases 0–5 del dictamen.
+
+## Resolución 2026-08-13 (aceptación)
+
+La decisión propuesta se **acepta**: la dirección "registro normativo temporal y
+verificable + verificador determinista de citas" es la adoptada. Los ítems
+abiertos materiales se resolvieron en R1:
+
+- **Responsable jurídico del corpus** → resuelto (`docs/roles-r1.md`, interino).
+- **Custodio/data steward** → resuelto (`docs/roles-r1.md`, interino).
+- **Autorización multi-provider** → resuelta (`docs/autorizacion-fuentes-r1.md`).
+- **Quórum adversarial multi-provider (≥3)** → ejecutado: política v1.1 §6 +
+  router §7.4 estable con ronda multi-provider real (claude + codex + glm-5.2).
+- **MVP honesto** → ejecutado: corpus + `lookup.py` + `verify_citations.py` +
+  golden set 135 tests + EvidenceEdge gobernado. Eje-salud y eje IMSS F5 cerrados.
+- **Dominio** → confirmado: federal (leyes públicas), IMSS = piloto.
+
+**Diferidos (no bloquean la aceptación):**
+- Repos OSS (`lex-mx`, `leyes-mexicanas-markdown`) como semilla: auditar
+  licencia/procedencia antes de usar.
+- Equipo jurídico para el golden set: define si Fases 3–4 son alcanzables.
+- Fases 0–5 completas del dictamen: gated by evidencia del MVP (sigue vigente el
+  principio "MVP honesto primero").
+
+**Leyes como Código** (reglas ejecutables + validación formal) sigue reservado
+para una fase posterior, como decidió la propuesta original.

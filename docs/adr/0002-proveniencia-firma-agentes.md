@@ -1,6 +1,8 @@
 # ADR-0002 — Proveniencia y firma de contribuciones de agentes
 
-> **Estado:** Propuesto. **Clase:** Estratégico (toca gobernanza de git y fidelidad §7).
+> **Estado:** Aceptado (2026-08-13). Implementación adoptada: **firma SSH
+> ed25519** (equivalente criptográfico de GPG; ver §"Resolución 2026-08-13").
+> **Clase:** Estratégico (toca gobernanza de git y fidelidad §7).
 > **Fecha:** 2026-08-07. **Autor:** agente (opencode/glm-5.2). **Autoridad que adopta:** humano (§7.2).
 > **Adopción requiere (actos humanos):** (1) generar/importar clave GPG del admin;
 > (2) activar `commit.gpgsign=true` o branch protection `Require signed commits` en `main`.
@@ -53,7 +55,29 @@ participación?* Este ADR formaliza la respuesta y el camino a firma verificable
   bloquea la salida a v1.2. Se agenda.
 
 ## Ítems abiertos (decisión humana)
-- Generar/importar clave GPG del admin y activar firma obligatoria en `main`.
+- ~~Generar/importar clave GPG del admin y activar firma obligatoria en `main`.~~
+  → resuelto vía **firma SSH** (ver abajo).
 - Decidir proveedor del quórum §6 estable (gemini/qwen cayeron por auth) — afecta la
   proveniencia declarable.
 - Cuando existan releases: adoptar cosign + definir el keystore de firma de artefactos.
+
+## Resolución 2026-08-13 (aceptación)
+
+La decisión conceptual se acepta: **los agentes no tienen claves de firma; el
+admin firma los commits**. La implementación adoptada es **firma SSH ed25519** en
+lugar de GPG, porque el host (macOS) no tiene `gpg` instalado y SSH signing logra
+el mismo efecto criptográfico (firma de la identidad humana que responde):
+
+- `gpg.format = ssh`, `user.signingkey = ~/.ssh/id_ed25519_cvoed`,
+  `commit.gpgsign = true` (config a nivel repo).
+- `gpg.ssh.allowedSignersFile` configurado para verificación local:
+  `git log --show-signature` reporta *"Good 'git' signature for devcdmx"*.
+- Commits posteriores al 2026-08-13 van firmados (`-S`).
+
+**Pendiente para verificación en GitHub:** registrar la clave pública
+`id_ed25519_cvoed.pub` como *signing key* en GitHub Settings → SSH and GPG keys
+(distinta de la *auth key*). Sin esto, los commits firman y verifican localmente,
+pero GitHub no muestra el sello "Verified".
+
+**No se adopta cosign/C2PA** en este ciclo (sigue diferido a cuando existan
+releases, como en la propuesta original).
