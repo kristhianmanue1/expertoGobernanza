@@ -6,6 +6,7 @@ excede su límite "Duro". Exenta generados/lock/data, docs fuente y entornos.
 """
 import argparse
 import os
+import re
 import subprocess
 import sys
 
@@ -30,6 +31,13 @@ EXEMPT_EXT = {
 VENDORED_GENERATED_PREFIXES = {
     os.path.join("interop", "akn", "schema"),
 }
+
+# Bloque de registro de contexto (estándar vendorizado §3.5).
+# Los archivos host son punteros, no contenedores: el bloque lista las fuentes
+# únicas y el gate verifica que cada ruta resuelva dentro de la raíz.
+REGISTRY_HOSTS = {"AGENTS.md", "CLAUDE.md"}
+REGISTRY_START_RE = re.compile(r"^<!--\s*skevi:registry:start\s*-->$")
+REGISTRY_END_RE = re.compile(r"^<!--\s*skevi:registry:end\s*-->$")
 
 LIMITS = {
     "always_on": 300,
@@ -96,6 +104,54 @@ def count_lines(path):
         return None
 
 
+def check_registry_block(rel, text, root):
+    """Valida el bloque skevi:registry (§3.5) si el archivo host lo trae.
+
+    Delimitadores balanceados, sección [skevi], al menos una entrada y que cada
+    ruta resuelva a un archivo real dentro de la raíz del proyecto.
+    """
+    if os.path.basename(rel) not in REGISTRY_HOSTS:
+        return []
+    lines = text.splitlines()
+    starts = [i for i, ln in enumerate(lines) if REGISTRY_START_RE.match(ln.strip())]
+    ends = [i for i, ln in enumerate(lines) if REGISTRY_END_RE.match(ln.strip())]
+    if not starts and not ends:
+        return []
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        return [f"{rel}: bloque skevi:registry con delimitadores desbalanceados"]
+    failures = []
+    body = [ln.strip() for ln in lines[starts[0] + 1:ends[0]] if ln.strip()]
+    entries = [ln for ln in body if not ln.startswith((";", "#"))]
+    if not entries or entries[0] != "[skevi]":
+        failures.append(f"{rel}: bloque skevi:registry sin sección [skevi]")
+    else:
+        entries = entries[1:]
+        if any(ln == "[skevi]" for ln in entries):
+            failures.append(f"{rel}: bloque skevi:registry con sección [skevi] duplicada")
+            entries = [ln for ln in entries if ln != "[skevi]"]
+    if not entries:
+        failures.append(f"{rel}: bloque skevi:registry sin entradas")
+    for ln in entries:
+        if "=" not in ln:
+            failures.append(f"{rel}: línea de registro inválida: {ln!r}")
+            continue
+        key, _, value = ln.partition("=")
+        key, value = key.strip(), value.strip()
+        if not key or not value:
+            failures.append(f"{rel}: línea de registro inválida: {ln!r}")
+            continue
+        if value.startswith(("/", "~")):
+            failures.append(f"{rel}: skevi:registry.{key} ruta fuera de raíz: {value}")
+            continue
+        target = os.path.normpath(os.path.join(root, value))
+        if os.path.relpath(target, root).startswith(".."):
+            failures.append(f"{rel}: skevi:registry.{key} escapa de raíz: {value}")
+            continue
+        if not os.path.isfile(target):
+            failures.append(f"{rel}: skevi:registry.{key} apunta a ruta inexistente: {value}")
+    return failures
+
+
 def walk(root):
     for dirpath, dirnames, filenames in os.walk(root):
         dirnames[:] = [d for d in dirnames if d not in EXEMPT_DIRS]
@@ -150,6 +206,16 @@ def main():
         if n > limit:
             violations.append((rel, cat, n, limit))
 
+    # Bloque de registro de contexto (§3.5): valida punteros en AGENTS/CLAUDE.
+    registry_failures = []
+    for rel, full in files:
+        if os.path.basename(rel) in REGISTRY_HOSTS and rel == os.path.basename(rel):
+            try:
+                with open(full, encoding="utf-8") as fh:
+                    registry_failures.extend(check_registry_block(rel, fh.read(), args.root))
+            except OSError:
+                pass
+
     rows.sort(key=lambda r: r[1])
     w = max((len(r[0]) for r in rows), default=12)
     print(f"{'archivo':<{w}}  {'categoría':<22} {'líneas':>7} {'límite':>7}  estado")
@@ -162,8 +228,13 @@ def main():
         print(f"FAIL: {len(violations)} archivo(s) exceden el límite Duro:")
         for rel, cat, n, limit in violations:
             print(f"  {rel} [{cat}] {n} > {limit}")
+    if registry_failures:
+        print(f"FAIL: {len(registry_failures)} problema(s) en bloque skevi:registry:")
+        for msg in registry_failures:
+            print(f"  {msg}")
+    if violations or registry_failures:
         return 1
-    print(f"OK: {len(rows)} archivo(s) dentro de límites.")
+    print(f"OK: {len(rows)} archivo(s) dentro de límites; registro verificado.")
     return 0
 
 
