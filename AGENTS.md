@@ -136,14 +136,17 @@ líneas (el detalle y las plantillas están en el doc):
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
 **Estado actual:** alfa temprana. Git + remoto privado **sincronizados**
-(`kristhianmanue1/expertoGobernanza`, `main` = `987dcac`+). AN-KLA **0.1.0b14**
-(rev 16, identidad complete). Política v1.1. MVP eje-salud A/B/D/F + golden set 34
-tests + router §7.4 estable + CI workflow en `.github/` (**runners suspendidos por
-presupuesto** → DoD local; ver `docs/ops-github.md`). ADR-0001/0002 propuestos.
+(`kristhianmanue1/expertoGobernanza`, `main` = `50d6757`+). AN-KLA **0.1.0b14**
+(rev 16, identidad complete). Política v1.1. MVP eje-salud A/B/D/F + eje IMSS
+F5 **cerrado** (5/6 disposiciones verificadas; LSS:1 opcional pendiente) +
+golden set 135 tests + router §7.4 estable + EvidenceEdge gobernado + Skevi
+adoptado (gate `skevi:registry`, estándar vendorizado en `docs/skevi/`). CI
+workflow en `.github/` (**runners suspendidos por presupuesto** → DoD local;
+ver `docs/ops-github.md`). ADR-0001/0002 propuestos, ADR-0003/0004 aceptados.
 
-> **PRÓXIMA TAREA:** eje IMSS: F5 true + **`LFEP:5`** (primacía ley específica;
-> F5 traza Art.5 pendiente). Cola: F5 LFEP:5 / ADR-0001 / multi. Manuales fuera.
-> Mapa: `docs/README.md`.
+> **PRÓXIMA TAREA:** backlog **humano-gateado**: roles §9 (designación) / auth
+> DOF nivel 1 / aceptar ADR-0001/0002. Eje IMSS F5 cerrado. Cola agent-actionable:
+> recall extracción v1.2 / router harness. Mapa: `docs/README.md`.
 
 <!-- skevi:registry:start -->
 [skevi]

@@ -1,5 +1,9 @@
 # Checklist F5 — eje IMSS público (LOAPF / LFEP / LSS / RIIMSS)
 
+**Estado del eje: CERRADO** (5/6 disposiciones con `f5: true` en `registry.yaml`;
+`LSS:1` opcional/pendiente, no bloqueante). Reconciliado 2026-08-13 contra
+`corpus/registry.yaml` rev. `50d6757`.
+
 **Fecha guía:** 2026-08-10 · **Uso:** verificación humana antes de
 `vigencia_verificada: true` (metodología `docs/fuentes-legal-mx.md`, F2/F5).  
 **No es asesoría legal.** Plantilla de contraste repo ↔ DOF/portal público.
@@ -58,18 +62,23 @@ Marcador consolidado: *Artículo reformado DOF **20-12-2001***.
 
 ### Checklist
 
-- [ ] ¿El decreto de **20-12-2001** (o el que confirmes) reforma el **Art. 5**?  
-- [ ] ¿Aparece **organismo público descentralizado**, personalidad/patrimonio propios, **IMSS**, tripartita / fiscal autónomo?  
-- [ ] ¿Cuadra con el párrafo del repo?  
-- [ ] ¿15-01-2026 **no** es la traza del Art. 5 (si no lo modifica)?
+- [x] ¿El decreto de **20-12-2001** (o el que confirmes) reforma el **Art. 5**?
+- [x] ¿Aparece **organismo público descentralizado**, personalidad/patrimonio propios, **IMSS**, tripartita / fiscal autónomo?
+- [x] ¿Cuadra con el párrafo del repo?
+- [x] ¿15-01-2026 **no** es la traza del Art. 5 (si no lo modifica)?
 
-### También en repo: `LSS:1` (menor prioridad)
+**Decisión: `true` para la traza F5 de `LSS:5`** (registry `f5: true`, revisado
+2026-08-10; 2026-01-15 es reforma de cuerpo, no toca Art. 5).
+
+### También en repo: `LSS:1` (menor prioridad) — **opcional, pendiente**
 
 Texto:
 
 > La presente Ley es de observancia general en toda la República, en la forma y términos que la misma establece, sus disposiciones son de orden público y de interés social.
 
 Basta contrastar con el consolidado Art. 1; traza primaria = publicación **21-12-1995** o reforma que toque Art. 1.
+
+**Estado:** `f5: false` en registry (opcional/baja prioridad). No bloquea el eje.
 
 ---
 
@@ -92,10 +101,13 @@ Basta contrastar con el consolidado Art. 1; traza primaria = publicación **21-1
 
 ### Checklist
 
-- [ ] ¿El PDF/HTML contiene el **Art. 1** con el objeto del Instituto (organizar/administrar el Seguro Social)?  
-- [ ] ¿Cuadra con el texto del repo?  
-- [ ] ¿Confirmas pub. **18-09-2006** y, si aplica, reforma **23-08-2012**?  
-- [ ] (Si 2012 no toca Art. 1) marcar esa reforma como `no_cubre_slice` para `RIIMSS:1`.
+- [x] ¿El PDF/HTML contiene el **Art. 1** con el objeto del Instituto (organizar/administrar el Seguro Social)?
+- [x] ¿Cuadra con el texto del repo?
+- [x] ¿Confirmas pub. **18-09-2006** y, si aplica, reforma **23-08-2012**?
+- [x] (Si 2012 no toca Art. 1) marcar esa reforma como `no_cubre_slice` para `RIIMSS:1`.
+
+**Decisión: `true` para la traza F5 de `RIIMSS:1`** (registry `vigencia_verificada:
+true`, revisado 2026-08-10; 2012-08-23 modifica Art. 155, no Art. 1).
 
 ---
 
@@ -147,9 +159,12 @@ adicional que cubra objeto y relación específicos.
 
 ### Checklist
 
-- [ ] ¿Art. 1 habla de **entidades paraestatales** y del **Art. 90 CPEUM**?  
-- [ ] ¿Cuadra con el repo?  
-- [ ] ¿16-07-2025 cubre o no el Art. 1? (si no → `no_cubre_slice`)
+- [x] ¿Art. 1 habla de **entidades paraestatales** y del **Art. 90 CPEUM**?
+- [x] ¿Cuadra con el repo?
+- [x] ¿16-07-2025 cubre o no el Art. 1? (si no → `no_cubre_slice`)
+
+**Decisión: `true` para la traza F5 de `LFEP:1`** (registry `f5: true`, revisado
+2026-08-10; publicación 1986-05-14 es traza del Art. 1; 2025-07-16 reforma Art. 5).
 
 ---
 
