@@ -76,12 +76,12 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal. Scope de `supersede` no puede ser `derived_from_retrieval`.
 
 ### Estado actual de la memoria (referencia)
-- AN-KLA **0.1.0b14** / plantilla **0.1.0-beta.11**; identidad **complete**; rev **22**
-  (`facts: 22`). Fact de reanudación: **`estado-2026-08-18-h2-gateway-pr31`**.
+- AN-KLA **0.1.0b14** / plantilla **0.1.0-beta.11**; identidad **complete**; rev **23**
+  (`facts: 23`). Fact de reanudación: **`estado-2026-08-18-harness-cerrado-t08`**.
 - Query: `retrieve --query "estado R1 H1 IMSS LOAPF LFEP LSS RIIMSS" --budget 6000`
 - Otros: `plan-r1-90d-2026-08-10`, `roles-r1-designados-2026-08-10`,
   `an-kla-migrado-beta11-2026-08-10`, `github-actions-billing-suspendido-2026-08-10`.
-- Git estado en fact: `main` ~`a3e9bda`+ (actualizar al retomar con `git log -1`).
+- Git estado en fact: `main` ~`b33ce4f`+ (actualizar al retomar con `git log -1`).
 
 ### Anti-patrones a evitar
 - Guardar un `record` solo con campos estructurados y sin `indexable_text`/`text` -> queda inaccesible (`no_text`).
@@ -136,19 +136,20 @@ líneas (el detalle y las plantillas están en el doc):
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
 **Estado actual:** alfa temprana. Git + remoto privado **sincronizados**
-(`kristhianmanue1/expertoGobernanza`, `main` = `a3e9bda`+). AN-KLA **0.1.0b14**
-(rev 22, identidad complete). Política v1.1. MVP eje-salud + eje IMSS F5
-cerrado; router §7.4 estable. **Router harness verificable T01–T06 hecho**
-(sello `seal.py` + bitácora `audit_log.py` + gateway dry-run `route_review`;
-H0+H1 mergeados, **PR #31 = H2 pendiente de merge**) — suite **180 tests**,
-límites OK. CI: job **no arranca por billing** (la X en PRs es de cuenta, no
-de código) → DoD local. ADR-0001..0005 aceptados. Fact de reanudación AN-KLA:
-`estado-2026-08-18-h2-gateway-pr31`.
+(`kristhianmanue1/expertoGobernanza`, `main` = `b33ce4f`+). AN-KLA **0.1.0b14**
+(rev 23, identidad complete). Política v1.1. MVP eje-salud + eje IMSS F5
+cerrado; router §7.4 estable. **Router harness CERRADO (T01–T08)**: sello +
+bitácora anclada + gateway dry-run mergeados; ADR-0006 **Aceptado**; ronda
+adversarial quorum-lite `proceed` (3 ciclos, H-01 cerrado con pinning de
+config). **RH-T07 (invoke real) gated** por proveedor autorizado. Suite
+**193 tests**, límites OK. CI: job **no arranca por billing** (la X en PRs es
+de cuenta, no de código) → DoD local. ADR-0001..0006 aceptados. Fact de
+reanudación AN-KLA: `estado-2026-08-18-harness-cerrado-t08`.
 
-> **PRÓXIMA TAREA:** merge **PR #31** (H2 gateway) → **RH-T08** (ADR-0006 +
-> ronda adversarial quórum-lite de cierre; plan `docs/planes/router-harness/`).
-> RH-T07 (invoke real) queda gated por proveedor autorizado. Backlog
-> humano-gateado: roles §9 / auth DOF nivel 1. Mapa: `docs/README.md`.
+> **PRÓXIMA TAREA:** cola R1 agent-actionable: **R1-E8-01** (fact puntero) /
+> **R1-E2** (cerrar plan-r0) / **R1-E2-05** (índice) / recall extracción v1.2
+> (plan `docs/plan-r1-90d.md`). Humano-gateado: roles §9 / auth DOF nivel 1 /
+> proveedor autorizado para RH-T07. Mapa: `docs/README.md`.
 
 <!-- skevi:registry:start -->
 [skevi]
