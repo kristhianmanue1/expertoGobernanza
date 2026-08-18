@@ -76,12 +76,13 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal. Scope de `supersede` no puede ser `derived_from_retrieval`.
 
 ### Estado actual de la memoria (referencia)
-- AN-KLA **0.1.0b14** / plantilla **0.1.0-beta.11**; identidad **complete**; rev **23**
-  (`facts: 23`). Fact de reanudación: **`estado-2026-08-18-harness-cerrado-t08`**.
+- AN-KLA **0.1.0b14** / plantilla **0.1.0-beta.11**; identidad **complete**; rev **27**
+  (`facts: 27`). Fact de reanudación:
+  **`estado-2026-08-18-vision-definida-fuentes-aseguradas`**.
 - Query: `retrieve --query "estado R1 H1 IMSS LOAPF LFEP LSS RIIMSS" --budget 6000`
 - Otros: `plan-r1-90d-2026-08-10`, `roles-r1-designados-2026-08-10`,
   `an-kla-migrado-beta11-2026-08-10`, `github-actions-billing-suspendido-2026-08-10`.
-- Git estado en fact: `main` ~`b33ce4f`+ (actualizar al retomar con `git log -1`).
+- Git estado en fact: `main` ~`f9e8419`+ (actualizar al retomar con `git log -1`).
 
 ### Anti-patrones a evitar
 - Guardar un `record` solo con campos estructurados y sin `indexable_text`/`text` -> queda inaccesible (`no_text`).
@@ -137,15 +138,17 @@ líneas (el detalle y las plantillas están en el doc):
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
 **Estado actual:** alfa temprana. Git + remoto privado **sincronizados**
-(`kristhianmanue1/expertoGobernanza`, `main` = `b33ce4f`+). AN-KLA **0.1.0b14**
-(rev 23, identidad complete). Política v1.1. MVP eje-salud + eje IMSS F5
-cerrado; router §7.4 estable. **Router harness CERRADO (T01–T08)**: sello +
-bitácora anclada + gateway dry-run mergeados; ADR-0006 **Aceptado**; ronda
-adversarial quorum-lite `proceed` (3 ciclos, H-01 cerrado con pinning de
-config). **RH-T07 (invoke real) gated** por proveedor autorizado. Suite
-**193 tests**, límites OK. CI: job **no arranca por billing** (la X en PRs es
-de cuenta, no de código) → DoD local. ADR-0001..0006 aceptados. Fact de
-reanudación AN-KLA: `estado-2026-08-18-harness-cerrado-t08`.
+(`kristhianmanue1/expertoGobernanza`, `main` = `f9e8419`+). AN-KLA **0.1.0b14**
+(rev 27, identidad complete). Política v1.1. MVP eje-salud + eje IMSS F5
+cerrado; router §7.4 estable. **Router harness CERRADO (T01–T08)**; ADR-0006
+Aceptado; **RH-T07 gated**. **Visión definida** (`docs/vision.md`, con ronda
+adversarial aplicada): trazabilidad + fidelidad normativa, 3 capacidades
+hoy/roadmap, multi-vertical (IMSS piloto), MCP gated R2 (ADR-0007 por crear).
+**Enmienda promulgación aplicada**: nadie del repo promulga (potestad IMSS,
+RIIMSS + norma 0503-001-001 depositadas en `docs/fuentes/imss/`). Suite
+**193 tests**, límites OK. CI: job **no arranca por billing** → DoD local.
+ADR-0001..0006 aceptados. Fact de reanudación AN-KLA:
+`estado-2026-08-18-vision-definida-fuentes-aseguradas`.
 
 > **PRÓXIMA TAREA:** cola R1 agent-actionable: **R1-E8-01** (fact puntero) /
 > **R1-E2** (cerrar plan-r0) / **R1-E2-05** (índice) / recall extracción v1.2
