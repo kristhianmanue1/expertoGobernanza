@@ -1,6 +1,8 @@
 # Enmienda — promulgación es potestad institucional del IMSS
 
-**Estado:** propuesta (aplicación gateada por el humano + ronda §6).
+**Estado:** **aplicada** (2026-08-18; aprobación humana en sesión + ronda
+adversarial quorum-lite `proceed` —
+`2026-08-18-enmienda-promulgacion/reviews/revisor-quorum-lite-glm52.md`).
 **Fecha:** 2026-08-18 · **Origen:** aclaración del humano en sesión.
 **Fuentes:** RIIMSS arts. 6-VI y 75-I/IV/XVI (`docs/fuentes/imss/RIIMSS.pdf`,
 extractos verbatim en `RIIMSS-PROCEDENCIA.md`); Marco Normativo IMSS

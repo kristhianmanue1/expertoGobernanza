@@ -58,7 +58,7 @@ alcanzable. Esto cambia el cálculo de gobernanza.
 ## Ítems resueltos (2026-08-06)
 - **Dominio:** ✓ **federal** (leyes públicas); **IMSS = piloto de prueba**.
 - **Norma inicial / corpus:** ver `docs/propuestas/corpus-inicial-analisis-2026-08-06.md`. Target jerárquico CPEUM → LGS → LSS → normativa IMSS; **MVP = rebanada vertical** (traza-desde-el-origen + start-small). Nombres `[VERIFICAR-FUENTE]` (la Cámara da 403 a fetch automatizado).
-- **Responsable jurídico del corpus:** **DEUDA** (diferido); interino = humano-promulgador (enmienda v1.1-revisada Cambio 4).
+- **Responsable jurídico del corpus:** **DEUDA** (diferido); interino = humano-promulgador (enmienda v1.1-revisada Cambio 4; rol renombrado **enlace institucional** 2026-08-18, ver ADR-0005 enmienda).
 
 ## Ítems aún abiertos (decisión humana)
 - **Custodio/data steward** continuo del corpus.

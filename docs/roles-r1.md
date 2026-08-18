@@ -1,9 +1,16 @@
 # Roles operativos R1 (§9) — designación interina
 
 **Estado:** vigente · **Fecha:** 2026-08-10 · **Plan:** `docs/plan-r1-90d.md` (R1-E0-01)  
-**Autoridad:** humano-promulgador (decisión registrada en sesión de orquestación).  
+**Autoridad:** enlace institucional (decisión registrada en sesión de orquestación).  
 **No es** nombramiento institucional formal del IMSS ni del Estado; es rol **interno
 del repositorio** ExpertoGobernanza hasta designación formal o nueva decisión.
+
+> **Renombrado 2026-08-18** (enmienda promulgación institucional,
+> `docs/propuestas/enmienda-promulgacion-institucional.md`): el rol antes llamado
+> "humano-promulgador" se llama **enlace institucional**. La promulgación de
+> normas es potestad del IMSS (áreas normativas/personal IMSS; RIIMSS art. 6-VI,
+> 75-I/IV/XVI); este rol **no promulga** — aporta fuentes, decide criterios
+> internos del repo y canaliza hacia la vía institucional cuando proceda.
 
 ## Designación
 

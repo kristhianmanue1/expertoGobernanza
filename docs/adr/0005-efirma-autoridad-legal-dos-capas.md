@@ -4,7 +4,8 @@
 > **Clase:** Estratégico (firma, fidelidad §7, gobernanza de promulgación).
 > **Fecha:** 2026-08-13. **Autor:** agente (síntesis). **Autoridad que adopta:** humano orquestador.
 > **Relacionados:** ADR-0002 (proveniencia/firma de agentes), `docs/roles-r1.md`
-> (humano-promulgador), `docs/politica-agentes.md` §7.2 (redactar ≠ promulgar),
+> (humano-promulgador, renombrado **enlace institucional** 2026-08-18),
+> `docs/politica-agentes.md` §7.2 (redactar ≠ promulgar),
 > CAGF-A10 (Integridad del Sustrato).
 
 ## Contexto
@@ -18,7 +19,10 @@ sellar un dictamen o salida oficial al exterior.
 La **e.firma (FIEL)** del SAT es la firma electrónica con **plena validez legal**
 en México (equivalente a la firma autógrafa; Código de Comercio art. 89-114). El
 humano-promulgador designado interino (`docs/roles-r1.md`: Kristhian Manuel
-Jiménez) es titular de una. Es el mecanismo de mayor jerarquía para este dominio.
+Jiménez; hoy **enlace institucional**) es titular de una. Es el mecanismo de
+mayor jerarquía para este dominio — **sujeto a la enmienda de 2026-08-18 abajo:
+su ejercicio como firma de promulgación requiere la cadena institucional
+competente del IMSS, no la sola tenencia.**
 
 ## Decisión
 
@@ -32,9 +36,10 @@ Jiménez) es titular de una. Es el mecanismo de mayor jerarquía para este domin
 1. **La e.firma NO firma commits git rutinarios.** Un commit no es un acto legal;
    mezclar capas infla el uso de la llave privada y confunde jerarquía. La firma
    SSH (ADR-0002) basta para proveniencia de código.
-2. **La e.firma es la firma de promulgación.** Cuando el proyecto emita una norma,
-   dicte un dictamen o produzca un artefacto con efectos externos, la firma del
-   humano-promulgador con e.firma es la que vincula el acto a su identidad legal.
+2. **La e.firma es la firma de promulgación** — cuando el acto lo disponga la
+   cadena institucional competente (ver enmienda abajo): la firma del
+   servidor público correspondiente con e.firma es la que vincula el acto a
+   su identidad legal.
 3. **El proyecto referencia, no custodia.** El repo registra del certificado sólo
    los datos públicos para verificación (RFC, serial, huella SHA-256, emisor). La
    llave privada `.key` y la contraseña **nunca** entran al repo (`.gitignore`
@@ -52,7 +57,28 @@ Jiménez) es titular de una. Es el mecanismo de mayor jerarquía para este domin
 | SHA-256 | `AD4C38DA09580D37014FB0376C8F4AC48B01AFA3142010E768A40D32B0E78BEB` |
 | Vigencia | 2022-02-25 → **2026-02-25** |
 
-Coincide con el humano-promulgador interino de `docs/roles-r1.md`.
+Coincide con el enlace institucional interino de `docs/roles-r1.md`
+(renombrado desde "humano-promulgador" el 2026-08-18, ver abajo).
+
+## Enmienda 2026-08-18 — la e.firma no es, por sí sola, autoridad de promulgación
+
+Aclaración de fondo (enmienda promulgación institucional,
+`docs/propuestas/enmienda-promulgacion-institucional.md`; RIIMSS art. 6-VI y
+75-I/IV/XVI): **la promulgación/emisión de normas es potestad institucional
+del IMSS** (áreas normativas y sus titulares; cadena área → Dirección
+Jurídica → Director General → Consejo Técnico → DOF). La tenencia de una
+e.firma por un miembro del equipo **NO** constituye por sí misma autoridad de
+promulgación. Este ADR se lee, desde esta fecha, así:
+
+1. La capa e.firma aplica **sólo cuando el Instituto, por la cadena competente
+   del RIIMSS, disponga el acto firmado** — y el firmante actúe en el ámbito
+   de su encargo. Fuera de ese supuesto, la e.firma es identidad personal,
+   no potestad normativa.
+2. Mientras eso no ocurra, el proyecto permanece en la capa 1 (proveniencia
+   git, ADR-0002) y sus salidas son **borradores técnicos** sin efectos
+   normativos.
+3. El resto del ADR (dos capas, datos del certificado, excepción alfa) se
+   conserva.
 
 ## ⚠ Vencimiento (excepción de fase alfa)
 
@@ -67,7 +93,7 @@ cuando la e.firma se renueve. La restricción de "no firmar actos nuevos" aplica
 
 - **No puede firmar actos legales nuevos** con validez jurídica hasta renovarse.
 - Sí verifica firmas hechas **durante** su vigencia, y sirve de referencia de
-  identidad del humano-promulgador.
+  identidad del enlace institucional.
 - El modelado, la integración y los ejercicios de firma en desarrollo proceden.
 
 **Acción requerida (humana, antes de salir de alfa / promulgar):** renovar la
@@ -77,10 +103,13 @@ fila, sin borrar historia).
 ## Consecuencias
 
 - **+** Jerarquía de firma clara: SSH = código, e.firma = ley. Sin confusión.
-- **+** §7.2 queda operacionalizado: el agente redacta; el humano promulga con
-  su firma legal verificable.
+- **+** §7.2 queda operacionalizado: el agente redacta; la promulgación es
+  institucional (IMSS) y, si el acto lo requiere, se firma con la e.firma del
+  servidor público competente — no del repo.
 - **+** CAGF-A10 (Integridad del Sustrato) reforzado: el sustrato que pone en
-  vigor está en control de una identidad legal criptográfica del humano.
+  vigor es **institucional** (cadena RIIMSS); la e.firma del servidor público
+  competente da a ese acto identidad legal verificable — el repo aporta sólo
+  borradores y trazabilidad (ver enmienda 2026-08-18).
 - **−** La promulgación real queda bloqueada hasta renovar la e.firma (no bloquea
   el desarrollo en alfa — ver excepción de fase).
 - **−** Costo operativo futuro: la renovación periódica (cada 4 años) es tarea
