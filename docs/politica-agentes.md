@@ -249,7 +249,8 @@ el plan marca hito, hay ronda (con el quórum que le corresponda según arriba).
   corresponda de verdad al documento referido (linaje CAGF-A5, ver §7).
 - Salida (plantilla en `docs/plantillas-agente.md`): lista de hallazgos
   `[BLOCKER/HIGH/MED/LOW] problema — evidencia — fix prescrito`, y una decisión:
-  - **proceed** → el admin puede aplicar Git / promulgar la norma.
+  - **proceed** → el admin puede aplicar Git / enviar el artefacto por la vía
+    institucional (nadie del repo promulga; §7.2).
   - **fix-and-retry** → se corrige y se repite la ronda.
   - **escalate** → lo decide el humano (bloqueo fuera de alcance).
 - **Sin "proceed" no hay merge/release/promulgación.** El adversarial es
@@ -277,13 +278,16 @@ control." Instancia de este proyecto: el agente tiene la **capacidad formal**
 de redactar y proponer una norma, pero **no controla el sustrato que la pone en
 vigor** — publicación oficial, aprobación institucional, ratificación humana.
 Por tanto ningún agente puede afirmar "esta norma está vigente" solo porque la
-redactó; eso requiere que el sustrato de promulgación (humano/institucional) la
-haya aplicado. Es la misma razón detrás de §5 (Git: proponer/aplicar), extendida
+redactó; eso requiere que el sustrato de promulgación — institucional, IMSS
+(RIIMSS art. 6-VI y 75) — la haya aplicado. Es la misma razón detrás de §5
+(Git: proponer/aplicar), extendida
 aquí a la publicación normativa: **el agente propone la norma + su fundamento;
-un humano con autoridad institucional la promulga.** En este proyecto, el rol
-humano es justamente ese — aportar los documentos/iniciativas y ejercer la
-autoridad de promulgación; el trabajo de redacción, verificación y trazabilidad
-lo ejecuta el agente y sus subagentes.
+la promulgación es potestad institucional del IMSS** (áreas normativas y sus
+titulares; cadena RIIMSS art. 6-VI y 75-I/IV/XVI — ver
+`docs/fuentes/imss/RIIMSS-PROCEDENCIA.md`). En este proyecto, el rol humano
+aporta documentos/iniciativas y hace la interface institucional; agentes y
+humanos del repo sólo ejecutan el trabajo técnico de redacción, verificación y
+trazabilidad. **Nadie en este repo promulga.**
 
 ### 7.1 Contratos duros (no negociables)
 
@@ -428,9 +432,10 @@ La gobernanza requiere roles con autoridad sostenida, no sólo un agente que red
 Mientras no estén designados formalmente, las decisiones que los requieren quedan
 `PARCIAL (espera-humano)`.
 
-- **Interino por defecto = humano-promulgador:** asume los tres roles hasta el
+- **Interino por defecto = enlace institucional:** asume los tres roles hasta el
   nombramiento. Hay **fecha límite** de designación. **Prohibido** que el agente se
-  autoasigne o simule estos roles (§7.2: redactar ≠ promulgar).
+  autoasigne o simule estos roles (§7.2: redactar ≠ promulgar; promulgar es
+  potestad del IMSS, no de este repo).
 - **Responsable jurídico del corpus:** desempata discrepancias entre fuentes. Sus
   desempates **no son unipersonales**: se registran como **ADR-lite con quórum-lite** (§6).
 - **Custodio / data steward:** mantenimiento continuo del corpus — hashes, procedencia,

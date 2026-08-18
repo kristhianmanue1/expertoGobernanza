@@ -122,7 +122,8 @@ líneas (el detalle y las plantillas están en el doc):
    Sin `proceed` no hay merge ni promulgación (ver §6).
 7. **Fidelidad documental primero** (linaje CAGF-A5/A10): jamás se afirma
    contenido normativo sin respaldo citado y vigente; redactar una norma no
-   equivale a promulgarla (eso es del humano). Riesgo #1 del proyecto; incluye
+   equivale a promulgarla (promulgar es potestad institucional del IMSS — §7.2,
+   RIIMSS art. 6-VI/75). Riesgo #1 del proyecto; incluye
    prácticas de técnica legal (jerarquía normativa, vigencia verificada,
    trazabilidad de reforma) — ver §7.
 8. **GitHub**: repo privado; Conventional Commits; PRs < 400 líneas. **Calidad CI

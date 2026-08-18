@@ -19,7 +19,7 @@ institucional de estructura orgánica y competencias.
 
 ## Extractos citados (verbatim, verificación local)
 
-- **Art. 6, fracc. VI** (Órganos Superiores y Normativos): "Proponer al
+- **Art. 6, fracc. VI** (titulares de los Órganos Normativos): "Proponer al
   Director General los anteproyectos de iniciativas de leyes o decretos, así
   como de reglamentos, decretos y acuerdos en las materias de su competencia,
   para su análisis y validación por parte de la Dirección Jurídica, mismos que
