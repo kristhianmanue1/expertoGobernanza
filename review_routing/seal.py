@@ -1,7 +1,10 @@
 """Sello de bundle para revisión externa verificable (plan router-harness §2, RH-T01).
 
-Vincula clasificación ↔ contenido ↔ destino en un objeto verificable: el sello
-prueba *"este contenido, con esta clasificación, iba a este proveedor/modelo"*.
+Certifica INTEGRIDAD y consistencia interna de un bundle: contenido ↔ hashes ↔
+clasificación ↔ destino quedan criptográficamente ligados (SHA-256). NO
+certifica autenticidad de origen: es hash sin clave y cualquiera puede forjar
+un sello internamente válido (M-01, ronda RH-T08); la autenticidad vive en el
+sustrato git firmado (ADR-0002) + la bitácora anclada (audit_log, F1).
 
 El sello envuelve un **bundle autocontenido**: `build_seal` lee el contenido del
 repo UNA vez al sellar (vía `read_bundle`) y de ahí salen los hashes del
@@ -13,9 +16,9 @@ realmente se envió, aunque el repo cambie después.
 no se infiere de la pertenencia al bundle (F4). El confinamiento de lectura lo
 hereda del router (`router._confined`): nada de `..`/absolutos/symlinks fuera.
 
-LIMITES (honestos): el sello certifica integridad y procedencia del bundle que
-atraviesa esta ruta; NO previene bypass (invocar al proveedor fuera del gateway
-no es detectable aquí — ver plan §"Anti-bypass" y ADR pendiente 0006).
+LIMITES (honestos): el sello certifica integridad del bundle que atraviesa esta
+ruta; NO previene bypass (invocar al proveedor fuera del gateway no es
+detectable aquí — ver plan §"Anti-bypass" y ADR-0006).
 """
 import datetime as _dt
 import hashlib
@@ -34,7 +37,7 @@ class SealError(Exception):
 
 def _canonical(obj):
     return json.dumps(obj, sort_keys=True, separators=(",", ":"),
-                      ensure_ascii=False)
+                      ensure_ascii=False, allow_nan=False)
 
 
 def _digest(obj):
@@ -60,7 +63,7 @@ def read_bundle(decision, repo_root=ROOT):
     """
     content = {}
     for item in decision["bundle"]:
-        rel = item["path"]
+        rel = item["path"].replace("\\", "/")  # N-02: clave posix uniforme
         full, ok = router._confined(rel, repo_root)
         if not ok:
             raise SealError(f"path no confinado al sellar: {rel!r}")
@@ -82,12 +85,22 @@ def build_seal(decision, config, provider, model, config_sha256,
     """
     if bundle_content is None:
         bundle_content = read_bundle(decision, repo_root)
+    if not isinstance(provider, str) or not isinstance(model, str):
+        raise SealError("provider/model deben ser str")  # L-03: higiene de tipos
+    bundle_paths = [item["path"].replace("\\", "/")
+                    for item in decision["bundle"]]
+    if len(set(bundle_paths)) != len(bundle_paths):
+        # X-02 (retry 2): dup-check sobre paths NORMALIZADOS — 'a/b' y 'a\b'
+        # colisionan tras normalización y romperían verify(build)==True
+        raise SealError("bundle con paths duplicados")
     manifest = []
     for item in decision["bundle"]:
-        rel = item["path"]
+        rel = item["path"].replace("\\", "/")  # N-02: manifest en posix, coherente
         if rel not in bundle_content:
             raise SealError(f"path del bundle sin contenido: {rel!r}")
         data = bundle_content[rel]
+        if not isinstance(data, bytes):
+            raise SealError(f"contenido no-bytes: {rel!r}")  # L-03
         manifest.append({
             "path": rel,
             "classification": router.classify(rel, config),  # F4: re-clasificado
@@ -113,7 +126,19 @@ def verify_seal(seal, bundle_content):
 
     Devuelve (True, "ok") o (False, motivo). Fail-closed: cualquier campo
     alterado, archivo de más/menos, o hash que no recompute → False.
+    Certifica INTEGRIDAD del contenido sellado, NO autenticidad de origen
+    (hash sin clave: cualquiera puede forjar un sello internamente válido;
+    la autenticidad vive en el sustrato git firmado + bitácora anclada).
     """
+    try:
+        return _verify_seal(seal, bundle_content)
+    except (TypeError, ValueError):
+        return False, "tipo_invalido"  # L-03: NaN/Infinity/str donde bytes, etc.
+    except KeyError:
+        return False, "manifest_paths_invalidos"  # N-02: lookup imposible
+
+
+def _verify_seal(seal, bundle_content):
     if not isinstance(seal, dict) or seal.get("schema") != SCHEMA:
         return False, "schema_desconocido"
     manifest = seal.get("manifest")

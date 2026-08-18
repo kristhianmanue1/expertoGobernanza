@@ -1,9 +1,14 @@
 # Router harness — Índice
 
 > **Plan técnico** para cerrar la deuda de egress del router §7.4.
-> **Estado:** borrador para ejecución por agentes de IA. **Fecha:** 2026-08-13.
-> **Linaje:** política §7.4 (CAGF-A10), `review_routing/router.py` (deuda declarada
-> en su docstring), ADR-0002 (proveniencia), plan R1 (E7).
+> **Estado:** **CERRADO (2026-08-18)** — RH-T01..T06 + T08 mergeados; T08 =
+> ADR-0006 Aceptado + ronda adversarial `proceed` (quorum-lite, 3 ciclos
+> fix-and-retry; ver `docs/propuestas/2026-08-18-router-harness-cierre/`).
+> **T07 (invoke real) queda gated** por proveedor autorizado; su apertura
+> incorpora el backlog derivado de la ronda (X-01 parser, tipos en append).
+> **Fecha:** 2026-08-13 (creación) / 2026-08-18 (cierre). **Linaje:** política
+> §7.4 (CAGF-A10), `review_routing/router.py` (deuda declarada en su
+> docstring), ADR-0002 (proveniencia), ADR-0006 (decisión adoptada), plan R1 (E7).
 
 ## Qué resuelve este plan
 

@@ -29,13 +29,17 @@ class TestGatewayDryRun(unittest.TestCase):
         (self.root / "pub" / "b.md").write_text("publico beta\n", encoding="utf-8")
         (self.root / "priv" / "x.md").write_text("nominas\n", encoding="utf-8")
         self.cfg = _cfg(["pub/**"], personal=["priv/**"])
+        # H-01: config canónica del sandbox (el gateway pinea contra ella)
+        self.canonical = self.root / "config.json"
+        self.canonical.write_text(json.dumps(self.cfg), encoding="utf-8")
 
     def tearDown(self):
         self.d.cleanup()
 
-    def _run(self, files, **kw):
-        return gateway.run(files, "Anthropic", "claude-opus-5", self.cfg,
-                           repo_root=self.root, **kw)
+    def _run(self, files, config=None, **kw):
+        return gateway.run(files, "Anthropic", "claude-opus-5",
+                           config or self.cfg, repo_root=self.root,
+                           canonical_config_path=self.canonical, **kw)
 
     def test_sella_solo_los_publicos(self):
         r = self._run(["pub/a.md", "priv/x.md", "pub/b.md"], allow_partial=True)
@@ -76,6 +80,21 @@ class TestGatewayDryRun(unittest.TestCase):
         self.assertFalse(r["ok"])
         self.assertEqual(r["reason"], "invocacion_real_no_disponible_rh_t07")
 
+    def test_config_rogue_fail_closed(self):
+        # H-01 (ronda RH-T08): config con {"publico":["**"]} inyectada por el
+        # agente NO puede sellar archivos que la canónica deniega.
+        rogue = _cfg(["**"])
+        r = self._run(["priv/x.md"], config=rogue, allow_partial=True)
+        self.assertFalse(r["ok"])
+        self.assertEqual(r["reason"], "config_no_canonica")
+        self.assertNotIn("seal", r)
+
+    def test_config_canonica_requerida_igual_que_default(self):
+        # La config DEBE ser idéntica a la canónica (digest), no un superconjunto
+        super_s = _cfg(["pub/**", "priv/**"], personal=[])
+        r = self._run(["priv/x.md"], config=super_s, allow_partial=True)
+        self.assertEqual(r["reason"], "config_no_canonica")
+
 
 class TestCLI(unittest.TestCase):
     """CLI contra el repo real (read-only, dry-run no escribe logs)."""
@@ -108,6 +127,25 @@ class TestCLI(unittest.TestCase):
         cfg = router.load_config()
         self.assertEqual(router.classify("review_routing/gateway.py", cfg), "publico")
         self.assertEqual(router.classify("scripts/route_review.py", cfg), "publico")
+
+    def test_cli_config_rogue_fail_closed(self):
+        # H-01 vía superficie CLI: --config con publico:["**"] sobre LICENSE
+        # (que la canónica deniega) → exit 1 config_no_canonica, nunca sello.
+        rogue = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False)
+        try:
+            json.dump(_cfg(["**"]), rogue)
+            rogue.close()
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli_main(["--files", "LICENSE", "--provider", "X",
+                               "--model", "Y", "--config", rogue.name,
+                               "--dry-run", "--allow-partial"])
+            out = json.loads(buf.getvalue())
+            self.assertEqual(rc, 1)
+            self.assertFalse(out["ok"])
+            self.assertEqual(out["reason"], "config_no_canonica")
+        finally:
+            pathlib.Path(rogue.name).unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

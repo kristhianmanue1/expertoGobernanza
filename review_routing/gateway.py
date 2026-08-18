@@ -28,10 +28,24 @@ def _config_digest(config):
         json.dumps(config, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
 
 
+def _canonical_config_digest(canonical_config_path=None):
+    """Digest de la config canónica (default: review_routing/config.json).
+
+    H-01 (ronda RH-T08): la clasificación ex-ante la hace la CONFIG canónica,
+    no una config arbitraria que el agente supervise pueda inyectar por --config.
+    `canonical_config_path` sólo lo usan los tests con sandbox propio; la
+    superficie CLI nunca lo expone → siempre pinea contra la del repo.
+    """
+    if canonical_config_path:
+        return _config_digest(router.load_config(canonical_config_path))
+    return _config_digest(router.load_config())
+
+
 def run(files, provider, model, config, dry_run=True, allow_partial=False,
-         repo_root=None, config_sha256=None):
+         repo_root=None, config_sha256=None, canonical_config_path=None):
     """Ejecuta el pipeline dry-run. Devuelve dict con `ok` y motivo/según caso.
 
+    - config ≠ canónica → ok=False reason=config_no_canonica (H-01, fail-closed).
     - `denied` sin `allow_partial` → ok=False reason=denegado_fail_closed.
     - bundle vacío (nada ruteable) → ok=False reason=bundle_vacio.
     - sella (lectura única vía read_bundle) y verifica su propio sello;
@@ -40,6 +54,10 @@ def run(files, provider, model, config, dry_run=True, allow_partial=False,
     """
     if not dry_run:
         return {"ok": False, "reason": "invocacion_real_no_disponible_rh_t07"}
+    # H-01 (ronda RH-T08): pinning de config — sólo se sella bajo la config
+    # canónica. Una --config distinta (aunque sea un superconjunto) fail-closed.
+    if _config_digest(config) != _canonical_config_digest(canonical_config_path):
+        return {"ok": False, "reason": "config_no_canonica"}
     root = pathlib.Path(repo_root) if repo_root else ROOT
     decision = router.route(files, config, repo_root=root)
     result = {

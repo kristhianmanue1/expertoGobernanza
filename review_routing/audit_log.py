@@ -52,13 +52,22 @@ def _chain_findings(entries):
         if not isinstance(e, dict) or any(k not in e for k in REQUIRED):
             findings.append(f"entrada_invalida:pos{pos}")
         else:
+            if type(e["seq"]) is not int:  # L-04: bool/float no cuentan como seq
+                findings.append(f"seq_no_entero:pos{pos}")
             if e["seq"] != pos:
                 findings.append(f"seq_no_monotono:pos{pos}:seq={e['seq']}")
             if e["prev_hash"] != prev:
                 findings.append(f"enlace_roto:pos{pos}")
             body = {k: v for k, v in e.items() if k != "entry_hash"}
-            if not isinstance(e["entry_hash"], str) or _digest(body) != e["entry_hash"]:
-                findings.append(f"entry_hash_no_recomputa:pos{pos}")
+            try:
+                recomputed = _digest(body)
+            except (TypeError, ValueError):
+                # N-01 (ronda RH-T08 retry): NaN/Infinity no serializables →
+                # finding, no crash del verificador
+                findings.append(f"entrada_no_serializable:pos{pos}")
+            else:
+                if not isinstance(e["entry_hash"], str) or recomputed != e["entry_hash"]:
+                    findings.append(f"entry_hash_no_recomputa:pos{pos}")
         eh = e.get("entry_hash") if isinstance(e, dict) else None
         prev = eh if isinstance(eh, str) else prev
     return findings
@@ -114,6 +123,8 @@ def verify_chain(logpath, anchor_hash=None):
     if anchor_hash is not None:
         if not entries:
             findings.append("ancla_no_verificable:log_vacio")
+        elif not isinstance(entries[-1], dict):
+            findings.append("ancla_no_verificable:ultima_entrada_no_objeto")  # L-01
         elif entries[-1].get("entry_hash") != anchor_hash:
             findings.append("ancla_no_coincide")
     if findings:
