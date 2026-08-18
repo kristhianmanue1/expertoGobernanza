@@ -165,6 +165,66 @@ class TestReadBundle(_Sandbox):
             seal.build_seal(decision, self.cfg, "P", "M", "sha256:c",
                             repo_root=self.root, bundle_content=partial)
 
+    def test_paths_duplicados_fail_closed(self):
+        # L-02 (ronda RH-T08): duplicados rompían el invariante verify(build)==True
+        decision = {"bundle": [{"path": "pub/a.md", "bytes": 21},
+                               {"path": "pub/a.md", "bytes": 21}],
+                    "denied": [], "bundle_sha256": "sha256:x"}
+        dup = {"pub/a.md": self.content["pub/a.md"]}
+        with self.assertRaises(seal.SealError):
+            seal.build_seal(decision, self.cfg, "P", "M", "sha256:c",
+                            repo_root=self.root, bundle_content=dup)
+
+    def test_duplicados_tras_normalizacion_fail_closed(self):
+        # X-02 (retry 2): 'pub/a.md' y 'pub\\a.md' colisionan en posix
+        decision = {"bundle": [{"path": "pub/a.md", "bytes": 21},
+                               {"path": "pub\\a.md", "bytes": 21}],
+                    "denied": [], "bundle_sha256": "sha256:x"}
+        dup = {"pub/a.md": self.content["pub/a.md"]}
+        with self.assertRaises(seal.SealError):
+            seal.build_seal(decision, self.cfg, "P", "M", "sha256:c",
+                            repo_root=self.root, bundle_content=dup)
+
+    def test_provider_model_no_str_fail_closed(self):
+        # L-03: NaN como provider/model no debe pasar ni romper con excepción rara
+        d1 = router.route(["pub/a.md"], self.cfg, repo_root=self.root)
+        c1 = seal.read_bundle(d1, repo_root=self.root)
+        with self.assertRaises(seal.SealError):
+            seal.build_seal(d1, self.cfg, float("nan"), "m", "sha256:c",
+                            repo_root=self.root, bundle_content=c1)
+
+    def test_verify_nan_en_seal_rechazado(self):
+        # L-03: sello con NaN (JSON no estándar) → (False, ...), sin excepción
+        s = copy.deepcopy(self.seal)
+        s["provider"] = float("nan")
+        ok, why = seal.verify_seal(s, self.content)
+        self.assertFalse(ok)
+
+    def test_verify_content_str_rechazado_sin_excepcion(self):
+        # L-03: bundle_content con str (no bytes) → (False, ...), no TypeError
+        bad = {p: data.decode("utf-8", "replace") for p, data in self.content.items()}
+        ok, why = seal.verify_seal(self.seal, bad)
+        self.assertFalse(ok)
+
+    def test_path_backslash_coherente(self):
+        # N-02 (retry): manifest en posix; backslash en la decisión se
+        # normaliza y verify(build)==True se mantiene
+        real = router.route(["pub/a.md"], self.cfg, repo_root=self.root)
+        decision = {"bundle": [{"path": "pub\\a.md", "bytes": 21}],
+                    "denied": [], "bundle_sha256": real["bundle_sha256"]}
+        content = {"pub/a.md": self.content["pub/a.md"]}
+        s = seal.build_seal(decision, self.cfg, "P", "M", "sha256:c",
+                            repo_root=self.root, bundle_content=content)
+        self.assertEqual(s["manifest"][0]["path"], "pub/a.md")
+        self.assertEqual(seal.verify_seal(s, content), (True, "ok"))
+
+    def test_verify_claves_no_normalizadas_fail_closed(self):
+        # N-02: claves de bundle_content que no matchean el manifest →
+        # (False, ...) sin KeyError
+        bad = {p.replace("/", "\\"): d for p, d in self.content.items()}
+        ok, why = seal.verify_seal(self.seal, bad)
+        self.assertFalse(ok)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -181,6 +181,39 @@ class TestAnclaF1(_LogCase):
         self.assertEqual(status, "BROKEN")
         self.assertTrue(any("ancla_no_verificable" in f for f in findings))
 
+    def test_ancla_ultima_linea_no_objeto_broken(self):
+        # L-01 (ronda RH-T08): JSON válido no-dict al final no debe crashear
+        self._append_n(2)
+        lines = self.log.read_text(encoding="utf-8").splitlines()
+        lines.append("[1,2]")
+        self.log.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        status, findings = audit_log.verify_chain(self.log, anchor_hash="sha256:x")
+        self.assertEqual(status, "BROKEN")
+        self.assertTrue(any("ultima_entrada_no_objeto" in f for f in findings))
+
+    def test_seq_bool_rechazado(self):
+        # L-04: "seq": true aprovecha igualdad bool/int de Python → no cuenta
+        self._append_n(1)
+        es = self._entries()
+        es[0]["seq"] = True
+        self._rewrite(es)
+        status, findings = audit_log.verify_chain(self.log)
+        self.assertEqual(status, "BROKEN")
+        self.assertTrue(any("seq_no_entero" in f for f in findings))
+
+    def test_entrada_nan_reporta_broken_sin_crash(self):
+        # N-01 (retry): NaN en un campo → finding entrada_no_serializable,
+        # no ValueError sin capturar; append sobre ese log → AuditError
+        self._append_n(1)
+        es = self._entries()
+        es[0]["ts"] = float("nan")  # entrada COMPLETA con campo no serializable
+        self._rewrite(es)
+        status, findings = audit_log.verify_chain(self.log)
+        self.assertEqual(status, "BROKEN")
+        self.assertTrue(any("entrada_no_serializable" in f for f in findings))
+        with self.assertRaises(audit_log.AuditError):
+            audit_log.append(self.seal, "sha256:r", self.log)
+
 
 if __name__ == "__main__":
     unittest.main()
