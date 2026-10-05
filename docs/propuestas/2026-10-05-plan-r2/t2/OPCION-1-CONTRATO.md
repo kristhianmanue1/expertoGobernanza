@@ -1,8 +1,8 @@
-# Opción 1 enmendada, todavía sin adoptar
+# Opción 1 adoptada para el corte offline
 
-No está adoptada. No es un protocolo congelado. No autoriza otra corrida. No modifica los fixtures `tests/fixtures/extraction_gold/` ni `PROTOCOLO.md`, `predicciones.json`, `corrida.json` o `RESULTADOS.json`. Esos artefactos siguen históricos.
+El Operador adoptó el contrato de `4ea52b6` el 2026-10-05 exclusivamente para implementar y verificar el corte offline. No es un protocolo congelado. No autoriza una corrida con modelo. No cierra H1 ni H2. No modifica los fixtures `tests/fixtures/extraction_gold/` ni `PROTOCOLO.md`, `predicciones.json`, `corrida.json` o `RESULTADOS.json`. Esos artefactos siguen históricos.
 
-Esta enmienda corrige el contrato previo a una adopción. Las listas léxicas no son verdad normativa. La literalidad y los offsets son precondiciones del acierto. La identidad del acierto es la ocurrencia `(inicio, fin)`, no la misma `N` en otra posición.
+La adopción incorpora tres precisiones: segmento no vacío (`inicio < fin`), predicción inválida contada como falso positivo con diagnóstico `prediccion_invalida`, y gold sin ocurrencias duplicadas. Las listas léxicas no son verdad normativa. La literalidad y los offsets son precondiciones del acierto. La identidad del acierto es la ocurrencia `(inicio, fin)`, no la misma `N` en otra posición.
 
 ## Unidad
 
@@ -31,14 +31,14 @@ Sea `S` el conjunto de segmentos. Para cada `s`:
 `L(texto, inicio, fin, cita)` es verdadero solo si se cumplen las tres condiciones, antes de `N`. Los índices son los de la cadena Python, intervalo semiabierto.
 
 - `inicio` y `fin` son enteros reales. Un booleano, un flotante, una cadena o un campo ausente no lo son. `bool` es subclase de `int` y se rechaza.
-- `0 <= inicio <= fin <= len(texto)`.
+- `0 <= inicio < fin <= len(texto)`. El tramo vacío no cumple `L`.
 - `texto[inicio:fin] == cita`, carácter por carácter.
 
 `L` del gold y `L` de la predicción son precondiciones. Sin las dos, esa pareja no es acierto, aunque `N` coincida.
 
 El acierto es la misma ocurrencia: ambas cumplen `L` y `inicio` y `fin` son iguales. La misma `N` en otros offsets no es esa ocurrencia. La contención tampoco lo es. El tramo es el mismo, así que `N` coincide; esa igualdad no empareja otra posición.
 
-Si algún registro de gold no cumple `L`, el medidor rechaza la evaluación entera, no emite métricas y la razón es `gold_invalido`. No cuenta ese registro como falso negativo y no lo omite para puntuar el resto. La salida del baseline cumple `L` por construcción: su cita es el tramo.
+Si algún registro de gold no cumple `L`, el medidor rechaza la evaluación entera, no emite métricas y la razón es `gold_invalido`. No cuenta ese registro como falso negativo y no lo omite para puntuar el resto. Dos registros con el mismo `(inicio, fin)` también se rechazan, con detalle `ocurrencia_duplicada`. La salida del baseline cumple `L` por construcción: su cita es el tramo y cada ocurrencia aparece una vez.
 
 ## Diagnósticos
 
@@ -52,9 +52,9 @@ Si `N` coincide: cobertura sí, sobreextensión no, puntuación no. Cobertura s�
 
 ## Emparejamiento y duplicados
 
-El emparejamiento es uno a uno entre predicciones y gold `benchmark_positivo`. Hay arista solo si ambas cumplen `L` y `inicio` y `fin` son los mismos. La misma `N` en otra posición no es arista y no puede tomar el otro gold. Una predicción sin `L` no tiene arista. Una predicción no produce dos verdaderos positivos.
+El emparejamiento es uno a uno entre predicciones y gold `benchmark_positivo`. Hay arista solo si ambas cumplen `L` y `inicio` y `fin` son los mismos. La misma `N` en otra posición no es arista y no puede tomar el otro gold. Una predicción sin `L` no tiene arista y cuenta como falso positivo. Su diagnóstico es `prediccion_invalida` y su razón es `tipo`, `rango`, `vacio`, `cita` o `ausente`. Una predicción no produce dos verdaderos positivos.
 
-Cada gold aporta como máximo un verdadero positivo. Varias predicciones con los mismos offsets: una es verdadero positivo y las demás son falsos positivos; cuál de ellas lo sea no cambia los conteos. No suben el recall. Un gold sin arista es falso negativo. Una predicción que cumple `L` y no tiene gold en esos offsets es falso positivo.
+Cada gold aporta como máximo un verdadero positivo. Varias predicciones con los mismos offsets: la primera de la lista es el verdadero positivo y las demás son falsos positivos. No suben el recall. Un gold sin arista es falso negativo. Una predicción que cumple `L` y no tiene gold en esos offsets es falso positivo.
 
 `recall = tp / |gold positivo|`. Si ese denominador es 0, `recall` es null y la razón es `denominador_cero`. `precision = tp / (tp + fp)` solo si la lista de predicciones no está vacía. Si está vacía, `precision` es null y la razón es `denominador_cero`, haya o no gold positivo. No se sustituye ese denominador vacío por 0.
 
@@ -88,7 +88,7 @@ La oración `La Ley definirá las bases y modalidades para el acceso a los servi
 
 ## Controles
 
-No están en `tests/`. No se ejecutan. No usan el juez de T2. «Sí» en un diagnóstico quiere decir que la fórmula de arriba es verdadera.
+Están en `tests/test_option1_offline.py`, con expectativas explícitas en `tests/fixtures/option1_offline/controles.json`. No usan el juez de T2. «Sí» en un diagnóstico quiere decir que la fórmula de arriba es verdadera.
 
 | Id | Comparación | Acierto | Cobertura | Sobreextensión | Puntuación | L |
 |---|---|---|---|---|---|---|
@@ -110,12 +110,15 @@ No están en `tests/`. No se ejecutan. No usan el juez de T2. «Sí» en un diag
 | B2 | `baseline` sobre `synth-03` | cero predicciones, recall null, precisión null | | | | las dos con `denominador_cero` |
 | B3 | `baseline` no emite C13 | | | | | |
 | B4 | Las tres salidas de B1 más una copia de 79:159 | tp 3, fp 1, recall 1, precisión 0.75 | | | | el duplicado no sube el recall |
-| B5 | La cita de 79:159 con offsets corridos un carácter | no | | | | falla `L`; no hay arista |
+| B5 | La cita de 79:159 con offsets corridos un carácter | no; cuenta como fp | | | | `prediccion_invalida`, razón `cita` |
 | B6 | Lista de predicciones vacía contra los tres gold de `synth-01` | tp 0, fp 0, fn 3, recall 0, precisión null | | | | no es precisión 0 |
-| B7 | `inicio` o `fin` booleano, flotante o cadena | no | | | | falla `L`; no hay arista |
+| B7 | `inicio` o `fin` booleano, flotante o cadena | no; cuenta como fp | | | | `prediccion_invalida`, razón `tipo` |
 | E1 | Las dos copias de 80 caracteres; predicción solo 0:80 | tp 1, fn 1, recall 0.5 | | | | no hay arista hacia 81:161 |
 | E2 | La cita de esa oración con offsets 81:161 | acierto de 81:161; fn de 0:80 | | | | `L` sí solo en la segunda |
-| G1 | Un gold con cita distinta del tramo, offsets invertidos, o tipo no entero | sin métricas | | | | `gold_invalido`; no es FN ni se omite |
+| E3 | Dos predicciones de la primera copia, 0:80 | tp 1, fp 1, fn 1 | | | | la segunda ocurrencia queda sin par |
+| E4 | Una predicción de 0:80 y otra de 81:161 | tp 2, fp 0, fn 0 | | | | cada ocurrencia tiene su arista |
+| G1 | Un gold con cita distinta del tramo, offsets invertidos, tipo no entero, tramo vacío o campos ausentes | sin métricas | | | | `gold_invalido`; no es FN ni se omite |
+| G2 | Dos gold con el mismo `(inicio, fin)` | sin métricas | | | | detalle `ocurrencia_duplicada` |
 
 ## Paquete de una ejecución futura
 
@@ -134,8 +137,8 @@ Los logs se archivan saneados. Se eliminan claves, cabeceras `Authorization` y s
 
 Sin los pasos 3 y 4 archivados, la ejecución no se declara aislada. Este archivo no es ese paquete.
 
-## Adopción que se presenta
+## Adopción del corte offline
 
-Se presenta para adopción solo la implementación offline y sus controles: el segmentador, `L` estricto, el emparejamiento por ocurrencia, los diagnósticos, el rechazo `gold_invalido`, el baseline determinista y los controles de esta tabla como tests. No incluye una corrida con modelo, no congela un protocolo, no reescribe los fixtures ni los resultados de T2 y no cierra H1 ni H2.
+El Operador adoptó este corte para implementar y verificar el segmentador, `L` estricto, el emparejamiento por ocurrencia, los diagnósticos, el rechazo `gold_invalido`, el baseline y los controles. El código está en `corpus/option1_offline.py`. Esta adopción no incluye una corrida con modelo, no congela un protocolo, no reescribe los fixtures ni los resultados de T2 y no cierra H1 ni H2.
 
-Una corrida con modelo sigue requiriendo un protocolo posterior, escrito y congelado antes de medir. Hasta que el Operador adopte por escrito este corte offline, no se añade ese código ni esos tests.
+Una corrida con modelo sigue requiriendo un protocolo posterior, escrito y congelado antes de medir.

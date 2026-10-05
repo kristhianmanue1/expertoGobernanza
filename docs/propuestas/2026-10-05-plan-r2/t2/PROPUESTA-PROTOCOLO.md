@@ -29,7 +29,7 @@ Esta unidad no es el gold de T2. Adoptarla pide gold nuevo en una corrida futura
 
 La coma no parte la unidad. Toda continuación que queda dentro del segmento pertenece al gold nuevo. Cortar en la coma no es el acierto, y conservar «, establece…» o « según…» no es sobreextensión respecto de ese gold. Una versión anterior de esta sección decía lo contrario. Queda retirada.
 
-El contrato enmendado, todavía sin adoptar y sin corrida, está en `OPCION-1-CONTRATO.md`. El acierto es la misma ocurrencia: `L` estricto y los mismos offsets. La misma `N` en otra posición no empareja. Con cero predicciones la precisión es null. Las listas léxicas son benchmark sintético, no verdad normativa. Lo adoptable ahora es solo la implementación offline y sus controles.
+El contrato de `OPCION-1-CONTRATO.md` quedó adoptado solo para el corte offline. El acierto es la misma ocurrencia: `L` estricto, `inicio < fin` y los mismos offsets. La misma `N` en otra posición no empareja. Con cero predicciones la precisión es null. Una predicción inválida es falso positivo. Las listas léxicas son benchmark sintético, no verdad normativa.
 
 ## Resolución de IDs, separada
 
@@ -45,7 +45,7 @@ El gate v1 tampoco es esta resolución. Sin id, `evaluate` asigna `bajo` sin abr
 
 ## Decisión pendiente
 
-La opción 1 está escrita en `OPCION-1-CONTRATO.md`. No está adoptada. Lo que se presenta para decidir es solo la implementación offline y sus controles. Una corrida con modelo sigue requiriendo un protocolo posterior. Los fixtures y los resultados de T2 siguen históricos.
+La opción 1 está implementada en `corpus/option1_offline.py` solo como corte offline. Una corrida con modelo sigue requiriendo un protocolo posterior. Los fixtures y los resultados de T2 siguen históricos. No cierra H1 ni H2.
 
 ## Carencia de evidencia de aislamiento
 
