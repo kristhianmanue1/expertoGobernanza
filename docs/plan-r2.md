@@ -21,6 +21,7 @@ Verificados en el árbol, no en el borrador externo:
 - `review_routing/gateway.py` con `dry_run=False` devuelve `invocacion_real_no_disponible_rh_t07`. Allowlist vigente: `claude` y `codex` (`docs/autorizacion-fuentes-r1.md`). Grok no está.
 - Ningún módulo lee `relaciones_normativas`. Hay entradas `verificada: true` y `false`. No son un gate.
 - `interop/akn/` es el spike de `LSS:5`. No se extiende.
+- El estándar Skevi vendorizado es el blob de `944e72e` (commit del 2026-08-12, hora `-0600`; fecha de vendor en este repo: 2026-08-13). No es el corpus `v4`. El pin `.skevi/corpus-pin.json` solo nombra esa diferencia. No es un registro `skevi/corpus-install/v1` y no se le pasa a `check_templates.py`. La guía, los ADR y el gate de Skevi no se copian. Los homónimos de este repo (`docs/adr/`, `scripts/check_sizes.py`) no se borran ni se sustituyen.
 
 ## Fuera de este plan
 
@@ -118,10 +119,12 @@ extract(texto: str) -> list[{"disposicion_id": str | None, "cita_texto": str}]
 - Proveedor: `claude` o `codex`, ya listados. Cualquier otro CLI, incluido Grok, no recibe el texto.
 - El proceso ve únicamente el campo `texto` de fixtures sintéticos o públicos. No ve `gold_claims` ni `traps`.
 - No hay umbral 0.8 que cumplir tuneando el prompt. El número se registra. Fijar un mínimo es otra decisión humana.
+- Antes de la corrida, no después de ver el número, el humano escribe el protocolo: métricas (`precision`, `recall`, `gate_bajo`), ids de fixtures, ceguera al gold y qué contaría como regresión. Si hay umbral numérico, va en ese protocolo. Elegirlo después de medir no cuenta. El método es el de Skevi `docs/ai-agent-guide/06-componentes-con-llm.md` §2–§3 en `https://github.com/kristhianmanue1/skevi.git@d7a80b26962cd66a806943ff46f779de14c16708` (corpus `v4`). Ese archivo no existe en el commit vendorizado `944e72e`. La guía no se copia a este repo.
 - Si el CLI no está en la máquina, el ticket sigue abierto. No se simula la corrida.
 
 ### Definition of Done
 
+- [ ] Existe un protocolo fechado antes del JSON de resultados, con métricas, fixtures, ceguera al gold y criterio de regresión.
 - [ ] El JSON trae `provider`, `model`, `fixture_ids`, `precision`, `recall`, `gate_bajo`, `texto_sha256`.
 - [ ] Un humano de roles §9 anota en el PR que autorizó esa corrida.
 - [ ] `git diff` no contiene `API_KEY`, tokens ni transcript.
@@ -236,3 +239,5 @@ El agente ejecuta el resolver y pega en el PR la tabla `disposicion_id → verif
 - Ops: `docs/ops-github.md`
 - Diseño del gold: `docs/propuestas/recall-extraccion-v12.md`
 - Ronda de este borrador: `docs/propuestas/2026-10-05-plan-r2/ADVERSARIAL.md`
+- Pin Skevi (no es el canon): `.skevi/corpus-pin.json`
+- Ronda de ese pin: `docs/propuestas/2026-10-05-plan-r2/ADVERSARIAL-PIN.md`

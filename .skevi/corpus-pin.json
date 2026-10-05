@@ -1,0 +1,30 @@
+{
+  "schema": "experto-gobernanza/skevi-pin/v1",
+  "nota": "No es skevi/corpus-install/v1. No afirma que el canon de Skevi esté copiado en este repo. No pasar este archivo a scripts/check_templates.py.",
+  "adr_adopcion": "docs/adr/0004-adopcion-skevi-gate-registro.md",
+  "adr_estado": "Propuesto",
+  "vendored_standard": {
+    "path": "docs/skevi/estandar-diseno-software.md",
+    "source_repo": "https://github.com/kristhianmanue1/skevi.git",
+    "source_path": "docs/estandar-diseno-software-github.md",
+    "source": "https://github.com/kristhianmanue1/skevi.git@944e72e5eae54b0e79f804709f8676c36155d32b",
+    "vendor_date": "2026-08-13"
+  },
+  "observed_origin": {
+    "source": "https://github.com/kristhianmanue1/skevi.git@d7a80b26962cd66a806943ff46f779de14c16708",
+    "observed_at": "2026-10-05",
+    "corpus_version": "corpus/v4",
+    "gate_version": "gate/v8",
+    "standard_sha256": "sha256:aa50be7544d59d07e7bd3f3c8aa50eb4b8c22f2eba95566ceaa1707394627e3e"
+  },
+  "canon_no_copiado": [
+    "docs/ai-agent-guide/",
+    "docs/adr/",
+    "scripts/check_sizes.py",
+    "scripts/check_plans.py",
+    "scripts/check_reports.py",
+    "scripts/check_templates.py",
+    "templates/skevi/"
+  ],
+  "homonimos_de_este_repo": "Las rutas de canon_no_copiado son del árbol Skevi. docs/adr/ y scripts/check_sizes.py de ExpertoGobernanza no se borran ni se sustituyen."
+}
