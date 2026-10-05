@@ -1,4 +1,4 @@
-<!-- an-kla:managed-begin {"content_sha256":"sha256:a1478300fbfacfe73edc2409e1340a7f1b909da869ce7fe39c2da5000813e152","id":"agent-context","schema":"an-kla/context-block/v1","version":"0.1.0-beta.11"} -->
+<!-- an-kla:managed-begin {"content_sha256":"sha256:a1478300fbfacfe73edc2409e1340a7f1b909da869ce7fe39c2da5000813e152","id":"agent-context","schema":"an-kla/context-block/v1","version":"0.1.0-beta.26"} -->
 ## AN-KLA Memory
 
 Este proyecto usa memoria local AN-KLA. Para trabajo material o dependiente del
@@ -17,14 +17,15 @@ Checkpoint, refute y compactación requieren sus contratos y autoridad vigentes.
 > Sección NO gestionada (fuera del bloque administrado). Edita libremente.
 > Instalado 2026-08-06 (beta.6); migrado a **v0.1.0-beta.11** el 2026-08-10
 > (paquete + identidad legacy + contexto; store rev 6 intacta); actualizado a
-> **v0.1.0-beta.14** el 2026-08-13 (binario 0.1.0b14; plantilla administrada y
-> store intactos en beta.11/rev 16; añade subject_ref/G-VIEW + guía primer write).
+> **v0.1.0-beta.14** el 2026-08-13 (binario 0.1.0b14; plantilla en beta.11);
+> actualizado a **v0.1.0-beta.28** el 2026-10-05 (binario `0.1.0b28`, commit
+> `fcc6dce`; plantilla **0.1.0-beta.26**; store rev 27 intacta).
 
 ### Dónde está todo
-- Binario: `.venv/bin/python -m an_kla` (venv Python 3.12; tag **`v0.1.0-beta.14`** / `0.1.0b14`, pin git `58b11945…` desde repo privado `kristhianmanue1/an-kla-memory`; backup venv roto histórico en `.venv.broken-310`). Plantilla administrada sigue en `0.1.0-beta.11`.
-- Memoria local: `.an-kla/memory/` (NO versionar). Estado en `.an-kla/context/`. Identidad de store/proyecto adoptada (beta.11).
+- Binario: `.venv/bin/python -m an_kla` (venv Python 3.12; tag **`v0.1.0-beta.28`** / `0.1.0b28`, commit `fcc6dce`, repo `kristhianmanue1/an-kla-memory`). Plantilla administrada **`0.1.0-beta.26`**.
+- Memoria local: `.an-kla/memory/` (NO versionar). Estado en `.an-kla/context/`. Identidad de store/proyecto **complete**.
 - Contrato detallado: `AN-KLA.md`. Esquemas: `an_kla schema list` / `schema show <nombre>`.
-- Actualizar (store no-legacy, ya beta.11+): `pip install` tag exacto desde el repo privado (vía `gh auth setup-git` o clon con `gh`) + `context plan --operation update` (preview) + `context update`. La ruta `upgrade inspect/apply/verify` + `identity` aplica sólo a stores legacy beta.8. No uses `main` ni PyPI. beta.12+ no cambia plantilla/store: el `context update` suele ser `noop`.
+- Actualizar: etiqueta exacta (nunca `main` ni PyPI) y el protocolo de `AN-KLA.md`: `upgrade inspect` → revisar `target_drift` → `upgrade apply` (`--confirm-target-drift` sólo si el drift fuera del bloque es intencional) → `upgrade verify` → `rebuild-index`. Si `identity status` es `legacy_unadopted`, adoptar identidad antes de apply.
 
 ### Ciclo de escritura gobernado (OBLIGATORIO para guardar algo nuevo)
 ```bash
@@ -76,7 +77,7 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal. Scope de `supersede` no puede ser `derived_from_retrieval`.
 
 ### Estado actual de la memoria (referencia)
-- AN-KLA **0.1.0b14** / plantilla **0.1.0-beta.11**; identidad **complete**; rev **27**
+- AN-KLA **0.1.0b28** / plantilla **0.1.0-beta.26**; identidad **complete**; rev **27**
   (`facts: 27`). Fact de reanudación:
   **`estado-2026-08-18-vision-definida-fuentes-aseguradas`**.
 - Query: `retrieve --query "estado R1 H1 IMSS LOAPF LFEP LSS RIIMSS" --budget 6000`
@@ -88,7 +89,7 @@ Mínimos válidos:
 - Guardar un `record` solo con campos estructurados y sin `indexable_text`/`text` -> queda inaccesible (`no_text`).
 - Reutilizar la revisión vieja tras un commit -> `write_plan_base_changed`.
 - Redirigir `plan-write` a un archivo existente -> riesgo de sobrescritura no protegida; usa ruta nueva verificada.
-- Editar a mano el bloque gestionado de arriba (líneas `managed-begin`..`managed-end`) -> rompe `context status`; usa `an_kla context plan/update`.
+- Editar a mano el bloque gestionado de arriba (líneas `managed-begin`..`managed-end`) -> rompe `context status`; usa el protocolo `upgrade` de `AN-KLA.md`.
 - Citar o afirmar contenido normativo sin verificar contra el documento oficial fuente (ver política §7).
 
 ---
@@ -138,7 +139,7 @@ líneas (el detalle y las plantillas están en el doc):
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
 **Estado actual:** alfa temprana. Git + remoto privado **sincronizados**
-(`kristhianmanue1/expertoGobernanza`, `main` = `f9e8419`+). AN-KLA **0.1.0b14**
+(`kristhianmanue1/expertoGobernanza`, `main` = `b78c0d1`). AN-KLA **0.1.0b28**
 (rev 27, identidad complete). Política v1.1. MVP eje-salud + eje IMSS F5
 cerrado; router §7.4 estable. **Router harness CERRADO (T01–T08)**; ADR-0006
 Aceptado; **RH-T07 gated**. **Visión definida** (`docs/vision.md`, con ronda
