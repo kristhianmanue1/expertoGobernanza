@@ -69,6 +69,13 @@ class TestOption1Offline(unittest.TestCase):
                 self.assertEqual(resultado["estado"], "ok")
                 self.assertEqual(resultado["tp"], 1 if caso["acierto"] else 0)
 
+    def test_lexical_lower_does_not_expand_long_s(self):
+        self.assertEqual(baseline("Esto eſ de aplicación."), [])
+        text = "Esto ES DE APLICACIÓN."
+        self.assertEqual(baseline(text), [
+            {"inicio": 0, "fin": 22, "cita_texto": text},
+        ])
+
     def test_puntuaciones_explicitas(self):
         for caso in self.data["puntuaciones"]:
             with self.subTest(caso["id"]):

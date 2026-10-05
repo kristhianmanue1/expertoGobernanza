@@ -26,6 +26,10 @@ Sea `S` el conjunto de segmentos. Para cada `s`:
 
 `neg` gana sobre `pos`. La etiqueta cubre el segmento entero y no lo recorta. El gold del benchmark es solo la clase `benchmark_positivo`, con su `cita_texto = texto[inicio:fin]`. La continuación tras una coma, si sigue dentro del segmento, forma parte de ese gold. Un `benchmark_negativo` no entra al denominador.
 
+Minúsculas significa `str.lower()`, no `casefold()` ni `N`: `Esto eſ de aplicación.` queda fuera, mientras `Esto ES DE APLICACIÓN.` es positivo. El control Unicode conserva esa frontera sin alterar los fixtures históricos.
+
+Precondición del caller de `evaluar`: entregar el gold positivo completo del benchmark. El evaluador comprueba literalidad y unicidad de ocurrencias, no la pertenencia ni la exhaustividad de esa selección. Sus métricas no certifican por sí solas la calidad del gold.
+
 ## Literalidad, offsets y acierto
 
 `L(texto, inicio, fin, cita)` es verdadero solo si se cumplen las tres condiciones, antes de `N`. Los índices son los de la cadena Python, intervalo semiabierto.

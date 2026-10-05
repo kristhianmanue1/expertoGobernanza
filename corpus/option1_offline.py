@@ -170,10 +170,10 @@ def _segmento(texto: str, inicio: int, fin: int, cierre: str) -> dict:
 
 
 def _clase(cita: str) -> str:
-    bajo = cita.casefold()
-    if any(senal.casefold() in bajo for senal in _NEG):
+    bajo = cita.lower()
+    if any(senal in bajo for senal in _NEG):
         return "benchmark_negativo"
-    if any(senal.casefold() in bajo for senal in _POS):
+    if any(senal in bajo for senal in _POS):
         return "benchmark_positivo"
     return "fuera_de_benchmark"
 

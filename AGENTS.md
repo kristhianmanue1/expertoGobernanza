@@ -145,11 +145,11 @@ líneas (el detalle y las plantillas están en el doc):
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
 **Estado actual (2026-10-05):** alfa temprana. Git + remoto privado
-**sincronizados** en `d5aea67` (`kristhianmanue1/expertoGobernanza`). El código
+de referencia en `d5aea67` (`kristhianmanue1/expertoGobernanza`). El código
 de T1–T4 está en `5f94d38`. AN-KLA **0.1.0b28** (rev **29**, identidad
 complete). Store local en `.an-kla/` (no va a git). Tres papeles, separados:
-implementación T0–T4 ya en `main`; experimento T2 en ejecución **manual** del
-Operador (protocolo antes del número, predicciones conservadas); adjudicación
+implementación T0–T4 ya en `main`; piloto T2 cerrado administrativamente,
+con protocolo y resultados históricos intactos en PR #53; adjudicación
 T5 todavía sin quórum. H1/H2 siguen **PARCIAL** aunque el CI pase: el autor del
 código es Grok (xAI) y la autorrevisión no cuenta. Allowlist vigente: `claude`
 y `codex`. El panel previsto Grok / Codex / OpenCode (`glm-5.3-flash`, Z.AI)
@@ -162,8 +162,9 @@ baseline de `docs/plan-r2.md` es histórico. **Cola fuera de esos tickets:**
 `docs/fuentes/imss/ManualMetodologico2019-2024.pdf`. Fact de reanudación:
 `estado-2026-10-05-r2-tres-papeles-main`.
 
-> **PRÓXIMA TAREA:** no operar T2 ni abrir T5. T2 sigue manual hasta una
-> delegación que nombre la revisión, `R2-H1-02` y un CLI ya allowlisted. H1/H2
+> **PRÓXIMA TAREA:** revisar integración de #52 y #53, sin merge autorizado.
+> Corte offline publicado en `979574f`, separado de T2. Otra corrida requiere
+> protocolo posterior y delegación expresa con CLI autorizado. No abrir T5. H1/H2
 > esperan revisiones elegibles de `5f94d38` y reconciliación humana. Fuera de
 > eso, cola R1 (R1-E8-01, R1-E2, R1-E2-05). Mapa: `docs/README.md`. Query
 > AN-KLA: `estado R2 main d5aea67 gate v1 T2 manual T5 PARCIAL`.

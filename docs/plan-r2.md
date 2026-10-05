@@ -293,7 +293,13 @@ Las autorizaciones históricas de los puntos 8 y 9 se aplican a un ticket de est
 8. **Commit y push autorizados** (instrucción humana del 2026-10-05, posterior a la ronda; no cambia el quórum). Sujeto al párrafo de adopción anterior. Cuando hay avance relevante, el agente no vuelve a pedir permiso para `git commit` ni para `git push` de la rama del ticket. Avance relevante quiere decir: el DoD de ese ticket está verde en local, o hay un corte coherente ya verificado (tests del contrato en verde, diff < 400, sin secretos ni transcripts).
 9. Sujeto al mismo párrafo. El merge a `main` de H0 entra en esa autorización. El merge a `main` de H1 o H2 sigue exigiendo `proceed` de alto impacto. T2 y T5 no los commitea un agente. Nada de `--force`, nada de datos que el contrato no nombre.
 
-Instrucción del Operador posterior a `d5aea67`: separar implementación, experimento y adjudicación. T2 permanece como corrida manual con protocolo previo y predicciones conservadas; la operación por un agente requiere delegación expresa. T5 registra el panel Grok / Codex / OpenCode y la matriz de autoría de `5f94d38`. Ese registro no enmienda la allowlist ni cierra H1/H2. El apartado «Baseline observado» es histórico.
+Instrucción histórica del Operador posterior a `d5aea67`: separar implementación, experimento y adjudicación. El piloto T2 fue delegado y su cierre administrativo quedó registrado posteriormente; protocolo y resultados permanecen históricos. Otra corrida exige protocolo posterior y delegación expresa. T5 registra el panel Grok / Codex / OpenCode y la matriz de autoría de `5f94d38`. Ese registro no enmienda la allowlist ni cierra H1/H2. El apartado «Baseline observado» es histórico.
+
+### Excepción acotada de tamaño — PR #53
+
+El 2026-10-05, tras el dictamen de integración sobre `979574f`, el Operador indicó «adelante con recomendaciones», adoptando la excepción propuesta exclusivamente para el expediente del PR #53 (`R2-H1-02` y corte offline). Su diff contra #52 era de 1868 inserciones y 10 borrados: contiene evidencia histórica de T2, contrato, código y controles sintéticos. Se conserva junto para revisar su trazabilidad, sin fragmentar artificialmente la evidencia. La excepción comprende las correcciones acotadas de esa revisión (minúsculas, test y actualización documental), no funciones nuevas.
+
+Se exceptúa para ese expediente el objetivo `diff < 400` de los puntos 2 y 8; la regla general y los límites duros por archivo permanecen. No exceptúa pruebas, revisión, quórum ni fidelidad. No autoriza commit, push, merge, release ni corrida con modelo; H1/H2 siguen PARCIAL. La integración requiere resolver #52 primero, revisar la base final de #53 y su CI; el workflow actual solo atiende PR hacia `main`.
 
 ## Enlaces
 
