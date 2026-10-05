@@ -41,20 +41,25 @@ class TestVerifyGate(unittest.TestCase):
         self.assertEqual(r["response_status"], "medio")
 
     def test_alto_inalcanzable_en_v1(self):
-        modelo = {
-            "disposicion_id": "FAKE:1",
-            "texto_verbatim": ("texto suficientemente largo para pasar el minimo "
-                               "de cuarenta caracteres normalizados sin problema"),
-            "vigencia": {"verificada_contra_dof_nivel1": True},
-            "fuentes_oficiales": [{"sha256": "0" * 64, "archivo": "x"}],
-        }
-        with mock.patch.object(vc, "load_index", return_value={"FAKE:1": modelo}):
-            with mock.patch.object(vc, "_resolve_source", return_value={
-                "resolved": True, "sha256_declared": "0" * 64,
-                "sha256_recomputed": None, "archivo": "x", "note": ""}):
-                r = vc.verify_claim(_claim("FAKE:1", modelo["texto_verbatim"]))
-        self.assertEqual(r["response_status"], "medio")
-        self.assertNotEqual(r["response_status"], "alto")
+        texto = ("texto suficientemente largo para pasar el minimo "
+                 "de cuarenta caracteres normalizados sin problema")
+        for verificada, check in ((False, "unverified"), (True, "verified")):
+            with self.subTest(verificada=verificada):
+                seen = {}
+
+                def _resolver(fuente, disposicion_id, flag=verificada):
+                    seen["fuente"] = fuente
+                    seen["disposicion_id"] = disposicion_id
+                    return {"verificada": flag, "razon": "salida-de-prueba"}
+
+                r = _diagnostico(texto, source_check="match", resolver=_resolver)
+                self.assertEqual(seen["fuente"]["id"], "FAKE")
+                self.assertEqual(seen["disposicion_id"], "FAKE:1")
+                self.assertEqual(r["registry_check"], check)
+                self.assertEqual(r["registry_razon"], "salida-de-prueba")
+                self.assertEqual(r["response_status"], "medio")
+                self.assertEqual(r["version_valid_for_date"], "N/A_v1")
+                self.assertNotEqual(r["response_status"], "alto")
 
     def test_disposicion_inexistente_bajo(self):
         r = vc.verify_claim(_claim("NO:EX:ISTE", "x" * 50))
@@ -80,6 +85,94 @@ class TestVerifyGate(unittest.TestCase):
 
     def test_exit_codes_distintos_por_nivel(self):
         self.assertEqual(vc._EXIT, {"alto": 0, "medio": 2, "bajo": 1})
+
+    def test_golden_conserva_v1_y_diagnostico(self):
+        r = vc.verify_claim(_claim("CPEUM:4:P4", CPEUM_QUOTE))
+        self.assertEqual(r["gate_version"], vc.GATE_VERSION)
+        self.assertEqual(r["evidence_schema_version"], "v1")
+        self.assertEqual(r["version_valid_for_date"], "N/A_v1")
+        self.assertIn(r["source_check"], {"missing", "match"})
+        self.assertIn(r["registry_check"], {"verified", "unverified", "missing_evidence"})
+        self.assertNotEqual(r["response_status"], "alto")
+        self.assertTrue(any("Fecha jurídica no evaluada" in n for n in r["notes"]))
+
+    def test_matriz_de_diagnostico(self):
+        texto = "x" * 50
+        self.assertEqual(
+            _diagnostico(texto, source_check="missing", fuente=None)["registry_check"],
+            "missing_evidence",
+        )
+        medio = _diagnostico(texto, source_check="missing", fuente=None)
+        self.assertEqual(medio["response_status"], "medio")
+        coincidente = _diagnostico(texto, source_check="match", fuente=None)
+        self.assertEqual(
+            (coincidente["response_status"], coincidente["registry_check"]),
+            ("medio", "missing_evidence"),
+        )
+        distinto = _diagnostico(texto, source_check="mismatch", fuente=None)
+        self.assertEqual(distinto["response_status"], "bajo")
+        ilegible = _diagnostico(texto, source_check="error", fuente=None)
+        self.assertEqual(ilegible["response_status"], "bajo")
+        self.assertEqual(
+            _diagnostico(texto, source_check="match", loader_error=True)["response_status"],
+            "bajo",
+        )
+        self.assertEqual(
+            _diagnostico(texto, source_check="match", resolver_error=True)["registry_check"],
+            "error",
+        )
+
+    def test_relaciones_normativas_no_cambian_el_status(self):
+        texto = "y" * 50
+        a = _diagnostico(texto, source_check="match", relaciones=["A"])
+        b = _diagnostico(texto, source_check="match", relaciones=["B", "C"])
+        self.assertEqual(a["response_status"], b["response_status"])
+        self.assertNotIn("relaciones_normativas", a)
+
+
+def _diagnostico(texto, source_check, fuente="presente", resolver=None,
+                 loader_error=False, resolver_error=False, relaciones=None):
+    modelo = {
+        "disposicion_id": "FAKE:1",
+        "texto_verbatim": texto,
+        "instrumento": {"id": "FAKE"},
+        "vigencia": {"verificada_contra_dof_nivel1": True},
+        "fuentes_oficiales": [{"sha256": "ab" * 32, "archivo": "no-se-lee"}],
+        "relaciones_normativas": relaciones or [],
+    }
+    declared = source_check != "invalid_declaration"
+    src = {
+        "resolved": source_check in {"missing", "match"},
+        "sha256_declared": "ab" * 32 if declared else None,
+        "sha256_recomputed": "ab" * 32 if source_check == "match" else None,
+        "archivo": "no-se-lee",
+        "declared_ok": declared,
+        "recomputed_ok": source_check == "match",
+        "source_check": source_check,
+        "note": "",
+    }
+    fuente_doc = None if fuente is None else {"id": "FAKE", "vigencia_verificada": True}
+
+    def _load(_path):
+        if loader_error:
+            raise RuntimeError("registry malformado")
+        return {"fuentes": [] if fuente_doc is None else [fuente_doc]}
+
+    def _resolver(fuente_arg, disposicion_id):
+        if resolver_error:
+            raise RuntimeError("resolver")
+        if resolver:
+            return resolver(fuente_arg, disposicion_id)
+        return {"verificada": False, "razon": "negativo"}
+
+    with mock.patch.object(vc, "load_index", return_value={"FAKE:1": modelo}):
+        with mock.patch.object(vc, "_resolve_source", return_value=src):
+            with mock.patch("corpus.registry_loader.load_registry", side_effect=_load):
+                with mock.patch(
+                    "corpus.registry_rules.resolve_disposicion_vigencia",
+                    side_effect=_resolver,
+                ):
+                    return vc.verify_claim(_claim("FAKE:1", texto))
 
 
 if __name__ == "__main__":
