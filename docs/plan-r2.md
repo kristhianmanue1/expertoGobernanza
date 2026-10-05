@@ -1,6 +1,6 @@
 # Plan R2: evaluación sin gold y diagnóstico de evidencia del gate v1
 
-**Contexto:** R1 incorporó gobernanza, registry y trazas; conserva pendientes. El extractor actual copia el gold. **Fecha:** 2026-10-05. **Estado:** precisiones de contrato incorporadas por instrucción del Operador; expediente en `docs/propuestas/2026-10-05-plan-r2/RECOMENDACIONES-RETRY.md`. Quórum de cierre de H1/H2 **PARCIAL**. No es `proceed` ni sustituye a `docs/plan-r1-90d.md` como cola vigente. **Arranque:** T0 cerrado en `aa7f06a`. Instrucción posterior del Operador, el 2026-10-05, adopta sobre `aa7f06a` la implementación en rama de T1 (`R2-H1-01`), T1b (`R2-H1-03`) y T3 (`R2-H2-01`). No adopta su merge: H1 y H2 siguen exigiendo `proceed`. No adopta T4, T2 ni T5. Editar el borrador o aceptar un análisis no amplía ese alcance.
+**Contexto:** R1 incorporó gobernanza, registry y trazas; conserva pendientes. El extractor actual copia el gold. **Fecha:** 2026-10-05. **Estado:** precisiones de contrato incorporadas por instrucción del Operador; expediente en `docs/propuestas/2026-10-05-plan-r2/RECOMENDACIONES-RETRY.md`. Quórum de cierre de H1/H2 **PARCIAL**. No es `proceed` ni sustituye a `docs/plan-r1-90d.md` como cola vigente. **Arranque:** T0 cerrado en `aa7f06a`. El Operador ordenó el merge el 2026-10-05: T1 PR #47, T1b PR #48, T3 PR #49 y T4 PR #50 quedaron en `main` `5f94d38`. Ese merge no es `proceed` de §6: el quórum de cierre sigue **PARCIAL**. T2 y T5 siguen en espera humana.
 **Roadmap:** R2. **Fuente:** verificación local del repo el 2026-10-05; el borrador externo del mismo día no se ejecuta tal cual.
 
 ## Objetivo y criterio de cierre
@@ -38,8 +38,8 @@ Verificados en el árbol, no en el borrador externo:
 ## Hitos
 
 - H0 — CI dice la causa real. [hecho: PR #45, run `37353348315`, SHA `f198847`]
-- H1 — El extractor recibe solo texto; el evaluador sí recibe gold y produce métricas resistentes a duplicados. [pendiente]
-- H2 — Evidencia desglosada, errores explícitos y tope `medio`; fecha jurídica sin evaluar. [pendiente]
+- H1 — El extractor recibe solo texto; el evaluador sí recibe gold y produce métricas resistentes a duplicados. [en `main` `5f94d38` por instrucción del Operador; cierre §6 PARCIAL]
+- H2 — Evidencia desglosada, errores explícitos y tope `medio`; fecha jurídica sin evaluar. [en `main` `5f94d38` por instrucción del Operador; cierre §6 PARCIAL]
 - Experimento T2 — medición real, separado del cierre de infraestructura. [espera-humano]
 
 H0 es bajo impacto (toolchain). H1 y H2 tocan la compuerta de fidelidad: al ejecutarlos, la ronda de cierre es de alto impacto (`docs/politica-agentes.md` §6). Este doc, al crearse, también se ronda antes de tratarlo como cola vigente.
@@ -47,14 +47,14 @@ H0 es bajo impacto (toolchain). H1 y H2 tocan la compuerta de fidelidad: al ejec
 ## Tareas
 
 - [x] T0 — `R2-H0-01`: `xmllint` en CI y nota de ops. → Contrato T0. Run [`37353348315`](https://github.com/kristhianmanue1/expertoGobernanza/actions/runs/37353348315), SHA `f198847`.
-- [ ] T1 — `R2-H1-01`: extractor recibe sólo texto; juez conserva acceso al gold. → Contrato T1.
-- [ ] T1b — `R2-H1-03`: juez corregido e importación offline de predicciones. → Contrato T1b.
+- [x] T1 — `R2-H1-01`: extractor recibe sólo texto; juez conserva acceso al gold. → Contrato T1. PR #47.
+- [x] T1b — `R2-H1-03`: juez corregido e importación offline de predicciones. → Contrato T1b. PR #48.
 - [ ] T2 — `R2-H1-02`: corrida allowlisted. **HUMANO. No la abre un agente.** → Contrato T2.
-- [ ] T3 — `R2-H2-01`: cargar `registry.yaml` con PyYAML y banner sobre el dict. → Contrato T3.
-- [ ] T4 — `R2-H2-02`: diagnóstico de evidencia compatible con gate v1. → Contrato T4.
+- [x] T3 — `R2-H2-01`: cargar `registry.yaml` con PyYAML y banner sobre el dict. → Contrato T3. PR #49.
+- [x] T4 — `R2-H2-02`: diagnóstico de evidencia compatible con gate v1. → Contrato T4. PR #50.
 - [ ] T5 — `R2-H4-01`: fila de allowlist. **HUMANO. No la cierra un agente.** → Contrato T5.
 
-Orden: T0 hecho. T1 y T3 en paralelo, adoptados el 2026-10-05 sobre `aa7f06a`; T1b después de T1. T4 espera el merge de T3 y `proceed`. T2 sigue en espera humana. Antes de prometer cierres H1/H2, identificar ≥3 proveedores autorizados, autor excluido, y reconciliación conforme a §6. La allowlist actual de dos proveedores no basta: T5 condiciona esa ruta de cierre; más agentes del mismo proveedor no la resuelven. R1 sigue siendo la cola vigente fuera de los tickets adoptados. Reconciliar sus tickets hechos/pendientes mediante referencias, sin declarar R1 cerrado.
+Orden: T0–T1–T1b–T3–T4 están en `main` `5f94d38`. El merge lo ordenó el Operador y no sustituye el `proceed` de §6. Antes de declarar H1 o H2 cerrados, identificar ≥3 proveedores autorizados, autor excluido, y reconciliación conforme a §6. T2 sigue en espera humana. La allowlist actual de dos proveedores no basta: T5 condiciona esa ruta de cierre; más agentes del mismo proveedor no la resuelven. R1 sigue siendo la cola vigente fuera de los tickets adoptados. Reconciliar sus tickets hechos/pendientes mediante referencias, sin declarar R1 cerrado.
 
 ## Contrato T0 — R2-H0-01: CI con xmllint
 
