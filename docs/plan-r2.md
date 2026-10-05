@@ -37,7 +37,7 @@ Verificados en el árbol, no en el borrador externo:
 
 ## Hitos
 
-- H0 — CI dice la causa real. [pendiente]
+- H0 — CI dice la causa real. [hecho: PR #45, run `37353348315`, SHA `f198847`]
 - H1 — El extractor recibe solo texto; el evaluador sí recibe gold y produce métricas resistentes a duplicados. [pendiente]
 - H2 — Evidencia desglosada, errores explícitos y tope `medio`; fecha jurídica sin evaluar. [pendiente]
 - Experimento T2 — medición real, separado del cierre de infraestructura. [espera-humano]
@@ -46,7 +46,7 @@ H0 es bajo impacto (toolchain). H1 y H2 tocan la compuerta de fidelidad: al ejec
 
 ## Tareas
 
-- [ ] T0 — `R2-H0-01`: `xmllint` en CI y nota de ops. → Contrato T0.
+- [x] T0 — `R2-H0-01`: `xmllint` en CI y nota de ops. → Contrato T0. Run [`37353348315`](https://github.com/kristhianmanue1/expertoGobernanza/actions/runs/37353348315), SHA `f198847`.
 - [ ] T1 — `R2-H1-01`: extractor recibe sólo texto; juez conserva acceso al gold. → Contrato T1.
 - [ ] T1b — `R2-H1-03`: juez corregido e importación offline de predicciones. → Contrato T1b.
 - [ ] T2 — `R2-H1-02`: corrida allowlisted. **HUMANO. No la abre un agente.** → Contrato T2.
@@ -64,12 +64,12 @@ Orden tras el arranque autorizado: T0 primero. T1 ∥ T3 solo con adopción que 
 
 ### Definition of Done
 
-- [ ] El job instala `libxml2-utils` (o el paquete que provee `xmllint`) antes de `unittest`.
-- [ ] Run remoto del SHA del ticket ejecuta la validación XSD y termina verde; registrar URL y SHA. Si no puede ejecutarse, T0 queda parcial con causa observada, aunque el local pase.
-- [ ] `python -m unittest tests.test_akn_spike` pasa en local si `xmllint` existe. Si no existe, el mensaje nombra el binario; no se omite el test con `skip` silencioso en CI.
-- [ ] `docs/ops-github.md` conserva el hecho de billing del 2026-08-10 y añade que el run `37339265192` ejecutó la suite y falló por `xmllint` ausente. No dice que Actions siga suspendido.
-- [ ] `python scripts/check_sizes.py` limpio. Diff < 400 líneas.
-- [ ] `interop/akn/` y `scripts/akn_spike.py` quedan byte-idénticos salvo que el único cambio sea el mensaje de binario ausente, y ese cambio mide < 30 líneas.
+- [x] El job instala `libxml2-utils` (o el paquete que provee `xmllint`) antes de `unittest`.
+- [x] Run remoto del SHA del ticket ejecuta la validación XSD y termina verde; registrar URL y SHA. Si no puede ejecutarse, T0 queda parcial con causa observada, aunque el local pase. Evidencia: [`37353194656`](https://github.com/kristhianmanue1/expertoGobernanza/actions/runs/37353194656) en `b56d8f8` y [`37353348315`](https://github.com/kristhianmanue1/expertoGobernanza/actions/runs/37353348315) en `f198847`; 193 tests OK.
+- [x] `python -m unittest tests.test_akn_spike` pasa en local si `xmllint` existe. Si no existe, el mensaje nombra el binario; no se omite el test con `skip` silencioso en CI. Local: 7 tests OK.
+- [x] `docs/ops-github.md` conserva el hecho de billing del 2026-08-10 y añade que el run `37339265192` ejecutó la suite y falló por `xmllint` ausente. No dice que Actions siga suspendido. También queda `37348191223`.
+- [x] `python scripts/check_sizes.py` limpio. Diff < 400 líneas.
+- [x] `interop/akn/` y `scripts/akn_spike.py` quedan byte-idénticos salvo que el único cambio sea el mensaje de binario ausente, y ese cambio mide < 30 líneas.
 
 ### Git
 
