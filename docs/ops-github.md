@@ -17,6 +17,17 @@
 
 Último merge con CI rojo por billing (no por tests): PR #1 → `fa3242a` (DoD **local** verde).
 
+### 1.1 Estado al 2026-10-05
+
+El hecho de agosto permanece. No describe los runs de octubre: esos jobs sí ejecutaron la suite.
+
+| Run | SHA | Resultado |
+|---|---|---|
+| `37339265192` | merge PR #40 | 193 tests, 1 error: `FileNotFoundError: xmllint` en `tests/test_akn_spike.py` |
+| `37348191223` | `8410075` (merge PR #43) | la misma causa |
+
+Actions arranca. Esos dos rojos son el binario ausente en el runner. El run del ticket que instala `libxml2-utils` se anota en esta sección con URL y SHA cuando termine; hasta ese verde, T0 no se declara cerrado.
+
 ## 2. Qué SÍ se puede usar sin Actions (admin)
 
 Con credenciales admin (`gh` / push):
@@ -32,6 +43,8 @@ Con credenciales admin (`gh` / push):
 **No depende de Actions:** el grafo git, el remoto, PRs ni releases.
 
 ## 3. Qué NO se puede asumir mientras Actions esté suspendido
+
+Esta sección es el periodo de billing de agosto 2026. No es el diagnóstico de los runs de octubre, que sí ejecutaron unittest (§1.1).
 
 - El check **“Tests + gate de tamaño”** en GitHub **no valida** el código (el job no arranca).
 - “CI verde en el PR” **no es señal fiable** de calidad en este periodo.

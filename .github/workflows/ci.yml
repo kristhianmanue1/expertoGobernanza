@@ -20,6 +20,8 @@ jobs:
           python-version: "3.12"
       - name: Compilación (sintaxis)
         run: python -m py_compile corpus/*.py scripts/*.py review_routing/*.py
+      - name: xmllint
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
       - name: Golden set (unittest)
         run: python -m unittest discover -s tests
       - name: Benchmark IMSS EvidenceEdge
