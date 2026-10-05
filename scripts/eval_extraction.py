@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Eval extracción v1.2 — fake offline (R1-E4-03 mínimo)."""
+"""Eval extracción: el stub ve solo texto; el juez sigue en evaluate."""
 from __future__ import annotations
 
 import argparse
@@ -10,6 +10,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from corpus import extractor  # noqa: E402
 from corpus.verify_citations import _normalize, verify_claim  # noqa: E402
 
 GOLD_DIR = ROOT / "tests" / "fixtures" / "extraction_gold"
@@ -17,19 +18,6 @@ GOLD_DIR = ROOT / "tests" / "fixtures" / "extraction_gold"
 
 def load_gold(path: pathlib.Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
-
-def fake_extract(doc: dict) -> list[dict]:
-    """Determinista: devuelve todos los gold must_find + ninguna trampa."""
-    out = []
-    for g in doc.get("gold_claims") or []:
-        if g.get("must_find"):
-            out.append({
-                "disposicion_id": g.get("disposicion_id"),
-                "cita_texto": g.get("cita_texto", ""),
-                "source": "fake_extractor_v0",
-            })
-    return out
 
 
 def _align(pred: dict, gold_list: list) -> str | None:
@@ -64,11 +52,7 @@ def evaluate(doc: dict, preds: list[dict]) -> dict:
             tp += 1
             matched_gold.add(gid)
         else:
-            # predicción no alineada a gold must_find
-            if vr.get("quote_substring_match"):
-                fp += 1
-            else:
-                fp += 1  # inventada o no usable
+            fp += 1
     fn = len(gold) - len(matched_gold)
     prec = tp / (tp + fp) if (tp + fp) else 1.0
     rec = tp / (tp + fn) if (tp + fn) else 1.0
@@ -82,19 +66,27 @@ def evaluate(doc: dict, preds: list[dict]) -> dict:
         "precision": round(prec, 4),
         "recall": round(rec, 4),
         "gate_bajo": gate_bajo,
+        "metricas_no_aceptadas_hasta_t1b": True,
     }
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser(description="Eval extracción (fake offline).")
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description="Eval extracción (stub ciego al gold).")
+    ap.add_argument("--extractor", choices=["stub"], default=None)
     ap.add_argument("--gold-dir", type=pathlib.Path, default=GOLD_DIR)
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
+    if args.extractor != "stub":
+        return 2
     rows = []
     for p in sorted(args.gold_dir.glob("*.json")):
         doc = load_gold(p)
-        preds = fake_extract(doc)
+        preds = extractor.extract(doc["texto"])
         rows.append(evaluate(doc, preds))
-    print(json.dumps({"extractor": "fake_v0", "results": rows}, ensure_ascii=False, indent=2))
+    print(json.dumps(
+        {"extractor": "stub", "metricas_no_aceptadas_hasta_t1b": True, "results": rows},
+        ensure_ascii=False,
+        indent=2,
+    ))
     return 0
 
 
