@@ -1,0 +1,157 @@
+{
+  "ticket": "R2-H1-02",
+  "fecha": "2026-10-05",
+  "proveedor_cli": "codex",
+  "proveedor_reportado": "openai",
+  "modelo_solicitado": "default de codex exec --ignore-user-config; no se paso -m",
+  "modelo_reportado": "gpt-6.1-sol",
+  "claude_preflight_sin_fixture": {
+    "cli": "claude 2.1.280",
+    "http": 403,
+    "codigo": "oauth_not_allowed_for_organization"
+  },
+  "autorizacion": "Operador, 2026-10-05: t2 te lo delego a ti, continua",
+  "umbral_aceptacion": null,
+  "protocolo": {
+    "path": "docs/propuestas/2026-10-05-plan-r2/t2/PROTOCOLO.md",
+    "git": "692bdd96aede3dff72f314cc28c923c313e04e27",
+    "sha256": "a756f6cf92a53efacbddf1f18a933218792bd5415ee4d92841f4d4b72d9621d6"
+  },
+  "predicciones": {
+    "path": "docs/propuestas/2026-10-05-plan-r2/t2/predicciones.json",
+    "sha256": "024c44e9d5ab4acc76a174b5273192cb581615f55178cfa93f290ef42d004067"
+  },
+  "corrida": {
+    "path": "docs/propuestas/2026-10-05-plan-r2/t2/corrida.json",
+    "sha256": "65bd98f16a81ae7f8105dd74696ae94f6534b991161592112381a01ad37a7f24"
+  },
+  "juez": {
+    "path": "scripts/eval_extraction.py",
+    "blob_sha256": "61d288ddeb5e51a5a10f2510dbabaaef80ccc058",
+    "evaluator_version": "t1b-v1",
+    "aligner_version": "t1b-containment-min20",
+    "comando": ".venv/bin/python scripts/eval_extraction.py --predictions-file docs/propuestas/2026-10-05-plan-r2/t2/predicciones.json",
+    "recalculo": "segunda ejecucion identica a la primera; cmp sin diferencia"
+  },
+  "gate": {
+    "path": "corpus/verify_citations.py",
+    "blob_sha256": "f54afe927b86f59cd43d8f6cbca60b3c8896e22c",
+    "version": "v1"
+  },
+  "fixtures": [
+    {
+      "fixture": "synth-01.json",
+      "doc_id": "synth-salud-01",
+      "texto_sha256": "0257b97a857993c2367f33e4f54abd48c57701ed0599c229e329d575ff6069af",
+      "gold_file_sha256": "d929793d8ad3ca09b2602b02b2f66de2a8854c604c1bca505d7089a209490b6e"
+    },
+    {
+      "fixture": "synth-02.json",
+      "doc_id": "synth-salud-02",
+      "texto_sha256": "64b3114f05ae1966c026f45c2ee6ffdf872fc697c488f00df83f56ad834106f6",
+      "gold_file_sha256": "e24e1fa6914137d250569f359efff018bcb8959a57e3adf5a02567fbbe4fc5fd"
+    },
+    {
+      "fixture": "synth-03.json",
+      "doc_id": "synth-salud-03",
+      "texto_sha256": "0beefb5401a85faf6371f7cbb9e277f00000cb56578e40a1fb8b62783d93e2ba",
+      "gold_file_sha256": "00e7564e17aabe65d644c99b5399b6b1e8b009a096e0cfb606f25d811e7113dd"
+    }
+  ],
+  "casos": [
+    {
+      "doc_id": "synth-salud-01",
+      "scored": "attempt-1",
+      "extraccion_invalida": false,
+      "tool_exec": false
+    },
+    {
+      "doc_id": "synth-salud-02",
+      "scored": "attempt-1",
+      "extraccion_invalida": false,
+      "tool_exec": false
+    },
+    {
+      "doc_id": "synth-salud-03",
+      "scored": "attempt-1",
+      "extraccion_invalida": false,
+      "tool_exec": false
+    }
+  ],
+  "agregado": {
+    "tp": 0,
+    "fp": 3,
+    "fn": 3,
+    "n_pred": 3,
+    "n_gold": 3,
+    "gate_bajo": 3,
+    "precision": 0.0,
+    "recall": 0.0,
+    "definicion": "suma de los conteos del juez sobre los tres doc_id; synth-salud-03 aporta n_gold 0"
+  },
+  "resultados": [
+    {
+      "doc_id": "synth-salud-01",
+      "evaluator_version": "t1b-v1",
+      "aligner_version": "t1b-containment-min20",
+      "gate_version": "v1",
+      "n_pred": 2,
+      "n_gold": 2,
+      "n_clases": 2,
+      "tp": 0,
+      "fp": 2,
+      "fn": 2,
+      "precision": 0.0,
+      "precision_razon": null,
+      "recall": 0.0,
+      "recall_razon": null,
+      "id_ausente": 2,
+      "id_incorrecto": 0,
+      "gate_bajo": 2,
+      "gate_bajo_rate": 1.0,
+      "gate_bajo_rate_razon": null
+    },
+    {
+      "doc_id": "synth-salud-02",
+      "evaluator_version": "t1b-v1",
+      "aligner_version": "t1b-containment-min20",
+      "gate_version": "v1",
+      "n_pred": 1,
+      "n_gold": 1,
+      "n_clases": 1,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "precision_razon": null,
+      "recall": 0.0,
+      "recall_razon": null,
+      "id_ausente": 0,
+      "id_incorrecto": 0,
+      "gate_bajo": 1,
+      "gate_bajo_rate": 1.0,
+      "gate_bajo_rate_razon": null
+    },
+    {
+      "doc_id": "synth-salud-03",
+      "evaluator_version": "t1b-v1",
+      "aligner_version": "t1b-containment-min20",
+      "gate_version": "v1",
+      "n_pred": 0,
+      "n_gold": 0,
+      "n_clases": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": null,
+      "precision_razon": "denominador_cero",
+      "recall": null,
+      "recall_razon": "denominador_cero",
+      "id_ausente": 0,
+      "id_incorrecto": 0,
+      "gate_bajo": 0,
+      "gate_bajo_rate": null,
+      "gate_bajo_rate_razon": "denominador_cero"
+    }
+  ]
+}

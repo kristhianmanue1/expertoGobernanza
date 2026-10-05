@@ -1,0 +1,934 @@
+{
+  "segmentos": [
+    {
+      "id": "ilustracion-01",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 78,
+          "cita_texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud.",
+          "clase": "benchmark_positivo",
+          "cierre": "cerrado"
+        },
+        {
+          "inicio": 79,
+          "fin": 159,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+          "clase": "benchmark_positivo",
+          "cierre": "cerrado"
+        },
+        {
+          "inicio": 160,
+          "fin": 449,
+          "cita_texto": "La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+          "clase": "benchmark_positivo",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "ilustracion-02",
+      "texto": "Solo referencia a LGS: Es de aplicación en toda la República y sus disposiciones son de orden público e interés social según la ley general de salud en su artículo primero.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 172,
+          "cita_texto": "Solo referencia a LGS: Es de aplicación en toda la República y sus disposiciones son de orden público e interés social según la ley general de salud en su artículo primero.",
+          "clase": "benchmark_positivo",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "ilustracion-03",
+      "texto": "Documento sin citas normativas del corpus de salud del MVP.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 59,
+          "cita_texto": "Documento sin citas normativas del corpus de salud del MVP.",
+          "clase": "benchmark_negativo",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "C5",
+      "texto": "El artículo 4o. reconoce el derecho a la salud.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 47,
+          "cita_texto": "El artículo 4o. reconoce el derecho a la salud.",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "C6",
+      "texto": "Véase el art. 4 y el deber de prestar salud.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 44,
+          "cita_texto": "Véase el art. 4 y el deber de prestar salud.",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "C6b",
+      "texto": "Véase el Art. 4 y el cierre.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 28,
+          "cita_texto": "Véase el Art. 4 y el cierre.",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "C7",
+      "texto": "El núm. 5 continúa hasta el cierre.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 35,
+          "cita_texto": "El núm. 5 continúa hasta el cierre.",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "C8",
+      "texto": "¿La Ley define el acceso?",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 25,
+          "cita_texto": "¿La Ley define el acceso?",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "C9",
+      "texto": "Inciso a; sigue el deber.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 9,
+          "cita_texto": "Inciso a;",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        },
+        {
+          "inicio": 10,
+          "fin": 25,
+          "cita_texto": "sigue el deber.",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "C10",
+      "texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 79,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud",
+          "clase": "benchmark_positivo",
+          "cierre": "cierre_ausente"
+        }
+      ]
+    },
+    {
+      "id": "C11",
+      "texto": "Dice «salud». Luego sigue.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 13,
+          "cita_texto": "Dice «salud».",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        },
+        {
+          "inicio": 14,
+          "fin": 26,
+          "cita_texto": "Luego sigue.",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "C12",
+      "texto": "Dice «salud.» Sigue el deber.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 12,
+          "cita_texto": "Dice «salud.",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        },
+        {
+          "inicio": 12,
+          "fin": 29,
+          "cita_texto": "» Sigue el deber.",
+          "clase": "fuera_de_benchmark",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "C13",
+      "texto": "El artículo inventado 999 garantiza vacaciones eternas.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 55,
+          "cita_texto": "El artículo inventado 999 garantiza vacaciones eternas.",
+          "clase": "benchmark_negativo",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "NEG1",
+      "texto": "El artículo inventado definirá el acceso.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 41,
+          "cita_texto": "El artículo inventado definirá el acceso.",
+          "clase": "benchmark_negativo",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "E0",
+      "texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+      "esperado": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+          "clase": "benchmark_positivo",
+          "cierre": "cerrado"
+        },
+        {
+          "inicio": 81,
+          "fin": 161,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+          "clase": "benchmark_positivo",
+          "cierre": "cerrado"
+        }
+      ]
+    },
+    {
+      "id": "vacio",
+      "texto": "",
+      "esperado": []
+    }
+  ],
+  "pares": [
+    {
+      "id": "C1",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": {
+        "inicio": 79,
+        "fin": 159,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+      },
+      "prediccion": {
+        "inicio": 79,
+        "fin": 159,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+      },
+      "cobertura": true,
+      "sobreextension": false,
+      "puntuacion": false,
+      "acierto": true,
+      "L_gold": true,
+      "L_pred": true
+    },
+    {
+      "id": "C2",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": {
+        "inicio": 79,
+        "fin": 159,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+      },
+      "prediccion": {
+        "inicio": 79,
+        "fin": 158,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud"
+      },
+      "cobertura": false,
+      "sobreextension": false,
+      "puntuacion": true,
+      "acierto": false,
+      "L_gold": true,
+      "L_pred": true
+    },
+    {
+      "id": "C3",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": {
+        "inicio": 160,
+        "fin": 449,
+        "cita_texto": "La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud."
+      },
+      "prediccion": {
+        "inicio": 160,
+        "fin": 373,
+        "cita_texto": "La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos"
+      },
+      "cobertura": false,
+      "sobreextension": false,
+      "puntuacion": false,
+      "acierto": false,
+      "L_gold": true,
+      "L_pred": true
+    },
+    {
+      "id": "C4",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": {
+        "inicio": 79,
+        "fin": 159,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+      },
+      "prediccion": {
+        "inicio": 79,
+        "fin": 180,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Sa"
+      },
+      "cobertura": true,
+      "sobreextension": true,
+      "puntuacion": false,
+      "acierto": false,
+      "L_gold": true,
+      "L_pred": true
+    },
+    {
+      "id": "B5",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": {
+        "inicio": 79,
+        "fin": 159,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+      },
+      "prediccion": {
+        "inicio": 80,
+        "fin": 160,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+      },
+      "cobertura": true,
+      "sobreextension": false,
+      "puntuacion": false,
+      "acierto": false,
+      "L_gold": true,
+      "L_pred": false
+    }
+  ],
+  "puntuaciones": [
+    {
+      "id": "B1",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 78,
+          "cita_texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud."
+        },
+        {
+          "inicio": 79,
+          "fin": 159,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 160,
+          "fin": 449,
+          "cita_texto": "La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [
+        {
+          "inicio": 0,
+          "fin": 78,
+          "cita_texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud."
+        },
+        {
+          "inicio": 79,
+          "fin": 159,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 160,
+          "fin": 449,
+          "cita_texto": "La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "razon_precision": null,
+      "razon_recall": null,
+      "papeles": [
+        "tp",
+        "tp",
+        "tp"
+      ]
+    },
+    {
+      "id": "B2",
+      "texto": "Documento sin citas normativas del corpus de salud del MVP.",
+      "gold": [],
+      "predicciones": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": null,
+      "recall": null,
+      "razon_precision": "denominador_cero",
+      "razon_recall": "denominador_cero",
+      "papeles": []
+    },
+    {
+      "id": "B4",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 78,
+          "cita_texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud."
+        },
+        {
+          "inicio": 79,
+          "fin": 159,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 160,
+          "fin": 449,
+          "cita_texto": "La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [
+        {
+          "inicio": 0,
+          "fin": 78,
+          "cita_texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud."
+        },
+        {
+          "inicio": 79,
+          "fin": 159,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 160,
+          "fin": 449,
+          "cita_texto": "La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 79,
+          "fin": 159,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "tp": 3,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.75,
+      "recall": 1.0,
+      "razon_precision": null,
+      "razon_recall": null,
+      "papeles": [
+        "tp",
+        "tp",
+        "tp",
+        "fp"
+      ]
+    },
+    {
+      "id": "B6",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 78,
+          "cita_texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud."
+        },
+        {
+          "inicio": 79,
+          "fin": 159,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 160,
+          "fin": 449,
+          "cita_texto": "La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "precision": null,
+      "recall": 0.0,
+      "razon_precision": "denominador_cero",
+      "razon_recall": null,
+      "papeles": []
+    },
+    {
+      "id": "E1",
+      "texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 81,
+          "fin": 161,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "razon_precision": null,
+      "razon_recall": null,
+      "papeles": [
+        "tp"
+      ]
+    },
+    {
+      "id": "E2",
+      "texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 81,
+          "fin": 161,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [
+        {
+          "inicio": 81,
+          "fin": 161,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "razon_precision": null,
+      "razon_recall": null,
+      "papeles": [
+        "tp"
+      ]
+    },
+    {
+      "id": "E3",
+      "texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 81,
+          "fin": 161,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "tp": 1,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.5,
+      "recall": 0.5,
+      "razon_precision": null,
+      "razon_recall": null,
+      "papeles": [
+        "tp",
+        "fp"
+      ]
+    },
+    {
+      "id": "E4",
+      "texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 81,
+          "fin": 161,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 81,
+          "fin": 161,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "razon_precision": null,
+      "razon_recall": null,
+      "papeles": [
+        "tp",
+        "tp"
+      ]
+    },
+    {
+      "id": "P0",
+      "texto": "El artículo inventado 999 garantiza vacaciones eternas.",
+      "gold": [],
+      "predicciones": [
+        {
+          "inicio": 0,
+          "fin": 55,
+          "cita_texto": "El artículo inventado 999 garantiza vacaciones eternas."
+        }
+      ],
+      "tp": 0,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": null,
+      "razon_precision": null,
+      "razon_recall": "denominador_cero",
+      "papeles": [
+        "fp"
+      ]
+    },
+    {
+      "id": "B7",
+      "texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 81,
+          "fin": 161,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [
+        {
+          "inicio": true,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "tp": 0,
+      "fp": 1,
+      "fn": 2,
+      "precision": 0.0,
+      "recall": 0.0,
+      "razon_precision": null,
+      "razon_recall": null,
+      "papeles": [
+        "fp"
+      ],
+      "diagnostico": "prediccion_invalida",
+      "razon": "tipo"
+    },
+    {
+      "id": "B7f",
+      "texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 81,
+          "fin": 161,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [
+        {
+          "inicio": 0.0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "tp": 0,
+      "fp": 1,
+      "fn": 2,
+      "precision": 0.0,
+      "recall": 0.0,
+      "razon_precision": null,
+      "razon_recall": null,
+      "papeles": [
+        "fp"
+      ],
+      "diagnostico": "prediccion_invalida",
+      "razon": "tipo"
+    },
+    {
+      "id": "B7s",
+      "texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 81,
+          "fin": 161,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [
+        {
+          "inicio": "0",
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "tp": 0,
+      "fp": 1,
+      "fn": 2,
+      "precision": 0.0,
+      "recall": 0.0,
+      "razon_precision": null,
+      "razon_recall": null,
+      "papeles": [
+        "fp"
+      ],
+      "diagnostico": "prediccion_invalida",
+      "razon": "tipo"
+    },
+    {
+      "id": "B5",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 78,
+          "cita_texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud."
+        },
+        {
+          "inicio": 79,
+          "fin": 159,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 160,
+          "fin": 449,
+          "cita_texto": "La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "predicciones": [
+        {
+          "inicio": 80,
+          "fin": 160,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "tp": 0,
+      "fp": 1,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "razon_precision": null,
+      "razon_recall": null,
+      "papeles": [
+        "fp"
+      ],
+      "diagnostico": "prediccion_invalida",
+      "razon": "cita"
+    }
+  ],
+  "rechazos": [
+    {
+      "id": "G1-cita",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 79,
+          "fin": 159,
+          "cita_texto": "no es el tramo"
+        }
+      ],
+      "detalle": "cita"
+    },
+    {
+      "id": "G1-rango",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 159,
+          "fin": 79,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "detalle": "rango"
+    },
+    {
+      "id": "G1-tipo",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": true,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "detalle": "tipo"
+    },
+    {
+      "id": "G1-vacio",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 79,
+          "fin": 79,
+          "cita_texto": ""
+        }
+      ],
+      "detalle": "vacio"
+    },
+    {
+      "id": "G1-ausente",
+      "texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "detalle": "ausente"
+    },
+    {
+      "id": "G2",
+      "texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud.",
+      "gold": [
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        },
+        {
+          "inicio": 0,
+          "fin": 80,
+          "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+        }
+      ],
+      "detalle": "ocurrencia_duplicada"
+    }
+  ],
+  "baseline_vacio": [
+    {
+      "id": "B3",
+      "texto": "El artículo inventado 999 garantiza vacaciones eternas."
+    },
+    {
+      "id": "C14",
+      "texto": "Documento sin citas normativas del corpus de salud del MVP."
+    },
+    {
+      "id": "NEG1",
+      "texto": "El artículo inventado definirá el acceso."
+    }
+  ],
+  "baseline_esperado": {
+    "ilustracion-01": [
+      {
+        "inicio": 0,
+        "fin": 78,
+        "cita_texto": "Según la Constitución, Toda Persona tiene derecho a la protección de la salud."
+      },
+      {
+        "inicio": 79,
+        "fin": 159,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+      },
+      {
+        "inicio": 160,
+        "fin": 449,
+        "cita_texto": "La Ley General de Salud indica: La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud."
+      }
+    ],
+    "E0": [
+      {
+        "inicio": 0,
+        "fin": 80,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+      },
+      {
+        "inicio": 81,
+        "fin": 161,
+        "cita_texto": "La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+      }
+    ]
+  }
+}

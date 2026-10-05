@@ -1,6 +1,6 @@
 # Plan R2: evaluación sin gold y diagnóstico de evidencia del gate v1
 
-**Contexto:** R1 incorporó gobernanza, registry y trazas; conserva pendientes. La frase «el extractor copia el gold» describe el árbol anterior a T1; en `main` el stub no lee el gold. **Fecha:** 2026-10-05. **Estado:** precisiones de contrato incorporadas por instrucción del Operador; expediente en `docs/propuestas/2026-10-05-plan-r2/RECOMENDACIONES-RETRY.md`. Quórum de cierre de H1/H2 **PARCIAL**. No es `proceed` ni sustituye a `docs/plan-r1-90d.md` como cola vigente. **Arranque:** T0 cerrado en `aa7f06a`. El Operador ordenó el merge el 2026-10-05: T1 PR #47, T1b PR #48, T3 PR #49 y T4 PR #50 quedaron en `main` `5f94d38`. La punta con este registro es `d5aea67`. Ese merge no es `proceed` de §6. Integrar el código y un CI verde dejan H1/H2 en **PARCIAL** hasta revisiones elegibles y reconciliación. T2 sigue en ejecución manual. T5 nombra un panel; nombrarlo no lo autoriza.
+**Contexto:** R1 incorporó gobernanza, registry y trazas; conserva pendientes. La frase «el extractor copia el gold» describe el árbol anterior a T1; en `main` el stub no lee el gold. **Fecha:** 2026-10-05. **Estado:** precisiones de contrato incorporadas por instrucción del Operador; expediente en `docs/propuestas/2026-10-05-plan-r2/RECOMENDACIONES-RETRY.md`. Quórum de cierre de H1/H2 **PARCIAL**. No es `proceed` ni sustituye a `docs/plan-r1-90d.md` como cola vigente. **Arranque:** T0 cerrado en `aa7f06a`. El Operador ordenó el merge el 2026-10-05: T1 PR #47, T1b PR #48, T3 PR #49 y T4 PR #50 quedaron en `main` `5f94d38`. La punta con este registro es `d5aea67`. Ese merge no es `proceed` de §6. Integrar el código y un CI verde dejan H1/H2 en **PARCIAL** hasta revisiones elegibles y reconciliación. T2 está cerrado en lo administrativo; sus fixtures y resultados quedan históricos. La opción 1 de `4ea52b6` quedó adoptada solo para el corte offline, con segmentos no vacíos, predicciones inválidas como FP y gold sin ocurrencias duplicadas. La implementación está en `corpus/option1_offline.py`. Una corrida con modelo sigue requiriendo un protocolo posterior. No cierra H1 ni H2. T5 nombra un panel; nombrarlo no lo autoriza.
 **Roadmap:** R2. **Fuente:** verificación local del repo el 2026-10-05; el borrador externo del mismo día no se ejecuta tal cual.
 
 ## Objetivo y criterio de cierre
@@ -50,7 +50,7 @@ Verificados entonces en el árbol, no en el borrador externo:
 - H0 — CI dice la causa real. [hecho: PR #45, run `37353348315`, SHA `f198847`]
 - H1 — El extractor recibe solo texto; el evaluador sí recibe gold y produce métricas resistentes a duplicados. [en `main` `5f94d38` por instrucción del Operador; cierre §6 PARCIAL]
 - H2 — Evidencia desglosada, errores explícitos y tope `medio`; fecha jurídica sin evaluar. [en `main` `5f94d38` por instrucción del Operador; cierre §6 PARCIAL]
-- Experimento T2 — medición real, separado del cierre de infraestructura. [espera-humano]
+- Experimento T2 — medición real, separado del cierre de infraestructura. [piloto ejecutado; cierre administrativo registrado; quórum de H1/H2 aparte]
 
 H0 es bajo impacto (toolchain). H1 y H2 tocan la compuerta de fidelidad: al ejecutarlos, la ronda de cierre es de alto impacto (`docs/politica-agentes.md` §6). Este doc, al crearse, también se ronda antes de tratarlo como cola vigente.
 
@@ -59,12 +59,12 @@ H0 es bajo impacto (toolchain). H1 y H2 tocan la compuerta de fidelidad: al ejec
 - [x] T0 — `R2-H0-01`: `xmllint` en CI y nota de ops. → Contrato T0. Run [`37353348315`](https://github.com/kristhianmanue1/expertoGobernanza/actions/runs/37353348315), SHA `f198847`.
 - [x] T1 — `R2-H1-01`: extractor recibe sólo texto; juez conserva acceso al gold. → Contrato T1. PR #47.
 - [x] T1b — `R2-H1-03`: juez corregido e importación offline de predicciones. → Contrato T1b. PR #48.
-- [ ] T2 — `R2-H1-02`: corrida allowlisted. **HUMANO. No la abre un agente.** → Contrato T2.
+- [x] T2 — `R2-H1-02`: corrida allowlisted. Protocolo y métricas en `docs/propuestas/2026-10-05-plan-r2/t2/`. Cierre administrativo registrado por instrucción del Operador. No es `proceed` de H1/H2. → Contrato T2.
 - [x] T3 — `R2-H2-01`: cargar `registry.yaml` con PyYAML y banner sobre el dict. → Contrato T3. PR #49.
 - [x] T4 — `R2-H2-02`: diagnóstico de evidencia compatible con gate v1. → Contrato T4. PR #50.
 - [ ] T5 — `R2-H4-01`: fila de allowlist. **HUMANO. No la cierra un agente.** → Contrato T5.
 
-Orden: T0–T1–T1b–T3–T4 están en `main` `5f94d38` (punta `d5aea67`). El merge lo ordenó el Operador y no sustituye el `proceed` de §6. H1 y H2 siguen **PARCIAL** aunque el CI pase: faltan revisiones elegibles del SHA final y la reconciliación de sus hallazgos. La autorrevisión no cuenta. T2 sigue en ejecución manual del Operador. La allowlist actual no autoriza el panel nombrado en T5; tener los CLI instalados no demuestra diversidad ni autorización. R1 sigue siendo la cola vigente fuera de los tickets adoptados. Reconciliar sus tickets hechos/pendientes mediante referencias, sin declarar R1 cerrado.
+Orden: T0–T1–T1b–T3–T4 están en `main` `5f94d38` (punta `d5aea67`). El merge lo ordenó el Operador y no sustituye el `proceed` de §6. H1 y H2 siguen **PARCIAL** aunque el CI pase: faltan revisiones elegibles del SHA final y la reconciliación de sus hallazgos. La autorrevisión no cuenta. T2 está cerrado en lo administrativo y no se vuelve a correr sobre esos fixtures. La allowlist actual no autoriza el panel nombrado en T5; tener los CLI instalados no demuestra diversidad ni autorización. R1 sigue siendo la cola vigente fuera de los tickets adoptados. Reconciliar sus tickets hechos/pendientes mediante referencias, sin declarar R1 cerrado.
 
 ## Contrato T0 — R2-H0-01: CI con xmllint
 
@@ -149,8 +149,8 @@ extract(texto: str) -> list[{"disposicion_id": str | None, "cita_texto": str}]
 
 Quedó precisado el 2026-10-05, después de `d5aea67`: T2 es el experimento, distinto de la implementación ya integrada y de la adjudicación de T5.
 
-- Modo vigente: **manual**. El Operador lanza el CLI, conserva las predicciones y recalcula las métricas.
-- Delegación al agente: solo una instrucción posterior que nombre la revisión de este plan, el ticket `R2-H1-02` y el CLI. Ese CLI tiene que estar ya en la allowlist. La delegación no se infiere de este párrafo ni de haber implementado T1 o T1b.
+- El 2026-10-05 el Operador escribió «t2 te lo delego a ti, continua». No nombró CLI. Grok no recibió el texto. Claude respondió 403 en un preflight sin fixture. La corrida usó `codex` (OpenAI, modelo reportado `gpt-6.1-sol`) bajo el protocolo `692bdd9`.
+- Otra corrida, u otro CLI, pide otro protocolo fechado antes de medir. Esta delegación no se extiende.
 - En ambos modos el protocolo se escribe antes de observar el número. Las predicciones se conservan. El recálculo usa `--predictions-file` y no vuelve a llamar al modelo.
 
 ### Reglas
@@ -165,10 +165,10 @@ Quedó precisado el 2026-10-05, después de `d5aea67`: T2 es el experimento, dis
 
 ### Definition of Done
 
-- [ ] Existe un protocolo fechado antes del JSON de resultados, con métricas, fixtures, ceguera al gold y criterio de regresión.
-- [ ] JSON con proveedor, modelo solicitado/reportado (unknown si falta evidencia), fixture IDs y hashes de texto/gold, SHA del evaluador, versión del gate y métricas/denominadores T1b. Prompt/configuración, protocolo y predicciones se incluyen sólo como referencias y hashes a artefactos recuperables autorizados; no cadenas del modelo en el JSON publicado.
-- [ ] Recalcular las métricas desde las predicciones conservadas mediante `--predictions-file`, sin volver a invocar al modelo. Registrar resultado y ubicación autorizada de evidencia.
-- [ ] Un humano de roles §9 anota en el PR que autorizó esa corrida.
+- [x] Existe un protocolo fechado antes del JSON de resultados, con métricas, fixtures, ceguera al gold y criterio de regresión. Commit `692bdd9`, archivo `docs/propuestas/2026-10-05-plan-r2/t2/PROTOCOLO.md`.
+- [x] JSON con proveedor, modelo solicitado/reportado (unknown si falta evidencia), fixture IDs y hashes de texto/gold, SHA del evaluador, versión del gate y métricas/denominadores T1b. Prompt/configuración, protocolo y predicciones se incluyen sólo como referencias y hashes a artefactos recuperables autorizados; no cadenas del modelo en el JSON publicado. Archivo `docs/propuestas/2026-10-05-plan-r2/t2/RESULTADOS.json`.
+- [x] Recalcular las métricas desde las predicciones conservadas mediante `--predictions-file`, sin volver a invocar al modelo. Registrar resultado y ubicación autorizada de evidencia. Segunda ejecución idéntica a la primera.
+- [x] Un humano de roles §9 anota en el PR que autorizó esa corrida. El Operador, titular interino de los roles de `docs/roles-r1.md`, instruyó el 2026-10-05: «Conserva T2 y completa únicamente su cierre administrativo.» La anotación queda en el PR #53. Cierra la administración del piloto. No cierra H1 ni H2. El diagnóstico está en `DIAGNOSTICO-POST-HOC.md` y no cambia las métricas. `PROPUESTA-PROTOCOLO.md` corrigió la coma. `OPCION-1-CONTRATO.md` quedó adoptado solo para el corte offline en `corpus/option1_offline.py`: ocurrencia `(inicio, fin)`, `inicio < fin`, predicción inválida como FP y gold sin duplicados. Una corrida con modelo sigue requiriendo un protocolo posterior. No cierra H1 ni H2. El PR #53 sigue basado en la rama del PR #52.
 - [ ] `git diff` no contiene `API_KEY`, tokens ni transcript.
 
 ### Git
@@ -293,7 +293,13 @@ Las autorizaciones históricas de los puntos 8 y 9 se aplican a un ticket de est
 8. **Commit y push autorizados** (instrucción humana del 2026-10-05, posterior a la ronda; no cambia el quórum). Sujeto al párrafo de adopción anterior. Cuando hay avance relevante, el agente no vuelve a pedir permiso para `git commit` ni para `git push` de la rama del ticket. Avance relevante quiere decir: el DoD de ese ticket está verde en local, o hay un corte coherente ya verificado (tests del contrato en verde, diff < 400, sin secretos ni transcripts).
 9. Sujeto al mismo párrafo. El merge a `main` de H0 entra en esa autorización. El merge a `main` de H1 o H2 sigue exigiendo `proceed` de alto impacto. T2 y T5 no los commitea un agente. Nada de `--force`, nada de datos que el contrato no nombre.
 
-Instrucción del Operador posterior a `d5aea67`: separar implementación, experimento y adjudicación. T2 permanece como corrida manual con protocolo previo y predicciones conservadas; la operación por un agente requiere delegación expresa. T5 registra el panel Grok / Codex / OpenCode y la matriz de autoría de `5f94d38`. Ese registro no enmienda la allowlist ni cierra H1/H2. El apartado «Baseline observado» es histórico.
+Instrucción histórica del Operador posterior a `d5aea67`: separar implementación, experimento y adjudicación. El piloto T2 fue delegado y su cierre administrativo quedó registrado posteriormente; protocolo y resultados permanecen históricos. Otra corrida exige protocolo posterior y delegación expresa. T5 registra el panel Grok / Codex / OpenCode y la matriz de autoría de `5f94d38`. Ese registro no enmienda la allowlist ni cierra H1/H2. El apartado «Baseline observado» es histórico.
+
+### Excepción acotada de tamaño — PR #53
+
+El 2026-10-05, tras el dictamen de integración sobre `979574f`, el Operador indicó «adelante con recomendaciones», adoptando la excepción propuesta exclusivamente para el expediente del PR #53 (`R2-H1-02` y corte offline). Su diff contra #52 era de 1868 inserciones y 10 borrados: contiene evidencia histórica de T2, contrato, código y controles sintéticos. Se conserva junto para revisar su trazabilidad, sin fragmentar artificialmente la evidencia. La excepción comprende las correcciones acotadas de esa revisión (minúsculas, test y actualización documental), no funciones nuevas.
+
+Se exceptúa para ese expediente el objetivo `diff < 400` de los puntos 2 y 8; la regla general y los límites duros por archivo permanecen. No exceptúa pruebas, revisión, quórum ni fidelidad. No autoriza commit, push, merge, release ni corrida con modelo; H1/H2 siguen PARCIAL. La integración requiere resolver #52 primero, revisar la base final de #53 y su CI; el workflow actual solo atiende PR hacia `main`.
 
 ## Enlaces
 
