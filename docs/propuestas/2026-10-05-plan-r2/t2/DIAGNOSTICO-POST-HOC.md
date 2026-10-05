@@ -1,6 +1,6 @@
 # Diagnóstico post hoc de T2
 
-Este archivo se escribió después de observar `RESULTADOS.json`. No modifica `PROTOCOLO.md`, `predicciones.json`, `corrida.json` ni las métricas. No hubo otra invocación al modelo. T2 sigue siendo un piloto ejecutado, con resultados reproducibles, y con el cierre administrativo abierto: falta la anotación de roles §9 en el PR #53. Ese cierre no es el quórum de H1/H2.
+Este archivo se escribió después de observar `RESULTADOS.json`. No modifica `PROTOCOLO.md`, `predicciones.json`, `corrida.json` ni las métricas. No hubo otra invocación al modelo. T2 es un piloto ejecutado, con resultados reproducibles. El cierre administrativo quedó registrado por instrucción del Operador en el PR #53. Ese cierre no es el quórum de H1/H2.
 
 ## Tres rechazos por límite de extracción
 
@@ -12,7 +12,7 @@ El alineador `t1b-containment-min20` acepta una predicción solo si, ya normaliz
 | `synth-salud-01` predicción 1 | id null | `g2` `LGS:1` | no | sí | 76 |
 | `synth-salud-02` predicción 0 | id presente | `g1` `LGS:1` | no | sí | 54 |
 
-El carácter de más del primer par es el punto final: el gold de `g1` termina en «salud» y la predicción añade «.». El segundo par continúa después de «Mexicanos» con la oración siguiente. El tercero continúa después de «social» con la atribución a la ley. `synth-salud-03` no entra en estos tres: no tiene gold `must_find` y la predicción fue `[]`. Su recall null es `denominador_cero`, no un rechazo.
+El carácter de más del primer par es un punto. El gold de `g1` termina en «salud» y la predicción añade «.». El texto fuente sí trae ese punto. El segundo par, después de «Mexicanos», sigue en la misma oración: «, establece…». El tercero, después de «social», sigue en la misma oración: « según…». Una versión anterior de este párrafo llamó «oración siguiente» al tramo de «Mexicanos». Era continuación de la misma oración. El «4o.» interior del segundo gold es una abreviatura, no un corte. `synth-salud-03` no entra en estos tres: no tiene gold `must_find` y la predicción fue `[]`. Su recall null es `denominador_cero`, no un rechazo.
 
 Un id null no provoca estos tres rechazos. `_compatible` solo compara ids cuando los dos están presentes. El control `test_tp_sin_id_puede_tener_gate_bajo` obtiene un verdadero positivo con id null si el texto sí cabe en el gold.
 

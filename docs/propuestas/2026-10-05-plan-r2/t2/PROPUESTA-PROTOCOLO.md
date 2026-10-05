@@ -1,37 +1,73 @@
-# Propuesta de protocolo posterior a T2
+# Revisión para decisión, antes de otro protocolo
 
-No es el protocolo congelado. No está ejecutado. No sustituye a `PROTOCOLO.md` ni a `RESULTADOS.json`. Una corrida con este texto necesita otra delegación que lo nombre, y tiene que quedar fechada antes de ver números nuevos. El cierre administrativo de T2 y el quórum de H1/H2 siguen en sus propios carriles.
+No es un protocolo congelado. No está ejecutado. No sustituye a `PROTOCOLO.md`, `predicciones.json`, `corrida.json` ni `RESULTADOS.json`. Esos cuatro archivos no se editan. No se invoca un modelo con este texto.
 
-## Qué alinear
+La versión anterior de este archivo pedía «una sola oración, del inicio a su punto final, sin la oración siguiente». Esa regla se retira. No coincide con los límites del gold actual, y el tramo que sobra en dos de los tres rechazos es continuación de la misma oración.
 
-El prompt de `692bdd9` pidió un fragmento verbatim y un id solo si el texto lo escribía. No dijo tres cosas que el juez ya usa:
+## Por qué una oración con punto no es el gold
 
-1. **Extracción.** El alineador cuenta la predicción solo cuando ella cabe dentro del gold. Un gold que cabe dentro de una predicción más larga es un fallo. El control `test_texto_completo_no_cuenta` fija esa dirección. El mínimo normalizado es 20 caracteres.
-2. **Identificación.** Si la predicción trae id y el gold también, tienen que ser el mismo identificador de corpus (`LGS:1`, `CPEUM:4:P4`). Una glosa como «artículo primero» no es ese id. Un id null todavía puede ser verdadero positivo del alineador.
-3. **Gate.** Va después y no mueve el recall. Sin id, `evaluate` asigna `bajo` sin consultar el corpus. Con id, `verify_claim` exige que la disposición exista en el índice derivado; si no existe, `bajo` y no mide la cita. El gate v1 sigue con `alto` inalcanzable y `version_valid_for_date` en `N/A_v1`. Su mínimo de cita es 40, distinto del 20 del alineador.
+Los límites se leen en los fixtures, no en una corrida nueva.
 
-## Prompt propuesto
+- `synth-01`, gold `g1`. Abarca dos tramos separados por un punto interno («salud. La Ley…») y omite el punto final que el texto sí tiene. El gold termina en «salud», sin punto.
+- `synth-01`, gold `g2`. Corta en «Mexicanos», antes de la coma que sigue en la misma oración («, establece…»). El «4o.» interior es una abreviatura, no un fin de oración. El punto de la oración está más adelante, después de «salud».
+- `synth-02`, gold `g1`. Corta en «social», antes de « según», todavía en la misma oración. El punto del texto está después de «primero».
 
-El marcador `{{TEXTO}}` no se rellena en este archivo.
+Quien copiara cada oración del texto hasta su punto sacaría spans distintos de estos tres gold. Quien copiara el gold tal cual tampoco entregaría «una oración cerrada por punto». Exigir esa forma en el prompt no alinea la extracción con este gold.
 
-```text
-Extrae citas del texto. Responde solo con un objeto JSON, sin markdown y sin explicacion.
-Esquema: {"predictions":[{"disposicion_id": string o null, "cita_texto": string}]}
-Reglas:
-- Cada cita_texto es una sola oracion del texto, copiada verbatim, del inicio de la oracion a su punto final inclusive, sin la oracion siguiente y sin una atribucion añadida despues.
-- No alargues la cita. El evaluador acepta la prediccion solo si ella cabe dentro de la cita de referencia. Si la referencia cabe dentro de una prediccion mas larga, esa prediccion no cuenta.
-- disposicion_id es el identificador de corpus que el propio texto escriba con forma INSTRUMENTO:numero, por ejemplo LGS:1 o CPEUM:4:P4. Si el texto no escribe ese identificador, usa null. No parafrasees «articulo primero» ni otro nombre.
-- No inventes citas ni identificadores. Si no hay cita, predictions es [].
-- No uses herramientas ni leas archivos.
-Texto:
-{{TEXTO}}
-```
+## Unidad propuesta, identificable desde el texto
 
-La reparación, si hiciera falta en una corrida futura, repetiría este mismo criterio y el código de error del validador. No incluiría el gold.
+Un segmento verbatim del texto, cortado solo por un límite que el texto muestra.
 
-## Lo que esta propuesta no decide
+- Un límite es `.`, `?`, `!` o `;` cuando esos signos no cierran una abreviatura escrita en el propio texto (`4o.`, `art.`, `núm.`).
+- La coma no es límite. «, establece» y « según» se quedan en el mismo segmento.
+- Si el texto trae el signo de cierre, el segmento lo incluye.
+- El corte no consulta el gold. Por eso un modelo puede aplicarlo viendo solo `texto`.
 
-- No fija un umbral de aceptación ni un 0.8.
-- No declara regresión contra los ceros de T2: cambiar el prompt crea otra medición. La regresión del protocolo ya ejecutado sigue siendo la de `PROTOCOLO.md`.
-- No cierra T2. La casilla de roles §9 en el PR #53 sigue abierta.
-- No adelanta el `proceed` de H1/H2. El quórum de esos hitos no usa este archivo.
+Esta unidad no es el gold de T2. Adoptarla pide gold nuevo en una corrida futura. Los fixtures de T2 se quedan como están.
+
+## Criterio coherente con esa unidad
+
+Tres controles, sobre la misma normalización del juez actual: NFKD, sin diacríticos, espacios colapsados. El acierto de extracción exige los tres. Ninguno usa el id.
+
+1. **Puntuación.** El punto final que el texto trae forma parte del segmento. Quitarlo o añadir un punto que el texto no trae es fallo de puntuación. `4o.` no abre otro segmento. Una coma no abre otro segmento.
+2. **Cobertura.** El gold, escrito con esta misma unidad, es subcadena de la predicción. Mide si el contenido de referencia fue recuperado.
+3. **Sobreextensión.** La predicción no es subcadena del gold: hay caracteres de más. Un punto de más cuenta aquí y en el control de puntuación. La continuación tras una coma también cuenta aquí. No se llama «oración siguiente» a esa continuación.
+
+El recall de extracción sale solo de estos controles. El alineador de T2 mezcla el fallo de sobreextensión con un único `tp` de contención en un sentido. Esta revisión no cambia ese código ni las métricas ya publicadas.
+
+## Resolución de IDs, separada
+
+Otra métrica y otro denominador. No entra en el recall de extracción.
+
+- Exacto: el id de la predicción es el id de corpus del gold (`LGS:1`, `CPEUM:4:P4`).
+- Ausente: null. No quita un acierto de extracción. Se cuenta aparte.
+- Incompatible: cualquier otra cadena, incluida «artículo primero». Cuenta aunque el span esté sobreextendido.
+
+El juez de T2 no hace eso. `id_incorrecto` sigue exigiendo que el span quepa en el gold, y por eso el piloto publicó 0. Un protocolo futuro tendría que cambiar el contador. Esta revisión no lo cambia.
+
+El gate v1 tampoco es esta resolución. Sin id, `evaluate` asigna `bajo` sin abrir el corpus. Con un id que no está en el índice, `verify_claim` devuelve `bajo` antes de medir la cita. `alto` sigue inalcanzable.
+
+## Controles que habría que añadir antes de medir
+
+Todavía no están en `tests/`. No se ejecutan ahora.
+
+- Puntuación: punto final sobrante; punto final omitido; `4o.` no parte el segmento; la coma no lo parte.
+- Cobertura: el segmento completo recupera un gold escrito con la misma unidad; un prefijo que corta en la coma no lo recupera.
+- Sobreextensión: el segmento más la continuación tras la coma no es un acierto exacto; el segmento más el segmento posterior tampoco.
+- IDs, en su propia cuenta: null no mueve el recall de extracción; «artículo primero» es incompatible aunque el span sobre; `LGS:1` exacto no se mezcla con el span.
+
+## Decisión pendiente
+
+Antes de congelar un protocolo o de lanzar otra corrida, hace falta una de estas tres:
+
+1. Adoptar esta unidad, encargar gold nuevo y los controles de arriba, y solo después escribir el protocolo.
+2. Conservar el gold y el alineador de T2. En ese caso el prompt no puede pedir «una oración con punto», porque ese corte no es el gold.
+3. Nombrar otra unidad, por escrito, antes de medir.
+
+## Carencia de evidencia de aislamiento
+
+Sigue ausente del repositorio el stderr del canario de Seatbelt, el stderr de las tres invocaciones, el entero de tokens y el script de orquestación. `tool_exec: false` es un flag del parser, no el log. El párrafo de `PROTOCOLO.md` afirma `Operation not permitted`; no hay un log original junto a esa frase. Esta revisión no reconstruye esos archivos. Una corrida futura tiene que archivar el stderr en el repo antes de dar el proceso por aislado.
+
+## Qué queda cerrado y qué no
+
+T2 queda cerrado en lo administrativo. H1 y H2 siguen en quórum PARCIAL. El PR #53 sigue basado en la rama del PR #52.

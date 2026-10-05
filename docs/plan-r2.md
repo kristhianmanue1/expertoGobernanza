@@ -50,7 +50,7 @@ Verificados entonces en el árbol, no en el borrador externo:
 - H0 — CI dice la causa real. [hecho: PR #45, run `37353348315`, SHA `f198847`]
 - H1 — El extractor recibe solo texto; el evaluador sí recibe gold y produce métricas resistentes a duplicados. [en `main` `5f94d38` por instrucción del Operador; cierre §6 PARCIAL]
 - H2 — Evidencia desglosada, errores explícitos y tope `medio`; fecha jurídica sin evaluar. [en `main` `5f94d38` por instrucción del Operador; cierre §6 PARCIAL]
-- Experimento T2 — medición real, separado del cierre de infraestructura. [espera-humano]
+- Experimento T2 — medición real, separado del cierre de infraestructura. [piloto ejecutado; cierre administrativo registrado; quórum de H1/H2 aparte]
 
 H0 es bajo impacto (toolchain). H1 y H2 tocan la compuerta de fidelidad: al ejecutarlos, la ronda de cierre es de alto impacto (`docs/politica-agentes.md` §6). Este doc, al crearse, también se ronda antes de tratarlo como cola vigente.
 
@@ -59,7 +59,7 @@ H0 es bajo impacto (toolchain). H1 y H2 tocan la compuerta de fidelidad: al ejec
 - [x] T0 — `R2-H0-01`: `xmllint` en CI y nota de ops. → Contrato T0. Run [`37353348315`](https://github.com/kristhianmanue1/expertoGobernanza/actions/runs/37353348315), SHA `f198847`.
 - [x] T1 — `R2-H1-01`: extractor recibe sólo texto; juez conserva acceso al gold. → Contrato T1. PR #47.
 - [x] T1b — `R2-H1-03`: juez corregido e importación offline de predicciones. → Contrato T1b. PR #48.
-- [ ] T2 — `R2-H1-02`: corrida allowlisted. Protocolo y métricas en `docs/propuestas/2026-10-05-plan-r2/t2/`. La casilla de autorización en el PR sigue abierta. → Contrato T2.
+- [x] T2 — `R2-H1-02`: corrida allowlisted. Protocolo y métricas en `docs/propuestas/2026-10-05-plan-r2/t2/`. Cierre administrativo registrado por instrucción del Operador. No es `proceed` de H1/H2. → Contrato T2.
 - [x] T3 — `R2-H2-01`: cargar `registry.yaml` con PyYAML y banner sobre el dict. → Contrato T3. PR #49.
 - [x] T4 — `R2-H2-02`: diagnóstico de evidencia compatible con gate v1. → Contrato T4. PR #50.
 - [ ] T5 — `R2-H4-01`: fila de allowlist. **HUMANO. No la cierra un agente.** → Contrato T5.
@@ -168,7 +168,7 @@ Quedó precisado el 2026-10-05, después de `d5aea67`: T2 es el experimento, dis
 - [x] Existe un protocolo fechado antes del JSON de resultados, con métricas, fixtures, ceguera al gold y criterio de regresión. Commit `692bdd9`, archivo `docs/propuestas/2026-10-05-plan-r2/t2/PROTOCOLO.md`.
 - [x] JSON con proveedor, modelo solicitado/reportado (unknown si falta evidencia), fixture IDs y hashes de texto/gold, SHA del evaluador, versión del gate y métricas/denominadores T1b. Prompt/configuración, protocolo y predicciones se incluyen sólo como referencias y hashes a artefactos recuperables autorizados; no cadenas del modelo en el JSON publicado. Archivo `docs/propuestas/2026-10-05-plan-r2/t2/RESULTADOS.json`.
 - [x] Recalcular las métricas desde las predicciones conservadas mediante `--predictions-file`, sin volver a invocar al modelo. Registrar resultado y ubicación autorizada de evidencia. Segunda ejecución idéntica a la primera.
-- [ ] Un humano de roles §9 anota en el PR que autorizó esa corrida. La frase de delegación está citada en el PR; la casilla queda abierta hasta esa anotación. T2 permanece piloto ejecutado. El diagnóstico posterior está en `docs/propuestas/2026-10-05-plan-r2/t2/DIAGNOSTICO-POST-HOC.md` y no cambia estas métricas. Una propuesta de prompt alineada al juez, sin ejecutar, está en `PROPUESTA-PROTOCOLO.md` del mismo directorio. Ni ese diagnóstico ni esa propuesta cierran H1/H2: el quórum sigue en T5. El PR #53 sigue basado en la rama del PR #52.
+- [x] Un humano de roles §9 anota en el PR que autorizó esa corrida. El Operador, titular interino de los roles de `docs/roles-r1.md`, instruyó el 2026-10-05: «Conserva T2 y completa únicamente su cierre administrativo.» La anotación queda en el PR #53. Cierra la administración del piloto. No cierra H1 ni H2. El diagnóstico está en `DIAGNOSTICO-POST-HOC.md` y no cambia las métricas. `PROPUESTA-PROTOCOLO.md` es una revisión para decidir, no un protocolo congelado. El PR #53 sigue basado en la rama del PR #52.
 - [ ] `git diff` no contiene `API_KEY`, tokens ni transcript.
 
 ### Git
