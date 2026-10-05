@@ -2,7 +2,7 @@
 
 No está adoptada. No es un protocolo congelado. No autoriza otra corrida. No modifica los fixtures `tests/fixtures/extraction_gold/` ni `PROTOCOLO.md`, `predicciones.json`, `corrida.json` o `RESULTADOS.json`. Esos artefactos siguen históricos.
 
-Esta enmienda corrige el contrato previo a una adopción. Las listas léxicas no son verdad normativa. La literalidad y los offsets son precondiciones del acierto.
+Esta enmienda corrige el contrato previo a una adopción. Las listas léxicas no son verdad normativa. La literalidad y los offsets son precondiciones del acierto. La identidad del acierto es la ocurrencia `(inicio, fin)`, no la misma `N` en otra posición.
 
 ## Unidad
 
@@ -28,31 +28,37 @@ Sea `S` el conjunto de segmentos. Para cada `s`:
 
 ## Literalidad, offsets y acierto
 
-`L(texto, inicio, fin, cita)` es verdadero solo si `0 <= inicio <= fin <= len(texto)` y `texto[inicio:fin] == cita`, carácter por carácter, antes de `N`. Los índices son los de la cadena Python, intervalo semiabierto.
+`L(texto, inicio, fin, cita)` es verdadero solo si se cumplen las tres condiciones, antes de `N`. Los índices son los de la cadena Python, intervalo semiabierto.
+
+- `inicio` y `fin` son enteros reales. Un booleano, un flotante, una cadena o un campo ausente no lo son. `bool` es subclase de `int` y se rechaza.
+- `0 <= inicio <= fin <= len(texto)`.
+- `texto[inicio:fin] == cita`, carácter por carácter.
 
 `L` del gold y `L` de la predicción son precondiciones. Sin las dos, esa pareja no es acierto, aunque `N` coincida.
 
-El acierto de una pareja que ya cumplió `L` es `N(prediccion.cita) == N(gold.cita)`. No es contención.
+El acierto es la misma ocurrencia: ambas cumplen `L` y `inicio` y `fin` son iguales. La misma `N` en otros offsets no es esa ocurrencia. La contención tampoco lo es. El tramo es el mismo, así que `N` coincide; esa igualdad no empareja otra posición.
+
+Si algún registro de gold no cumple `L`, el medidor rechaza la evaluación entera, no emite métricas y la razón es `gold_invalido`. No cuenta ese registro como falso negativo y no lo omite para puntuar el resto. La salida del baseline cumple `L` por construcción: su cita es el tramo.
 
 ## Diagnósticos
 
 Se calculan sobre las cadenas aunque falte `L`. No convierten un fallo en acierto.
 
 - Cobertura: `N(gold) in N(prediccion)`.
-- Sobreextensión: `N(prediccion) not in N(gold)`.
+- Sobreextensión: `N(prediccion) not in N(gold)`. Es un diagnóstico de par de cadenas, no la regla de emparejamiento. Es verdadero solo cuando la predicción normalizada tiene material que el gold normalizado no tiene. Si `N` coincide, no hay sobreextensión. Un prefijo más corto, contenido en el gold, tampoco: falla la cobertura y la sobreextensión es no. El gold más caracteres ajenos sí es sobreextensión, y la cobertura puede seguir siendo sí. No describe la coma interior de la unidad: esa continuación pertenece al gold, y cortarla es un fallo de cobertura contra ese gold.
 - Puntuación: `quitar(N(prediccion)) == quitar(N(gold))` y `N(prediccion) != N(gold)`. `quitar` elimina los caracteres `.,;:!?¿¡«»"'()[]-`.
 
 Si `N` coincide: cobertura sí, sobreextensión no, puntuación no. Cobertura sí y sobreextensión sí quiere decir que la predicción contiene al gold y lo rebasa: no hay acierto.
 
 ## Emparejamiento y duplicados
 
-El emparejamiento es uno a uno, de cardinalidad máxima, entre predicciones y gold `benchmark_positivo`. Hay arista solo si ambas cumplen `L` y `N` es igual. Una predicción sin `L` no tiene arista.
+El emparejamiento es uno a uno entre predicciones y gold `benchmark_positivo`. Hay arista solo si ambas cumplen `L` y `inicio` y `fin` son los mismos. La misma `N` en otra posición no es arista y no puede tomar el otro gold. Una predicción sin `L` no tiene arista. Una predicción no produce dos verdaderos positivos.
 
-Desempate: la tupla de índices de gold más pequeña en orden lexicográfico. Los gold se ordenan por `(inicio, fin)`.
+Cada gold aporta como máximo un verdadero positivo. Varias predicciones con los mismos offsets: una es verdadero positivo y las demás son falsos positivos; cuál de ellas lo sea no cambia los conteos. No suben el recall. Un gold sin arista es falso negativo. Una predicción que cumple `L` y no tiene gold en esos offsets es falso positivo.
 
-Cada gold aporta como máximo un verdadero positivo. Una segunda predicción con la misma cita y los mismos offsets, o con la misma `N` y otra pareja de offsets que ya no encuentra gold libre, es falso positivo. No sube el recall. Un gold sin pareja es falso negativo. Una predicción literal sin gold es falso positivo.
+`recall = tp / |gold positivo|`. Si ese denominador es 0, `recall` es null y la razón es `denominador_cero`. `precision = tp / (tp + fp)` solo si la lista de predicciones no está vacía. Si está vacía, `precision` es null y la razón es `denominador_cero`, haya o no gold positivo. No se sustituye ese denominador vacío por 0.
 
-`recall = tp / |gold positivo|`. Si el denominador es 0, `recall` es null y la razón es `denominador_cero`. `precision = tp / (tp + fp)`. Si no hay predicciones ni gold positivo, `precision` es null con la misma razón. Si hay predicciones y el denominador de recall es 0, esas predicciones son falsos positivos y la precisión es 0.
+Cero predicciones y gold positivo: `tp` 0, `fp` 0, `fn = |gold|`, recall 0, precisión null. Cero predicciones y cero gold positivo: recall null y precisión null. Hay predicciones y cero gold positivo: esas predicciones son falsos positivos y la precisión es 0.
 
 Los ids no entran en estas fórmulas. El `id_incorrecto` de T2 no se recalcula.
 
@@ -76,6 +82,10 @@ Los textos son los históricos. Los cortes ilustran este contrato y no se escrib
 
 `synth-salud-03`, 0:59, negativo por `documento sin citas`. No hay gold de benchmark. El punto no crea un gold.
 
+## Contraejemplo de dos segmentos idénticos
+
+La oración `La Ley definirá las bases y modalidades para el acceso a los servicios de salud.` mide 80 caracteres. El texto que la repite, con un espacio entre las copias, mide 161. Las ocurrencias son 0:80 y 81:161. Las dos son `benchmark_positivo` por `definirá`. Una predicción solo de 0:80 es verdadero positivo de la primera y falso negativo de la segunda. No toma la segunda por igualdad de `N`. La misma cita con offsets 81:161, si cumple `L`, es acierto solo de la segunda.
+
 ## Controles
 
 No están en `tests/`. No se ejecutan. No usan el juez de T2. «Sí» en un diagnóstico quiere decir que la fórmula de arriba es verdadera.
@@ -97,16 +107,21 @@ No están en `tests/`. No se ejecutan. No usan el juez de T2. «Sí» en un diag
 | C13 | `El artículo inventado 999 garantiza vacaciones eternas.` 0:55 | no es gold | | | | negativo de benchmark |
 | C14 | El texto de `synth-03` | recall null | | | | `denominador_cero` |
 | B1 | `baseline` sobre el texto de `synth-01` | tres aciertos, recall 1, precisión 1 | sí en cada pareja | no | no | sí |
-| B2 | `baseline` sobre `synth-03` | cero predicciones, recall null | | | | |
+| B2 | `baseline` sobre `synth-03` | cero predicciones, recall null, precisión null | | | | las dos con `denominador_cero` |
 | B3 | `baseline` no emite C13 | | | | | |
 | B4 | Las tres salidas de B1 más una copia de 79:159 | tp 3, fp 1, recall 1, precisión 0.75 | | | | el duplicado no sube el recall |
 | B5 | La cita de 79:159 con offsets corridos un carácter | no | | | | falla `L`; no hay arista |
+| B6 | Lista de predicciones vacía contra los tres gold de `synth-01` | tp 0, fp 0, fn 3, recall 0, precisión null | | | | no es precisión 0 |
+| B7 | `inicio` o `fin` booleano, flotante o cadena | no | | | | falla `L`; no hay arista |
+| E1 | Las dos copias de 80 caracteres; predicción solo 0:80 | tp 1, fn 1, recall 0.5 | | | | no hay arista hacia 81:161 |
+| E2 | La cita de esa oración con offsets 81:161 | acierto de 81:161; fn de 0:80 | | | | `L` sí solo en la segunda |
+| G1 | Un gold con cita distinta del tramo, offsets invertidos, o tipo no entero | sin métricas | | | | `gold_invalido`; no es FN ni se omite |
 
 ## Paquete de una ejecución futura
 
 No se arma ahora. T2 no lo tiene y no se reconstruye: faltan el stderr del canario, el stderr de las tres invocaciones, el entero de tokens y el script. `tool_exec: false` no sustituye al log.
 
-Si más adelante hay adopción y un protocolo congelado, la orquestación es esta secuencia, cada paso con exit code, y se archiva junto con `SHA256SUMS`:
+Esa corrida es distinta del corte offline. Si más adelante hay un protocolo congelado, la orquestación es esta secuencia, cada paso con exit code, y se archiva junto con `SHA256SUMS`:
 
 1. Directorio de payload con solo el `texto` de cada documento. Manifiesto: id y SHA-256 del `texto`.
 2. El perfil Seatbelt, su SHA-256 y el comando completo.
@@ -119,6 +134,8 @@ Los logs se archivan saneados. Se eliminan claves, cabeceras `Authorization` y s
 
 Sin los pasos 3 y 4 archivados, la ejecución no se declara aislada. Este archivo no es ese paquete.
 
-## Qué se decide después
+## Adopción que se presenta
 
-Adoptar esta enmienda, rechazarla, o cambiar las listas del benchmark antes de congelar un protocolo. Hasta entonces no hay gold nuevo, no hay tests nuevos y no hay corrida.
+Se presenta para adopción solo la implementación offline y sus controles: el segmentador, `L` estricto, el emparejamiento por ocurrencia, los diagnósticos, el rechazo `gold_invalido`, el baseline determinista y los controles de esta tabla como tests. No incluye una corrida con modelo, no congela un protocolo, no reescribe los fixtures ni los resultados de T2 y no cierra H1 ni H2.
+
+Una corrida con modelo sigue requiriendo un protocolo posterior, escrito y congelado antes de medir. Hasta que el Operador adopte por escrito este corte offline, no se añade ese código ni esos tests.
