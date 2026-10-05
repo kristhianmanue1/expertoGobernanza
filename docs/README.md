@@ -5,7 +5,8 @@
 | Doc | Para qué |
 |------|----------|
 | [`../AGENTS.md`](../AGENTS.md) | Always-on agentes |
-| [`plan-r1-90d.md`](plan-r1-90d.md) | Plan y tickets R1 |
+| [`plan-r1-90d.md`](plan-r1-90d.md) | Plan y tickets R1 (cola vigente) |
+| [`plan-r2.md`](plan-r2.md) | Borrador R2 afinado el 2026-10-05. Sin `proceed`: no es la cola |
 | [`fuentes-legal-mx.md`](fuentes-legal-mx.md) | Procedencia / vigencia / checklist E1 |
 | [`autorizacion-fuentes-r1.md`](autorizacion-fuentes-r1.md) | Canales DOF/OJ + multi-provider |
 | [`roles-r1.md`](roles-r1.md) | Jurídico / custodio / PO |
