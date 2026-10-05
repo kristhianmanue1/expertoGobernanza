@@ -26,7 +26,9 @@ El hecho de agosto permanece. No describe los runs de octubre: esos jobs sí eje
 | `37339265192` | merge PR #40 | 193 tests, 1 error: `FileNotFoundError: xmllint` en `tests/test_akn_spike.py` |
 | `37348191223` | `8410075` (merge PR #43) | la misma causa |
 
-Actions arranca. Esos dos rojos son el binario ausente en el runner. El run del ticket que instala `libxml2-utils` se anota en esta sección con URL y SHA cuando termine; hasta ese verde, T0 no se declara cerrado.
+Actions arranca. Esos dos rojos son el binario ausente en el runner.
+
+Run verde de la instalación de `libxml2-utils`: [`37353194656`](https://github.com/kristhianmanue1/expertoGobernanza/actions/runs/37353194656), SHA `b56d8f873c577823572c9cbc3c7fae6428662159` (PR #45). 193 tests OK, incluido el paso `xmllint` y `test_akn_spike`.
 
 ## 2. Qué SÍ se puede usar sin Actions (admin)
 
