@@ -1,6 +1,6 @@
 # Plan R2: evaluación sin gold y diagnóstico de evidencia del gate v1
 
-**Contexto:** R1 incorporó gobernanza, registry y trazas; conserva pendientes. El extractor actual copia el gold. **Fecha:** 2026-10-05. **Estado:** precisiones de contrato incorporadas por instrucción del Operador; expediente en `docs/propuestas/2026-10-05-plan-r2/RECOMENDACIONES-RETRY.md`. Quórum de cierre de H1/H2 **PARCIAL**. No es `proceed` ni sustituye a `docs/plan-r1-90d.md` como cola vigente. **Arranque autorizado en esta instrucción:** solo T0 (`R2-H0-01`), sobre la revisión que publique este texto. Editar el borrador o aceptar un análisis no adopta otro ticket.
+**Contexto:** R1 incorporó gobernanza, registry y trazas; conserva pendientes. El extractor actual copia el gold. **Fecha:** 2026-10-05. **Estado:** precisiones de contrato incorporadas por instrucción del Operador; expediente en `docs/propuestas/2026-10-05-plan-r2/RECOMENDACIONES-RETRY.md`. Quórum de cierre de H1/H2 **PARCIAL**. No es `proceed` ni sustituye a `docs/plan-r1-90d.md` como cola vigente. **Arranque:** T0 cerrado en `aa7f06a`. Instrucción posterior del Operador, el 2026-10-05, adopta sobre `aa7f06a` la implementación en rama de T1 (`R2-H1-01`), T1b (`R2-H1-03`) y T3 (`R2-H2-01`). No adopta su merge: H1 y H2 siguen exigiendo `proceed`. No adopta T4, T2 ni T5. Editar el borrador o aceptar un análisis no amplía ese alcance.
 **Roadmap:** R2. **Fuente:** verificación local del repo el 2026-10-05; el borrador externo del mismo día no se ejecuta tal cual.
 
 ## Objetivo y criterio de cierre
@@ -54,7 +54,7 @@ H0 es bajo impacto (toolchain). H1 y H2 tocan la compuerta de fidelidad: al ejec
 - [ ] T4 — `R2-H2-02`: diagnóstico de evidencia compatible con gate v1. → Contrato T4.
 - [ ] T5 — `R2-H4-01`: fila de allowlist. **HUMANO. No la cierra un agente.** → Contrato T5.
 
-Orden tras el arranque autorizado: T0 primero. T1 ∥ T3 solo con adopción que nombre su revisión y su ticket; después T1 → T1b → T2 y T3 → T4. Antes de prometer cierres H1/H2, identificar ≥3 proveedores autorizados, autor excluido, y reconciliación conforme a §6. La allowlist actual de dos proveedores no basta: T5 condiciona esa ruta de cierre; más agentes del mismo proveedor no la resuelven. R1 sigue siendo la cola vigente fuera de T0. Reconciliar sus tickets hechos/pendientes mediante referencias, sin declarar R1 cerrado.
+Orden: T0 hecho. T1 y T3 en paralelo, adoptados el 2026-10-05 sobre `aa7f06a`; T1b después de T1. T4 espera el merge de T3 y `proceed`. T2 sigue en espera humana. Antes de prometer cierres H1/H2, identificar ≥3 proveedores autorizados, autor excluido, y reconciliación conforme a §6. La allowlist actual de dos proveedores no basta: T5 condiciona esa ruta de cierre; más agentes del mismo proveedor no la resuelven. R1 sigue siendo la cola vigente fuera de los tickets adoptados. Reconciliar sus tickets hechos/pendientes mediante referencias, sin declarar R1 cerrado.
 
 ## Contrato T0 — R2-H0-01: CI con xmllint
 
@@ -255,7 +255,7 @@ El agente ejecuta el resolver y pega en el PR la tabla `disposicion_id → verif
 6. Al cerrar H1 o H2 hace falta ronda de alto impacto (≥3 proveedores por modelo, autor excluido). Sin `proceed` no hay merge. H0 admite quórum-lite.
 7. No declarar CI verde. Pegar el resultado local y, si se consulta GitHub, el id del run.
 
-Las autorizaciones históricas de los puntos 8 y 9 se aplican a un ticket de este plan solo después de una adopción que identifique la revisión y el alcance. La instrucción del Operador del 2026-10-05 adopta únicamente T0 sobre la revisión que publique este texto. Un ticket fuera de ese alcance no queda habilitado. Una excepción posterior tiene que nombrar la revisión y el ticket. Editar este borrador, o aceptar un análisis, no adopta el ticket.
+Las autorizaciones históricas de los puntos 8 y 9 se aplican a un ticket de este plan solo después de una adopción que identifique la revisión y el alcance. La instrucción del Operador del 2026-10-05 adoptó T0 sobre el texto publicado en `aa7f06a`. Una instrucción posterior del mismo día adopta, sobre esa revisión, la implementación en rama de T1, T1b y T3, sin merge de H1/H2 y sin T4, T2 ni T5. Un ticket fuera de ese alcance no queda habilitado. Una excepción posterior tiene que nombrar la revisión y el ticket. Editar este borrador, o aceptar un análisis, no adopta el ticket.
 
 8. **Commit y push autorizados** (instrucción humana del 2026-10-05, posterior a la ronda; no cambia el quórum). Sujeto al párrafo de adopción anterior. Cuando hay avance relevante, el agente no vuelve a pedir permiso para `git commit` ni para `git push` de la rama del ticket. Avance relevante quiere decir: el DoD de ese ticket está verde en local, o hay un corte coherente ya verificado (tests del contrato en verde, diff < 400, sin secretos ni transcripts).
 9. Sujeto al mismo párrafo. El merge a `main` de H0 entra en esa autorización. El merge a `main` de H1 o H2 sigue exigiendo `proceed` de alto impacto. T2 y T5 no los commitea un agente. Nada de `--force`, nada de datos que el contrato no nombre.
