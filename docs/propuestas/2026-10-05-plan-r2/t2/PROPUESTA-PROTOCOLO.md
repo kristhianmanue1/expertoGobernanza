@@ -29,7 +29,7 @@ Esta unidad no es el gold de T2. Adoptarla pide gold nuevo en una corrida futura
 
 La coma no parte la unidad. Toda continuación que queda dentro del segmento pertenece al gold nuevo. Cortar en la coma no es el acierto, y conservar «, establece…» o « según…» no es sobreextensión respecto de ese gold. Una versión anterior de esta sección decía lo contrario. Queda retirada.
 
-El acierto de extracción es la igualdad normalizada. Cobertura, sobreextensión y puntuación son diagnósticos, no el acierto. El contrato preparado para decisión, todavía sin adopción y sin corrida, está en `OPCION-1-CONTRATO.md`.
+El contrato enmendado, todavía sin adoptar y sin corrida, está en `OPCION-1-CONTRATO.md`. El acierto exige literalidad y offsets, y después igualdad normalizada. Las listas léxicas son benchmark sintético, no verdad normativa.
 
 ## Resolución de IDs, separada
 
