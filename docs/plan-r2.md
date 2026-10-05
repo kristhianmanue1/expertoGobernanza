@@ -168,7 +168,7 @@ Quedó precisado el 2026-10-05, después de `d5aea67`: T2 es el experimento, dis
 - [x] Existe un protocolo fechado antes del JSON de resultados, con métricas, fixtures, ceguera al gold y criterio de regresión. Commit `692bdd9`, archivo `docs/propuestas/2026-10-05-plan-r2/t2/PROTOCOLO.md`.
 - [x] JSON con proveedor, modelo solicitado/reportado (unknown si falta evidencia), fixture IDs y hashes de texto/gold, SHA del evaluador, versión del gate y métricas/denominadores T1b. Prompt/configuración, protocolo y predicciones se incluyen sólo como referencias y hashes a artefactos recuperables autorizados; no cadenas del modelo en el JSON publicado. Archivo `docs/propuestas/2026-10-05-plan-r2/t2/RESULTADOS.json`.
 - [x] Recalcular las métricas desde las predicciones conservadas mediante `--predictions-file`, sin volver a invocar al modelo. Registrar resultado y ubicación autorizada de evidencia. Segunda ejecución idéntica a la primera.
-- [ ] Un humano de roles §9 anota en el PR que autorizó esa corrida. La frase de delegación está citada en el PR; la casilla queda abierta hasta esa anotación.
+- [ ] Un humano de roles §9 anota en el PR que autorizó esa corrida. La frase de delegación está citada en el PR; la casilla queda abierta hasta esa anotación. T2 permanece piloto ejecutado. El diagnóstico posterior está en `docs/propuestas/2026-10-05-plan-r2/t2/DIAGNOSTICO-POST-HOC.md` y no cambia estas métricas. Una propuesta de prompt alineada al juez, sin ejecutar, está en `PROPUESTA-PROTOCOLO.md` del mismo directorio. Ni ese diagnóstico ni esa propuesta cierran H1/H2: el quórum sigue en T5. El PR #53 sigue basado en la rama del PR #52.
 - [ ] `git diff` no contiene `API_KEY`, tokens ni transcript.
 
 ### Git
