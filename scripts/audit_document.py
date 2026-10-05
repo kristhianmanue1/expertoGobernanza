@@ -5,27 +5,19 @@ from __future__ import annotations
 import argparse
 import json
 import pathlib
-import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from corpus.registry_loader import (  # noqa: E402
+    BANNER_NO,
+    BANNER_OK,
+    corpus_vigencia_banner,
+)
 from corpus.verify_citations import verify_claim, _EXIT  # noqa: E402
 
-BANNER_NO = "CORPUS_VIGENCIA_NO_VERIFICADA"
-BANNER_OK = "CORPUS_VIGENCIA_PARCIAL_O_OK"
-REGISTRY = ROOT / "corpus" / "registry.yaml"
 _RANK = {"bajo": 0, "medio": 1, "alto": 2}
-
-
-def corpus_vigencia_banner(registry_path: pathlib.Path = REGISTRY) -> str:
-    if not registry_path.is_file():
-        return BANNER_NO
-    text = registry_path.read_text(encoding="utf-8")
-    if re.search(r"(?m)^[ \t]*vigencia_verificada:\s*true\b", text, flags=re.I):
-        return BANNER_OK
-    return BANNER_NO
 
 
 def _load_claims(path: pathlib.Path) -> tuple[str | None, list]:
