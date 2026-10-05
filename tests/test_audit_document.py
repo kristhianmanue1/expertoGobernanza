@@ -37,6 +37,9 @@ class TestAuditDocument(unittest.TestCase):
         self.assertEqual(r.returncode, 1)
         data = json.loads(r.stdout)
         self.assertEqual(data["corpus_vigencia_banner"], ad.BANNER_OK)
+        self.assertEqual(data["gate_version"], ad.GATE_VERSION)
+        self.assertEqual(data["claims"][0]["gate_version"], ad.GATE_VERSION)
+        self.assertIn("registry_check", data["claims"][0])
 
     def test_lista_plana(self):
         import tempfile

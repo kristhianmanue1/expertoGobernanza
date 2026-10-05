@@ -15,7 +15,7 @@ from corpus.registry_loader import (  # noqa: E402
     BANNER_OK,
     corpus_vigencia_banner,
 )
-from corpus.verify_citations import verify_claim, _EXIT  # noqa: E402
+from corpus.verify_citations import GATE_VERSION, verify_claim, _EXIT  # noqa: E402
 
 _RANK = {"bajo": 0, "medio": 1, "alto": 2}
 
@@ -48,7 +48,7 @@ def audit(path: pathlib.Path) -> dict:
         peor = "bajo"
     return {
         "auditor_version": "v0",
-        "gate_version": "v1",
+        "gate_version": GATE_VERSION,
         "corpus_vigencia_banner": corpus_vigencia_banner(),
         "documento_id": doc_id,
         "claims": results,

@@ -27,10 +27,15 @@ import unicodedata
 from corpus.lookup import load_index
 
 GATE_VERSION = "v1"
+EVIDENCE_SCHEMA_VERSION = "v1"
 MIN_CITA_LEN = 40
 _HEX64 = re.compile(r"[0-9a-f]{64}")
 REPO = pathlib.Path(__file__).resolve().parent.parent
 _EXIT = {"alto": 0, "medio": 2, "bajo": 1}
+_FECHA_NOTA = (
+    "Fecha jurídica no evaluada; evidencia mecánica y atestación del registry "
+    "no autorizan decisión, aplicabilidad ni promulgación"
+)
 
 
 def _normalize(s):
@@ -42,6 +47,7 @@ def _normalize(s):
 
 
 def _resolve_source(model):
+    """source_resolved true con PDF ausente es el legado v1: no equivale a recomputo."""
     declared = None
     archivo = None
     for f in model.get("fuentes_oficiales", []):
@@ -49,20 +55,69 @@ def _resolve_source(model):
         if _HEX64.fullmatch(d):
             declared, archivo = d, f.get("archivo")
             break
-    out = {"sha256_declared": declared, "sha256_recomputed": None, "archivo": archivo, "resolved": False, "note": ""}
+    out = {
+        "sha256_declared": declared,
+        "sha256_recomputed": None,
+        "archivo": archivo,
+        "resolved": False,
+        "declared_ok": declared is not None,
+        "recomputed_ok": False,
+        "source_check": "invalid_declaration",
+        "note": "",
+    }
     if not declared:
         out["note"] = "sin sha256 con formato 64-hex en fuentes_oficiales"
         return out
     full = REPO / archivo if archivo else None
-    if full and full.is_file():
-        h = hashlib.sha256(full.read_bytes()).hexdigest()
-        out["sha256_recomputed"] = h
-        out["resolved"] = (h == declared)
-        out["note"] = "" if h == declared else f"hash recomputado NO coincide ({h})"
-    else:
+    if not full or not full.is_file():
         out["resolved"] = True
+        out["source_check"] = "missing"
         out["note"] = "original no accesible; sha256 declarado válido pero no recomputado (CI debe llevar el original)"
+        return out
+    try:
+        payload = full.read_bytes()
+    except OSError as exc:
+        out["source_check"] = "error"
+        out["note"] = f"error de lectura: {exc.__class__.__name__}"
+        return out
+    digest = hashlib.sha256(payload).hexdigest()
+    out["sha256_recomputed"] = digest
+    if digest == declared:
+        out["resolved"] = True
+        out["recomputed_ok"] = True
+        out["source_check"] = "match"
+        return out
+    out["source_check"] = "mismatch"
+    out["note"] = f"hash recomputado NO coincide ({digest})"
     return out
+
+
+def _registry_check(model):
+    instrumento = model.get("instrumento")
+    if not isinstance(instrumento, dict):
+        return "error", "instrumento_malformado"
+    instrumento_id = instrumento.get("id")
+    if not isinstance(instrumento_id, str) or not instrumento_id.strip():
+        return "error", "instrumento_malformado"
+    try:
+        from corpus.registry_loader import fuente_por_instrumento, load_registry
+        from corpus.registry_rules import resolve_disposicion_vigencia
+        doc = load_registry(pathlib.Path(__file__).resolve().parent / "registry.yaml")
+        fuente = fuente_por_instrumento(doc, instrumento_id)
+    except Exception as exc:
+        return "error", f"loader:{exc.__class__.__name__}"
+    if fuente is None:
+        return "missing_evidence", "fuente_ausente"
+    try:
+        resolved = resolve_disposicion_vigencia(fuente, model.get("disposicion_id") or "")
+    except Exception as exc:
+        return "error", f"resolver:{exc.__class__.__name__}"
+    if not isinstance(resolved, dict):
+        return "error", "resolver_salida_invalida"
+    razon = str(resolved.get("razon") or "")
+    if resolved.get("verificada") is True:
+        return "verified", razon
+    return "unverified", razon
 
 
 def verify_claim(claim):
@@ -79,10 +134,16 @@ def verify_claim(claim):
         "match_len": 0,
         "source_resolved": False,
         "version_valid_for_date": "N/A_v1",
+        "evidence_schema_version": EVIDENCE_SCHEMA_VERSION,
         "fuente_sha256_declared": None,
         "fuente_sha256_recomputed": None,
+        "source_declared_ok": False,
+        "source_recomputed_ok": False,
+        "source_check": None,
+        "registry_check": None,
+        "registry_razon": None,
         "derived_file": None,
-        "notes": [],
+        "notes": [_FECHA_NOTA],
     }
 
     if not m:
@@ -104,10 +165,23 @@ def verify_claim(claim):
     result["source_resolved"] = src["resolved"]
     result["fuente_sha256_declared"] = src["sha256_declared"]
     result["fuente_sha256_recomputed"] = src["sha256_recomputed"]
+    result["source_declared_ok"] = src["declared_ok"]
+    result["source_recomputed_ok"] = src["recomputed_ok"]
+    result["source_check"] = src["source_check"]
     if src["note"]:
         result["notes"].append("fuente: " + src["note"])
 
-    if result["quote_substring_match"] and result["source_resolved"]:
+    registry_check, registry_razon = _registry_check(m)
+    result["registry_check"] = registry_check
+    result["registry_razon"] = registry_razon
+
+    quote_ok = result["quote_substring_match"]
+    hash_blocks = src["source_check"] in {"invalid_declaration", "mismatch", "error"}
+    registry_blocks = registry_check == "error"
+    partial = src["source_check"] in {"missing", "match"} and registry_check in {
+        "verified", "unverified", "missing_evidence"
+    }
+    if quote_ok and src["declared_ok"] and partial and not hash_blocks and not registry_blocks:
         result["response_status"] = "medio"
         result["notes"].append("[VIGENCIA-NO-VERIFICADA contra DOF nivel 1] -> tope 'medio' (alto reservado a v2)")
     else:
