@@ -25,15 +25,11 @@ Un segmento verbatim del texto, cortado solo por un límite que el texto muestra
 
 Esta unidad no es el gold de T2. Adoptarla pide gold nuevo en una corrida futura. Los fixtures de T2 se quedan como están.
 
-## Criterio coherente con esa unidad
+## Corrección de la coma
 
-Tres controles, sobre la misma normalización del juez actual: NFKD, sin diacríticos, espacios colapsados. El acierto de extracción exige los tres. Ninguno usa el id.
+La coma no parte la unidad. Toda continuación que queda dentro del segmento pertenece al gold nuevo. Cortar en la coma no es el acierto, y conservar «, establece…» o « según…» no es sobreextensión respecto de ese gold. Una versión anterior de esta sección decía lo contrario. Queda retirada.
 
-1. **Puntuación.** El punto final que el texto trae forma parte del segmento. Quitarlo o añadir un punto que el texto no trae es fallo de puntuación. `4o.` no abre otro segmento. Una coma no abre otro segmento.
-2. **Cobertura.** El gold, escrito con esta misma unidad, es subcadena de la predicción. Mide si el contenido de referencia fue recuperado.
-3. **Sobreextensión.** La predicción no es subcadena del gold: hay caracteres de más. Un punto de más cuenta aquí y en el control de puntuación. La continuación tras una coma también cuenta aquí. No se llama «oración siguiente» a esa continuación.
-
-El recall de extracción sale solo de estos controles. El alineador de T2 mezcla el fallo de sobreextensión con un único `tp` de contención en un sentido. Esta revisión no cambia ese código ni las métricas ya publicadas.
+El acierto de extracción es la igualdad normalizada. Cobertura, sobreextensión y puntuación son diagnósticos, no el acierto. El contrato preparado para decisión, todavía sin adopción y sin corrida, está en `OPCION-1-CONTRATO.md`.
 
 ## Resolución de IDs, separada
 
@@ -47,22 +43,9 @@ El juez de T2 no hace eso. `id_incorrecto` sigue exigiendo que el span quepa en 
 
 El gate v1 tampoco es esta resolución. Sin id, `evaluate` asigna `bajo` sin abrir el corpus. Con un id que no está en el índice, `verify_claim` devuelve `bajo` antes de medir la cita. `alto` sigue inalcanzable.
 
-## Controles que habría que añadir antes de medir
-
-Todavía no están en `tests/`. No se ejecutan ahora.
-
-- Puntuación: punto final sobrante; punto final omitido; `4o.` no parte el segmento; la coma no lo parte.
-- Cobertura: el segmento completo recupera un gold escrito con la misma unidad; un prefijo que corta en la coma no lo recupera.
-- Sobreextensión: el segmento más la continuación tras la coma no es un acierto exacto; el segmento más el segmento posterior tampoco.
-- IDs, en su propia cuenta: null no mueve el recall de extracción; «artículo primero» es incompatible aunque el span sobre; `LGS:1` exacto no se mezcla con el span.
-
 ## Decisión pendiente
 
-Antes de congelar un protocolo o de lanzar otra corrida, hace falta una de estas tres:
-
-1. Adoptar esta unidad, encargar gold nuevo y los controles de arriba, y solo después escribir el protocolo.
-2. Conservar el gold y el alineador de T2. En ese caso el prompt no puede pedir «una oración con punto», porque ese corte no es el gold.
-3. Nombrar otra unidad, por escrito, antes de medir.
+La opción 1 está escrita en `OPCION-1-CONTRATO.md`: contrato, ejemplos anotados y controles. No está adoptada. No se congela otro protocolo y no hay otra corrida hasta que el Operador la adopte. Los fixtures y los resultados de T2 siguen históricos.
 
 ## Carencia de evidencia de aislamiento
 
