@@ -19,7 +19,8 @@ Checkpoint, refute y compactación requieren sus contratos y autoridad vigentes.
 > (paquete + identidad legacy + contexto; store rev 6 intacta); actualizado a
 > **v0.1.0-beta.14** el 2026-08-13 (binario 0.1.0b14; plantilla en beta.11);
 > actualizado a **v0.1.0-beta.28** el 2026-10-05 (binario `0.1.0b28`, commit
-> `fcc6dce`; plantilla **0.1.0-beta.26**; store rev 27 intacta).
+> `fcc6dce`; plantilla **0.1.0-beta.26**; store rev **28** tras el fact de
+> reanudación del 2026-10-05).
 
 ### Dónde está todo
 - Binario: `.venv/bin/python -m an_kla` (venv Python 3.12; tag **`v0.1.0-beta.28`** / `0.1.0b28`, commit `fcc6dce`, repo `kristhianmanue1/an-kla-memory`). Plantilla administrada **`0.1.0-beta.26`**.
@@ -77,13 +78,17 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal. Scope de `supersede` no puede ser `derived_from_retrieval`.
 
 ### Estado actual de la memoria (referencia)
-- AN-KLA **0.1.0b28** / plantilla **0.1.0-beta.26**; identidad **complete**; rev **27**
-  (`facts: 27`). Fact de reanudación:
-  **`estado-2026-08-18-vision-definida-fuentes-aseguradas`**.
-- Query: `retrieve --query "estado R1 H1 IMSS LOAPF LFEP LSS RIIMSS" --budget 6000`
-- Otros: `plan-r1-90d-2026-08-10`, `roles-r1-designados-2026-08-10`,
-  `an-kla-migrado-beta11-2026-08-10`, `github-actions-billing-suspendido-2026-08-10`.
-- Git estado en fact: `main` ~`f9e8419`+ (actualizar al retomar con `git log -1`).
+- AN-KLA **0.1.0b28** / plantilla **0.1.0-beta.26**; identidad **complete**; rev **28**
+  (`facts: 28`, revisión `sha256:89c445fa…`). Fact de reanudación:
+  **`estado-2026-10-05-r2-pin-skevi-main`** (sustituye
+  `estado-2026-08-18-vision-definida-fuentes-aseguradas`).
+- Query: `retrieve --query "estado R2 skevi pin extractor gate v2 main d4f3ee3" --budget 6000`
+- El fact apunta a `docs/plan-r1-90d.md` (cola vigente), `docs/plan-r2.md`
+  (borrador, sin `proceed`), `.skevi/corpus-pin.json` y `docs/vision.md`.
+  Git en el fact: `main` = `d4f3ee3` (el commit de este puntero es posterior).
+- Históricos aún recuperables por id: `plan-r1-90d-2026-08-10`,
+  `github-actions-billing-suspendido-2026-08-10` (hecho de agosto; no es la
+  causa del rojo de octubre).
 
 ### Anti-patrones a evitar
 - Guardar un `record` solo con campos estructurados y sin `indexable_text`/`text` -> queda inaccesible (`no_text`).
@@ -138,23 +143,32 @@ líneas (el detalle y las plantillas están en el doc):
    estado** (git/PR/push, AN-KLA, DoD, adversarial) en `OK/PARCIAL/BLOQ` + próximos
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
-**Estado actual:** alfa temprana. Git + remoto privado **sincronizados**
-(`kristhianmanue1/expertoGobernanza`, `main` = `b78c0d1`). AN-KLA **0.1.0b28**
-(rev 27, identidad complete). Política v1.1. MVP eje-salud + eje IMSS F5
-cerrado; router §7.4 estable. **Router harness CERRADO (T01–T08)**; ADR-0006
-Aceptado; **RH-T07 gated**. **Visión definida** (`docs/vision.md`, con ronda
-adversarial aplicada): trazabilidad + fidelidad normativa, 3 capacidades
-hoy/roadmap, multi-vertical (IMSS piloto), MCP gated R2 (ADR-0007 por crear).
-**Enmienda promulgación aplicada**: nadie del repo promulga (potestad IMSS,
-RIIMSS + norma 0503-001-001 depositadas en `docs/fuentes/imss/`). Suite
-**193 tests**, límites OK. CI: job **no arranca por billing** → DoD local.
-ADR-0001..0006 aceptados. Fact de reanudación AN-KLA:
-`estado-2026-08-18-vision-definida-fuentes-aseguradas`.
+**Estado actual (2026-10-05):** alfa temprana. Git + remoto privado
+**sincronizados** (`kristhianmanue1/expertoGobernanza`, `main` = `d4f3ee3`
+antes de este puntero: PR #40 AN-KLA beta.28, PR #41 plan R2, PR #42 pin
+Skevi). AN-KLA **0.1.0b28** (rev **28**, identidad complete). Store local en
+`.an-kla/` (no va a git). **Cola vigente:** `docs/plan-r1-90d.md`.
+`docs/plan-r2.md` es borrador con quórum **PARCIAL** (un proveedor); sin
+`proceed` no sustituye a R1. H0/T0 = `xmllint` en CI. T1 = extractor ciego al
+gold. **T2 y T5 espera-humano** (allowlist `claude`/`codex`; Grok fuera).
+T3 = loader PyYAML. T4 = gate v2 (`alto` solo con subcadena, hash recomputado
+y `resolve_disposicion_vigencia`). Commit y push de la rama del ticket, con
+avance relevante, están autorizados en ese plan; el merge de H1/H2 exige
+`proceed`. **RH-T07 gated**. Nadie del repo promulga. ADR-0001, 0002, 0003,
+0005 y 0006 aceptados; **ADR-0004 Propuesto**. Pin Skevi
+`.skevi/corpus-pin.json` (no es `corpus-install`; no copiar la guía ni
+sustituir `scripts/check_sizes.py`). Visión: `docs/vision.md`. Suite **193
+tests**. CI run `37339265192` ejecutó tests y falló por `xmllint` ausente; la
+nota de billing de agosto no es la causa de ese rojo. DoD local:
+`./scripts/ci_check.sh`. `main` sin branch protection. PDF sin seguimiento:
+`docs/fuentes/imss/ManualMetodologico2019-2024.pdf`. Fact de reanudación:
+`estado-2026-10-05-r2-pin-skevi-main`.
 
-> **PRÓXIMA TAREA:** cola R1 agent-actionable: **R1-E8-01** (fact puntero) /
-> **R1-E2** (cerrar plan-r0) / **R1-E2-05** (índice) / recall extracción v1.2
-> (plan `docs/plan-r1-90d.md`). Humano-gateado: roles §9 / auth DOF nivel 1 /
-> proveedor autorizado para RH-T07. Mapa: `docs/README.md`.
+> **PRÓXIMA TAREA:** seguir la cola R1 en `docs/plan-r1-90d.md` (R1-E8-01,
+> R1-E2, R1-E2-05, recall v1.2) salvo que un humano adopte R2. R2 no se
+> implementa desde este puntero. Humano-gateado: roles §9, auth DOF nivel 1,
+> T2, T5, RH-T07. Mapa: `docs/README.md`. Query AN-KLA: `estado R2 skevi pin
+> extractor gate v2 main d4f3ee3`.
 
 <!-- skevi:registry:start -->
 [skevi]
