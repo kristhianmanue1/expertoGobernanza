@@ -1,0 +1,19 @@
+{
+  "synth-salud-01": [
+    {
+      "disposicion_id": null,
+      "cita_texto": "Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud."
+    },
+    {
+      "disposicion_id": null,
+      "cita_texto": "La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud."
+    }
+  ],
+  "synth-salud-02": [
+    {
+      "disposicion_id": "artículo primero",
+      "cita_texto": "Es de aplicación en toda la República y sus disposiciones son de orden público e interés social según la ley general de salud en su artículo primero."
+    }
+  ],
+  "synth-salud-03": []
+}

@@ -59,7 +59,7 @@ H0 es bajo impacto (toolchain). H1 y H2 tocan la compuerta de fidelidad: al ejec
 - [x] T0 — `R2-H0-01`: `xmllint` en CI y nota de ops. → Contrato T0. Run [`37353348315`](https://github.com/kristhianmanue1/expertoGobernanza/actions/runs/37353348315), SHA `f198847`.
 - [x] T1 — `R2-H1-01`: extractor recibe sólo texto; juez conserva acceso al gold. → Contrato T1. PR #47.
 - [x] T1b — `R2-H1-03`: juez corregido e importación offline de predicciones. → Contrato T1b. PR #48.
-- [ ] T2 — `R2-H1-02`: corrida allowlisted. **HUMANO. No la abre un agente.** → Contrato T2.
+- [ ] T2 — `R2-H1-02`: corrida allowlisted. Protocolo y métricas en `docs/propuestas/2026-10-05-plan-r2/t2/`. La casilla de autorización en el PR sigue abierta. → Contrato T2.
 - [x] T3 — `R2-H2-01`: cargar `registry.yaml` con PyYAML y banner sobre el dict. → Contrato T3. PR #49.
 - [x] T4 — `R2-H2-02`: diagnóstico de evidencia compatible con gate v1. → Contrato T4. PR #50.
 - [ ] T5 — `R2-H4-01`: fila de allowlist. **HUMANO. No la cierra un agente.** → Contrato T5.
@@ -149,8 +149,8 @@ extract(texto: str) -> list[{"disposicion_id": str | None, "cita_texto": str}]
 
 Quedó precisado el 2026-10-05, después de `d5aea67`: T2 es el experimento, distinto de la implementación ya integrada y de la adjudicación de T5.
 
-- Modo vigente: **manual**. El Operador lanza el CLI, conserva las predicciones y recalcula las métricas.
-- Delegación al agente: solo una instrucción posterior que nombre la revisión de este plan, el ticket `R2-H1-02` y el CLI. Ese CLI tiene que estar ya en la allowlist. La delegación no se infiere de este párrafo ni de haber implementado T1 o T1b.
+- El 2026-10-05 el Operador escribió «t2 te lo delego a ti, continua». No nombró CLI. Grok no recibió el texto. Claude respondió 403 en un preflight sin fixture. La corrida usó `codex` (OpenAI, modelo reportado `gpt-6.1-sol`) bajo el protocolo `692bdd9`.
+- Otra corrida, u otro CLI, pide otro protocolo fechado antes de medir. Esta delegación no se extiende.
 - En ambos modos el protocolo se escribe antes de observar el número. Las predicciones se conservan. El recálculo usa `--predictions-file` y no vuelve a llamar al modelo.
 
 ### Reglas
@@ -165,10 +165,10 @@ Quedó precisado el 2026-10-05, después de `d5aea67`: T2 es el experimento, dis
 
 ### Definition of Done
 
-- [ ] Existe un protocolo fechado antes del JSON de resultados, con métricas, fixtures, ceguera al gold y criterio de regresión.
-- [ ] JSON con proveedor, modelo solicitado/reportado (unknown si falta evidencia), fixture IDs y hashes de texto/gold, SHA del evaluador, versión del gate y métricas/denominadores T1b. Prompt/configuración, protocolo y predicciones se incluyen sólo como referencias y hashes a artefactos recuperables autorizados; no cadenas del modelo en el JSON publicado.
-- [ ] Recalcular las métricas desde las predicciones conservadas mediante `--predictions-file`, sin volver a invocar al modelo. Registrar resultado y ubicación autorizada de evidencia.
-- [ ] Un humano de roles §9 anota en el PR que autorizó esa corrida.
+- [x] Existe un protocolo fechado antes del JSON de resultados, con métricas, fixtures, ceguera al gold y criterio de regresión. Commit `692bdd9`, archivo `docs/propuestas/2026-10-05-plan-r2/t2/PROTOCOLO.md`.
+- [x] JSON con proveedor, modelo solicitado/reportado (unknown si falta evidencia), fixture IDs y hashes de texto/gold, SHA del evaluador, versión del gate y métricas/denominadores T1b. Prompt/configuración, protocolo y predicciones se incluyen sólo como referencias y hashes a artefactos recuperables autorizados; no cadenas del modelo en el JSON publicado. Archivo `docs/propuestas/2026-10-05-plan-r2/t2/RESULTADOS.json`.
+- [x] Recalcular las métricas desde las predicciones conservadas mediante `--predictions-file`, sin volver a invocar al modelo. Registrar resultado y ubicación autorizada de evidencia. Segunda ejecución idéntica a la primera.
+- [ ] Un humano de roles §9 anota en el PR que autorizó esa corrida. La frase de delegación está citada en el PR; la casilla queda abierta hasta esa anotación.
 - [ ] `git diff` no contiene `API_KEY`, tokens ni transcript.
 
 ### Git

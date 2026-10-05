@@ -1,0 +1,70 @@
+{
+  "casos": [
+    {
+      "doc_id": "synth-salud-01",
+      "fixture": "synth-01.json",
+      "texto_bytes": 458,
+      "scored": "attempt-1",
+      "extraccion_invalida": false,
+      "attempts": [
+        {
+          "n": 1,
+          "exit": 0,
+          "model": "gpt-6.1-sol",
+          "provider": "openai",
+          "session": "01a10d73-07e0-7ac3-b280-dca94027249e",
+          "tokens": null,
+          "tool_exec": false,
+          "message_bytes": 497,
+          "error": null,
+          "n_pred": 2,
+          "tokens_nota": "el header partio el conteo en la linea siguiente y el parser no lo guardo; no se relanza el modelo para recuperarlo"
+        }
+      ]
+    },
+    {
+      "doc_id": "synth-salud-02",
+      "fixture": "synth-02.json",
+      "texto_bytes": 178,
+      "scored": "attempt-1",
+      "extraccion_invalida": false,
+      "attempts": [
+        {
+          "n": 1,
+          "exit": 0,
+          "model": "gpt-6.1-sol",
+          "provider": "openai",
+          "session": "01a10d73-33a9-7722-ab56-24045391a207",
+          "tokens": null,
+          "tool_exec": false,
+          "message_bytes": 227,
+          "error": null,
+          "n_pred": 1,
+          "tokens_nota": "el header partio el conteo en la linea siguiente y el parser no lo guardo; no se relanza el modelo para recuperarlo"
+        }
+      ]
+    },
+    {
+      "doc_id": "synth-salud-03",
+      "fixture": "synth-03.json",
+      "texto_bytes": 59,
+      "scored": "attempt-1",
+      "extraccion_invalida": false,
+      "attempts": [
+        {
+          "n": 1,
+          "exit": 0,
+          "model": "gpt-6.1-sol",
+          "provider": "openai",
+          "session": "01a10d73-62db-7823-9eac-95b1cd39e799",
+          "tokens": null,
+          "tool_exec": false,
+          "message_bytes": 18,
+          "error": null,
+          "n_pred": 0,
+          "tokens_nota": "el header partio el conteo en la linea siguiente y el parser no lo guardo; no se relanza el modelo para recuperarlo"
+        }
+      ]
+    }
+  ]
+}
