@@ -12,6 +12,8 @@
 | [`roles-r1.md`](roles-r1.md) | Jurídico / custodio / PO |
 | [`politica-agentes.md`](politica-agentes.md) | Política v1.1 |
 | [`ops-github.md`](ops-github.md) | CI billing + DoD local |
+| [`contratos/skopos-pdf-imss-piloto-v0.2.md`](contratos/skopos-pdf-imss-piloto-v0.2.md) | Contrato bilateral del piloto de custodia PDF IMSS |
+| [`evidencia/skopos-pdf-imss-piloto-2026-10-08.md`](evidencia/skopos-pdf-imss-piloto-2026-10-08.md) | Admisión, recuperación y límites observados |
 | [`plantillas-agente.md`](plantillas-agente.md) | Plantillas plan/contrato/reporte |
 | [`gobernanza/expediente-probatorio-rondas-2026-08-10.md`](gobernanza/expediente-probatorio-rondas-2026-08-10.md) | Ejemplo probatorio de gobernanza adversarial aplicada |
 | [`relatorias/2026-08-10-arquitectura-evidence-edge-gobernanza.md`](relatorias/2026-08-10-arquitectura-evidence-edge-gobernanza.md) | Relatoría de ejecución arquitectura→EvidenceEdge |

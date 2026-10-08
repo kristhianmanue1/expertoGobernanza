@@ -83,3 +83,25 @@ política y configuración permanecen locales para reanudar el piloto; el host
 está detenido. El contrato
 acepta sólo este material y esta política, con salida temporal y recuperación
 dependiente de la copia original de expertoGobernanza.
+
+La frase «No se invocó Skopos» en la ficha de procedencia describe el momento
+en que se redactó esa ficha, antes de esta admisión. Este expediente registra
+la invocación posterior. La ficha se conserva sin edición porque su SHA-256
+está fijado en la política y en la revisión admitida; cualquier cambio de sus
+bytes requeriría otra revisión y comprobación bilateral.
+
+## Arranque bajo demanda posterior
+
+Skopos añadió un [procedimiento de arranque y parada](https://github.com/kristhianmanue1/skopos/blob/55d4716ef4ea054300fa1a1224daf16a6375db8a/docs/evidencia/pdf-custody-pilot-operations-2026-10-08.md)
+para la política y revisión ya admitidas. Su acta informa un ciclo inicial y
+tres ciclos después de los ajustes de parada, limpieza y sonda: mismo recibo,
+PDF idéntico byte por byte, una revisión/una cabeza y salida temporal retirada.
+Los arranques observados fueron 0.972, 0.939, 1.041 y 0.957 segundos; no
+constituyen un SLA. Al final se comprobaron sockets ausentes, carpeta de
+entrega vacía y Mongo detenido.
+`smoke` no vuelve a admitir el PDF. Este expediente registra el resultado del
+productor; la disponibilidad futura exige ejecutar el preflight y arrancar
+manualmente. Para repetir `smoke` se requieren los tres sobres existentes en
+`requests_root` o sobres equivalentes preparados por el consumidor. La fecha
+límite de política sigue siendo
+`2026-11-08T00:00:00Z`.
