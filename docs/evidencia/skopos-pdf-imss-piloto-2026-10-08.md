@@ -39,12 +39,13 @@ La consulta de recibo con SHA de admisión falso obtuvo
 Estos resultados no prueban aislamiento frente a un proceso que comparte
 usuario, shell y posibles credenciales.
 
-Skopos informó un cotejo independiente en su Mongo: una revisión y una cabeza,
+Skopos informó un cotejo separado del consumidor en su Mongo: una revisión y una cabeza,
 recibo idéntico, `record_sha256=0cc590c6e4f278c4350665526d8ee63732494afb977d4a97472e328b6b6f3ffb`,
 salida byte por byte idéntica; retiró únicamente el archivo temporal
 `imss-pdf-61bbac923fa772861dc1b6d4.pdf` tras el cotejo y confirmó ausencia.
-Esta línea es declaración del productor hasta contrastarla con su expediente
-publicado. PDF/ficha originales y revisión permanecen según el productor.
+El [acta publicada del productor](https://github.com/kristhianmanue1/skopos/blob/e3cce1873cc73048ec18740e07166784df67b7bd/docs/evidencia/pdf-custody-imss-pilot-2026-10-08.md)
+registra ese cotejo; sigue siendo autorrevisión de Skopos. PDF/ficha originales
+y revisión permanecen según el productor.
 
 Skopos reinició el Mongo dedicado y el host con el mismo `dbpath` y política.
 La segunda corrida del mismo cliente devolvió `admission_status=duplicate`,
@@ -67,14 +68,13 @@ cero, `duplicate`, mismo digest de admisión y recibo, rechazo de recibo con
 digest falso y de otro material, y nueva salida
 `imss-pdf-8424161c0931bf32e9a2e6df.pdf` de 1,311,822 bytes idénticos al
 original. Skopos informó una revisión y una cabeza tras esta corrida, cotejó
-recibo/digest/bytes y retiró únicamente esa salida. El retiro debe constar
-también en su acta final.
+recibo/digest/bytes y retiró únicamente esa salida, como registra su acta.
 El consumidor comprobó después que su ruta de salida ya no existe.
 
 ## Límites y continuación
 
 La política de host vive fuera de Git; su identidad y ambos digests se
-conservan aquí y deben constar también en el expediente del productor. Mongo
+conservan aquí y en el expediente publicado del productor. Mongo
 persistente local no equivale a backup independiente. El productor reportó
 10 pruebas focales y 497 de suite completa sin omisiones sobre su código
 final; su árbol y referencia local `origin/main` coinciden en `e3cce187`.
