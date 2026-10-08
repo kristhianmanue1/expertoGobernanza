@@ -29,6 +29,9 @@ corpus/derived/*_full.txt
 # Bitácora del router de revisión multi-provider (§7.4) — NO versionar (data de auditoría local)
 logs/
 
+# Solicitudes locales del piloto de custodia PDF; contienen rutas y recibos efímeros
+/runs/pdf-custody-imss-pilot-v1/
+
 # Spikes locales (wheels, venv, reportes full con paths)
 .spikes/
 
