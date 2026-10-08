@@ -122,7 +122,7 @@ la operación afectada falla con causa tipada; continúan las partes independien
 La iteración sigue con corrección y nueva prueba del artefacto final hasta
 cumplir el piloto acotado o documentar un bloqueo material comprobado.
 
-## Evidencia provisional del intercambio (2026-10-08)
+## Evidencia del piloto bajo demanda (2026-10-08)
 
 El cliente de consumidor `scripts/skopos_document_pilot.py` ejecutó el canal
 local bajo demanda contra `skopos/pdf-document-host/v0.1`, política canónica
@@ -150,3 +150,7 @@ rótulos pequeños (`PRESIACONAS`, `RESTACIONES MÉDICAS`,
 `PRESPACIONEO MEDICAS`). El estado de fidelidad sigue `unreviewed`.
 `visual_graph` se anuncia `partial`; el cliente aún no habilita uso
 automático de citas ni admisión al corpus.
+La guía de encendido, verificación y apagado quedó publicada en Skopos
+`main@3aa162d3a2b9e9d352307bfc125c4ed1ebeae0b3`, archivo
+`docs/evidencia/pdf-document-pilot-operations-2026-10-08.md`. El bloque
+publicado se ejecutó completo y dejó el host y Mongo del piloto apagados.
