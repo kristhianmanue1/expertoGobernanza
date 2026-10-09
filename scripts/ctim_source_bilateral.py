@@ -5,6 +5,7 @@ import copy
 import hashlib
 import json
 from pathlib import Path
+import re
 import socket
 import subprocess
 import sys
@@ -98,7 +99,7 @@ def inventory():
 
 def exchange_record(source, text, locator, producer_sha, producer_version,
                     derivative_id, media_type=None):
-    raw = (text + '\n').encode('utf-8')
+    raw = text.encode('utf-8')
     manifest = {
         'schema': 'agora/source-evidence-exchange/v1',
         'source': {'id': source['id'], 'sha256': source['sha256'],
@@ -121,6 +122,8 @@ def exchange_record(source, text, locator, producer_sha, producer_version,
 def pdf_exchange(ident, source):
     area = RUN / ident
     receipt = json.loads((area / 'derivation-operation-receipt.json').read_text())
+    require(re.fullmatch(r'[0-9a-f]{64}', receipt['derivation_id']) is not None,
+            'invalid_derivation_id:' + ident)
     raw_manifest = (area / 'derived' / receipt['derivation_id'] / 'manifest.json').read_bytes()
     require(digest(raw_manifest) == receipt['manifest_sha256'] == EXPECTED_DERIVATIVES[ident],
             'manifest_changed:' + ident)
@@ -183,6 +186,8 @@ def run():
                    for ident in PDF_IDS]
     require(all(item['negative_code'] == 'material_not_allowed' for item in recovery),
             'negative_control_failed')
+    queried = {item['material_id']: item for item in queries}
+    require(set(queried) == set(PDF_IDS), 'query_set_changed')
     sys.path.insert(0, str(AGORA / 'src'))
     from agora.source import SourceError
     from agora.source_evidence_exchange import validate_exchange, resolve_bundle
@@ -202,6 +207,13 @@ def run():
             exchanges.append((derived, manifest_raw, manifest, original))
             summaries[ident] = {'source_sha256': sources[ident]['sha256'],
                                 'exchange_sha256': digest(manifest_raw), **summary}
+            if ident in PDF_IDS:
+                query = queried[ident]
+                require(query['page_number'] == summary['page'] and
+                        query['item_id'] == summary['item_id'] and
+                        query['text'] == summary['text'] and
+                        query['fidelity_status'] == 'unreviewed',
+                        'live_query_mismatch:' + ident)
         altered = copy.deepcopy(exchanges[0][2])
         altered['segments'][0]['locator']['value']['page'] = 0
         try:
