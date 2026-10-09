@@ -170,6 +170,9 @@ nota de billing de agosto no es la causa de ese rojo. DoD local:
 > T2, T5, RH-T07. Mapa: `docs/README.md`. Query AN-KLA: `estado R2 skevi pin
 > extractor gate v2 main d4f3ee3`.
 
+**Consulta local Skopos del manual IMSS:** `docs/contratos/skopos-imss-funcion-local-v1.md`;
+invoca `.venv/bin/python -m scripts.skopos_imss --help` y coteja cada cita nueva.
+
 <!-- skevi:registry:start -->
 [skevi]
 policy     = docs/politica-agentes.md

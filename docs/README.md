@@ -11,6 +11,7 @@
 | [`autorizacion-fuentes-r1.md`](autorizacion-fuentes-r1.md) | Canales DOF/OJ + multi-provider |
 | [`roles-r1.md`](roles-r1.md) | Jurídico / custodio / PO |
 | [`politica-agentes.md`](politica-agentes.md) | Política v1.1 |
+| [`contratos/skopos-imss-funcion-local-v1.md`](contratos/skopos-imss-funcion-local-v1.md) | Consulta local del PDF IMSS mediante Skopos |
 | [`ops-github.md`](ops-github.md) | CI billing + DoD local |
 | [`plantillas-agente.md`](plantillas-agente.md) | Plantillas plan/contrato/reporte |
 | [`gobernanza/expediente-probatorio-rondas-2026-08-10.md`](gobernanza/expediente-probatorio-rondas-2026-08-10.md) | Ejemplo probatorio de gobernanza adversarial aplicada |
