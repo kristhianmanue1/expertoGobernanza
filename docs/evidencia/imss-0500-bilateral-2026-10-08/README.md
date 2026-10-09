@@ -61,6 +61,5 @@ Estos archivos acreditan el intercambio local observado, no la autenticidad
 institucional del PDF, fidelidad visual del OCR/organigrama, equivalencia
 jurídica de funciones ni vigencia. El gráfico p37 omite el rótulo completo de
 DPM y su arista hacia Dirección General; esa caja se cotejó visualmente por
-separado. El contrato de Ágora está publicado en la rama del PR #1 en
-borrador, sin merge; su checkout local debe estar disponible para repetir
-el comando.
+separado. El contrato de Ágora se fusionó en su `main` mediante el PR #1;
+su checkout local debe estar disponible para repetir el comando.
