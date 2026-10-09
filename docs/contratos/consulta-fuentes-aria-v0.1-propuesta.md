@@ -89,6 +89,6 @@ los fixtures de contrato no bastan para ese fin.
 | DOCX | Sin adaptador probado | Perfil tipado rechaza DOCX | Definir extracción de párrafos, tablas, notas e imágenes |
 | Conversaciones | Sin captura de turnos probada | Perfil tipado rechaza turnos | Definir origen, hablante, tiempo, redacción y completitud |
 
-El recibo `docs/evidencia/ctim-bilateral-receipt-2026-10-09.json` prueba sólo
-la corrida local de cinco originales contra la rama de Skopos indicada; no
+El recibo `docs/evidencia/ctim-bilateral-receipt-2026-10-09.json` del PR #80
+prueba sólo la corrida local de cinco originales contra la rama de Skopos indicada; no
 convierte el PR de custodia en contrato fusionado ni escribe AN-KLA.
