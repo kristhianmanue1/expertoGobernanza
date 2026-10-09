@@ -34,6 +34,17 @@ Una primera secuencia de aceptación detectó que el manifiesto OCR declara
 188 páginas físicas aunque contiene seis derivadas; se corrigió la
 comprobación del cliente y se repitió el recorrido completo en verde.
 
+## Decisión de revisión y promoción
+
+El Operador autorizó el 2026-10-08 una excepción **sólo para este alcance
+local**: revisión con dos agentes/modelos externos en vez del quórum general
+de tres proveedores de `docs/politica-agentes.md`. OpenCode con
+`zai-coding-plan/glm-5.3-flash` revisó Skopos v0.5 y Muse CLI con
+`muse-spark-1.3` revisó productor y consumidor; tras las correcciones ambos
+emitieron `proceed` dentro de sus métodos. Codex hizo autorrevisión adicional,
+sin contarla como tercer proveedor verificado. La excepción permite fusionar
+el consumidor local; no modifica la política general para otros hitos.
+
 ## Límite de aceptación
 
 La función queda probada para recuperación, procedencia y apagado bajo demanda
