@@ -8,6 +8,7 @@ else
 fi
 
 "$EG_GATE_PY" -m py_compile corpus/*.py scripts/*.py review_routing/*.py
+"$EG_GATE_PY" -c 'import pypdf'
 "$EG_GATE_PY" -m unittest discover -s tests
 "$EG_GATE_PY" scripts/benchmark_imss_edges.py
 "$EG_GATE_PY" scripts/check_sizes.py
