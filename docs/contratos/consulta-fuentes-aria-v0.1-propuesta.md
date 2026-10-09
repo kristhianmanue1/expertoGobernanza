@@ -72,14 +72,16 @@ política y una operación tras el vencimiento. Apagar sólo procesos
 iniciados por la sesión y emitir recibo de estado. Repetir con PDF largo y
 HTML; la prueba DOCX/conversaciones se añade cuando existan adaptadores.
 
-**Límite actual:** el inventario de este hito sólo verifica bytes locales.
+**Límite actual:** el inventario verifica siete originales; la operación
+bilateral verifica cinco de ellos con cobertura derivada parcial.
 La versión POBALINES de 2021 se conserva como antecedente histórico: el
 acuerdo DOF publicado en 2023 deja sin efectos esa versión y el PDF aprobado
 en 2022 aporta el texto posterior. Una consulta debe mostrar qué versión
 sustenta cada fragmento y no mezclar sus apartados.
-La cobertura multiformato completa y la prueba bilateral con originales
-reales deben acreditarse con recibos de Skopos y salidas verificadas de Ágora;
-los fixtures de contrato no bastan para ese fin.
+La prueba bilateral con originales reales consta en el recibo indicado abajo.
+Siguen pendientes la cobertura multiformato completa, la prueba de fuente
+fuera de política y la prueba de vencimiento; los fixtures de contrato no
+bastan para acreditarlas.
 
 ## Estado de implementación observado, 9 de octubre de 2026
 
@@ -91,6 +93,7 @@ los fixtures de contrato no bastan para ese fin.
 | DOCX | Sin adaptador probado | Perfil tipado rechaza DOCX | Definir extracción de párrafos, tablas, notas e imágenes |
 | Conversaciones | Sin captura de turnos probada | Perfil tipado rechaza turnos | Definir origen, hablante, tiempo, redacción y completitud |
 
-El recibo `docs/evidencia/ctim-bilateral-receipt-2026-10-09.json` del PR #81
-prueba sólo la corrida local de cinco originales contra Skopos `main`; no
-equivale a cobertura completa, cita aprobada ni escritura en AN-KLA.
+El recibo `docs/evidencia/ctim-bilateral-receipt-2026-10-09.json` en
+expertoGobernanza `main` prueba sólo la corrida local de cinco originales
+contra Skopos `main`; no equivale a cobertura completa, cita aprobada ni
+escritura en AN-KLA.
