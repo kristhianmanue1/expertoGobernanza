@@ -72,12 +72,43 @@ La comparación de conjuntos devolvió 16 pares esperados y 16 emitidos,
 sin faltantes ni extras; todas esas aristas siguen con estado
 `visual_candidate_unadjudicated`. Esta es una revisión visual del consumidor
 separada del productor, pero de una sola instancia agéntica y sólo de p22.
-No corrige los errores OCR de otros nodos ni adjudica las otras 65 aristas
-de p18–21.
+Esta lectura de p22 no corrige los errores OCR de otros nodos ni evalúa las
+65 aristas de p18–21, examinadas en la sección siguiente.
+
+### Ampliación visual de p18–21
+
+Rendericé p18–21 a 2200 px desde el mismo PDF fijado y seguí cada trazo
+visible entre cajas. Identifiqué los nodos por posición y caja en el
+manifiesto v0.3; la notación `n1→n2,n3` significa dos pares distintos.
+La lista visual, preparada antes de comparar conjuntos, fue:
+
+- **p18 (7):** `n1→n3,n4,n2,n5,n6,n7`; `n7→n8`.
+- **p19 (31):** `n1→n2`; `n2→n3,n4,n5,n6,n7,n8,n9`;
+  `n3→n10,n12,n20`; `n10→n11,n19`; `n4→n13,n21,n27,n31`;
+  `n5→n14,n22,n28,n32`; `n6→n15,n23,n29`; `n7→n16,n24`;
+  `n8→n17,n25`; `n9→n18,n26,n30`.
+- **p20 (9):** `n1→n2`; `n2→n3,n4`; `n3→n5,n7,n9`;
+  `n4→n6,n8,n10`.
+- **p21 (18):** `n1→n2`; `n2→n3,n5,n6,n4`;
+  `n3→n7,n11,n15,n18`; `n5→n8,n12`; `n6→n9,n13,n17`;
+  `n4→n10,n14,n16,n19`.
+
+La comparación de conjuntos devolvió 7/7, 31/31, 9/9 y 18/18,
+respectivamente, sin faltantes ni extras frente al manifiesto; todas las
+65 aristas conservan `visual_candidate_unadjudicated`. Las 81 relaciones
+de p18–22 cuentan ahora con un cotejo visual del consumidor, separado de
+la autorrevisión del productor, pero realizado por una sola instancia
+agéntica y sin adjudicación institucional. En p19 los trazos compartidos
+entre columnas merecen especial atención en una revisión posterior.
+
+La capa de texto nativa del PDF contiene etiquetas de p19–22, mientras que
+p18 tiene poca información nativa en el área gráfica. El grafo v0.3 aún
+conserva numerosos rótulos OCR incompletos; el cotejo de aristas no corrige
+esos rótulos ni demuestra fidelidad textual de las 188 páginas.
 
 **Límite de uso:** el servicio v0.3 permite consultar candidatos con
 trazabilidad y recuperar el PDF completo por el contrato documental v0.1.
 No demuestra fidelidad de las 188 páginas ni autoriza citas automáticas de
-relaciones orgánicas. Para promover rótulos o aristas hace falta cotejo visual
-independiente de los elementos que se usarán y decisión de autoridad. La
+relaciones orgánicas. La lectura visual de esta instancia no sustituye la
+adjudicación del Operador de los elementos que se usarán. La
 política de retención vence el `2026-11-08T00:00:00Z`; no se renovó.
