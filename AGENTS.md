@@ -19,8 +19,8 @@ Checkpoint, refute y compactación requieren sus contratos y autoridad vigentes.
 > (paquete + identidad legacy + contexto; store rev 6 intacta); actualizado a
 > **v0.1.0-beta.14** el 2026-08-13 (binario 0.1.0b14; plantilla en beta.11);
 > actualizado a **v0.1.0-beta.28** el 2026-10-05 (binario `0.1.0b28`, commit
-> `fcc6dce`; plantilla **0.1.0-beta.26**; store rev **28** tras el fact de
-> reanudación del 2026-10-05).
+> `fcc6dce`; plantilla **0.1.0-beta.26**; store rev **29** tras
+> `estado-2026-10-05-r2-tres-papeles-main`).
 
 ### Dónde está todo
 - Binario: `.venv/bin/python -m an_kla` (venv Python 3.12; tag **`v0.1.0-beta.28`** / `0.1.0b28`, commit `fcc6dce`, repo `kristhianmanue1/an-kla-memory`). Plantilla administrada **`0.1.0-beta.26`**.
@@ -78,14 +78,15 @@ Mínimos válidos:
 - `authority`: `authority_class: "model_derived"`, `issuer.kind: "model"`, `scope` que incluya el stream/representation/operation del proposal, `evidence: []` (válido). `base_revision` = la del proposal; `proposal_sha256` = hash canónico del proposal. Scope de `supersede` no puede ser `derived_from_retrieval`.
 
 ### Estado actual de la memoria (referencia)
-- AN-KLA **0.1.0b28** / plantilla **0.1.0-beta.26**; identidad **complete**; rev **28**
-  (`facts: 28`, revisión `sha256:89c445fa…`). Fact de reanudación:
-  **`estado-2026-10-05-r2-pin-skevi-main`** (sustituye
-  `estado-2026-08-18-vision-definida-fuentes-aseguradas`).
-- Query: `retrieve --query "estado R2 skevi pin extractor gate v2 main d4f3ee3" --budget 6000`
-- El fact apunta a `docs/plan-r1-90d.md` (cola vigente), `docs/plan-r2.md`
-  (borrador, sin `proceed`), `.skevi/corpus-pin.json` y `docs/vision.md`.
-  Git en el fact: `main` = `d4f3ee3` (el commit de este puntero es posterior).
+- AN-KLA **0.1.0b28** / plantilla **0.1.0-beta.26**; identidad **complete**; rev **29**
+  (`facts: 29`, revisión `sha256:05b09449…`). Fact de reanudación:
+  **`estado-2026-10-05-r2-tres-papeles-main`** (sustituye
+  `estado-2026-10-05-r2-pin-skevi-main`, ya inactivo).
+- Query: `retrieve --query "estado R2 main d5aea67 gate v1 T2 manual T5 PARCIAL" --budget 6000`
+- El fact apunta a `docs/plan-r2.md` (tres papeles; baseline histórico),
+  `docs/plan-r1-90d.md` (cola fuera de los tickets R2 ya integrados) y
+  `docs/autorizacion-fuentes-r1.md`. Git en el fact: código `5f94d38`, punta
+  `d5aea67`. Memoria recuperada no autoriza T2 ni enmienda la allowlist.
 - Históricos aún recuperables por id: `plan-r1-90d-2026-08-10`,
   `github-actions-billing-suspendido-2026-08-10` (hecho de agosto; no es la
   causa del rojo de octubre).
@@ -144,31 +145,28 @@ líneas (el detalle y las plantillas están en el doc):
    pasos y próximo hito (filas canónicas: ver plantilla en `docs/plantillas-agente.md`).
 
 **Estado actual (2026-10-05):** alfa temprana. Git + remoto privado
-**sincronizados** (`kristhianmanue1/expertoGobernanza`, `main` = `d4f3ee3`
-antes de este puntero: PR #40 AN-KLA beta.28, PR #41 plan R2, PR #42 pin
-Skevi). AN-KLA **0.1.0b28** (rev **28**, identidad complete). Store local en
-`.an-kla/` (no va a git). **Cola vigente:** `docs/plan-r1-90d.md`.
-`docs/plan-r2.md` es borrador con quórum **PARCIAL** (un proveedor); sin
-`proceed` no sustituye a R1. H0/T0 = `xmllint` en CI. T1 = extractor ciego al
-gold. **T2 y T5 espera-humano** (allowlist `claude`/`codex`; Grok fuera).
-T3 = loader PyYAML. T4 = gate v2 (`alto` solo con subcadena, hash recomputado
-y `resolve_disposicion_vigencia`). Commit y push de la rama del ticket, con
-avance relevante, están autorizados en ese plan; el merge de H1/H2 exige
-`proceed`. **RH-T07 gated**. Nadie del repo promulga. ADR-0001, 0002, 0003,
-0005 y 0006 aceptados; **ADR-0004 Propuesto**. Pin Skevi
-`.skevi/corpus-pin.json` (no es `corpus-install`; no copiar la guía ni
-sustituir `scripts/check_sizes.py`). Visión: `docs/vision.md`. Suite **193
-tests**. CI run `37339265192` ejecutó tests y falló por `xmllint` ausente; la
-nota de billing de agosto no es la causa de ese rojo. DoD local:
-`./scripts/ci_check.sh`. `main` sin branch protection. PDF sin seguimiento:
+**sincronizados** en `d5aea67` (`kristhianmanue1/expertoGobernanza`). El código
+de T1–T4 está en `5f94d38`. AN-KLA **0.1.0b28** (rev **29**, identidad
+complete). Store local en `.an-kla/` (no va a git). Tres papeles, separados:
+implementación T0–T4 ya en `main`; experimento T2 en ejecución **manual** del
+Operador (protocolo antes del número, predicciones conservadas); adjudicación
+T5 todavía sin quórum. H1/H2 siguen **PARCIAL** aunque el CI pase: el autor del
+código es Grok (xAI) y la autorrevisión no cuenta. Allowlist vigente: `claude`
+y `codex`. El panel previsto Grok / Codex / OpenCode (`glm-5.3-flash`, Z.AI)
+no está autorizado por estar instalado. Gate **v1**, `alto` inalcanzable. El
+baseline de `docs/plan-r2.md` es histórico. **Cola fuera de esos tickets:**
+`docs/plan-r1-90d.md`. **RH-T07 gated**. Nadie del repo promulga. ADR-0001,
+0002, 0003, 0005 y 0006 aceptados; **ADR-0004 Propuesto**. Pin Skevi
+`.skevi/corpus-pin.json`. CI del código: run `37356297144`, 216 tests OK.
+`main` sin branch protection. PDF sin seguimiento:
 `docs/fuentes/imss/ManualMetodologico2019-2024.pdf`. Fact de reanudación:
-`estado-2026-10-05-r2-pin-skevi-main`.
+`estado-2026-10-05-r2-tres-papeles-main`.
 
-> **PRÓXIMA TAREA:** seguir la cola R1 en `docs/plan-r1-90d.md` (R1-E8-01,
-> R1-E2, R1-E2-05, recall v1.2) salvo que un humano adopte R2. R2 no se
-> implementa desde este puntero. Humano-gateado: roles §9, auth DOF nivel 1,
-> T2, T5, RH-T07. Mapa: `docs/README.md`. Query AN-KLA: `estado R2 skevi pin
-> extractor gate v2 main d4f3ee3`.
+> **PRÓXIMA TAREA:** no operar T2 ni abrir T5. T2 sigue manual hasta una
+> delegación que nombre la revisión, `R2-H1-02` y un CLI ya allowlisted. H1/H2
+> esperan revisiones elegibles de `5f94d38` y reconciliación humana. Fuera de
+> eso, cola R1 (R1-E8-01, R1-E2, R1-E2-05). Mapa: `docs/README.md`. Query
+> AN-KLA: `estado R2 main d5aea67 gate v1 T2 manual T5 PARCIAL`.
 
 **Consulta local Skopos del manual IMSS:** `docs/contratos/skopos-imss-funcion-local-v1.md`;
 invoca `.venv/bin/python -m scripts.skopos_imss --help` y coteja cada cita nueva.

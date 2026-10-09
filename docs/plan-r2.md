@@ -1,6 +1,6 @@
 # Plan R2: evaluación sin gold y diagnóstico de evidencia del gate v1
 
-**Contexto:** R1 incorporó gobernanza, registry y trazas; conserva pendientes. El extractor actual copia el gold. **Fecha:** 2026-10-05. **Estado:** precisiones de contrato incorporadas por instrucción del Operador; expediente en `docs/propuestas/2026-10-05-plan-r2/RECOMENDACIONES-RETRY.md`. Quórum de cierre de H1/H2 **PARCIAL**. No es `proceed` ni sustituye a `docs/plan-r1-90d.md` como cola vigente. **Arranque:** T0 cerrado en `aa7f06a`. El Operador ordenó el merge el 2026-10-05: T1 PR #47, T1b PR #48, T3 PR #49 y T4 PR #50 quedaron en `main` `5f94d38`. Ese merge no es `proceed` de §6: el quórum de cierre sigue **PARCIAL**. T2 y T5 siguen en espera humana.
+**Contexto:** R1 incorporó gobernanza, registry y trazas; conserva pendientes. La frase «el extractor copia el gold» describe el árbol anterior a T1; en `main` el stub no lee el gold. **Fecha:** 2026-10-05. **Estado:** precisiones de contrato incorporadas por instrucción del Operador; expediente en `docs/propuestas/2026-10-05-plan-r2/RECOMENDACIONES-RETRY.md`. Quórum de cierre de H1/H2 **PARCIAL**. No es `proceed` ni sustituye a `docs/plan-r1-90d.md` como cola vigente. **Arranque:** T0 cerrado en `aa7f06a`. El Operador ordenó el merge el 2026-10-05: T1 PR #47, T1b PR #48, T3 PR #49 y T4 PR #50 quedaron en `main` `5f94d38`. La punta con este registro es `d5aea67`. Ese merge no es `proceed` de §6. Integrar el código y un CI verde dejan H1/H2 en **PARCIAL** hasta revisiones elegibles y reconciliación. T2 sigue en ejecución manual. T5 nombra un panel; nombrarlo no lo autoriza.
 **Roadmap:** R2. **Fuente:** verificación local del repo el 2026-10-05; el borrador externo del mismo día no se ejecuta tal cual.
 
 ## Objetivo y criterio de cierre
@@ -10,13 +10,23 @@
 - Cierre experimental: T2 ejecutado por humano con protocolo previo y resultados recalculables. Mientras esté pendiente, no se declara cumplido el objetivo de medir extracción real. T5 es una dependencia humana de disponibilidad de quórum, no un permiso implícito.
 - Ningún ticket modifica `corpus/evidence_edge.py`, `corpus/registry_rules.py`, `review_routing/router.py`, `review_routing/seal.py` ni `review_routing/audit_log.py`.
 
-## Baseline observado (revalidar al ejecutar)
+## Estado vigente: tres papeles distintos
 
-Verificados en el árbol, no en el borrador externo:
+Instrucción del Operador posterior al merge `d5aea67`. Implementación, experimento y adjudicación se leen por separado.
 
-- `scripts/eval_extraction.py` llama `fake_extract`, que copia `gold_claims` con `must_find`. R1-E4-03 lo declaró hecho; el plugin real quedó explícitamente a futuro (`docs/plan-r1-90d.md`).
-- `corpus/verify_citations.py` es gate `v1`. Si el PDF existe, recomputa sha256. Si no existe, hoy marca `resolved: true` con nota. `alto` es inalcanzable porque `version_valid_for_date` es `N/A_v1`. No consulta el registry.
-- `corpus/registry_rules.py` valida dicts. No parsea YAML. El regex vive en `scripts/audit_document.py` (`corpus_vigencia_banner`) y en `tests/test_registry_vigencia.py`.
+- **Implementación.** T0, T1, T1b, T3 y T4 están en `main`. El código de T1–T4 queda en `5f94d38`. La punta de docs es `d5aea67`. CI del código: run [`37356297144`](https://github.com/kristhianmanue1/expertoGobernanza/actions/runs/37356297144), 216 tests OK. CI de la punta: run [`37356407958`](https://github.com/kristhianmanue1/expertoGobernanza/actions/runs/37356407958), success. El stub de `corpus/extractor.py` devuelve una cita plantada solo si esa frase está en el texto. El gate sigue en `v1`, con `alto` inalcanzable. Esto no cierra H1 ni H2.
+- **Experimento (T2).** Corrida de extracción con un modelo. El protocolo se fija antes de observar resultados. Las predicciones se conservan y las métricas se recalculan con `--predictions-file`, sin volver a invocar al modelo. Modo vigente: la ejecuta el Operador, a mano. Delegarla a un agente exige una instrucción posterior que nombre la revisión de este plan, el ticket `R2-H1-02` y un CLI que ya esté en `docs/autorizacion-fuentes-r1.md` §2. Sin esa frase, el agente se detiene.
+- **Adjudicación (T5 y §6).** H1 y H2 permanecen **PARCIAL** hasta que existan revisiones elegibles del SHA final y un humano reconcilie los hallazgos. El código integrado y el CI en verde no sustituyen esa ronda. La autorrevisión no cuenta. Ver la matriz de T5.
+
+## Baseline observado (histórico)
+
+Fotografía del árbol al abrir este plan, antes de T1–T4. No describe `main` `d5aea67`. El estado vigente es la sección anterior.
+
+Verificados entonces en el árbol, no en el borrador externo:
+
+- `scripts/eval_extraction.py` llamaba `fake_extract`, que copiaba `gold_claims` con `must_find`. R1-E4-03 lo declaró hecho; el plugin real quedó explícitamente a futuro (`docs/plan-r1-90d.md`). En `main` ese símbolo ya no está.
+- `corpus/verify_citations.py` ya era gate `v1`. Si el PDF existía, recomputaba sha256. Si no existía, marcaba `resolved: true` con nota. `alto` era, y sigue, inalcanzable porque `version_valid_for_date` es `N/A_v1`. En aquel árbol el gate no consultaba el registry; en `main`, T4 sí lo consulta y mantiene el tope `medio`.
+- `corpus/registry_rules.py` valida dicts. No parsea YAML. El regex del banner vivía en `scripts/audit_document.py`. En `main` el banner lee el dict de `corpus/registry_loader.py`. `tests/test_registry_vigencia.py` conserva su regex de prueba.
 - `corpus/registry.yaml` ya trae trazas y `revision_vigencia` de CPEUM, LGS, LOAPF, LFEP, LSS y RIIMSS. No hace falta un corpus DOF nuevo para preguntar vigencia. El agente no edita esas trazas ni afirma derecho.
 - `scripts/ci_check.sh` ejecuta el benchmark sin `--allow-missing-originals`. `.github/workflows/ci.yml` sí lo pasa. Los PDF están en `corpus/originals/` y en `.gitignore`. Hay 11 extractos versionados en `docs/fuentes/`.
 - El run `37339265192` (2026-10-05, merge PR #40) sí ejecutó tests: 193, 1 error. `tests/test_akn_spike.py` falla porque el runner no tiene `xmllint`. El run `37348191223` (merge PR #43, `8410075`) repite esa causa. La nota de billing en `docs/ops-github.md` (2026-08-10) no describe esos rojos.
@@ -54,7 +64,7 @@ H0 es bajo impacto (toolchain). H1 y H2 tocan la compuerta de fidelidad: al ejec
 - [x] T4 — `R2-H2-02`: diagnóstico de evidencia compatible con gate v1. → Contrato T4. PR #50.
 - [ ] T5 — `R2-H4-01`: fila de allowlist. **HUMANO. No la cierra un agente.** → Contrato T5.
 
-Orden: T0–T1–T1b–T3–T4 están en `main` `5f94d38`. El merge lo ordenó el Operador y no sustituye el `proceed` de §6. Antes de declarar H1 o H2 cerrados, identificar ≥3 proveedores autorizados, autor excluido, y reconciliación conforme a §6. T2 sigue en espera humana. La allowlist actual de dos proveedores no basta: T5 condiciona esa ruta de cierre; más agentes del mismo proveedor no la resuelven. R1 sigue siendo la cola vigente fuera de los tickets adoptados. Reconciliar sus tickets hechos/pendientes mediante referencias, sin declarar R1 cerrado.
+Orden: T0–T1–T1b–T3–T4 están en `main` `5f94d38` (punta `d5aea67`). El merge lo ordenó el Operador y no sustituye el `proceed` de §6. H1 y H2 siguen **PARCIAL** aunque el CI pase: faltan revisiones elegibles del SHA final y la reconciliación de sus hallazgos. La autorrevisión no cuenta. T2 sigue en ejecución manual del Operador. La allowlist actual no autoriza el panel nombrado en T5; tener los CLI instalados no demuestra diversidad ni autorización. R1 sigue siendo la cola vigente fuera de los tickets adoptados. Reconciliar sus tickets hechos/pendientes mediante referencias, sin declarar R1 cerrado.
 
 ## Contrato T0 — R2-H0-01: CI con xmllint
 
@@ -131,13 +141,21 @@ extract(texto: str) -> list[{"disposicion_id": str | None, "cita_texto": str}]
 
 ## Contrato T2 — R2-H1-02: corrida real (humano)
 
-**Presupuesto:** no lo ejecuta un agente de este repo.
+**Presupuesto:** no lo ejecuta un agente de este repo, salvo la delegación expresa de abajo.
 **Entradas:** T1 y T1b mergeados; `docs/autorizacion-fuentes-r1.md` §2.
 **Salidas:** un JSON de métricas en `docs/propuestas/` sin cadenas del modelo, sin texto de fixture y sin secretos. Lo archiva el humano.
 
+### Modo de ejecución
+
+Quedó precisado el 2026-10-05, después de `d5aea67`: T2 es el experimento, distinto de la implementación ya integrada y de la adjudicación de T5.
+
+- Modo vigente: **manual**. El Operador lanza el CLI, conserva las predicciones y recalcula las métricas.
+- Delegación al agente: solo una instrucción posterior que nombre la revisión de este plan, el ticket `R2-H1-02` y el CLI. Ese CLI tiene que estar ya en la allowlist. La delegación no se infiere de este párrafo ni de haber implementado T1 o T1b.
+- En ambos modos el protocolo se escribe antes de observar el número. Las predicciones se conservan. El recálculo usa `--predictions-file` y no vuelve a llamar al modelo.
+
 ### Reglas
 
-- Proveedor: `claude` o `codex`, ya listados. Cualquier otro CLI, incluido Grok, no recibe el texto.
+- Proveedor de la corrida: `claude` o `codex`, ya listados. Cualquier otro CLI, incluido Grok y OpenCode, no recibe el texto mientras no exista la enmienda humana de la allowlist. Nombrarlos en T5 no los habilita para T2.
 - El proceso ve únicamente el campo `texto` de fixtures sintéticos o públicos. No ve `gold_claims` ni `traps`.
 - No hay umbral 0.8 que cumplir tuneando el prompt. El número se registra. Fijar un mínimo es otra decisión humana.
 - Antes de la corrida, no después de ver el número, el humano escribe el protocolo: métricas (`precision`, `recall`, `gate_bajo`), ids de fixtures, ceguera al gold y qué contaría como regresión. Si hay umbral numérico, va en ese protocolo. Elegirlo después de medir no cuenta. El método es el de Skevi `docs/ai-agent-guide/06-componentes-con-llm.md` §2–§3 en `https://github.com/kristhianmanue1/skevi.git@d7a80b26962cd66a806943ff46f779de14c16708` (corpus `v4`). Ese archivo no existe en el commit vendorizado `944e72e`. La guía no se copia a este repo.
@@ -155,7 +173,7 @@ extract(texto: str) -> list[{"disposicion_id": str | None, "cita_texto": str}]
 
 ### Git
 
-- Rama: la abre el humano. Un agente que encuentre este ticket se detiene y lo reporta `espera-humano`.
+- Rama: la abre el humano. Un agente que encuentre este ticket se detiene y lo reporta `espera-humano`, salvo la delegación expresa del modo de ejecución.
 
 ## Contrato T3 — R2-H2-01: loader del registry
 
@@ -229,11 +247,26 @@ El agente ejecuta el resolver y pega en el PR la tabla `disposicion_id → verif
 
 **Presupuesto:** no aplicable a un agente.
 **Entradas:** `docs/autorizacion-fuentes-r1.md` §2, `docs/roles-r1.md`.
-**Salidas:** configuración autorizada de ≥3 proveedores revisores elegibles, autor excluido, permisos de datos y reconciliador conforme a §6. Puede requerir varias filas. Con autor OpenAI, la allowlist actual sólo ofrece Anthropic como proveedor diferente. Grok no se añade desde este plan.
+**Salidas:** configuración autorizada de ≥3 proveedores revisores elegibles, autor excluido, permisos de datos y reconciliador conforme a §6. Puede requerir varias filas. La tabla de abajo es la intención del Operador. No es la enmienda de `docs/autorizacion-fuentes-r1.md` y no autoriza envío de corpus ni de fixtures.
+
+### Panel previsto y matriz del SHA final
+
+Disponibilidad de un CLI no demuestra diversidad ni autorización. La diversidad se cuenta por el modelo que la corrida archivada reporte. La autorización es una fila fechada y firmada en la allowlist. Hoy esa allowlist sigue en `claude` (Anthropic) y `codex` (OpenAI).
+
+SHA de código a adjudicar: `5f94d38`. Punta de `main` que lo contiene: `d5aea67`. Quien produjo T1 (`7645a7e`), T1b (`1d3ae70`), T3 (`2cb3c55`) y T4 (`5c0c0de`) fue el agente Grok (xAI); el git author de esos commits es `devcdmx`. Los merge commits son del admin.
+
+| Papel sobre `5f94d38` | CLI | Modelo efectivo | ¿Cuenta para el quórum? |
+|---|---|---|---|
+| Produjo el código | Grok | xAI, sesión que escribió T1–T4 | No. Es el autor. La autorrevisión no entra. |
+| Revisor previsto | Codex | OpenAI. El binario ya está en la allowlist. El modelo se anota en la corrida. | Sí, cuando exista una revisión de ese SHA, en contexto fresco, sin ver las otras. La revisión previa del borrador del plan no es esta fila. |
+| Revisor previsto | OpenCode | Config local del 2026-10-05: `zai-coding-plan/glm-5.3-flash` (Z.AI). Si el CLI apunta a otro modelo, la familia cambia. | Solo si la corrida usa una familia distinta de la del autor y de Codex, y la allowlist ya tiene la fila. Hoy no la tiene. |
+| Nombrado en el panel, no elegible sobre este SHA | Grok | xAI | No ocupa asiento de revisor del código que produjo. |
+
+Con esa matriz, los revisores elegibles todavía no son tres: Codex puede serlo cuando revise el SHA; OpenCode falta autorización y la corrida; Grok queda fuera por autor. H1/H2 siguen **PARCIAL**. Un humano de roles §9 reconcilia los hallazgos cuando esas revisiones existan. `gateway.py` sigue rechazando `dry_run=False`.
 
 ### Definition of Done
 
-- [ ] Filas necesarias con fecha y rol autorizante; matriz de asignación y exclusión del autor por proveedor. Más CLIs del mismo proveedor no completan quórum.
+- [ ] Filas necesarias con fecha y rol autorizante; matriz de asignación y exclusión del autor por proveedor. Más CLIs del mismo proveedor no completan quórum. La matriz de arriba es intención: las filas de Grok y OpenCode siguen sin firmar.
 - [ ] Hasta entonces `gateway.py` sigue rechazando `dry_run=False`.
 - [ ] Un agente no abre PR de este ticket.
 
@@ -249,7 +282,7 @@ El agente ejecuta el resolver y pega en el PR la tabla `disposicion_id → verif
 
 1. Leer `AGENTS.md`, este plan y solo el contrato del ticket. Presupuesto ≤ 30k tokens.
 2. Un ticket, un PR, diff < 400. Rama `feat/` o `fix/` con el id.
-3. Parar en T2 y T5.
+3. Parar en T2 y T5. T2 solo se opera si el Operador delegó por escrito ese ticket, con revisión y CLI allowlisted. T5 no lo abre un agente.
 4. No citar artículos de ley que no estén ya en el registry o en el derivado que el ticket lee. No promulgar.
 5. DoD local: los checks del contrato. `an_kla verify` solo si se tocó memoria. Este plan no pide writes AN-KLA.
 6. Al cerrar H1 o H2 hace falta ronda de alto impacto (≥3 proveedores por modelo, autor excluido). Sin `proceed` no hay merge. H0 admite quórum-lite.
@@ -259,6 +292,8 @@ Las autorizaciones históricas de los puntos 8 y 9 se aplican a un ticket de est
 
 8. **Commit y push autorizados** (instrucción humana del 2026-10-05, posterior a la ronda; no cambia el quórum). Sujeto al párrafo de adopción anterior. Cuando hay avance relevante, el agente no vuelve a pedir permiso para `git commit` ni para `git push` de la rama del ticket. Avance relevante quiere decir: el DoD de ese ticket está verde en local, o hay un corte coherente ya verificado (tests del contrato en verde, diff < 400, sin secretos ni transcripts).
 9. Sujeto al mismo párrafo. El merge a `main` de H0 entra en esa autorización. El merge a `main` de H1 o H2 sigue exigiendo `proceed` de alto impacto. T2 y T5 no los commitea un agente. Nada de `--force`, nada de datos que el contrato no nombre.
+
+Instrucción del Operador posterior a `d5aea67`: separar implementación, experimento y adjudicación. T2 permanece como corrida manual con protocolo previo y predicciones conservadas; la operación por un agente requiere delegación expresa. T5 registra el panel Grok / Codex / OpenCode y la matriz de autoría de `5f94d38`. Ese registro no enmienda la allowlist ni cierra H1/H2. El apartado «Baseline observado» es histórico.
 
 ## Enlaces
 
