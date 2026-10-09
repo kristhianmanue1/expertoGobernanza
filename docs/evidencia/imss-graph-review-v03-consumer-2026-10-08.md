@@ -58,9 +58,22 @@ bajo la retención del piloto, sin cambiar política ni admitir el PDF al corpus
 Como control visual propio, se renderizó p22 a 2200 px. La caja `n10` visible
 dice «COORDINACIÓN TÉCNICA DE INFRAESTRUCTURA MÉDICA» y el trazo de la caja
 `n3` (gestión de calidad) llega a `n8` (división de gestión de calidad).
-Esto corrobora esos dos ejemplos concretos; no revisa las otras 80 aristas
-ni los cuatro rótulos corregidos restantes. El recibo del productor cubre
-todos los pares pero es autorrevisión, no adjudicación independiente.
+Esa comprobación inicial corroboró dos ejemplos concretos. El recibo del
+productor cubre todos los pares pero es autorrevisión, no adjudicación
+independiente.
+
+### Ampliación visual acotada de p22
+
+En una segunda lectura del render a 2200 px, tracé las 16 conexiones de p22
+de caja a caja antes de comparar el conjunto con el manifiesto. Agrupadas por
+origen, fueron: `n1→n2`; `n2→n3,n5,n4,n6`; `n3→n8,n12,n17`;
+`n5→n9,n13`; `n4→n7,n14`; `n6→n10,n11`; `n10→n15`; `n11→n16`.
+La comparación de conjuntos devolvió 16 pares esperados y 16 emitidos,
+sin faltantes ni extras; todas esas aristas siguen con estado
+`visual_candidate_unadjudicated`. Esta es una revisión visual del consumidor
+separada del productor, pero de una sola instancia agéntica y sólo de p22.
+No corrige los errores OCR de otros nodos ni adjudica las otras 65 aristas
+de p18–21.
 
 **Límite de uso:** el servicio v0.3 permite consultar candidatos con
 trazabilidad y recuperar el PDF completo por el contrato documental v0.1.
