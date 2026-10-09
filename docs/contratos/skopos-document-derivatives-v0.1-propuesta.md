@@ -1,8 +1,11 @@
 # Contrato bilateral propuesto: derivados documentales Skopos v0.1
 
-**Estado:** intercambio técnico bajo demanda probado; propuesta de contrato
-pendiente de aceptación formal y merge del consumidor. La fidelidad del
-contenido derivado no está aceptada.
+**Estado:** intercambio técnico bajo demanda probado e integrado en
+expertoGobernanza; propuesta de contrato pendiente de aceptación formal. La
+fidelidad del contenido derivado no está aceptada. El diagnóstico exploratorio
+de [p1 y p20](../evidencia/skopos-imss-fidelity-sample-2026-10-08.md) y la
+[revisión del cálculo de rótulos p20](../evidencia/skopos-label-eval-consumer-review-2026-10-08.md)
+no amplían esa aceptación.
 **Identificador propuesto:** `expertogobernanza/skopos-document-derivatives/v0.1`.
 **Caso inicial:** `expertogobernanza / imss-2000-002-001 / revisión 1`.
 **Base:** [custodia v0.2](skopos-pdf-imss-piloto-v0.2.md). Conserva su original,
