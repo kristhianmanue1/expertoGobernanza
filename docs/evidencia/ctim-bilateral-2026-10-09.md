@@ -2,9 +2,9 @@
 
 **Observado:** 2026-10-09 UTC. Ejecutor: `python3 -m scripts.ctim_source_bilateral`
 desde expertoGobernanza. Recibo completo: `ctim-bilateral-receipt-2026-10-09.json`.
-Skopos se ejecutó desde `codex/skopos-source-profile-v03` commits `44bd4d2`
-y `3ce0e3a` (segunda ejecución, recibo idéntico)
-(PR #5 en borrador); Ágora desde `main` con PR #4 fusionado.
+Skopos se ejecutó desde `codex/skopos-source-profile-v03` commits `44bd4d2`,
+`3ce0e3a` y `7847228` (tres ejecuciones, recibo idéntico; PR #5 en
+borrador); Ágora desde `main` con PR #4 fusionado.
 
 Skopos recuperó los cinco originales con SHA esperado tras reinicio y rechazó
 cinco SHA falsos (`material_not_allowed`). Consultó DA p282, procedimiento
