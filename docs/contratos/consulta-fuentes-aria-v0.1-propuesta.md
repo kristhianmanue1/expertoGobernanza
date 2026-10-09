@@ -28,8 +28,10 @@ La consulta debe devolver un expediente verificable, no sólo una respuesta:
    fragmento, tipo (`explicit_reference`, `inference`, `conflict` o
    `unresolved_identity`), fechas de las fuentes y estado de revisión.
    Ágora no eleva una inferencia a hecho normativo. Una relación de versión
-   `SUPERSEDES` debe apoyar sus extremos en originales distintos y en el
-   transitorio literal; las fechas solas no la demuestran.
+   `SUPERSEDES` debe identificar fuente anterior y posterior, apoyar ambos
+   extremos en originales distintos y citar el transitorio literal; las
+   fechas solas no la demuestran. El bundle actual de Ágora no fija esos dos
+   extremos, por lo que sólo emite una comparación candidata.
 6. Uso: expertoGobernanza coteja página y fragmento antes de citar, separa
    vigencia comprobada de fecha impresa y registra aprobación humana cuando
    corresponda. AN-KLA recibe sólo un puntero resumido mediante su propio
@@ -83,12 +85,12 @@ los fixtures de contrato no bastan para ese fin.
 
 | Entrada | Skopos | Ágora | Condición antes de citar |
 | --- | --- | --- | --- |
-| PDF | Custodia v0.3 y derivados parciales de tres fuentes CTIM en PR #5 | Cinco intercambios reales verificados en la prueba bilateral de expertoGobernanza | Cotejar página física y fragmento; cobertura parcial explícita |
-| HTML | Dos originales y anclas de bytes con hash en PR #5 | Perfil tipado UTF-8/ISO-8859-1 y rango de bytes; parser sin evaluación CSS | Cotejar fragmento original, contexto y versión |
+| PDF | Custodia v0.3 y derivados parciales de tres fuentes CTIM en Skopos `main` | Tres intercambios PDF reales dentro de la prueba bilateral | Cotejar página física y fragmento; cobertura parcial explícita |
+| HTML | Dos originales y anclas de bytes con hash en Skopos `main` | Dos intercambios HTML reales; perfil tipado UTF-8/ISO-8859-1 y rango de bytes, sin evaluación CSS | Cotejar fragmento original, contexto y versión |
 | TXT/Markdown | Sin perfil de custodia CTIM probado | Perfil tipado para original y derivado UTF-8, sin extractor | Definir y probar productor y localizador |
 | DOCX | Sin adaptador probado | Perfil tipado rechaza DOCX | Definir extracción de párrafos, tablas, notas e imágenes |
 | Conversaciones | Sin captura de turnos probada | Perfil tipado rechaza turnos | Definir origen, hablante, tiempo, redacción y completitud |
 
 El recibo `docs/evidencia/ctim-bilateral-receipt-2026-10-09.json` del PR #80
-prueba sólo la corrida local de cinco originales contra la rama de Skopos indicada; no
-convierte el PR de custodia en contrato fusionado ni escribe AN-KLA.
+prueba sólo la corrida local de cinco originales contra Skopos `main`; no
+equivale a cobertura completa, cita aprobada ni escritura en AN-KLA.
