@@ -1,0 +1,44 @@
+{
+  "derivative": {
+    "coverage": "partial",
+    "id": "skopos-page-45-selection",
+    "producer": {
+      "derivation_id": "e86d5c6ab6d45d1143bc964fdcd4ecfeceda2c4a23965cc693655fd6b643eadd",
+      "manifest_sha256": "d9eeacbeab511a831999540136c72cb37c62f9aacb859fa6b75389f83e8f1ab0",
+      "system": "skopos",
+      "version": "v0.1"
+    },
+    "sha256": "cda825f0076c52406da4855d562088b56abd53f710dfca530ec6053a8f20ac4f"
+  },
+  "schema": "agora/source-evidence-exchange/v1",
+  "segments": [
+    {
+      "end_byte": 87,
+      "extraction_status": "unreviewed",
+      "id": "skopos-item-1",
+      "locator": {
+        "kind": "pdf_page",
+        "value": {
+          "bbox": [
+            0.15040188198392473,
+            0.37417310508508805,
+            0.9257792589688294,
+            0.39106448517901327
+          ],
+          "item_id": "1f34c691088742641564c57fca9722efc76e42213d58c199b9674cfef786768e",
+          "page": 45
+        }
+      },
+      "modality": "native_text",
+      "sha256": "cda825f0076c52406da4855d562088b56abd53f710dfca530ec6053a8f20ac4f",
+      "start_byte": 0
+    }
+  ],
+  "source": {
+    "id": "imss-0500-002-001-2022",
+    "media_type": "application/pdf",
+    "revision": "1",
+    "sha256": "ce665959759f74331464471c71dc9cff107e061de09b8be5419a7cf1302e48b7",
+    "uri": "https://www.imss.gob.mx/sites/all/statics/pdf/manualesynormas/0500-002-001_3.pdf"
+  }
+}

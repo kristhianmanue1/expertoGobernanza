@@ -1,0 +1,28 @@
+{
+  "schema": "agora/source-evidence-bundle-candidate/v1",
+  "manifest_sha256s": [
+    "ebd91a7c2e80595c2c4abc925a519c17fd3295487602fec1150d26d8b391ff64",
+    "770c132f8945f3ff339bfd84aeb1f580cc4141acce5e2384fd434f426c47ec0d"
+  ],
+  "claims": [
+    {
+      "id": "dpm-ctim-infrastructure-1",
+      "kind": "relation_candidate",
+      "text": "Los fragmentos de DPM y CTIM parecen relacionarse con la planeación de infraestructura médica; la relación y la vigencia requieren revisión.",
+      "evidence_refs": [
+        {
+          "manifest_sha256": "ebd91a7c2e80595c2c4abc925a519c17fd3295487602fec1150d26d8b391ff64",
+          "segment_id": "skopos-item-1",
+          "start_byte": 0,
+          "end_byte": 87
+        },
+        {
+          "manifest_sha256": "770c132f8945f3ff339bfd84aeb1f580cc4141acce5e2384fd434f426c47ec0d",
+          "segment_id": "skopos-item-2",
+          "start_byte": 90,
+          "end_byte": 174
+        }
+      ]
+    }
+  ]
+}
