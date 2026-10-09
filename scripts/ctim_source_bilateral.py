@@ -5,6 +5,7 @@ import copy
 import hashlib
 import json
 from pathlib import Path
+import socket
 import subprocess
 import sys
 import tempfile
@@ -75,6 +76,12 @@ def skopos_runtime():
         if started:
             stopped = call(controller + ['stop'])
             require(stopped['status'] == 'stopped', 'skopos_shutdown_unconfirmed')
+            require(not (SKOPOS / 'runs/pdf-custody-imss-pilot-v1/operator.sock').exists(),
+                    'skopos_controller_socket_remains')
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+                probe.settimeout(0.5)
+                require(probe.connect_ex(('127.0.0.1', 37034)) != 0,
+                        'skopos_mongo_port_remains')
 
 
 def inventory():
@@ -226,10 +233,9 @@ def run():
                                        'identity_status': 'not_assessed',
                                        'normalization': {'status': 'not_applied', 'description': None}},
                           'evidence_refs': refs((0, 1))},
-                         {'id': 'pobalines-version-candidate', 'kind': 'relation_candidate',
-                          'text': 'Compare 2021 text, later POBALINES, and 2023 agreement.',
-                          'relation': {'kind': 'version_relation_candidate',
-                                       'version_relation': 'supersedes',
+                         {'id': 'pobalines-version-context', 'kind': 'relation_candidate',
+                          'text': 'Compare 2021 POBALINES, the 2022 approved PDF, and its agreement published in 2023.',
+                          'relation': {'kind': 'cross_source_candidate',
                                        'temporal_status': 'not_assessed',
                                        'identity_status': 'not_assessed',
                                        'normalization': {'status': 'not_applied', 'description': None}},
@@ -237,11 +243,14 @@ def run():
         bundle = resolve_bundle(exchanges, candidate)
         require(bundle['status'] == 'candidate_unreviewed' and
                 bundle['admitted'] is False and bundle['provider_calls'] == 0 and
-                len(bundle['claims']) == 2, 'agora_bundle_changed')
+                len(bundle['claims']) == 2 and
+                bundle['claims'][1]['relation']['kind'] == 'cross_source_candidate',
+                'agora_bundle_changed')
         return {'status': 'ok', 'sources': summaries, 'recovery': recovery,
                 'queries': queries, 'relations': [item['relation'] for item in bundle['claims']],
                 'agora_negative': ['invalid_pdf_page', 'invalid_html_byte_range'],
-                'runtime': 'stopped'}
+                'runtime': 'stopped',
+                'runtime_scope': 'shared_skopos_controller_and_mongo_127.0.0.1:37034'}
 
 
 if __name__ == '__main__':
