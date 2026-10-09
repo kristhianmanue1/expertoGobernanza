@@ -1,0 +1,75 @@
+{
+  "schema": "expertogobernanza/imss-p1-visual-candidate/v0.1",
+  "status": "codex_visual_candidate_unconfirmed",
+  "literal_quote_allowed": false,
+  "source": {
+    "material_id": "imss-2000-002-001",
+    "page_number": 1,
+    "sha256": "719d6da341bff3733750f05357de50ca09fabc7c31c4354186dae8a7a3a70323"
+  },
+  "producer_derivative": {
+    "derivation_id": "7f132071b5e1c372e41d0ce9a83df7c966955c7fcb7036f80cdcbcecf5654a46",
+    "manifest_sha256": "3ca9d7a5be5e451f63608015585a4eee92d2109046d390de99d793ac2f83651d",
+    "render_sha256": "015546b16f8d9edfb04679687e12683c9b8924ef59f38b588219dc8d34514e40"
+  },
+  "method": {
+    "interface": "Codex desktop",
+    "reader": "Codex visual inspection; same agent as author",
+    "render": "pdftoppm -f 1 -singlefile -png -r 300",
+    "render_sha256": "31d0a668bac33ceaad3244d0e76a3a7f793a61b0f4e6a01957681faaf07393d3",
+    "ocr_check": "macOS Vision es-ES, separate invocation but same OCR engine family as Skopos",
+    "independent_second_reviewer": false
+  },
+  "regions": [
+    {
+      "region_id": "title",
+      "visual_transcription_candidate": "MANUAL DE ORGANIZACIÓN DE LA DIRECCIÓN DE PRESTACIONES MÉDICAS",
+      "ocr_item_ids": [
+        "bd5174edcbed4de882649eb4408c47dd40ab684cacc9c8afebfc70f388f3cbe9",
+        "3750d171721d28465f7be375e4f90988b773a404f882adb11272824200c8b205"
+      ],
+      "observation": "Two title lines visually clear."
+    },
+    {
+      "region_id": "signer",
+      "visual_transcription_candidate": "Dra. Alva Alejandra Santos Carrillo",
+      "ocr_item_ids": [
+        "4de4ee6a86af581ed6f5c099d2f9941241eda7866f21b6d79970aeee05b7bda4"
+      ],
+      "observation": "Printed name under handwritten signature; does not authenticate signature."
+    },
+    {
+      "region_id": "role",
+      "visual_transcription_candidate": "Titular de la Dirección de Prestaciones Médicas",
+      "ocr_item_ids": [
+        "3247fc92523d427d279c8eb02d6ddf079ee4542664f2c0a8b32c55ee284f8383"
+      ],
+      "observation": "Visual text has Dirección, OCR has Dirécción."
+    },
+    {
+      "region_id": "stamp",
+      "visual_transcription_candidate": "INSTITUTO MEXICANO DEL SEGURO SOCIAL DIRECCIÓN DE ADMINISTRACIÓN VALIDADO Y REGISTRADO 19 DIC. 2025 FOLIO 335",
+      "ocr_item_ids": [
+        "9de76611854709378cbb65695e21c21c8a566e7969c0f5d9bed3f95a2584bc66",
+        "ea98ff8fd065b2275b96b196eda616a637e2daafc703542c76774fede833a1e4",
+        "85f90f591e7f5a597a755272e71ac36b5530a7ae01cc3d090590ffd0d5bda49a",
+        "a3e1cc510117e4c3517d3939704cc47f52ab2003e29812541829e80095e834d4",
+        "860291acc5a629c3f15c80645a589013b833d1ad06e4eed542989dc20ec98d20"
+      ],
+      "observation": "Printed stamp fields, not evidence of validity."
+    },
+    {
+      "region_id": "bottom_paragraph",
+      "visual_transcription_candidate": "El personal realizará sus labores con apego al Código de Conducta y de Prevención de Conflictos de Interés de las Personas Servidoras Públicas del IMSS, utilizando lenguaje incluyente y salvaguardando los principios de igualdad, legalidad, honradez, lealtad, imparcialidad y eficiencia que rigen el servicio público, con pleno respeto a los derechos humanos y la no discriminación, así como prevenir los actos de corrupción.",
+      "ocr_item_ids": [
+        "85bfcab7dfe560463cb7d4261e6ba86c03ce744331ab4d113365a7204e882084",
+        "342533bc243064f86f7f15b8dfb3abb178136936963751baf00792b5349ece2e",
+        "b24f89412284c9dfd8089d6604eaefcf233399a8d9b2a67c5d4562d0cf17aaba",
+        "0afd120f5dbd4542c1fe7c047c9dbaa2333c6ba199b46de2ba190b5851ec702b",
+        "56d97534b508e052b0e73fda3ea5f6defeff82b11b9384df2587bd0c5800e9b9",
+        "bd515bc013901e19ce4b09814b4b657b6a898c1977e0fe57961ad893e04b5183"
+      ],
+      "observation": "Visual candidate; punctuation and every word require independent confirmation before literal quotation."
+    }
+  ]
+}
