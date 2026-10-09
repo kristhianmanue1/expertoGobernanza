@@ -76,16 +76,16 @@
     },
     {
       "identity_status": "not_assessed",
-      "kind": "version_relation_candidate",
+      "kind": "cross_source_candidate",
       "normalization": {
         "description": null,
         "status": "not_applied"
       },
-      "temporal_status": "not_assessed",
-      "version_relation": "supersedes"
+      "temporal_status": "not_assessed"
     }
   ],
   "runtime": "stopped",
+  "runtime_scope": "shared_skopos_controller_and_mongo_127.0.0.1:37034",
   "sources": {
     "dof-pobalines-1000-001-029-2021": {
       "end_byte": 122646,
