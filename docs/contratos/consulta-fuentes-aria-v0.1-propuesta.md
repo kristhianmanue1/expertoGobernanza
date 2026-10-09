@@ -2,7 +2,7 @@
 
 **Estado:** propuesta de requisitos del consumidor, 8 de octubre de 2026.
 No sustituye los contratos vigentes de Skopos o Ágora, no activa AN-KLA y no
-admite material al corpus normativo. Se evalúa primero con las cinco fuentes
+admite material al corpus normativo. Se evalúa primero con las siete fuentes
 del inventario `docs/evidencia/ctim-source-register-2026-10-08.json`.
 
 ## Resultado requerido por consulta
@@ -27,7 +27,9 @@ La consulta debe devolver un expediente verificable, no sólo una respuesta:
 5. Interpretación: relación candidata entre fuentes con referencias a cada
    fragmento, tipo (`explicit_reference`, `inference`, `conflict` o
    `unresolved_identity`), fechas de las fuentes y estado de revisión.
-   Ágora no eleva una inferencia a hecho normativo.
+   Ágora no eleva una inferencia a hecho normativo. Una relación de versión
+   `SUPERSEDES` debe apoyar sus extremos en originales distintos y en el
+   transitorio literal; las fechas solas no la demuestran.
 6. Uso: expertoGobernanza coteja página y fragmento antes de citar, separa
    vigencia comprobada de fecha impresa y registra aprobación humana cuando
    corresponda. AN-KLA recibe sólo un puntero resumido mediante su propio
@@ -49,7 +51,9 @@ La consulta debe devolver un expediente verificable, no sólo una respuesta:
   visual de cada cita nueva. El perfil previo de 80 páginas no basta para
   el manual DA de 403 páginas.
 - **HTML/TXT:** custodiar bytes originales y un derivado textual separado;
-  preservar codificación, estructura y ancla; no convertir HTML en una
+  preservar codificación, estructura y ancla. El DOF de 2021 está en
+  ISO-8859-1 y el acuerdo de 2023 en UTF-8; el derivado puede ser UTF-8,
+  siempre identificado por otro hash. No convertir HTML en una
   transcripción de reunión para forzar compatibilidad.
 - **DOCX:** pendiente un adaptador que preserve párrafos, tablas, notas e
   imágenes con localizadores. El SHA del archivo solo no da trazabilidad
@@ -67,5 +71,10 @@ iniciados por la sesión y emitir recibo de estado. Repetir con PDF largo y
 HTML; la prueba DOCX/conversaciones se añade cuando existan adaptadores.
 
 **Límite actual:** el inventario de este hito sólo verifica bytes locales.
-Las extensiones multiformato y la prueba bilateral de las tres fuentes
-nuevas están pendientes de las implementaciones y recibos de Skopos y Ágora.
+La versión POBALINES de 2021 se conserva como antecedente histórico: el
+acuerdo DOF publicado en 2023 deja sin efectos esa versión y el PDF aprobado
+en 2022 aporta el texto posterior. Una consulta debe mostrar qué versión
+sustenta cada fragmento y no mezclar sus apartados.
+La cobertura multiformato completa y la prueba bilateral con originales
+reales deben acreditarse con recibos de Skopos y salidas verificadas de Ágora;
+los fixtures de contrato no bastan para ese fin.
