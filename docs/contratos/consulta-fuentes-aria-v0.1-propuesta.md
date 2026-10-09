@@ -78,3 +78,17 @@ sustenta cada fragmento y no mezclar sus apartados.
 La cobertura multiformato completa y la prueba bilateral con originales
 reales deben acreditarse con recibos de Skopos y salidas verificadas de Ágora;
 los fixtures de contrato no bastan para ese fin.
+
+## Estado de implementación observado, 9 de octubre de 2026
+
+| Entrada | Skopos | Ágora | Condición antes de citar |
+| --- | --- | --- | --- |
+| PDF | Custodia v0.3 y derivados parciales de tres fuentes CTIM en PR #5 | Cinco intercambios reales verificados en la prueba bilateral de expertoGobernanza | Cotejar página física y fragmento; cobertura parcial explícita |
+| HTML | Dos originales y anclas de bytes con hash en PR #5 | Perfil tipado UTF-8/ISO-8859-1 y rango de bytes; parser sin evaluación CSS | Cotejar fragmento original, contexto y versión |
+| TXT/Markdown | Sin perfil de custodia CTIM probado | Perfil tipado para original y derivado UTF-8, sin extractor | Definir y probar productor y localizador |
+| DOCX | Sin adaptador probado | Perfil tipado rechaza DOCX | Definir extracción de párrafos, tablas, notas e imágenes |
+| Conversaciones | Sin captura de turnos probada | Perfil tipado rechaza turnos | Definir origen, hablante, tiempo, redacción y completitud |
+
+El recibo `docs/evidencia/ctim-bilateral-receipt-2026-10-09.json` prueba sólo
+la corrida local de cinco originales contra la rama de Skopos indicada; no
+convierte el PR de custodia en contrato fusionado ni escribe AN-KLA.
