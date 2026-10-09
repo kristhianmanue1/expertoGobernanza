@@ -1,0 +1,8 @@
+{
+  "custody_socket_exists": false,
+  "document_socket_exists": false,
+  "method": "Path.exists and TCP connect_ex from expertoGobernanza; snapshot, not historical proof",
+  "mongo_37034_open": false,
+  "observed_at": "2026-10-09T05:01:38.448492+00:00",
+  "scope": "local_snapshot_after_bilateral"
+}

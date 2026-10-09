@@ -1,0 +1,65 @@
+{
+  "derivative": {
+    "coverage": "partial",
+    "id": "skopos-page-172-selection",
+    "producer": {
+      "derivation_id": "372fdaef7fb1171ec8dce708b79ef1e32b38e43dfb1b079e6b27ae070d8f7587",
+      "manifest_sha256": "7f81b1616b10549439cd536737e76663cfea7cec3bf7a6ec3fbf10241d8292ed",
+      "system": "skopos",
+      "version": "v0.1"
+    },
+    "sha256": "1b04cad8ed6699178e9951d451282962481c96425131cd087d22cf8380800972"
+  },
+  "schema": "agora/source-evidence-exchange/v1",
+  "segments": [
+    {
+      "end_byte": 80,
+      "extraction_status": "unreviewed",
+      "id": "skopos-item-1",
+      "locator": {
+        "kind": "pdf_page",
+        "value": {
+          "bbox": [
+            0.11572549019607843,
+            0.17282828282828278,
+            0.902875816993464,
+            0.18972222222222224
+          ],
+          "item_id": "02af99a2ae07ed43a6d6328993f661e79086ef8b79744acd3fad1a26569f3202",
+          "page": 172
+        }
+      },
+      "modality": "native_text",
+      "sha256": "bc7b484adb5122a9f60e60f58deaa8bda699b4fec22a3af2c55d468468eb83a6",
+      "start_byte": 0
+    },
+    {
+      "end_byte": 174,
+      "extraction_status": "unreviewed",
+      "id": "skopos-item-2",
+      "locator": {
+        "kind": "pdf_page",
+        "value": {
+          "bbox": [
+            0.17375816993464052,
+            0.19025252525252523,
+            0.9029346405228759,
+            0.20714646464646458
+          ],
+          "item_id": "e40f610b73e3362568bb32b728195aef3988a4a6123228ed3036073181094beb",
+          "page": 172
+        }
+      },
+      "modality": "native_text",
+      "sha256": "ec207eac4fe6e1917e1e3ca049f0ff9320a66b883cd5bc41106bd8e274c34c1e",
+      "start_byte": 90
+    }
+  ],
+  "source": {
+    "id": "imss-2000-002-001",
+    "media_type": "application/pdf",
+    "revision": "1",
+    "sha256": "719d6da341bff3733750f05357de50ca09fabc7c31c4354186dae8a7a3a70323",
+    "uri": "https://www.imss.gob.mx/sites/all/statics/pdf/manualesynormas/2000-002-001.pdf"
+  }
+}

@@ -12,6 +12,9 @@
 | [`roles-r1.md`](roles-r1.md) | Jurídico / custodio / PO |
 | [`politica-agentes.md`](politica-agentes.md) | Política v1.1 |
 | [`contratos/skopos-imss-funcion-local-v1.md`](contratos/skopos-imss-funcion-local-v1.md) | Consulta local del PDF IMSS mediante Skopos |
+| [`contratos/skopos-imss-0500-funcion-local-v1.md`](contratos/skopos-imss-0500-funcion-local-v1.md) | Segundo manual IMSS, perfil separado y función bajo demanda |
+| [`analisis/imss-dpm-infraestructura-dos-manuales-2026-10-08.md`](analisis/imss-dpm-infraestructura-dos-manuales-2026-10-08.md) | DPM/CTIM: relación acotada con páginas de ambos manuales |
+| [`evidencia/imss-0500-bilateral-2026-10-08/README.md`](evidencia/imss-0500-bilateral-2026-10-08/README.md) | Recibo local Skopos → expertoGobernanza → Ágora |
 | [`ops-github.md`](ops-github.md) | CI billing + DoD local |
 | [`plantillas-agente.md`](plantillas-agente.md) | Plantillas plan/contrato/reporte |
 | [`gobernanza/expediente-probatorio-rondas-2026-08-10.md`](gobernanza/expediente-probatorio-rondas-2026-08-10.md) | Ejemplo probatorio de gobernanza adversarial aplicada |
