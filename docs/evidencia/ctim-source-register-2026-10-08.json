@@ -47,6 +47,24 @@
       "bytes": 510270,
       "pages": null,
       "url": "https://dof.gob.mx/nota_detalle_popup.php?codigo=5625913"
+    },
+    {
+      "id": "imss-pobalines-1000-001-029-2022",
+      "path": "docs/fuentes/imss/1000-001-029.pdf",
+      "media_type": "application/pdf",
+      "sha256": "aae49eb2ed265e6379777287afff2f97b42a754aa20ea83acce642adde207843",
+      "bytes": 1554158,
+      "pages": 78,
+      "url": "https://www.imss.gob.mx/sites/all/statics/pdf/manualesynormas/1000-001-029.pdf"
+    },
+    {
+      "id": "dof-pobalines-1000-001-029-2022-agreement",
+      "path": "docs/fuentes/imss/dof-5686058.html",
+      "media_type": "text/html",
+      "sha256": "7818f222365e5ef02d1a20a85a0604568b3983e53be6ea8e14b6bee0a7a06532",
+      "bytes": 56892,
+      "pages": null,
+      "url": "https://sidof.segob.gob.mx/notas/docFuente/5686058"
     }
   ]
 }
