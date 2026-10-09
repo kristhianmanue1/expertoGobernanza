@@ -1,0 +1,52 @@
+{
+  "schema": "expertogobernanza/source-inventory/v1",
+  "observed_at": "2026-10-08",
+  "status": "original_bytes_verified_locally; downstream_derivations_separate",
+  "sources": [
+    {
+      "id": "imss-dpm-2000-002-001-2025",
+      "path": "docs/fuentes/imss/2000-002-001.pdf",
+      "media_type": "application/pdf",
+      "sha256": "719d6da341bff3733750f05357de50ca09fabc7c31c4354186dae8a7a3a70323",
+      "bytes": 1311822,
+      "pages": 188,
+      "url": "https://www.imss.gob.mx/sites/all/statics/pdf/manualesynormas/2000-002-001.pdf"
+    },
+    {
+      "id": "imss-organization-0500-002-001-2022",
+      "path": "docs/fuentes/imss/0500-002-001_3.pdf",
+      "media_type": "application/pdf",
+      "sha256": "ce665959759f74331464471c71dc9cff107e061de09b8be5419a7cf1302e48b7",
+      "bytes": 831726,
+      "pages": 80,
+      "url": "https://www.imss.gob.mx/sites/all/statics/pdf/manualesynormas/0500-002-001_3.pdf"
+    },
+    {
+      "id": "imss-administration-1000-002-001-2025",
+      "path": "docs/fuentes/imss/1000-002-001_1.pdf",
+      "media_type": "application/pdf",
+      "sha256": "2578bc3df7bafaefd250e971e0087f1b28dc5e9878ed343e8159a23e22d8de49",
+      "bytes": 3130438,
+      "pages": 403,
+      "url": "https://www.imss.gob.mx/sites/all/statics/pdf/manualesynormas/1000-002-001_1.pdf"
+    },
+    {
+      "id": "imss-procedure-2900-003-001-2021",
+      "path": "docs/fuentes/imss/2900-003-001.pdf",
+      "media_type": "application/pdf",
+      "sha256": "141d9b090efa4d70799ee1368350a5167347b4e8cd5f99912fb192ce6c704faa",
+      "bytes": 1707465,
+      "pages": 91,
+      "url": "https://reposipot.imss.gob.mx/normatividad/DNMR/Procedimiento/2900-003-001.pdf"
+    },
+    {
+      "id": "dof-pobalines-1000-001-029-2021",
+      "path": "docs/fuentes/imss/dof-5625913.html",
+      "media_type": "text/html",
+      "sha256": "e088234e624a6172a7e85eb0aed5c338b55c84e399b6ea086cd326f85ddc580e",
+      "bytes": 510270,
+      "pages": null,
+      "url": "https://dof.gob.mx/nota_detalle_popup.php?codigo=5625913"
+    }
+  ]
+}
