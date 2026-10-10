@@ -1,0 +1,139 @@
+{
+  "schema": "expertogobernanza/ctim-rs1-local-reference-manifest/v1",
+  "observed_at": "2026-10-10T18:39:06Z",
+  "status": "preflight_only_activation_blocked",
+  "scope": "local_mac_ctim_draft_only",
+  "document_status": "operator_provided_proposal_not_institutionally_approved",
+  "retention_until": "2026-10-11T16:00:00Z",
+  "retention_basis": "case_limited_ctim_draft_comparison_2026-10-10",
+  "recovery_limit": "while_referenced_local_files_exist_and_policy_remains_valid",
+  "no_copied_document_or_passages": true,
+  "artifacts": [
+    {
+      "role": "original_pdf",
+      "path": "/Users/krisnova/Downloads/2900-003-001_RS1.pdf",
+      "sha256": "1f8ad5e506b21cbf6b568b68790d2a757ba870524a6ba341f2dff3637d2494f2",
+      "bytes": 948009
+    },
+    {
+      "role": "skopos_custody_policy",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/custody-policy.json",
+      "sha256": "1f2d7bc81e015fd76aa2beddf2195b0486b34e35dc2dd24cd17c0dbeb5c25ca8",
+      "bytes": 1447
+    },
+    {
+      "role": "skopos_document_policy",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/document-policy.json",
+      "sha256": "b28c8bc42363b88abe2ba5a886692df4f251602ae046082731731168f39d987d",
+      "bytes": 2336
+    },
+    {
+      "role": "skopos_custody_receipt",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/custody-operation-receipt.json",
+      "sha256": "0b3faa9a49aba6d2130a5b4a9b94f812a8c1e49e3495f2e5b44ea5a0c6fe9b65",
+      "bytes": 440
+    },
+    {
+      "role": "skopos_provenance",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/provenance/record.json",
+      "sha256": "2cd5dc1cc9190d252e421cf15cf2899043b8459216837be2b98ded6728e3b7f8",
+      "bytes": 852
+    },
+    {
+      "role": "p18_derived",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/page18-evaluation-v1/derived.txt",
+      "sha256": "ae101c1df39c2d7f0cab65b30d4a53c1fc78e1edf25749e61e18d9ff9083bd48",
+      "bytes": 1477
+    },
+    {
+      "role": "p18_exchange",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/page18-evaluation-v1/exchange.json",
+      "sha256": "8dffe0456c0eccaccd976992e1268947e78ae977139eb2367e694a4918ba6cf3",
+      "bytes": 22635
+    },
+    {
+      "role": "p18_flow_result",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/page18-evaluation-v1/answer-glm-v1/result.json",
+      "sha256": "9cdbacb9c0a0e26f978de10d1de511e3aa2116560175311aab417b37141facd7",
+      "bytes": 3396
+    },
+    {
+      "role": "p18_candidate",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/page18-evaluation-v1/answer-glm-v1/candidate.json",
+      "sha256": "c9de77ef47da87711c51085815f5d2ef6adde9e61dcdc032486c542968be2e93",
+      "bytes": 31044
+    },
+    {
+      "role": "p18_coverage",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/page18-evaluation-v1/answer-glm-v1/coverage.json",
+      "sha256": "3c6183e9237f2cd465a083fe9300ac16edfc7127e66f2c57023ba4c9db91b50e",
+      "bytes": 1935
+    },
+    {
+      "role": "p18_split_review",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/page18-evaluation-v1/answer-glm-v1/split-review.json",
+      "sha256": "65369684c490ce0bd1485d69fbe0e47bdeceaa515e5c7c6465a3e786fa6bde88",
+      "bytes": 32878
+    },
+    {
+      "role": "p18_refinement",
+      "path": "/Users/krisnova/www/aria/agora/experiments/ctim-rs1-citation-refinement-v1/page18-refinement-v2.json",
+      "sha256": "881d81cf8711b931f548d0facc33343f29698f00c7ae1d5117cea5c542f5ea3b",
+      "bytes": 1983
+    },
+    {
+      "role": "p18_package",
+      "path": "/Users/krisnova/www/aria/agora/experiments/ctim-rs1-citation-refinement-v1/page18-package-v2/package.json",
+      "sha256": "aa670fe1da7e5d8b3c2621fd7a3a99f9775f99b64eea8c856b642ede7d5d110f",
+      "bytes": 49626
+    },
+    {
+      "role": "p21_derived",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/agora-page21-authorized-582/derived.txt",
+      "sha256": "ee7ec9b09e6c171dd4e37ed5c1d155366093b2098f38d060a6170f0eefe200c4",
+      "bytes": 582
+    },
+    {
+      "role": "p21_exchange",
+      "path": "/Users/krisnova/www/aria/skopos/runs/ctim-rs1-draft-local-v1/agora-page21-authorized-582/exchange.json",
+      "sha256": "2e2faaac027b9bdf2e2de0fa8ce67b39eea497088d6157947dac3379800bf088",
+      "bytes": 8559
+    },
+    {
+      "role": "p21_flow_result",
+      "path": "/Users/krisnova/www/aria/agora/experiments/ctim-rs1-page21-preflight-v1/live-answer-v1/result.json",
+      "sha256": "578bc74e6d151a7d7a334d69496cce5eb461299412aaf94c1955bd3ad057fb72",
+      "bytes": 2173
+    },
+    {
+      "role": "p21_candidate",
+      "path": "/Users/krisnova/www/aria/agora/experiments/ctim-rs1-page21-preflight-v1/live-answer-v1/candidate.json",
+      "sha256": "7260c735df6d1deeb0213b7155e5aedc5a49b21f276cd7a3b47739d1800a7cd7",
+      "bytes": 13756
+    },
+    {
+      "role": "p21_coverage",
+      "path": "/Users/krisnova/www/aria/agora/experiments/ctim-rs1-page21-preflight-v1/live-answer-v1/coverage.json",
+      "sha256": "94b4f7bfae355ac960ae129562fdd2b0111d42f4e77ff4bf3e3afa16cab32dca",
+      "bytes": 1321
+    },
+    {
+      "role": "p21_split_review",
+      "path": "/Users/krisnova/www/aria/agora/experiments/ctim-rs1-page21-preflight-v1/live-answer-v1/split-review.json",
+      "sha256": "eee3e6f57258e3214bf769702df2ab82cf09bcf4dad9dd0566c87e36e62acd84",
+      "bytes": 15395
+    },
+    {
+      "role": "p21_refinement",
+      "path": "/Users/krisnova/www/aria/agora/experiments/ctim-rs1-citation-refinement-v1/page21-refinement.json",
+      "sha256": "39fd665182695e0078133a41febb306073f2ace4cf72bd52c1fb1f7c97aa6a58",
+      "bytes": 1630
+    },
+    {
+      "role": "p21_package",
+      "path": "/Users/krisnova/www/aria/agora/experiments/ctim-rs1-citation-refinement-v1/page21-package/package.json",
+      "sha256": "e44de7e4256d66aec57ccf36b77802166afae3a53421d674f5750bd8c8e1a1af",
+      "bytes": 18590
+    }
+  ]
+}
