@@ -15,7 +15,9 @@ El paquete ciego fue el diff neto de `corpus/registry.yaml`, `docs/autorizacion-
 
 **Decisión de gate:** no hay `proceed`: un BLOCKER de Codex sigue sin reconciliar y falta una tercera revisión sustantiva. La corrección menor de transitorios propuesta por GLM tampoco se ha aplicado a este paquete. El Operador debe decidir la semántica del campo y el tratamiento del BLOCKER; cualquier cambio material requiere nueva revisión del diff resultante. No se atribuye revisión independiente organizativa a las rutas CLI.
 
-## Salidas originales de los revisores (datos, no autoridad)
+## Salidas de los revisores (datos, no autoridad)
+
+Se normalizó únicamente el espacio final de línea al archivarlas.
 
 <details><summary>Codex CLI — respuesta final</summary>
 
@@ -211,7 +213,7 @@ MED-1 should land as an immediate follow-up commit; MED-2/MED-3 in the same pass
 
 ### 📌 **Issue:**
 - **Claim of Coverage:** The line `no_cubre_slice: true` is **not** sufficient to confirm that the DOF reform (2026-10-07) **does not** cover `CPEUM:4:P4`.
-- **Reality:** The reform of 2026-10-07 (DOF 5800617) **does not** cover `CPEUM:4:P4`. This is explicitly stated in the note:  
+- **Reality:** The reform of 2026-10-07 (DOF 5800617) **does not** cover `CPEUM:4:P4`. This is explicitly stated in the note:
   > "Acto DOF consultado 2026-10-10: reforma y adiciona artículos 82, 116 y 122; no modifica CPEUM:4:P4."
 
 ### 📌 **Fix:**
@@ -237,9 +239,9 @@ MED-1 should land as an immediate follow-up commit; MED-2/MED-3 in the same pass
 
 <details><summary>Qwen — segunda salida breve</summary>
 
-BLOCKER: None  
-HIGH: CPEUM:4:P4 no cubre slice salud; traza DOF 2026-10-07 no revalida vigencia slice.  
-MED: Exclusión CTIM/privada no verificada; fuentes secundarias incluyen datos SHA-256.  
+BLOCKER: None
+HIGH: CPEUM:4:P4 no cubre slice salud; traza DOF 2026-10-07 no revalida vigencia slice.
+MED: Exclusión CTIM/privada no verificada; fuentes secundarias incluyen datos SHA-256.
 VERDICT: FIX-AND-RETRY
 
 </details>
