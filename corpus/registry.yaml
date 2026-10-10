@@ -326,7 +326,7 @@ fuentes:
         identificadores_diario: "DOF 07-05-2026 (Art.36; no LOAPF:1)"
         nota: "CONFIRMADO F5: no es traza de LOAPF:1."
     notas: >-
-      F5 2026-08-10: vigencia verificada sólo para LOAPF:1:P3. El agregado
+      F5 2026-08-10: procedencia primaria verificada sólo para LOAPF:1:P3; vigencia actual no verificada. El agregado
       LOAPF:1 mezcla ¶2 reformado 18-03-2025 con ¶1/¶3 y no tiene una fecha única.
       La reforma de cuerpo 07-05-2026 cubre Art.36, no el slice.
 
@@ -479,7 +479,7 @@ fuentes:
         cubre_disposicion: true
         identificadores_diario: "DOF 21-12-1995 publicación LSS"
         f5: false
-        nota: "Pendiente F5 humana; no heredar vigencia verificada de LSS:5."
+        nota: "Pendiente F5 humana; no heredar procedencia primaria verificada de LSS:5."
     url_dof_nivel1: null
     procedencia_primaria_verificada: true
     vigencia_verificada: false  # legado: no acredita vigencia actual
@@ -535,7 +535,7 @@ fuentes:
         identificadores_diario: "DOF 15-01-2026 (cuerpo; no LSS:5)"
         nota: "CONFIRMADO F5: no es traza de LSS:5."
     notas: >-
-      F5 2026-08-10: vigencia true (ancla LSS:5). No confundir ultima_reforma_cuerpo
+      F5 2026-08-10: procedencia primaria verificada para LSS:5; vigencia actual no verificada. No confundir ultima_reforma_cuerpo
       2026-01-15 con traza_disposicion_principal 2001-12-20.
 
   - id: RIIMSS
@@ -613,4 +613,4 @@ fuentes:
         identificadores_diario: "DOF 23-08-2012 (Art.155; no Art.1)"
         nota: "CONFIRMADO F5: no es traza de RIIMSS:1."
     notas: >-
-      F5 2026-08-10: vigencia true RIIMSS:1. ultima_reforma_cuerpo 2012 ≠ traza Art.1.
+      F5 2026-08-10: procedencia primaria verificada para RIIMSS:1; vigencia actual no verificada. ultima_reforma_cuerpo 2012 ≠ traza Art.1.
