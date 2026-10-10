@@ -3,7 +3,9 @@
 **Estado:** propuesta de diseño (no implementado en código salvo v1 actual).  
 **Fecha:** 2026-08-10 · **Plan:** R1-E1-05 / metodología `docs/fuentes-legal-mx.md`  
 **Implementación código:** ticket futuro; **default R1:** no habilitar `alto` hasta
-H1 con vigencia real + aceptación del rol jurídico.
+contrato temporal de vigencia actual, evidencia y aceptación del rol jurídico.
+La enmienda de 2026-10-10 separa procedencia primaria y vigencia actual: una
+traza histórica F5 alimenta `procedencia`, nunca vuelve verdadero el eje D.
 
 ## Problema
 

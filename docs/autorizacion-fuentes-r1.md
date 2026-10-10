@@ -15,8 +15,8 @@ Jiménez (roles interinos §9 — `docs/roles-r1.md`).
 ### Reglas
 
 1. **Autorizar el canal ≠ verificar un artículo.**  
-   `vigencia_verificada: true` en el registry solo tras evidencia concreta del
-   instrumento/artículo (ticket R1-E1-*), no por la sola existencia de esta nota.
+   `procedencia_primaria_verificada: true` en el registry solo tras evidencia
+   concreta del acto y su alcance; no acredita vigencia actual.
 2. Jerarquía y duda: política §7; en duda → `[VIGENCIA-NO-VERIFICADA]`.
 3. Preferir **permalink o identificador estable** del acto (DOF) al copiar URLs de
    búsqueda genéricas.
