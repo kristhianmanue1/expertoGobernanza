@@ -35,6 +35,8 @@ class TestVerifyGate(unittest.TestCase):
         self.assertEqual(r["response_status"], "medio")
         self.assertEqual(r["registry_check"], "unverified")
         self.assertTrue(r["registry_procedencia_primaria_verificada"])
+        self.assertEqual(r["registry_procedencia_fuente"], "trazas_publicacion")
+        self.assertEqual(r["registry_procedencia_razon"], "traza_exacta_con_revision")
 
     def test_golden_lgs_medio(self):
         r = vc.verify_claim(_claim("LGS:1", LGS_QUOTE))

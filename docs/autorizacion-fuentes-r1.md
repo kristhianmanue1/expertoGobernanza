@@ -40,11 +40,20 @@ Jiménez (roles interinos §9 — `docs/roles-r1.md`).
 |------------------|-----------------|
 | `claude` (Anthropic) | Revisión adversarial |
 | `codex` (OpenAI) | Revisión adversarial |
-| `opencode` con `zai-coding-plan/glm-5.3-flash` (Z.ai / GLM) | En la ronda de separación de procedencia/vigencia del 2026-10-10: únicamente el **diff filtrado público** de los 24 archivos cambiados entre `codex/ctim-proposal-intake-2026-10-10@26f6ae7` y `codex/provenance-vigencia-docs`, comprendidos en `corpus/registry.yaml`, `corpus/registry_loader.py`, `corpus/registry_rules.py`, `corpus/verify_citations.py`, nueve JSON en `corpus/derived/`, cinco pruebas en `tests/` y seis documentos `docs/autorizacion-fuentes-r1.md`, `docs/evidencia/fuentes-publicas-complementarias-2026-10-10.md`, `docs/fuentes-legal-mx.md`, `docs/plan-r1-90d.md`, `docs/propuestas/gate-confianza-multieje-v1.md`, `docs/roles-r1.md`. Excluir la nota de la ronda anterior y salidas de pares para preservar revisión ciega. No enviar archivos completos, CTIM, PDF locales, material interno ni datos personales. Registrar modelo/proveedor reportados |
+| `opencode` con `zai-coding-plan/glm-5.3` (Z.ai / GLM) | En la ronda de separación de procedencia/vigencia del 2026-10-10: únicamente el **diff filtrado público** de los 24 archivos cambiados entre `codex/ctim-proposal-intake-2026-10-10@26f6ae7` y `codex/provenance-vigencia-docs`, comprendidos en `corpus/registry.yaml`, `corpus/registry_loader.py`, `corpus/registry_rules.py`, `corpus/verify_citations.py`, nueve JSON en `corpus/derived/`, cinco pruebas en `tests/` y seis documentos `docs/autorizacion-fuentes-r1.md`, `docs/evidencia/fuentes-publicas-complementarias-2026-10-10.md`, `docs/fuentes-legal-mx.md`, `docs/plan-r1-90d.md`, `docs/propuestas/gate-confianza-multieje-v1.md`, `docs/roles-r1.md`. Excluir la nota de la ronda anterior y salidas de pares para preservar revisión ciega. No enviar archivos completos, CTIM, PDF locales, material interno ni datos personales. Registrar modelo/proveedor reportados |
 | `ollama` local con `qwen3:8b` (familia Qwen, desarrollada por Qwen/Alibaba Cloud) | Autorización histórica limitada a la ronda anterior de cuatro archivos. **No enviar** el nuevo diff: el Operador excluyó Qwen de esta ronda por falta de tokens. El digest observado identifica un artefacto local, no certifica origen de pesos |
 | Otros (kimi, gemini, otros modelos de Qwen, cline, otras combinaciones de opencode/modelo, …) | Solo si el admin confirma disponibilidad y se añade fila aquí |
 
 Si un CLI no está en la tabla: **no** enviar corpus legal hasta enmienda.
+
+**Excepción de quórum para este expediente (decisión del Operador, 2026-10-10):**
+el Operador aceptó dos rutas, Codex y OpenCode/GLM, como suficientes para
+decidir la continuación de este cambio ante la falta de un tercer modelo
+disponible. No equivale al quórum ordinario de tres proveedores de la política
+§6 ni lo modifica para otros hitos. Exige dos dictámenes sobre el mismo diff
+final, sin compartir salidas; cualquier BLOCKER detiene la integración hasta
+corrección y revisión. Queda un riesgo residual de menor decorrelación y
+ningún dictamen constituye aprobación jurídica o verificación de vigencia.
 
 **No autorizado (default):**
 
@@ -79,3 +88,4 @@ Hasta entonces:
 | 2026-10-10 | El Operador indicó usar GLM por OpenCode/Z.ai para revisar este cambio si Ollama no está disponible; esta autorización del proveedor no altera por sí misma los canales: LeyesBiblio se incorporó mediante la decisión precedente |
 | 2026-10-10 | El Operador autorizó Qwen local `qwen3:8b` como tercera familia subyacente para la ronda de este expediente; sonda loopback HTTP 200 con respuesta `PONG`, sin ampliar autorización de fuentes o ingesta. `/api/tags` reportó digest local `500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41`; Qwen atribuye la familia a Qwen/Alibaba Cloud en https://github.com/QwenLM/Qwen3 |
 | 2026-10-10 | Para la ronda nueva sobre la separación de procedencia y vigencia, el Operador limitó el envío del diff público a Codex y GLM mediante OpenCode; excluyó Qwen por falta de tokens. El alcance final comprende 24 archivos porque se incorporaron los documentos activos de plan y roles. Dos proveedores no satisfacen el quórum de alto impacto de §6. |
+| 2026-10-10 | En conversación posterior, el Operador aceptó expresamente dos dictámenes para este expediente y pidió comprobar GLM 5.3 sin Flash. `opencode models zai-coding-plan` listó esa ruta y una sonda inocua devolvió `PONG`; esto comprueba acceso operativo, no identidad efectiva independiente ni calidad de la revisión. |

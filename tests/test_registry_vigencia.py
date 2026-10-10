@@ -95,6 +95,27 @@ class TestRegistryRules(unittest.TestCase):
         self.assertFalse(resultado["verificada"])
         self.assertEqual(resultado["razon"], "vigencia_actual_estado_no_admitido")
 
+    def test_estado_actual_ausente_o_malformado_falla_cerrado(self):
+        registry = load_registry(REGISTRY)
+        fuente = fuente_por_instrumento(registry, "CPEUM")
+        for estado in (None, True, [], {}):
+            with self.subTest(estado=estado):
+                caso = {**fuente, "vigencia_actual_estado": estado}
+                if estado is None:
+                    caso.pop("vigencia_actual_estado")
+                self.assertTrue(any("vigencia_actual_estado" in e for e in validate_fuente(caso)))
+                self.assertFalse(resolve_disposicion_vigencia(caso, "CPEUM:4:P4")["verificada"])
+
+    def test_legado_positivo_no_pasa_validacion(self):
+        for estado in (None, "verificada", "no_verificada"):
+            with self.subTest(estado=estado):
+                caso = {"id": "X", "vigencia_verificada": True}
+                if estado is not None:
+                    caso["vigencia_actual_estado"] = estado
+                errs = validate_fuente(caso)
+                self.assertTrue(any("legado no puede ser true" in e for e in errs))
+                self.assertFalse(resolve_disposicion_vigencia(caso, "X:1")["verificada"])
+
     def test_cpeum_2026_body_trace_does_not_verify_health_slice(self):
         registry = load_registry(REGISTRY)
         fuente = fuente_por_instrumento(registry, "CPEUM")
@@ -169,7 +190,9 @@ class TestRegistryRules(unittest.TestCase):
     def test_true_completo_ok(self):
         errs = validate_fuente({
             "id": "X",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "trazas_publicacion": [{
                 "url": "https://dof.gob.mx/nota_detalle.php?codigo=5593045&fecha=08/05/2020",
                 "alcance": "articulo",
@@ -186,7 +209,9 @@ class TestRegistryRules(unittest.TestCase):
     def test_true_no_cubre_slice_explicito_ok_estructura(self):
         errs = validate_fuente({
             "id": "X",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "trazas_publicacion": [{
                 "url": "https://dof.gob.mx/x",
                 "alcance": "instrumento",
@@ -458,7 +483,9 @@ class TestLiveRegistryFile(unittest.TestCase):
         # Espejo mínimo de las entradas true post-F5 (sin parser YAML)
         cpeum = {
             "id": "CPEUM",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "url_dof_nivel1": "https://dof.gob.mx/nota_detalle.php?codigo=5593045&fecha=08/05/2020",
             "trazas_publicacion": [{
                 "url": "https://dof.gob.mx/nota_detalle.php?codigo=5593045&fecha=08/05/2020",
@@ -473,7 +500,9 @@ class TestLiveRegistryFile(unittest.TestCase):
         }
         lgs = {
             "id": "LGS",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "trazas_publicacion": [{
                 "identificadores_diario": "DOF 29-05-2023 reforma LGS Art.1",
                 "alcance": "articulo",

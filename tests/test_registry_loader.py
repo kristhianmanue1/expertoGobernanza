@@ -18,7 +18,9 @@ import yaml
 VALID_TRUE = """
 fuentes:
   - id: LSS
-    vigencia_verificada: true
+    vigencia_verificada: false
+    procedencia_primaria_verificada: true
+    vigencia_actual_estado: no_verificada
     trazas_publicacion:
       - url: https://example.test/dof
         alcance: instrumento

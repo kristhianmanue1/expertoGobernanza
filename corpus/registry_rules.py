@@ -154,11 +154,12 @@ def resolve_disposicion_vigencia(fuente: dict, disposicion_id: str) -> dict:
     """
     procedencia = resolve_disposicion_procedencia(fuente, disposicion_id)
     estado = fuente.get("vigencia_actual_estado") if isinstance(fuente, dict) else None
-    razon = (
-        "vigencia_actual_no_verificada"
-        if estado is None or estado == "no_verificada"
-        else "vigencia_actual_estado_no_admitido"
-    )
+    if estado == "no_verificada":
+        razon = "vigencia_actual_no_verificada"
+    elif estado is None:
+        razon = "vigencia_actual_estado_ausente"
+    else:
+        razon = "vigencia_actual_estado_no_admitido"
     return {
         "disposicion_id": procedencia["disposicion_id"],
         "verificada": False,
@@ -178,9 +179,10 @@ def validate_fuente(fuente: dict) -> list[str]:
     legado = fuente.get("vigencia_verificada")
     if legado is not None and not isinstance(legado, bool):
         return [f"{fid}: vigencia_verificada exige booleano"]
-    if "procedencia_primaria_verificada" in fuente:
-        if legado is True:
-            errs.append(f"{fid}: vigencia_verificada legado no puede ser true")
+    if legado is True:
+        errs.append(f"{fid}: vigencia_verificada legado no puede ser true")
+    if ("procedencia_primaria_verificada" in fuente or legado is True
+            or "vigencia_actual_estado" in fuente):
         if fuente.get("vigencia_actual_estado") != "no_verificada":
             errs.append(f"{fid}: vigencia_actual_estado debe ser no_verificada en R1")
     vigencia = fuente.get("procedencia_primaria_verificada", legado)
