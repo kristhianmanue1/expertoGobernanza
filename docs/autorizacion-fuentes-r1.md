@@ -40,7 +40,8 @@ Jiménez (roles interinos §9 — `docs/roles-r1.md`).
 |------------------|-----------------|
 | `claude` (Anthropic) | Revisión adversarial |
 | `codex` (OpenAI) | Revisión adversarial |
-| Otros (kimi, gemini, qwen, opencode, cline, glm, …) | Solo si el admin confirma disponibilidad y se añade fila aquí |
+| `opencode` con `zai-coding-plan/glm-5.3-flash` (Z.ai / GLM) | Únicamente revisión adversarial del **diff filtrado** de los cuatro archivos del commit `0d8cda2` y de esta enmienda, con los extractos públicos estrictamente necesarios; no enviar archivos completos, CTIM, PDF locales, material interno ni datos personales. Usar la ruta directa Z.ai y registrar modelo/proveedor reportados en la ejecución |
+| Otros (kimi, gemini, qwen, cline, otras combinaciones de opencode/modelo, …) | Solo si el admin confirma disponibilidad y se añade fila aquí |
 
 Si un CLI no está en la tabla: **no** enviar corpus legal hasta enmienda.
 
@@ -74,3 +75,4 @@ Hasta entonces:
 |-------|--------|
 | 2026-08-10 | Autorización canales DOF + Orden Jurídico; multi-provider solo público; E0-03 diferido |
 | 2026-10-10 | El Operador autorizó incorporar LeyesBiblio como canal complementario público de consulta y análisis; se conserva DOF como ancla de publicación/reforma y la restricción de material interno/proveedores |
+| 2026-10-10 | El Operador indicó usar GLM por OpenCode/Z.ai para revisar este cambio si Ollama no está disponible; esta autorización del proveedor no altera por sí misma los canales: LeyesBiblio se incorporó mediante la decisión precedente |
