@@ -23,8 +23,8 @@ def _resultado_vigencia(
 def resolve_disposicion_procedencia(fuente: dict, disposicion_id: str) -> dict:
     """Resuelve sólo la procedencia primaria de una disposición.
 
-    El campo legado ``vigencia_verificada`` se acepta en fixtures anteriores,
-    pero representa procedencia, nunca vigencia actual. Si existe
+    El campo nuevo de procedencia debe estar explícito; el legado
+    ``vigencia_verificada`` no puede acreditar procedencia. Si existe
     ``traza_disposiciones``, esa tabla es autoritativa y no se hace fallback a
     trazas más generales cuando falta una entrada o su F5 es falso.
     """
@@ -36,9 +36,7 @@ def resolve_disposicion_procedencia(fuente: dict, disposicion_id: str) -> dict:
             disposicion_id, False, "ninguna", "fuente_invalida"
         )
 
-    if fuente.get(
-        "procedencia_primaria_verificada", fuente.get("vigencia_verificada")
-    ) is not True:
+    if fuente.get("procedencia_primaria_verificada") is not True:
         return _resultado_vigencia(
             disposicion_id, False, "instrumento", "procedencia_no_verificada"
         )
@@ -154,17 +152,19 @@ def resolve_disposicion_vigencia(fuente: dict, disposicion_id: str) -> dict:
     """
     procedencia = resolve_disposicion_procedencia(fuente, disposicion_id)
     estado = fuente.get("vigencia_actual_estado") if isinstance(fuente, dict) else None
-    razon = (
-        "vigencia_actual_no_verificada"
-        if estado is None or estado == "no_verificada"
-        else "vigencia_actual_estado_no_admitido"
-    )
+    if estado == "no_verificada":
+        razon = "vigencia_actual_no_verificada"
+    elif estado is None:
+        razon = "vigencia_actual_estado_ausente"
+    else:
+        razon = "vigencia_actual_estado_no_admitido"
     return {
         "disposicion_id": procedencia["disposicion_id"],
         "verificada": False,
         "fuente": "ninguna",
         "razon": razon,
         "vigencia_actual_estado": "no_verificada",
+        "vigencia_actual_estado_valido": estado == "no_verificada",
         "procedencia_primaria_verificada": procedencia["verificada"],
         "procedencia_fuente": procedencia["fuente"],
         "procedencia_razon": procedencia["razon"],
@@ -178,11 +178,12 @@ def validate_fuente(fuente: dict) -> list[str]:
     legado = fuente.get("vigencia_verificada")
     if legado is not None and not isinstance(legado, bool):
         return [f"{fid}: vigencia_verificada exige booleano"]
-    if "procedencia_primaria_verificada" in fuente:
-        if legado is True:
-            errs.append(f"{fid}: vigencia_verificada legado no puede ser true")
-        if fuente.get("vigencia_actual_estado") != "no_verificada":
-            errs.append(f"{fid}: vigencia_actual_estado debe ser no_verificada en R1")
+    if legado is True:
+        errs.append(f"{fid}: vigencia_verificada legado no puede ser true")
+    if "procedencia_primaria_verificada" not in fuente:
+        errs.append(f"{fid}: falta procedencia_primaria_verificada")
+    if fuente.get("vigencia_actual_estado") != "no_verificada":
+        errs.append(f"{fid}: vigencia_actual_estado debe ser no_verificada en R1")
     vigencia = fuente.get("procedencia_primaria_verificada", legado)
     if vigencia is False or vigencia is None:
         return errs

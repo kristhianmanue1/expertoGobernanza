@@ -21,7 +21,7 @@
 4. **Consolidados = secundarios potentes:** Cámara, Orden Jurídico, portales de
    secretarías: útiles para leer y contrastar; **informativos** respecto del acto
    en gaceta primaria.
-5. **En duda:** `vigencia_verificada: false` + `[VIGENCIA-NO-VERIFICADA]`.
+5. **En duda:** `vigencia_actual_estado: no_verificada` + `[VIGENCIA-NO-VERIFICADA]`.
 6. **Redactar ≠ promulgar:** el agente propone registry/PRs; roles §9 cierran.
 7. **Sin copia verbatim masiva a AN-KLA:** puntero + hash + URL.
 8. **Tres capas (F1):** no confundir instrumento, disposición y texto de trabajo.
@@ -44,7 +44,8 @@ Un claim de publicidad DOF opera sobre un **acto** con **alcance** declarado.
 
 | Campo | Significado | Error típico de agente |
 |-------|-------------|------------------------|
-| `vigencia_verificada: true` | Ancla de **procedencia** reconciliada (con F5) para el alcance declarado | “La norma entera está al día en DOF de la última reforma del cuerpo” |
+| `procedencia_primaria_verificada: true` | Ancla primaria reconciliada (con F5) para el alcance declarado | Vigencia actual de la disposición |
+| `vigencia_actual_estado: no_verificada` | No existe comprobación temporal suficiente en R1 | Que la disposición está derogada |
 | `traza_disposicion_principal` | Fecha/tipo/acto que **cubre** la disposición del slice (`cubre_disposicion: true`) | Usar 2012/2026 del cuerpo como si fuera del Art. 1 |
 | `ultima_reforma_cuerpo` | Última reforma del **ordenamiento** (`cubre_disposicion: false` si no toca el slice) | Concluir “LSS:5 proviene de 2026-01-15” |
 | `fecha_ultima_reforma_dof_declarada` | Claim nivel 2 del índice (legado); preferir los dos campos de arriba | Tratarlo como traza del artículo |
@@ -60,19 +61,28 @@ Orden permitido en R1:
 
 1. Preferir evidencia de **nivel 1** (acto en órgano de publicidad) sobre nivel ≥2.
 2. Preferir **fecha de acto** documentada sobre claim secundario sin acto.
-3. Si persiste duda o discrepancia → `vigencia_verificada: false` +
+3. Si persiste duda o discrepancia → `procedencia_primaria_verificada: false` +
    `coherencia_multi_fuente: discrepancia` + **decisión humana** (§9) en notas/ADR-lite.
 
-### 1.3 Semántica de `vigencia_verificada` (F3)
+### 1.3 Procedencia primaria y vigencia actual (enmienda 2026-10-10)
 
-| Valor | Significa | **No** significa |
-|-------|-----------|------------------|
-| `true` | Se reconcilió **ancla de procedencia primaria** usable para el **alcance** declarado (acto DOF/gaceta + metadatos) | Que la norma sea aplicable a un caso; que no hay vacatio/transitorio; que todo el cuerpo está reconciliado artículo por artículo |
-| `false` | Default; falta primaria, alcance insuficiente, duda o solo nivel ≥2 | “La norma no existe” |
+| Campo | Significa | Límite |
+|-------|-----------|--------|
+| `procedencia_primaria_verificada` | Resumen instrumental de anclas primarias revisadas con F5; la cobertura de cada disposición se resuelve aparte | No acredita continuidad, vigencia actual ni aplicabilidad |
+| `vigencia_actual_estado: no_verificada` | R1 carece de comprobación temporal suficiente | No afirma derogación |
+| `vigencia_verificada: false` | Campo legado conservador para consumidores previos | Nunca se deriva de `procedencia_primaria_verificada` |
+
+`resolve_disposicion_procedencia` determina cobertura histórica exacta. El resultado
+de `resolve_disposicion_vigencia` expone esa señal por separado y devuelve
+`verificada=false` para vigencia actual. R1 no admite un estado positivo de
+vigencia actual: requiere contrato temporal, transitorios, revisión humana y
+ronda adversarial propios. Los JSON derivados conservan la procedencia en
+`vigencia.procedencia_primaria_verificada`; sus campos legados de vigencia
+quedan en `false`/`no_verificada`.
 
 Campos de apoyo recomendados:
 
-- `fecha_consulta_vigencia` (YYYY-MM-DD)
+- `fecha_revision_procedencia` (YYYY-MM-DD)
 - `vacatio_o_transitorio`: `unknown` \| `no` \| `si` (+ nota)
 - Glosa en salidas de producto: *procedencia primaria reconciliada (alcance X)* —
   nunca “certificado de aplicabilidad”.
@@ -88,9 +98,9 @@ Campos de apoyo recomendados:
 | **3** | Jurisprudencial / interpretativa | Criterio de tribunales; **no** sustituye el texto legal | SCJN, SJF, tesis |
 | **4** | Derivada | Extractos del propio corpus, resúmenes, salida de agentes | `corpus/derived/`, borradores |
 
-**Regla de oro:** un claim de **vigencia federal** no puede ser `vigencia_verificada: true`
-si solo hay evidencia de nivel ≥2, salvo decisión documentada del rol jurídico
-(ADR-lite) que lo justifique — default R1: **no**.
+**Regla de oro:** un acto primario histórico puede acreditar procedencia, pero
+no convierte por sí solo `vigencia_actual_estado` en verificada. La evidencia
+de nivel ≥2 tampoco acredita procedencia primaria sin acto de publicación.
 
 ---
 
@@ -98,13 +108,13 @@ si solo hay evidencia de nivel ≥2, salvo decisión documentada del rol jurídi
 
 | Tipo de norma (ámbito) | Fuente **primaria** (nivel 1) | Fuentes **secundarias** típicas (nivel 2+) | Campos mínimos en `registry.yaml` |
 |------------------------|------------------------------|--------------------------------------------|-----------------------------------|
-| Constitución federal (CPEUM) y reformas | DOF (acto de publicación/reforma) | Cámara, Orden Jurídico | `id`, `tipo`, `nivel` (archivo), `url_dof_nivel1` o lista de actos, `fecha_publicacion_dof`, `fecha_ultima_reforma_dof_*`, `sha256`, `fecha_consulta`, `vigencia_verificada` |
+| Constitución federal (CPEUM) y reformas | DOF (acto de publicación/reforma) | Cámara, Orden Jurídico | `id`, `tipo`, `nivel` (archivo), acto DOF, `sha256`, `fecha_consulta`, `procedencia_primaria_verificada`, `vigencia_actual_estado` |
 | Ley federal / reglamentaria (p. ej. LGS) | DOF | Cámara, Orden Jurídico, DOF consolidados si los hubiera | igual + `autoridad` |
 | Reglamento federal / decreto del Ejecutivo | DOF | Sitio de la dependencia, Orden Jurídico | igual |
 | NOM / acuerdos administrativos federales | DOF u órgano que el propio instrumento señale | Sitio de la dependencia | `tipo` específico + primaria documentada |
 | Ley **estatal** | Periódico oficial del **estado** | Portales estatales, Orden Jurídico (si indexa) | `organo_publicidad_primaria`, URL gaceta, **no** fingir DOF federal |
 | Norma municipal | Gaceta / bando municipal | Portales municipales | idem local |
-| Jurisprudencia / tesis | Publicación oficial del criterio (SJF etc.) | Resúmenes doctrinales | `nivel: 3`; **no** usar para `vigencia_verificada` de una ley |
+| Jurisprudencia / tesis | Publicación oficial del criterio (SJF etc.) | Resúmenes doctrinales | `nivel: 3`; **no** usar para procedencia primaria de una ley |
 | Manual / procedimiento **interno** IMSS | N/A como “ley”; es **dato institucional** | — | **No** al corpus normativo público sin auth; router §7.4 deniega interno v1 |
 
 ### Canales autorizados hoy (R1)
@@ -125,7 +135,8 @@ si solo hay evidencia de nivel ≥2, salvo decisión documentada del rol jurídi
 - `fuente_archivo`, `nivel` ← nivel del **archivo bytes** cargado
 - `url_descarga`, `archivo_local`, `bytes`, `sha256`, `fecha_consulta`
 - `fecha_publicacion_dof`, `fecha_ultima_reforma_dof_declarada`
-- `url_dof_nivel1`, `vigencia_verificada`, `notas`
+- `url_dof_nivel1`, `procedencia_primaria_verificada`, `vigencia_actual_estado`, `notas`
+- `vigencia_verificada: false` (legado, sin promoción automática)
 
 ### 4.2 Extensión recomendada (R1+, rellenar cuando exista evidencia)
 
@@ -133,7 +144,10 @@ Usar nombres estables; omitir o `null` si no aplica:
 
 ```yaml
 # ejemplo ilustrativo — no copiar como verdad de un instrumento real
-fecha_consulta_vigencia: "YYYY-MM-DD"
+fecha_revision_procedencia: "YYYY-MM-DD"
+procedencia_primaria_verificada: false
+vigencia_verificada: false
+vigencia_actual_estado: no_verificada
 vacatio_o_transitorio: unknown   # unknown | no | si
 trazas_publicacion:
   - tipo_acto: reforma   # publicacion | reforma | fe_de_erratas
@@ -161,7 +175,7 @@ fuentes_secundarias_consultadas:
 coherencia_multi_fuente: alineado | discrepancia | no_evaluado
 discrepancia_notas: null
 # Doble control (F5) antes de true:
-revision_vigencia:
+revision_procedencia:
   revisado_por: "nombre o handle"
   fecha: "YYYY-MM-DD"
   auto_revision_declarada: false  # true solo si no hay segundo revisor
@@ -170,16 +184,16 @@ revision_vigencia:
 **Campos legados en registry actual (M3):**  
 `fecha_ultima_reforma_dof_declarada` y similares tomados de Cámara son
 **claims nivel 2** hasta reconciliar con traza DOF de alcance adecuado. No bastan
-para `vigencia_verificada: true`.
+para `procedencia_primaria_verificada: true`.
 
-**Condición mínima de `vigencia_verificada: true` (post-adversarial):**
+**Condición mínima de `procedencia_primaria_verificada: true`:**
 
 1. ≥1 entrada en `trazas_publicacion` nivel 1 con fecha + (URL **o**
    `identificadores_diario` suficientes — M8).
 2. `alcance` + `cubre_disposiciones` (o `no_cubre_slice`) **explícitos**.
 3. Si el KPI es el slice salud: la traza debe **cubrir** `CPEUM:4:P4` y/o LGS Art. 1
    según el ticket; no basta una reforma de otro título del mismo cuerpo (F2).
-4. `revision_vigencia` completada (F5).
+4. `revision_procedencia` completada (F5).
 5. `coherencia_multi_fuente` ≠ `discrepancia` (o desempate humano documentado).
 6. Secundarias pueden apoyar; **no bastan solas**.
 
@@ -231,7 +245,7 @@ R1 **no** implementa vigencia bitemporal plena (“¿vigente el día D?”).
 
 ### Paso F — Cierre
 
-1. Completar `revision_vigencia` (F5 / `roles-r1.md`).
+1. Completar `revision_procedencia` (F5 / `roles-r1.md`).
 2. PR pequeño registry + notas (+ tests E1-04).
 3. DoD base: tests + `check_sizes`.
 4. CI: verde o `SUSPENDIDO (billing)` + DoD local (`docs/ops-github.md`).
@@ -258,7 +272,7 @@ Complementa el gate de citas (`corpus/verify_citations.py`). Diseño detallado:
 | A | `existencia` | ¿La disposición está en el corpus? | `lookup` / `reference_exists` |
 | B | `procedencia` | ¿Nivel de fuente del texto citado? | `registry.nivel` + trazas |
 | C | `match_textual` | ¿La cita aparece en el texto? | substring normalizado (gate v1) |
-| D | `vigencia` | ¿Vigencia anclada a primaria? | `vigencia_verificada` + trazas |
+| D | `vigencia` | ¿Vigencia actual comprobada? | `vigencia_actual_estado` (R1: no verificada) |
 | E | `coherencia` | ¿Secundarias alineadas? | `coherencia_multi_fuente` |
 
 **Agregación (política R1 — honesta, post-F4):**
@@ -267,7 +281,7 @@ Complementa el gate de citas (`corpus/verify_citations.py`). Diseño detallado:
 |----------|----------------------|-----|
 | **bajo** | Falla A o C, o fuente irresoluble | No usar como respaldo |
 | **medio** | A+C+hash OK; **o** D false; **o** archivo nivel ≥2 sin texto de disposición apoyado en primaria (`texto_trabajo_no_primario`) | Borrador / trabajo interno |
-| **alto** | A+C OK; D true **con alcance que cubre la disposición citada**; E ≠ discrepancia; y no aplica techo por texto no primario | **Inalcanzable en código v1**; v1.1 solo tras H1 + ticket código |
+| **alto** | A+C OK; D true tras comprobación temporal de la disposición; E ≠ discrepancia; y no aplica techo por texto no primario | **Inalcanzable en R1**; exige contrato temporal, ticket código y ronda nueva |
 
 El LLM **no** puede subir solo el eje D ni inventar nivel 1.
 
@@ -294,8 +308,9 @@ Fuera de alcance de este doc: scraper completo del DOF, bitemporalidad plena.
 - [ ] Permalink **o** `identificadores_diario` (M8) — no home DOF
 - [ ] Hash del archivo de trabajo coherente si hay original local
 - [ ] `coherencia_multi_fuente` evaluada
-- [ ] `revision_vigencia` (F5)
-- [ ] `vigencia_verificada: true` **solo** si §4.2 se cumple; si no, `false` + notas
+- [ ] `revision_procedencia` (F5)
+- [ ] `procedencia_primaria_verificada: true` **solo** si §4.2 se cumple
+- [ ] `vigencia_actual_estado: no_verificada` hasta existir contrato temporal propio
 - [ ] PR + tests + sin secretos · sin promesa de aplicabilidad casuística
 
 ---

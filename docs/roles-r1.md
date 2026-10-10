@@ -42,9 +42,9 @@ en este archivo (nueva fila + fecha; no borrar historia).
 ## Control compensatorio (F5) — tres roles en una persona
 
 Mientras jurídico = custodio = PO (interinato), **antes** de
-`vigencia_verificada: true` o de promesa exterior de calidad:
+`procedencia_primaria_verificada: true` o de promesa exterior de calidad:
 
-1. Completar en registry `revision_vigencia` (`revisado_por`, `fecha`).
+1. Completar en registry `revision_procedencia` (`revisado_por`, `fecha`).
 2. Preferible: segundo revisor humano o ronda adversarial **multi-provider**
    (H1) sobre el PR de vigencia.
 3. Si no hay segundo revisor: `auto_revision_declarada: true` **y** no omitir
@@ -53,6 +53,8 @@ Mientras jurídico = custodio = PO (interinato), **antes** de
    id de modelo; lo rellena el humano interino (o declara auto_revision).
 
 Ticket plan: `R1-E0-05` (doble control vigencia).
+La revisión de procedencia no acredita vigencia actual; esta última requiere
+contrato temporal y aceptación jurídica separados (`docs/fuentes-legal-mx.md` §1.3).
 
 ## Enlaces
 

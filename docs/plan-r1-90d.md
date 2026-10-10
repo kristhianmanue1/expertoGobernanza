@@ -8,6 +8,12 @@ sin auditor de documento. **Fecha:** 2026-08-10.
 **Ejecutores:** agentes de IA + admin humano (CODEOWNERS). **No es** promulgación
 normativa ni asesoría legal.
 
+**Enmienda 2026-10-10:** el Operador decidió separar procedencia primaria y
+vigencia actual (`docs/fuentes-legal-mx.md` §1.3). Las salidas históricas de E1
+que dicen `vigencia_verificada: true` describen el contrato anterior: ahora se
+representan como `procedencia_primaria_verificada: true` y
+`vigencia_actual_estado: no_verificada`; no prueban vigencia actual.
+
 ## Objetivo y criterio de cierre global
 
 **Objetivo:** en ~90 días, (1) al menos una **disposición** del slice salud con
