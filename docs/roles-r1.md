@@ -46,13 +46,14 @@ Mientras jurídico = custodio = PO (interinato), **antes** de
 
 1. Completar en registry `revision_procedencia` (`revisado_por`, `fecha`).
 2. Preferible: segundo revisor humano o ronda adversarial **multi-provider**
-   (H1) sobre el PR de vigencia.
+   (H1) sobre el PR de procedencia primaria.
 3. Si no hay segundo revisor: `auto_revision_declarada: true` **y** no omitir
    la ronda adversarial del hito (no cuenta como `proceed` silencioso).
 4. El agente autor del PR de registry **no** rellena `revisado_por` con su
    id de modelo; lo rellena el humano interino (o declara auto_revision).
 
-Ticket plan: `R1-E0-05` (doble control vigencia).
+Ticket plan: `R1-E0-05` (nombre histórico: doble control vigencia;
+alcance actual: revisión de procedencia primaria, no de vigencia actual).
 La revisión de procedencia no acredita vigencia actual; esta última requiere
 contrato temporal y aceptación jurídica separados (`docs/fuentes-legal-mx.md` §1.3).
 
