@@ -181,10 +181,10 @@ def validate_fuente(fuente: dict) -> list[str]:
         return [f"{fid}: vigencia_verificada exige booleano"]
     if legado is True:
         errs.append(f"{fid}: vigencia_verificada legado no puede ser true")
-    if ("procedencia_primaria_verificada" in fuente or legado is True
-            or "vigencia_actual_estado" in fuente):
-        if fuente.get("vigencia_actual_estado") != "no_verificada":
-            errs.append(f"{fid}: vigencia_actual_estado debe ser no_verificada en R1")
+    if "procedencia_primaria_verificada" not in fuente:
+        errs.append(f"{fid}: falta procedencia_primaria_verificada")
+    if fuente.get("vigencia_actual_estado") != "no_verificada":
+        errs.append(f"{fid}: vigencia_actual_estado debe ser no_verificada en R1")
     vigencia = fuente.get("procedencia_primaria_verificada", legado)
     if vigencia is False or vigencia is None:
         return errs

@@ -15,7 +15,7 @@
     "verificada_contra_dof_nivel1": false,
     "procedencia_primaria_verificada": true,
     "vigencia_actual_estado": "no_verificada",
-    "marcador": "F5 disposición verificada: DOF 16-07-2025 codigo=5763164 reforma Art.5 párrafo primero",
+    "marcador": "F5 procedencia primaria verificada: DOF 16-07-2025 codigo=5763164 reforma Art.5 párrafo primero; vigencia actual no verificada",
     "traza": "DOF 16-07-2025 codigo=5763164, Artículo Segundo",
     "nota_semantica": "El texto remite genéricamente a las leyes específicas; no nombra a la Ley del Seguro Social.",
     "registry_ref": "corpus/registry.yaml#LFEP"

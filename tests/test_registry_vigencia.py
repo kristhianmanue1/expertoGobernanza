@@ -116,6 +116,15 @@ class TestRegistryRules(unittest.TestCase):
                 self.assertTrue(any("legado no puede ser true" in e for e in errs))
                 self.assertFalse(resolve_disposicion_vigencia(caso, "X:1")["verificada"])
 
+    def test_fuente_sin_campos_nuevos_no_pasa_validacion(self):
+        for caso in ({"id": "X"},
+                     {"id": "X", "vigencia_verificada": False},
+                     {"id": "X", "procedencia_primaria_verificada": False}):
+            with self.subTest(caso=caso):
+                errs = validate_fuente(caso)
+                self.assertTrue(any("vigencia_actual_estado" in e for e in errs))
+                self.assertFalse(resolve_disposicion_vigencia(caso, "X:1")["verificada"])
+
     def test_cpeum_2026_body_trace_does_not_verify_health_slice(self):
         registry = load_registry(REGISTRY)
         fuente = fuente_por_instrumento(registry, "CPEUM")
@@ -131,8 +140,10 @@ class TestRegistryRules(unittest.TestCase):
         without_slice = {**fuente, "trazas_publicacion": [body_trace]}
         self.assertFalse(resolve_disposicion_procedencia(without_slice, "CPEUM:4:P4")["verificada"])
 
-    def test_false_always_ok(self):
-        self.assertEqual(validate_fuente({"id": "X", "vigencia_verificada": False}), [])
+    def test_false_con_estado_actual_ok(self):
+        self.assertEqual(validate_fuente({"id": "X", "vigencia_verificada": False,
+                                         "procedencia_primaria_verificada": False,
+                                         "vigencia_actual_estado": "no_verificada"}), [])
 
     def test_vigencia_no_booleana_falla(self):
         errs = validate_fuente({"id": "X", "vigencia_verificada": "pendiente"})
@@ -223,7 +234,9 @@ class TestRegistryRules(unittest.TestCase):
 
     def test_registry_validate_lista(self):
         self.assertEqual(
-            validate_registry({"fuentes": [{"id": "A", "vigencia_verificada": False}]}),
+            validate_registry({"fuentes": [{"id": "A", "vigencia_verificada": False,
+                                             "procedencia_primaria_verificada": False,
+                                             "vigencia_actual_estado": "no_verificada"}]}),
             [],
         )
 

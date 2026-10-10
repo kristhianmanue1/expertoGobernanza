@@ -51,6 +51,8 @@ class TestRegistryLoader(unittest.TestCase):
             "  - id: Z\n"
             "    # vigencia_verificada: true\n"
             "    vigencia_verificada: false\n"
+            "    procedencia_primaria_verificada: false\n"
+            "    vigencia_actual_estado: no_verificada\n"
         )
         try:
             self.assertEqual(corpus_vigencia_banner(path), BANNER_NO)
@@ -77,6 +79,8 @@ class TestRegistryLoader(unittest.TestCase):
             "fuentes": [{
                 "id": "X",
                 "vigencia_verificada": False,
+                "procedencia_primaria_verificada": False,
+                "vigencia_actual_estado": "no_verificada",
                 "traza_disposiciones": [{"disposicion_id": "X:1", "f5": False}],
             }]
         }
