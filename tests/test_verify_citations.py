@@ -44,6 +44,22 @@ class TestVerifyGate(unittest.TestCase):
         self.assertTrue(r["source_resolved"])
         self.assertEqual(r["response_status"], "medio")
 
+    def test_registry_negative_routes_do_not_export_provenance(self):
+        texto = "texto suficientemente largo para una cita de prueba reproducible"
+        cases = (
+            {"fuente": None},
+            {"loader_error": True},
+            {"resolver_error": True},
+            {"resolver": lambda *_: None},
+        )
+        for kwargs in cases:
+            with self.subTest(kwargs=list(kwargs)):
+                r = _diagnostico(texto, source_check="match", **kwargs)
+                self.assertFalse(r["registry_procedencia_primaria_verificada"])
+                self.assertIsNone(r["registry_procedencia_fuente"])
+                self.assertIsNone(r["registry_procedencia_razon"])
+                self.assertIn(r["registry_check"], {"error", "missing_evidence"})
+
     def test_alto_inalcanzable_en_v1(self):
         texto = ("texto suficientemente largo para pasar el minimo "
                  "de cuarenta caracteres normalizados sin problema")

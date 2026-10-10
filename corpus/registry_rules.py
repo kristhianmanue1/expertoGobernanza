@@ -23,8 +23,8 @@ def _resultado_vigencia(
 def resolve_disposicion_procedencia(fuente: dict, disposicion_id: str) -> dict:
     """Resuelve sólo la procedencia primaria de una disposición.
 
-    El campo legado ``vigencia_verificada`` se acepta en fixtures anteriores,
-    pero representa procedencia, nunca vigencia actual. Si existe
+    El campo nuevo de procedencia debe estar explícito; el legado
+    ``vigencia_verificada`` no puede acreditar procedencia. Si existe
     ``traza_disposiciones``, esa tabla es autoritativa y no se hace fallback a
     trazas más generales cuando falta una entrada o su F5 es falso.
     """
@@ -36,9 +36,7 @@ def resolve_disposicion_procedencia(fuente: dict, disposicion_id: str) -> dict:
             disposicion_id, False, "ninguna", "fuente_invalida"
         )
 
-    if fuente.get(
-        "procedencia_primaria_verificada", fuente.get("vigencia_verificada")
-    ) is not True:
+    if fuente.get("procedencia_primaria_verificada") is not True:
         return _resultado_vigencia(
             disposicion_id, False, "instrumento", "procedencia_no_verificada"
         )
@@ -166,6 +164,7 @@ def resolve_disposicion_vigencia(fuente: dict, disposicion_id: str) -> dict:
         "fuente": "ninguna",
         "razon": razon,
         "vigencia_actual_estado": "no_verificada",
+        "vigencia_actual_estado_valido": estado == "no_verificada",
         "procedencia_primaria_verificada": procedencia["verificada"],
         "procedencia_fuente": procedencia["fuente"],
         "procedencia_razon": procedencia["razon"],

@@ -83,6 +83,7 @@ class TestRegistryRules(unittest.TestCase):
         self.assertTrue(resultado["procedencia_primaria_verificada"])
         self.assertFalse(resultado["verificada"])
         self.assertEqual(resultado["vigencia_actual_estado"], "no_verificada")
+        self.assertTrue(resultado["vigencia_actual_estado_valido"])
         self.assertEqual(resultado["procedencia_razon"], "traza_exacta_con_revision")
         self.assertEqual(resultado["razon"], "vigencia_actual_no_verificada")
 
@@ -93,6 +94,7 @@ class TestRegistryRules(unittest.TestCase):
         self.assertTrue(any("vigencia_actual_estado" in e for e in validate_fuente(fuente)))
         resultado = resolve_disposicion_vigencia(fuente, "CPEUM:4:P4")
         self.assertFalse(resultado["verificada"])
+        self.assertFalse(resultado["vigencia_actual_estado_valido"])
         self.assertEqual(resultado["razon"], "vigencia_actual_estado_no_admitido")
 
     def test_estado_actual_ausente_o_malformado_falla_cerrado(self):
@@ -104,7 +106,9 @@ class TestRegistryRules(unittest.TestCase):
                 if estado is None:
                     caso.pop("vigencia_actual_estado")
                 self.assertTrue(any("vigencia_actual_estado" in e for e in validate_fuente(caso)))
-                self.assertFalse(resolve_disposicion_vigencia(caso, "CPEUM:4:P4")["verificada"])
+                resultado = resolve_disposicion_vigencia(caso, "CPEUM:4:P4")
+                self.assertFalse(resultado["verificada"])
+                self.assertFalse(resultado["vigencia_actual_estado_valido"])
 
     def test_legado_positivo_no_pasa_validacion(self):
         for estado in (None, "verificada", "no_verificada"):
@@ -115,6 +119,18 @@ class TestRegistryRules(unittest.TestCase):
                 errs = validate_fuente(caso)
                 self.assertTrue(any("legado no puede ser true" in e for e in errs))
                 self.assertFalse(resolve_disposicion_vigencia(caso, "X:1")["verificada"])
+
+    def test_legado_completo_no_acredita_procedencia(self):
+        caso = {
+            "id": "X", "vigencia_verificada": True,
+            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "trazas_publicacion": [{
+                "identificadores_diario": "DOF prueba", "alcance": "articulo",
+                "cubre_disposiciones": ["X:1"],
+            }],
+        }
+        self.assertFalse(resolve_disposicion_procedencia(caso, "X:1")["verificada"])
+        self.assertTrue(validate_fuente(caso))
 
     def test_fuente_sin_campos_nuevos_no_pasa_validacion(self):
         for caso in ({"id": "X"},
@@ -156,7 +172,9 @@ class TestRegistryRules(unittest.TestCase):
     def test_true_solo_url_sin_trazas_falla(self):
         errs = validate_fuente({
             "id": "X",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "url_dof_nivel1": "https://dof.gob.mx/nota",
         })
         self.assertTrue(any("solo url_dof" in e or "trazas_publicacion" in e for e in errs))
@@ -164,7 +182,9 @@ class TestRegistryRules(unittest.TestCase):
     def test_true_sin_alcance_falla(self):
         errs = validate_fuente({
             "id": "X",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "trazas_publicacion": [{
                 "url": "https://dof.gob.mx/x",
                 "cubre_disposiciones": ["CPEUM:4:P4"],
@@ -176,7 +196,9 @@ class TestRegistryRules(unittest.TestCase):
     def test_true_sin_cover_falla(self):
         errs = validate_fuente({
             "id": "X",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "trazas_publicacion": [{
                 "url": "https://dof.gob.mx/x",
                 "alcance": "articulo",
@@ -189,7 +211,9 @@ class TestRegistryRules(unittest.TestCase):
     def test_true_sin_revision_falla(self):
         errs = validate_fuente({
             "id": "X",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "trazas_publicacion": [{
                 "identificadores_diario": "DOF 08-05-2020 codigo=5593045",
                 "alcance": "articulo",
@@ -243,7 +267,9 @@ class TestRegistryRules(unittest.TestCase):
     def test_slice_multiple_exige_f5_explicito_por_disposicion(self):
         fuente = {
             "id": "X",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "slice_mvp_disposiciones": ["X:1", "X:2"],
             "trazas_publicacion": [{
                 "identificadores_diario": "DOF prueba",
@@ -258,7 +284,9 @@ class TestRegistryRules(unittest.TestCase):
     def test_slice_simple_valida_campos_de_traza_disposicion(self):
         fuente = {
             "id": "X",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "slice_mvp_disposiciones": ["X:1"],
             "traza_disposiciones": [{
                 "disposicion_id": "X:1",
@@ -281,7 +309,9 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
     def setUp(self):
         self.lfep = {
             "id": "LFEP",
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "traza_disposiciones": [
                 {
                     "disposicion_id": "LFEP:1",
@@ -315,14 +345,16 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
         self.assertEqual(resultado["razon"], "sin_traza_explicita")
 
     def test_instrumento_false_bloquea_f5_de_disposicion(self):
-        self.lfep["vigencia_verificada"] = False
+        self.lfep["procedencia_primaria_verificada"] = False
         resultado = resolve_disposicion_procedencia(self.lfep, "LFEP:1")
         self.assertFalse(resultado["verificada"])
         self.assertEqual(resultado["razon"], "procedencia_no_verificada")
 
     def test_traza_principal_solo_resuelve_id_exacto(self):
         fuente = {
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "traza_disposicion_principal": {
                 "disposicion_id": "LOAPF:1",
                 "cubre_disposicion": True,
@@ -340,7 +372,9 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
 
     def test_traza_publicacion_solo_resuelve_cobertura_exacta(self):
         fuente = {
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "trazas_publicacion": [{
                 "identificadores_diario": "DOF prueba",
                 "alcance": "articulo",
@@ -357,7 +391,9 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
 
     def test_alcance_instrumento_no_resuelve_disposicion(self):
         fuente = {
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "trazas_publicacion": [{
                 "identificadores_diario": "DOF prueba",
                 "alcance": "instrumento",
@@ -371,7 +407,9 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
 
     def test_cubre_disposiciones_escalar_no_hace_match_por_subcadena(self):
         fuente = {
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "trazas_publicacion": [{
                 "identificadores_diario": "DOF prueba",
                 "alcance": "articulo",
@@ -385,7 +423,9 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
 
     def test_trazas_disposicion_duplicadas_fallan_cerrado(self):
         fuente = {
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "traza_disposiciones": [
                 {"disposicion_id": "X:1", "f5": True, "cubre_disposicion": True},
                 {"disposicion_id": "X:1", "f5": False, "cubre_disposicion": True},
@@ -397,7 +437,9 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
 
     def test_f5_true_sin_fecha_locator_o_revision_no_resuelve(self):
         fuente = {
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "traza_disposiciones": [
                 {"disposicion_id": "X:1", "f5": True, "cubre_disposicion": True}
             ],
@@ -413,7 +455,9 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
 
     def test_traza_principal_sin_locator_no_resuelve(self):
         fuente = {
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "traza_disposicion_principal": {
                 "disposicion_id": "X:1",
                 "fecha": "2026-01-01",
@@ -426,7 +470,9 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
 
     def test_busca_traza_publicacion_valida_despues_de_incompleta(self):
         fuente = {
-            "vigencia_verificada": True,
+            "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
             "trazas_publicacion": [
                 {
                     "identificadores_diario": "DOF cuerpo",
@@ -448,6 +494,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
 class TestLiveRegistryFile(unittest.TestCase):
     def test_derivados_no_convierten_procedencia_en_vigencia_actual(self):
         registry = load_registry(REGISTRY)
+        comprobados = 0
         for path in sorted((ROOT / "corpus/derived").rglob("*.json")):
             derivado = json.loads(path.read_text(encoding="utf-8"))
             disposicion_id = derivado.get("disposicion_id")
@@ -455,9 +502,9 @@ class TestLiveRegistryFile(unittest.TestCase):
             if not disposicion_id or not instrumento_id:
                 continue
             fuente = fuente_por_instrumento(registry, instrumento_id)
-            if fuente is None:
-                continue
+            self.assertIsNotNone(fuente, msg=f"fuente ausente: {instrumento_id}")
             resultado = resolve_disposicion_vigencia(fuente, disposicion_id)
+            comprobados += 1
             with self.subTest(disposicion_id=disposicion_id):
                 vigencia = derivado["vigencia"]
                 self.assertEqual(
@@ -467,6 +514,7 @@ class TestLiveRegistryFile(unittest.TestCase):
                 self.assertFalse(vigencia["verificada_contra_dof_nivel1"])
                 self.assertEqual(vigencia["vigencia_actual_estado"], "no_verificada")
                 self.assertFalse(resultado["verificada"])
+        self.assertGreaterEqual(comprobados, 9)
 
     def test_file_exists(self):
         self.assertTrue(REGISTRY.is_file())
