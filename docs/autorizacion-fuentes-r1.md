@@ -10,6 +10,7 @@ Jiménez (roles interinos §9 — `docs/roles-r1.md`).
 |-------|-----|----------------------|
 | DOF (Diario Oficial de la Federación) | https://dof.gob.mx/ | Consulta / descarga de evidencia de **publicación y reforma** (candidato a **nivel 1** primario cuando el permalink/acto concreto se registre en `corpus/registry.yaml`) |
 | Orden Jurídico Nacional | https://www.ordenjuridico.gob.mx/ | Consulta / análisis de textos y referencias **públicas**; **no** se asume automáticamente = DOF nivel 1 sin trazar el acto en DOF |
+| Cámara de Diputados, Biblioteca de Leyes | https://www.diputados.gob.mx/LeyesBiblio/index.htm | Consulta / análisis de índice, textos consolidados y páginas de reformas **públicos** (nivel 2 informativo); cada publicación o reforma federal requiere traza del acto DOF para sostener un claim de nivel 1 |
 
 ### Reglas
 
@@ -39,7 +40,9 @@ Jiménez (roles interinos §9 — `docs/roles-r1.md`).
 |------------------|-----------------|
 | `claude` (Anthropic) | Revisión adversarial |
 | `codex` (OpenAI) | Revisión adversarial |
-| Otros (kimi, gemini, qwen, opencode, cline, glm, …) | Solo si el admin confirma disponibilidad y se añade fila aquí |
+| `opencode` con `zai-coding-plan/glm-5.3-flash` (Z.ai / GLM) | Únicamente revisión adversarial del **diff filtrado** de cuatro archivos de este expediente frente a `main` `51b3580`: `corpus/registry.yaml`, `docs/autorizacion-fuentes-r1.md`, `docs/fuentes-legal-mx.md` y `docs/evidencia/fuentes-publicas-complementarias-2026-10-10.md`, con extractos públicos estrictamente necesarios. Excluir la nota de la ronda anterior para preservar revisión ciega. No enviar archivos completos, CTIM, PDF locales, material interno ni datos personales. Usar ruta directa Z.ai y registrar modelo/proveedor reportados |
+| `ollama` local con `qwen3:8b` (familia Qwen, desarrollada por Qwen/Alibaba Cloud) | Únicamente revisión adversarial del mismo diff filtrado y extractos públicos; endpoint loopback `127.0.0.1:11434`. No autoriza Ollama Cloud, otros modelos, archivos completos, CTIM, PDF locales, material interno, datos personales ni ingesta. Registrar modelo reportado y digest del artefacto local; el digest identifica el artefacto observado, no certifica origen de pesos |
+| Otros (kimi, gemini, otros modelos de Qwen, cline, otras combinaciones de opencode/modelo, …) | Solo si el admin confirma disponibilidad y se añade fila aquí |
 
 Si un CLI no está en la tabla: **no** enviar corpus legal hasta enmienda.
 
@@ -72,3 +75,6 @@ Hasta entonces:
 | Fecha | Evento |
 |-------|--------|
 | 2026-08-10 | Autorización canales DOF + Orden Jurídico; multi-provider solo público; E0-03 diferido |
+| 2026-10-10 | El Operador autorizó incorporar LeyesBiblio como canal complementario público de consulta y análisis; se conserva DOF como ancla de publicación/reforma y la restricción de material interno/proveedores |
+| 2026-10-10 | El Operador indicó usar GLM por OpenCode/Z.ai para revisar este cambio si Ollama no está disponible; esta autorización del proveedor no altera por sí misma los canales: LeyesBiblio se incorporó mediante la decisión precedente |
+| 2026-10-10 | El Operador autorizó Qwen local `qwen3:8b` como tercera familia subyacente para la ronda de este expediente; sonda loopback HTTP 200 con respuesta `PONG`, sin ampliar autorización de fuentes o ingesta. `/api/tags` reportó digest local `500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41`; Qwen atribuye la familia a Qwen/Alibaba Cloud en https://github.com/QwenLM/Qwen3 |
