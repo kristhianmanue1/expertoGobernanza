@@ -113,7 +113,7 @@ si solo hay evidencia de nivel ≥2, salvo decisión documentada del rol jurídi
 |-------|-----|----------------------------|
 | DOF | https://dof.gob.mx/ | **1** (si el registro apunta al **acto** concreto, no solo a la home) |
 | Orden Jurídico Nacional | https://www.ordenjuridico.gob.mx/ | **2** (análisis/consulta) hasta trazar acto DOF |
-| Cámara Diputados LeyesBiblio | https://www.diputados.gob.mx/LeyesBiblio/ | **2** (consolidado informativo) |
+| Cámara Diputados LeyesBiblio | https://www.diputados.gob.mx/LeyesBiblio/index.htm | **2** (índice, consolidado y páginas de reformas informativos) |
 
 ---
 

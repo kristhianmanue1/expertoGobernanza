@@ -10,6 +10,7 @@ Jiménez (roles interinos §9 — `docs/roles-r1.md`).
 |-------|-----|----------------------|
 | DOF (Diario Oficial de la Federación) | https://dof.gob.mx/ | Consulta / descarga de evidencia de **publicación y reforma** (candidato a **nivel 1** primario cuando el permalink/acto concreto se registre en `corpus/registry.yaml`) |
 | Orden Jurídico Nacional | https://www.ordenjuridico.gob.mx/ | Consulta / análisis de textos y referencias **públicas**; **no** se asume automáticamente = DOF nivel 1 sin trazar el acto en DOF |
+| Cámara de Diputados, Biblioteca de Leyes | https://www.diputados.gob.mx/LeyesBiblio/index.htm | Consulta / análisis de índice, textos consolidados y páginas de reformas **públicos** (nivel 2 informativo); cada publicación o reforma federal requiere traza del acto DOF para sostener un claim de nivel 1 |
 
 ### Reglas
 
@@ -72,3 +73,4 @@ Hasta entonces:
 | Fecha | Evento |
 |-------|--------|
 | 2026-08-10 | Autorización canales DOF + Orden Jurídico; multi-provider solo público; E0-03 diferido |
+| 2026-10-10 | El Operador autorizó incorporar LeyesBiblio como canal complementario público de consulta y análisis; se conserva DOF como ancla de publicación/reforma y la restricción de material interno/proveedores |

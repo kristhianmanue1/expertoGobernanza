@@ -39,7 +39,7 @@ fuentes:
     # --- estado de vigencia / procedencia primaria ---
     # Claims nivel 2 (Cámara) — NO bastan para vigencia_verificada true (M3/F2)
     fecha_publicacion_dof: "1917-02-05"
-    fecha_ultima_reforma_dof_declarada: "2026-06-02"   # claim Cámara (cuerpo); NO cubre slice salud
+    fecha_ultima_reforma_dof_declarada: "2026-10-07"   # claim Cámara (cuerpo); NO cubre slice salud
     url_dof_nivel1: "https://dof.gob.mx/nota_detalle.php?codigo=5593045&fecha=08/05/2020"
     vigencia_verificada: true
     fecha_consulta_vigencia: "2026-08-10"
@@ -57,6 +57,12 @@ fuentes:
       - organo: Camara_Diputados
         nivel: 2
         claim_secundario: true
+        url: "https://www.diputados.gob.mx/LeyesBiblio/index.htm"
+        fecha_consulta: "2026-10-10"
+        nota: "Índice y PDF actual declaran última reforma CPEUM 07-10-2026; el PDF local conserva su hash de 2026-08-06."
+      - organo: Camara_Diputados
+        nivel: 2
+        claim_secundario: true
         url: "https://www.diputados.gob.mx/LeyesBiblio/ref/cpeum.htm"
         fecha_consulta: "2026-08-10"
       - organo: Camara_Diputados
@@ -66,6 +72,18 @@ fuentes:
         fecha_consulta: "2026-08-10"
         nota: "Copia/imagen del decreto de reforma Art. 4o en acervo Cámara (apoyo)"
     trazas_publicacion:
+      - tipo_acto: reforma
+        organo: DOF
+        nivel: 1
+        alcance: instrumento
+        cubre_disposiciones: []
+        no_cubre_slice: true
+        url: "https://dof.gob.mx/nota_detalle.php?codigo=5800617&fecha=07/10/2026"
+        fecha_dof: "2026-10-07"
+        identificadores_diario: "DOF 07-10-2026 codigo=5800617, artículos 82, 116 y 122"
+        nota: >-
+          Acto DOF consultado 2026-10-10: reforma y adiciona artículos 82, 116 y 122;
+          no modifica CPEUM:4:P4. No sustituye la traza del slice de 08-05-2020.
       - tipo_acto: reforma
         organo: DOF
         nivel: 1
@@ -101,7 +119,7 @@ fuentes:
         fecha_dof: "2026-06-02"
         identificadores_diario: "DOF 02-06-2026 / claim 2026-06-02 (cuerpo; no slice salud)"
         nota: >-
-          Reforma(s) generales del cuerpo posteriores. Humano 2026-08-10: NO modifican
+          Reforma(s) del cuerpo entonces posteriores. Humano 2026-08-10: NO modifican
           la traza del párrafo de salud; consolidado sigue atribuyendo P4 a 08-05-2020.
     notas: >-
       H1 parcial CPEUM (2026-08-10): vigencia_verificada true para ancla de procedencia
