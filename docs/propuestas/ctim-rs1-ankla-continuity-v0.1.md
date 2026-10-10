@@ -2,10 +2,8 @@
 
 Fecha: 2026-10-10. Contrato propuesto: `expertogobernanza/ctim-rs1-ankla-continuity/v0.1`.
 Estado: **PROPUESTO**; sin aceptación bilateral, instalación adicional, escritura ni activación.
-Complementa la Solicitud C de `docs/propuestas/2026-10-05-pedido-contratos-aria.md`,
-borrador local aún no publicado al verificar `main` remoto. Aquella solicitud
-cubre streams y lectura gobernada, pero excluye checkpoint y retoma automática;
-este texto establece por sí mismo el alcance adicional propuesto para CTIM.
+Este texto establece por sí mismo el alcance propuesto para CTIM. No presupone
+la publicación ni aceptación de otro borrador contractual.
 
 ## Propósito y frontera
 
@@ -46,17 +44,20 @@ un archivo de entrega pequeño con: PDF SHA, referencias y SHA de recibos,
 versión de pregunta/rúbrica, último resultado comprobado, acciones intentadas
 de resultado incierto, fase, siguiente acción concreta, bloqueos, decisiones
 pendientes y fecha de observación. Cada entrega añade `handoff_id`, dueño
-saliente, receptor designado, SHA del estado anterior y acuse fechado. Una
-edición concurrente o un SHA anterior discordante suspende la transferencia
-hasta reconciliar el archivo; AN-KLA no resuelve ese conflicto. Ese archivo
-es la coordinación visible;
+saliente, receptor designado, SHA del estado anterior y acuse fechado. El
+archivo y su SHA no impiden dos escrituras o acuses concurrentes: el mecanismo
+de serialización/CAS del archivo compartido queda pendiente. Hasta implementarlo,
+si hay edición concurrente, SHA anterior discordante o más de un receptor, se
+suspende el acuse y una persona designada reconcilia el estado antes de un nuevo
+intento. AN-KLA no resuelve ese conflicto. Ese archivo es la coordinación visible;
 AN-KLA sólo puede apuntarlo y reflejar una revisión bajo el perfil aquí propuesto.
 
 Fases documentales: `prepared` → `in_review` → `handoff_ready` → `received` →
 `closed`. `blocked` registra una dependencia verificable sin conceder permiso
 para saltarla. El dueño saliente emite `handoff_ready` con hashes; el receptor
-comprueba archivos y revisión y deja acuse `received`. Hasta el acuse, no se
-presume transferencia. `closed` significa que terminó el encargo delimitado,
+comprueba archivos, revisión y ausencia de conflicto antes de dejar acuse
+`received`. Hasta un acuse sin conflicto, no se presume transferencia.
+`closed` significa que terminó el encargo delimitado,
 no que el procedimiento CTIM fue aprobado. Los estados son convenciones del
 consumidor, no estados que AN-KLA haga cumplir por sí solo.
 
