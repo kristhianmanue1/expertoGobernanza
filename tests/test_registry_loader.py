@@ -25,7 +25,7 @@ fuentes:
       - url: https://example.test/dof
         alcance: instrumento
         cubre_disposiciones: ["LSS:1"]
-    revision_vigencia:
+    revision_procedencia:
       revisado_por: test
       fecha: "2026-01-01"
     traza_disposiciones:

@@ -13,6 +13,7 @@
     "estado": "no_verificada",
     "ultima_reforma_dof_declarada": "2026-01-15",
     "verificada_contra_dof_nivel1": false,
+    "nota_legado": "verificada_contra_dof_nivel1 expresa vigencia actual; procedencia_primaria_verificada expresa traza histórica del acto",
     "procedencia_primaria_verificada": false,
     "vigencia_actual_estado": "no_verificada",
     "marcador": "[VIGENCIA-NO-VERIFICADA contra DOF nivel 1 — exploración LSS E5]"

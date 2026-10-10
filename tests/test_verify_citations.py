@@ -44,6 +44,18 @@ class TestVerifyGate(unittest.TestCase):
         self.assertTrue(r["source_resolved"])
         self.assertEqual(r["response_status"], "medio")
 
+    def test_slice_sin_procedencia_no_hereda_instrumento(self):
+        for did, razon in (("LOAPF:1", "sin_traza_explicita"),
+                           ("LSS:1", "f5_no_verificado")):
+            with self.subTest(disposicion_id=did):
+                r = vc.verify_claim(_claim(did, "cita de control sin valor jurídico"))
+                self.assertTrue(r["reference_exists"])
+                self.assertEqual(r["registry_check"], "unverified")
+                self.assertFalse(r["registry_procedencia_primaria_verificada"])
+                self.assertEqual(r["registry_procedencia_fuente"], "traza_disposiciones")
+                self.assertEqual(r["registry_procedencia_razon"], razon)
+                self.assertNotEqual(r["response_status"], "alto")
+
     def test_registry_negative_routes_do_not_export_provenance(self):
         texto = "texto suficientemente largo para una cita de prueba reproducible"
         cases = (

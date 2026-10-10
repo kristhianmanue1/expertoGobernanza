@@ -13,6 +13,7 @@
     "estado": "no_verificada",
     "ultima_reforma_dof_declarada": "2025-07-16",
     "verificada_contra_dof_nivel1": false,
+    "nota_legado": "verificada_contra_dof_nivel1 expresa vigencia actual; procedencia_primaria_verificada expresa traza histórica del acto",
     "procedencia_primaria_verificada": true,
     "vigencia_actual_estado": "no_verificada",
     "marcador": "F5 procedencia primaria verificada: DOF 16-07-2025 codigo=5763164 reforma Art.5 párrafo primero; vigencia actual no verificada",

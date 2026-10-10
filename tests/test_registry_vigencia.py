@@ -71,7 +71,7 @@ def _fuente_minima_desde_registry(instrumento_id):
         "id": instrumento_id,
         "procedencia_primaria_verificada": resumen_match.group(1) == "true",
         "traza_disposiciones": trazas,
-        "revision_vigencia": {"revisado_por": "registro vivo", "fecha": "2026-08-10"},
+        "revision_procedencia": {"revisado_por": "registro vivo", "fecha": "2026-08-10"},
     }
 
 
@@ -95,6 +95,7 @@ class TestRegistryRules(unittest.TestCase):
         resultado = resolve_disposicion_vigencia(fuente, "CPEUM:4:P4")
         self.assertFalse(resultado["verificada"])
         self.assertFalse(resultado["vigencia_actual_estado_valido"])
+        self.assertIsNone(resultado["vigencia_actual_estado"])
         self.assertEqual(resultado["razon"], "vigencia_actual_estado_no_admitido")
 
     def test_estado_actual_ausente_o_malformado_falla_cerrado(self):
@@ -109,6 +110,13 @@ class TestRegistryRules(unittest.TestCase):
                 resultado = resolve_disposicion_vigencia(caso, "CPEUM:4:P4")
                 self.assertFalse(resultado["verificada"])
                 self.assertFalse(resultado["vigencia_actual_estado_valido"])
+                self.assertIsNone(resultado["vigencia_actual_estado"])
+
+        caso = {**fuente, "vigencia_actual_estado": None}
+        self.assertEqual(
+            resolve_disposicion_vigencia(caso, "CPEUM:4:P4")["razon"],
+            "vigencia_actual_estado_no_admitido",
+        )
 
     def test_legado_positivo_no_pasa_validacion(self):
         for estado in (None, "verificada", "no_verificada"):
@@ -131,6 +139,20 @@ class TestRegistryRules(unittest.TestCase):
         }
         self.assertFalse(resolve_disposicion_procedencia(caso, "X:1")["verificada"])
         self.assertTrue(validate_fuente(caso))
+
+    def test_revision_legada_no_acredita_procedencia_nueva(self):
+        caso = {
+            "id": "X", "vigencia_verificada": False,
+            "procedencia_primaria_verificada": True,
+            "vigencia_actual_estado": "no_verificada",
+            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "trazas_publicacion": [{
+                "identificadores_diario": "DOF prueba", "alcance": "articulo",
+                "cubre_disposiciones": ["X:1"],
+            }],
+        }
+        self.assertFalse(resolve_disposicion_procedencia(caso, "X:1")["verificada"])
+        self.assertTrue(any("revision_procedencia" in e for e in validate_fuente(caso)))
 
     def test_fuente_sin_campos_nuevos_no_pasa_validacion(self):
         for caso in ({"id": "X"},
@@ -189,7 +211,7 @@ class TestRegistryRules(unittest.TestCase):
                 "url": "https://dof.gob.mx/x",
                 "cubre_disposiciones": ["CPEUM:4:P4"],
             }],
-            "revision_vigencia": {"revisado_por": "humano", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "humano", "fecha": "2026-08-10"},
         })
         self.assertTrue(any("alcance" in e for e in errs))
 
@@ -204,7 +226,7 @@ class TestRegistryRules(unittest.TestCase):
                 "alcance": "articulo",
                 "cubre_disposiciones": [],
             }],
-            "revision_vigencia": {"revisado_por": "humano", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "humano", "fecha": "2026-08-10"},
         })
         self.assertTrue(any("cubre" in e or "no_cubre" in e for e in errs))
 
@@ -220,7 +242,7 @@ class TestRegistryRules(unittest.TestCase):
                 "cubre_disposiciones": ["CPEUM:4:P4"],
             }],
         })
-        self.assertTrue(any("revision_vigencia" in e for e in errs))
+        self.assertTrue(any("revision_procedencia" in e for e in errs))
 
     def test_true_completo_ok(self):
         errs = validate_fuente({
@@ -233,7 +255,7 @@ class TestRegistryRules(unittest.TestCase):
                 "alcance": "articulo",
                 "cubre_disposiciones": ["CPEUM:4:P4"],
             }],
-            "revision_vigencia": {
+            "revision_procedencia": {
                 "revisado_por": "Kristhian Manuel Jimenez",
                 "fecha": "2026-08-10",
                 "auto_revision_declarada": True,
@@ -252,7 +274,7 @@ class TestRegistryRules(unittest.TestCase):
                 "alcance": "instrumento",
                 "no_cubre_slice": True,
             }],
-            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         })
         self.assertEqual(errs, [])
 
@@ -276,7 +298,7 @@ class TestRegistryRules(unittest.TestCase):
                 "alcance": "articulo",
                 "cubre_disposiciones": ["X:1"],
             }],
-            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
         errs = validate_fuente(fuente)
         self.assertTrue(any("multidisposición" in e for e in errs))
@@ -298,7 +320,7 @@ class TestRegistryRules(unittest.TestCase):
                 "alcance": "articulo",
                 "cubre_disposiciones": ["X:1"],
             }],
-            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
         errs = validate_fuente(fuente)
         self.assertTrue(any("X:1 sin fecha" in e for e in errs))
@@ -328,7 +350,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
                     "identificadores_diario": "DOF 16-07-2025 codigo=5763164",
                 },
             ],
-            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
 
     def test_lfep_1_y_lfep_5_tienen_f5_explicito(self):
@@ -361,7 +383,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
                 "fecha": "1976-12-29",
                 "identificadores_diario": "DOF 29-12-1976 publicación LOAPF",
             },
-            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
         self.assertTrue(
             resolve_disposicion_procedencia(fuente, "LOAPF:1")["verificada"]
@@ -380,7 +402,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
                 "alcance": "articulo",
                 "cubre_disposiciones": ["CPEUM:4:P4"],
             }],
-            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
         self.assertTrue(
             resolve_disposicion_procedencia(fuente, "CPEUM:4:P4")["verificada"]
@@ -399,7 +421,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
                 "alcance": "instrumento",
                 "cubre_disposiciones": ["X:1"],
             }],
-            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
         resultado = resolve_disposicion_procedencia(fuente, "X:1")
         self.assertFalse(resultado["verificada"])
@@ -415,7 +437,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
                 "alcance": "articulo",
                 "cubre_disposiciones": "X:10",
             }],
-            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
         resultado = resolve_disposicion_procedencia(fuente, "X:1")
         self.assertFalse(resultado["verificada"])
@@ -463,7 +485,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
                 "fecha": "2026-01-01",
                 "cubre_disposicion": True,
             },
-            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
         resultado = resolve_disposicion_procedencia(fuente, "X:1")
         self.assertFalse(resultado["verificada"])
@@ -485,7 +507,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
                     "cubre_disposiciones": ["X:1"],
                 },
             ],
-            "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
+            "revision_procedencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
         resultado = resolve_disposicion_procedencia(fuente, "X:1")
         self.assertTrue(resultado["verificada"])
@@ -494,27 +516,46 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
 class TestLiveRegistryFile(unittest.TestCase):
     def test_derivados_no_convierten_procedencia_en_vigencia_actual(self):
         registry = load_registry(REGISTRY)
-        comprobados = 0
+        esperados = {
+            "CPEUM:4:P4": (True, "trazas_publicacion", "traza_exacta_con_revision"),
+            "LGS:1": (True, "trazas_publicacion", "traza_exacta_con_revision"),
+            "LOAPF:1:P3": (True, "traza_disposiciones", "f5_explicito"),
+            "LOAPF:1": (False, "traza_disposiciones", "sin_traza_explicita"),
+            "LFEP:1": (True, "traza_disposiciones", "f5_explicito"),
+            "LFEP:5": (True, "traza_disposiciones", "f5_explicito"),
+            "LSS:1": (False, "traza_disposiciones", "f5_no_verificado"),
+            "LSS:5": (True, "traza_disposiciones", "f5_explicito"),
+            "RIIMSS:1": (True, "traza_disposicion_principal", "traza_exacta_con_revision"),
+        }
+        comprobados = []
         for path in sorted((ROOT / "corpus/derived").rglob("*.json")):
             derivado = json.loads(path.read_text(encoding="utf-8"))
             disposicion_id = derivado.get("disposicion_id")
             instrumento_id = (derivado.get("instrumento") or {}).get("id")
-            if not disposicion_id or not instrumento_id:
-                continue
+            self.assertTrue(disposicion_id, msg=str(path))
+            self.assertTrue(instrumento_id, msg=str(path))
             fuente = fuente_por_instrumento(registry, instrumento_id)
             self.assertIsNotNone(fuente, msg=f"fuente ausente: {instrumento_id}")
             resultado = resolve_disposicion_vigencia(fuente, disposicion_id)
-            comprobados += 1
+            comprobados.append(disposicion_id)
             with self.subTest(disposicion_id=disposicion_id):
                 vigencia = derivado["vigencia"]
                 self.assertEqual(
                     vigencia["procedencia_primaria_verificada"],
                     resultado["procedencia_primaria_verificada"],
                 )
+                self.assertEqual(
+                    (resultado["procedencia_primaria_verificada"],
+                     resultado["procedencia_fuente"], resultado["procedencia_razon"]),
+                    esperados[disposicion_id],
+                )
                 self.assertFalse(vigencia["verificada_contra_dof_nivel1"])
+                self.assertIn("vigencia actual", vigencia["nota_legado"])
                 self.assertEqual(vigencia["vigencia_actual_estado"], "no_verificada")
+                self.assertNotEqual(vigencia.get("estado"), "vigente")
                 self.assertFalse(resultado["verificada"])
-        self.assertGreaterEqual(comprobados, 9)
+        self.assertEqual(len(comprobados), len(esperados))
+        self.assertEqual(set(comprobados), set(esperados))
 
     def test_file_exists(self):
         self.assertTrue(REGISTRY.is_file())
@@ -553,7 +594,7 @@ class TestLiveRegistryFile(unittest.TestCase):
                 "alcance": "articulo",
                 "cubre_disposiciones": ["CPEUM:4:P4"],
             }],
-            "revision_vigencia": {
+            "revision_procedencia": {
                 "revisado_por": "Kristhian Manuel Jiménez",
                 "fecha": "2026-08-10",
                 "auto_revision_declarada": True,
@@ -569,7 +610,7 @@ class TestLiveRegistryFile(unittest.TestCase):
                 "alcance": "articulo",
                 "cubre_disposiciones": ["LGS:1"],
             }],
-            "revision_vigencia": {
+            "revision_procedencia": {
                 "revisado_por": "Kristhian Manuel Jiménez",
                 "fecha": "2026-08-10",
                 "auto_revision_declarada": True,
