@@ -10,9 +10,11 @@
   },
   "texto_verbatim": "La presente Ley es de observancia general en toda la República, en la forma y términos que la misma establece, sus disposiciones son de orden público y de interés social.",
   "vigencia": {
-    "estado": "vigente",
+    "estado": "no_verificada",
     "ultima_reforma_dof_declarada": "2026-01-15",
     "verificada_contra_dof_nivel1": false,
+    "procedencia_primaria_verificada": false,
+    "vigencia_actual_estado": "no_verificada",
     "marcador": "[VIGENCIA-NO-VERIFICADA contra DOF nivel 1 — exploración LSS E5]"
   },
   "fuentes_oficiales": [

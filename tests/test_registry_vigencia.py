@@ -1,4 +1,4 @@
-"""R1-E1-04 — no-regresión estructural de vigencia_verificada."""
+"""R1-E1-04 — procedencia primaria y vigencia actual separadas."""
 import json
 import pathlib
 import re
@@ -8,6 +8,7 @@ import unittest
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from corpus.registry_rules import (
+    resolve_disposicion_procedencia,
     resolve_disposicion_vigencia,
     validate_fuente,
     validate_registry,
@@ -30,10 +31,10 @@ def _fuente_minima_desde_registry(instrumento_id):
     body = fuente_match.group("body")
 
     resumen_match = re.search(
-        r"(?m)^    vigencia_verificada:\s*(true|false)\b", body
+        r"(?m)^    procedencia_primaria_verificada:\s*(true|false)\b", body
     )
     if resumen_match is None:
-        raise AssertionError(f"{instrumento_id}: falta vigencia_verificada")
+        raise AssertionError(f"{instrumento_id}: falta procedencia_primaria_verificada")
 
     detalle_match = re.search(
         r"(?ms)^    traza_disposiciones:\n(?P<body>.*?)(?=^    \S|\Z)", body
@@ -68,13 +69,32 @@ def _fuente_minima_desde_registry(instrumento_id):
 
     return {
         "id": instrumento_id,
-        "vigencia_verificada": resumen_match.group(1) == "true",
+        "procedencia_primaria_verificada": resumen_match.group(1) == "true",
         "traza_disposiciones": trazas,
         "revision_vigencia": {"revisado_por": "registro vivo", "fecha": "2026-08-10"},
     }
 
 
 class TestRegistryRules(unittest.TestCase):
+    def test_procedencia_historica_no_acredita_vigencia_actual(self):
+        registry = load_registry(REGISTRY)
+        fuente = fuente_por_instrumento(registry, "CPEUM")
+        resultado = resolve_disposicion_vigencia(fuente, "CPEUM:4:P4")
+        self.assertTrue(resultado["procedencia_primaria_verificada"])
+        self.assertFalse(resultado["verificada"])
+        self.assertEqual(resultado["vigencia_actual_estado"], "no_verificada")
+        self.assertEqual(resultado["procedencia_razon"], "traza_exacta_con_revision")
+        self.assertEqual(resultado["razon"], "vigencia_actual_no_verificada")
+
+    def test_estado_actual_positivo_sin_contrato_falla_cerrado(self):
+        registry = load_registry(REGISTRY)
+        fuente = fuente_por_instrumento(registry, "CPEUM")
+        fuente = {**fuente, "vigencia_actual_estado": "verificada"}
+        self.assertTrue(any("vigencia_actual_estado" in e for e in validate_fuente(fuente)))
+        resultado = resolve_disposicion_vigencia(fuente, "CPEUM:4:P4")
+        self.assertFalse(resultado["verificada"])
+        self.assertEqual(resultado["razon"], "vigencia_actual_estado_no_admitido")
+
     def test_cpeum_2026_body_trace_does_not_verify_health_slice(self):
         registry = load_registry(REGISTRY)
         fuente = fuente_por_instrumento(registry, "CPEUM")
@@ -83,12 +103,12 @@ class TestRegistryRules(unittest.TestCase):
         body_trace = next(t for t in traces if "codigo=5800617" in (t.get("url") or ""))
         self.assertEqual(body_trace["cubre_disposiciones"], [])
         self.assertTrue(body_trace["no_cubre_slice"])
-        original = resolve_disposicion_vigencia(fuente, "CPEUM:4:P4")
+        original = resolve_disposicion_procedencia(fuente, "CPEUM:4:P4")
         self.assertTrue(original["verificada"])
         without_body = {**fuente, "trazas_publicacion": [t for t in traces if t is not body_trace]}
-        self.assertEqual(resolve_disposicion_vigencia(without_body, "CPEUM:4:P4"), original)
+        self.assertEqual(resolve_disposicion_procedencia(without_body, "CPEUM:4:P4"), original)
         without_slice = {**fuente, "trazas_publicacion": [body_trace]}
-        self.assertFalse(resolve_disposicion_vigencia(without_slice, "CPEUM:4:P4")["verificada"])
+        self.assertFalse(resolve_disposicion_procedencia(without_slice, "CPEUM:4:P4")["verificada"])
 
     def test_false_always_ok(self):
         self.assertEqual(validate_fuente({"id": "X", "vigencia_verificada": False}), [])
@@ -244,23 +264,23 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
         }
 
     def test_lfep_1_y_lfep_5_tienen_f5_explicito(self):
-        uno = resolve_disposicion_vigencia(self.lfep, "LFEP:1")
-        cinco = resolve_disposicion_vigencia(self.lfep, "LFEP:5")
+        uno = resolve_disposicion_procedencia(self.lfep, "LFEP:1")
+        cinco = resolve_disposicion_procedencia(self.lfep, "LFEP:5")
         self.assertTrue(uno["verificada"])
         self.assertEqual(uno["razon"], "f5_explicito")
         self.assertTrue(cinco["verificada"])
         self.assertEqual(cinco["razon"], "f5_explicito")
 
     def test_disposicion_ausente_no_hereda_true_instrumental(self):
-        resultado = resolve_disposicion_vigencia(self.lfep, "LFEP:999")
+        resultado = resolve_disposicion_procedencia(self.lfep, "LFEP:999")
         self.assertFalse(resultado["verificada"])
         self.assertEqual(resultado["razon"], "sin_traza_explicita")
 
     def test_instrumento_false_bloquea_f5_de_disposicion(self):
         self.lfep["vigencia_verificada"] = False
-        resultado = resolve_disposicion_vigencia(self.lfep, "LFEP:1")
+        resultado = resolve_disposicion_procedencia(self.lfep, "LFEP:1")
         self.assertFalse(resultado["verificada"])
-        self.assertEqual(resultado["razon"], "instrumento_no_verificado")
+        self.assertEqual(resultado["razon"], "procedencia_no_verificada")
 
     def test_traza_principal_solo_resuelve_id_exacto(self):
         fuente = {
@@ -274,10 +294,10 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
             "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
         self.assertTrue(
-            resolve_disposicion_vigencia(fuente, "LOAPF:1")["verificada"]
+            resolve_disposicion_procedencia(fuente, "LOAPF:1")["verificada"]
         )
         self.assertFalse(
-            resolve_disposicion_vigencia(fuente, "LOAPF:2")["verificada"]
+            resolve_disposicion_procedencia(fuente, "LOAPF:2")["verificada"]
         )
 
     def test_traza_publicacion_solo_resuelve_cobertura_exacta(self):
@@ -291,10 +311,10 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
             "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
         self.assertTrue(
-            resolve_disposicion_vigencia(fuente, "CPEUM:4:P4")["verificada"]
+            resolve_disposicion_procedencia(fuente, "CPEUM:4:P4")["verificada"]
         )
         self.assertFalse(
-            resolve_disposicion_vigencia(fuente, "CPEUM:5")["verificada"]
+            resolve_disposicion_procedencia(fuente, "CPEUM:5")["verificada"]
         )
 
     def test_alcance_instrumento_no_resuelve_disposicion(self):
@@ -307,7 +327,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
             }],
             "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
-        resultado = resolve_disposicion_vigencia(fuente, "X:1")
+        resultado = resolve_disposicion_procedencia(fuente, "X:1")
         self.assertFalse(resultado["verificada"])
         self.assertEqual(resultado["razon"], "traza_publicacion_incompleta")
 
@@ -321,7 +341,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
             }],
             "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
-        resultado = resolve_disposicion_vigencia(fuente, "X:1")
+        resultado = resolve_disposicion_procedencia(fuente, "X:1")
         self.assertFalse(resultado["verificada"])
         self.assertTrue(any("debe ser lista" in e for e in validate_fuente(fuente)))
 
@@ -333,7 +353,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
                 {"disposicion_id": "X:1", "f5": False, "cubre_disposicion": True},
             ],
         }
-        resultado = resolve_disposicion_vigencia(fuente, "X:1")
+        resultado = resolve_disposicion_procedencia(fuente, "X:1")
         self.assertFalse(resultado["verificada"])
         self.assertEqual(resultado["razon"], "traza_duplicada")
 
@@ -344,12 +364,12 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
                 {"disposicion_id": "X:1", "f5": True, "cubre_disposicion": True}
             ],
         }
-        resultado = resolve_disposicion_vigencia(fuente, "X:1")
+        resultado = resolve_disposicion_procedencia(fuente, "X:1")
         self.assertFalse(resultado["verificada"])
         self.assertEqual(resultado["razon"], "f5_no_verificado")
 
     def test_fuente_no_objeto_falla_cerrado(self):
-        resultado = resolve_disposicion_vigencia(None, "X:1")
+        resultado = resolve_disposicion_procedencia(None, "X:1")
         self.assertFalse(resultado["verificada"])
         self.assertEqual(resultado["razon"], "fuente_invalida")
 
@@ -363,7 +383,7 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
             },
             "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
-        resultado = resolve_disposicion_vigencia(fuente, "X:1")
+        resultado = resolve_disposicion_procedencia(fuente, "X:1")
         self.assertFalse(resultado["verificada"])
 
     def test_busca_traza_publicacion_valida_despues_de_incompleta(self):
@@ -383,11 +403,33 @@ class TestResolveDisposicionVigencia(unittest.TestCase):
             ],
             "revision_vigencia": {"revisado_por": "h", "fecha": "2026-08-10"},
         }
-        resultado = resolve_disposicion_vigencia(fuente, "X:1")
+        resultado = resolve_disposicion_procedencia(fuente, "X:1")
         self.assertTrue(resultado["verificada"])
 
 
 class TestLiveRegistryFile(unittest.TestCase):
+    def test_derivados_no_convierten_procedencia_en_vigencia_actual(self):
+        registry = load_registry(REGISTRY)
+        for path in sorted((ROOT / "corpus/derived").rglob("*.json")):
+            derivado = json.loads(path.read_text(encoding="utf-8"))
+            disposicion_id = derivado.get("disposicion_id")
+            instrumento_id = (derivado.get("instrumento") or {}).get("id")
+            if not disposicion_id or not instrumento_id:
+                continue
+            fuente = fuente_por_instrumento(registry, instrumento_id)
+            if fuente is None:
+                continue
+            resultado = resolve_disposicion_vigencia(fuente, disposicion_id)
+            with self.subTest(disposicion_id=disposicion_id):
+                vigencia = derivado["vigencia"]
+                self.assertEqual(
+                    vigencia["procedencia_primaria_verificada"],
+                    resultado["procedencia_primaria_verificada"],
+                )
+                self.assertFalse(vigencia["verificada_contra_dof_nivel1"])
+                self.assertEqual(vigencia["vigencia_actual_estado"], "no_verificada")
+                self.assertFalse(resultado["verificada"])
+
     def test_file_exists(self):
         self.assertTrue(REGISTRY.is_file())
 
@@ -399,7 +441,7 @@ class TestLiveRegistryFile(unittest.TestCase):
     def test_h1_slice_true_presente(self):
         text = REGISTRY.read_text(encoding="utf-8")
         trues = re.findall(
-            r"(?m)^[ \t]*vigencia_verificada:\s*true\b", text, flags=re.I
+            r"(?m)^[ \t]*procedencia_primaria_verificada:\s*true\b", text, flags=re.I
         )
         # salud CPEUM+LGS + eje IMSS LOAPF+LFEP+LSS+RIIMSS
         self.assertGreaterEqual(len(trues), 6, msg="slices H1 salud + estructura IMSS")
@@ -465,7 +507,7 @@ class TestLiveRegistryFile(unittest.TestCase):
             fuente = _fuente_minima_desde_registry(instrumento_id)
             for disposicion_id, esperado in esperados.items():
                 with self.subTest(disposicion_id=disposicion_id):
-                    resultado = resolve_disposicion_vigencia(
+                    resultado = resolve_disposicion_procedencia(
                         fuente, disposicion_id
                     )
                     self.assertEqual(resultado["verificada"], esperado)
@@ -473,7 +515,7 @@ class TestLiveRegistryFile(unittest.TestCase):
                         archivos[disposicion_id].read_text(encoding="utf-8")
                     )
                     self.assertEqual(
-                        derivado["vigencia"]["verificada_contra_dof_nivel1"],
+                        derivado["vigencia"]["procedencia_primaria_verificada"],
                         esperado,
                     )
 

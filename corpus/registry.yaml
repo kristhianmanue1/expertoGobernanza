@@ -8,13 +8,14 @@
 # 3=jurisprudencial (SCJN/SJF), 4=derivados del corpus.
 # Metodología completa: docs/fuentes-legal-mx.md
 # Auth canales: docs/autorizacion-fuentes-r1.md
-# §7: vigencia_verificada=true solo con traza nivel 1 usable (no solo home DOF).
+# §7: procedencia_primaria_verificada=true exige traza nivel 1 usable.
 # Extensión (fuentes-legal-mx.md §1.1-bis y §4, F1–F5):
 #   traza_disposicion_principal: {disposicion_id, fecha, tipo_acto, cubre_disposicion}
 #   ultima_reforma_cuerpo: {fecha, cubre_disposicion: false}  ← NO es traza del artículo
 #   trazas_publicacion[]: alcance, cubre_disposiciones[] | no_cubre_slice, url|ids
-#   revision_vigencia: {revisado_por, fecha, auto_revision_declarada}
-# vigencia_verificada es resumen del instrumento, NO autoridad por disposición.
+#   revision_procedencia: {revisado_por, fecha, auto_revision_declarada}
+# procedencia_primaria_verificada resume el instrumento, NO autoriza vigencia actual.
+# vigencia_verificada=false es el campo legado conservador durante esta migración.
 # Resolver cada disposición con registry_rules.resolve_disposicion_vigencia;
 # en slices múltiples, traza_disposiciones[].f5 es obligatoria y autoritativa.
 # NUNCA usar ultima_reforma_cuerpo.fecha como "origen" de una disposición del slice.
@@ -37,15 +38,17 @@ fuentes:
     # --- slice MVP (capa disposición) ---
     slice_mvp_disposiciones: ["CPEUM:4:P4"]
     # --- estado de vigencia / procedencia primaria ---
-    # Claims nivel 2 (Cámara) — NO bastan para vigencia_verificada true (M3/F2)
+    # Claims nivel 2 (Cámara) — NO bastan para procedencia_primaria_verificada true (M3/F2)
     fecha_publicacion_dof: "1917-02-05"
     fecha_ultima_reforma_dof_declarada: "2026-10-07"   # claim Cámara (cuerpo); NO cubre slice salud
     url_dof_nivel1: "https://dof.gob.mx/nota_detalle.php?codigo=5593045&fecha=08/05/2020"
-    vigencia_verificada: true  # ancla de procedencia CPEUM:4:P4 revisada 2026-08-10; no vigencia actual de todo el cuerpo
-    fecha_consulta_vigencia: "2026-08-10"  # el acto de 2026-10-07 no revalida el slice
+    procedencia_primaria_verificada: true  # ancla CPEUM:4:P4 revisada 2026-08-10
+    vigencia_verificada: false  # legado: no acredita vigencia actual
+    vigencia_actual_estado: no_verificada
+    fecha_revision_procedencia: "2026-08-10"  # 2026-10-07 no revalida el slice
     vacatio_o_transitorio: unknown
     coherencia_multi_fuente: alineado
-    revision_vigencia:
+    revision_procedencia:
       revisado_por: "Kristhian Manuel Jiménez"
       fecha: "2026-08-10"
       auto_revision_declarada: true
@@ -123,7 +126,7 @@ fuentes:
           Humano 2026-08-10: NO modifican
           la traza del párrafo de salud; consolidado sigue atribuyendo P4 a 08-05-2020.
     notas: >-
-      H1 parcial CPEUM (2026-08-10): vigencia_verificada true para ancla de procedencia
+      H1 parcial CPEUM (2026-08-10): procedencia_primaria_verificada true para ancla de procedencia
       del slice CPEUM:4:P4 (DOF 08-05-2020 codigo=5593045 + F5). Texto de trabajo sigue
       consolidado Cámara nivel 2 (F4: techo medio en citas si gate multi-eje). No certifica
       aplicabilidad casuística ni bitemporalidad.
@@ -143,15 +146,17 @@ fuentes:
     fecha_consulta: "2026-08-06"
     # --- slice MVP (capa disposición; id lookup = LGS:1) ---
     slice_mvp_disposiciones: ["LGS:1"]
-    # Claims nivel 2 — no bastan para vigencia_verificada true
+    # Claims nivel 2 — no bastan para procedencia_primaria_verificada true
     fecha_publicacion_dof: "1984-02-07"
     fecha_ultima_reforma_dof_declarada: "2026-01-15"   # claim Cámara (cuerpo LGS)
     url_dof_nivel1: null   # traza vigente del Art.1: DOF 29-05-2023 (ver trazas; lectura vía acervo Cámara + F5)
-    vigencia_verificada: true
-    fecha_consulta_vigencia: "2026-08-10"
+    procedencia_primaria_verificada: true
+    vigencia_verificada: false  # legado: no acredita vigencia actual
+    vigencia_actual_estado: no_verificada
+    fecha_revision_procedencia: "2026-08-10"
     vacatio_o_transitorio: unknown
     coherencia_multi_fuente: alineado
-    revision_vigencia:
+    revision_procedencia:
       revisado_por: "Kristhian Manuel Jiménez"
       fecha: "2026-08-10"
       auto_revision_declarada: true
@@ -217,7 +222,7 @@ fuentes:
           Reformas generales del cuerpo. Humano 2026-08-10: consolidado sigue atribuyendo
           Art. 1o a DOF 29-05-2023; no sustituyen la traza de LGS:1.
     notas: >-
-      H1 parcial LGS (2026-08-10): vigencia_verificada true para ancla de procedencia
+      H1 parcial LGS (2026-08-10): procedencia_primaria_verificada true para ancla de procedencia
       de LGS:1 (DOF 29-05-2023 + F5). Texto trabajo consolidado Cámara nivel 2.
       No certifica aplicabilidad casuística.
 
@@ -267,11 +272,13 @@ fuentes:
         identificadores_diario: "DOF 18-03-2025, Artículo Décimo: reforma Art.1 ¶2 LOAPF"
         url: "https://www.diputados.gob.mx/LeyesBiblio/ref/loapf/LOAPF_ref76_18mar25.pdf"
     url_dof_nivel1: null
-    vigencia_verificada: true
-    fecha_consulta_vigencia: "2026-08-10"
+    procedencia_primaria_verificada: true
+    vigencia_verificada: false  # legado: no acredita vigencia actual
+    vigencia_actual_estado: no_verificada
+    fecha_revision_procedencia: "2026-08-10"
     vacatio_o_transitorio: unknown
     coherencia_multi_fuente: alineado
-    revision_vigencia:
+    revision_procedencia:
       revisado_por: "Kristhian Manuel Jiménez"
       fecha: "2026-08-10"
       auto_revision_declarada: true
@@ -368,11 +375,13 @@ fuentes:
         f5: true
         nota: "F5 cerrado: el decreto cubre el párrafo que nombra IMSS y leyes específicas; no identifica por nombre a la LSS."
     url_dof_nivel1: "https://www.dof.gob.mx/nota_detalle.php?codigo=5763164&fecha=16/07/2025"
-    vigencia_verificada: true
-    fecha_consulta_vigencia: "2026-08-10"
+    procedencia_primaria_verificada: true
+    vigencia_verificada: false  # legado: no acredita vigencia actual
+    vigencia_actual_estado: no_verificada
+    fecha_revision_procedencia: "2026-08-10"
     vacatio_o_transitorio: unknown
     coherencia_multi_fuente: alineado
-    revision_vigencia:
+    revision_procedencia:
       revisado_por: "Kristhian Manuel Jiménez"
       fecha: "2026-08-10"
       auto_revision_declarada: true
@@ -472,11 +481,13 @@ fuentes:
         f5: false
         nota: "Pendiente F5 humana; no heredar vigencia verificada de LSS:5."
     url_dof_nivel1: null
-    vigencia_verificada: true
-    fecha_consulta_vigencia: "2026-08-10"
+    procedencia_primaria_verificada: true
+    vigencia_verificada: false  # legado: no acredita vigencia actual
+    vigencia_actual_estado: no_verificada
+    fecha_revision_procedencia: "2026-08-10"
     vacatio_o_transitorio: unknown
     coherencia_multi_fuente: alineado
-    revision_vigencia:
+    revision_procedencia:
       revisado_por: "Kristhian Manuel Jiménez"
       fecha: "2026-08-10"
       auto_revision_declarada: true
@@ -558,11 +569,13 @@ fuentes:
       identificadores_diario: "DOF 18-09-2006 codigo=4931715"
       nota: "F5: publicación original = traza de Art.1"
     url_dof_nivel1: "https://www.dof.gob.mx/nota_detalle.php?codigo=4931715&fecha=18/09/2006"
-    vigencia_verificada: true
-    fecha_consulta_vigencia: "2026-08-10"
+    procedencia_primaria_verificada: true
+    vigencia_verificada: false  # legado: no acredita vigencia actual
+    vigencia_actual_estado: no_verificada
+    fecha_revision_procedencia: "2026-08-10"
     vacatio_o_transitorio: unknown
     coherencia_multi_fuente: alineado
-    revision_vigencia:
+    revision_procedencia:
       revisado_por: "Kristhian Manuel Jiménez"
       fecha: "2026-08-10"
       auto_revision_declarada: true

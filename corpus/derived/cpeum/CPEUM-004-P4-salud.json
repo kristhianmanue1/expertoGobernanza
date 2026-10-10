@@ -21,12 +21,14 @@
   },
   "texto_verbatim": "Toda Persona tiene derecho a la protección de la salud. La Ley definirá las bases y modalidades para el acceso a los servicios de salud y establecerá la concurrencia de la Federación y las entidades federativas en materia de salubridad general, conforme a lo que dispone la fracción XVI del artículo 73 de esta Constitución. La Ley definirá un sistema de salud para el bienestar, con el fin de garantizar la extensión progresiva, cuantitativa y cualitativa de los servicios de salud para la atención integral y gratuita de las personas que no cuenten con seguridad social.",
   "vigencia": {
-    "estado": "vigente",
+    "estado": "no_verificada",
     "adicionado_dof": "1983-02-03",
     "ultima_reforma_dof_declarada": "2020-05-08",
-    "verificada_contra_dof_nivel1": true,
+    "verificada_contra_dof_nivel1": false,
+    "procedencia_primaria_verificada": true,
+    "vigencia_actual_estado": "no_verificada",
     "marcador": "procedencia_primaria_reconciliada_slice (F5 2026-08-10; DOF 08-05-2020 codigo=5593045; no aplicabilidad casuística)",
-    "traza": "DOF 08-05-2020 codigo=5593045; revision_vigencia Kristhian Manuel Jiménez",
+    "traza": "DOF 08-05-2020 codigo=5593045; revision_procedencia Kristhian Manuel Jiménez",
     "registry_ref": "corpus/registry.yaml#CPEUM"
   },
   "fuentes_oficiales": [
