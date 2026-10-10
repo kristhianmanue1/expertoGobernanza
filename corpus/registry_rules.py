@@ -41,7 +41,7 @@ def resolve_disposicion_procedencia(fuente: dict, disposicion_id: str) -> dict:
             disposicion_id, False, "instrumento", "procedencia_no_verificada"
         )
 
-    revision = fuente.get("revision_procedencia", fuente.get("revision_vigencia")) or {}
+    revision = fuente.get("revision_procedencia") or {}
     revision_ok = (
         isinstance(revision, dict)
         and bool(revision.get("revisado_por"))
@@ -151,10 +151,11 @@ def resolve_disposicion_vigencia(fuente: dict, disposicion_id: str) -> dict:
     histórica exacta, incluso con F5, no puede convertirla en ``verificada``.
     """
     procedencia = resolve_disposicion_procedencia(fuente, disposicion_id)
-    estado = fuente.get("vigencia_actual_estado") if isinstance(fuente, dict) else None
+    estado_presente = isinstance(fuente, dict) and "vigencia_actual_estado" in fuente
+    estado = fuente.get("vigencia_actual_estado") if estado_presente else None
     if estado == "no_verificada":
         razon = "vigencia_actual_no_verificada"
-    elif estado is None:
+    elif not estado_presente:
         razon = "vigencia_actual_estado_ausente"
     else:
         razon = "vigencia_actual_estado_no_admitido"
@@ -163,7 +164,7 @@ def resolve_disposicion_vigencia(fuente: dict, disposicion_id: str) -> dict:
         "verificada": False,
         "fuente": "ninguna",
         "razon": razon,
-        "vigencia_actual_estado": "no_verificada",
+        "vigencia_actual_estado": estado if estado == "no_verificada" else None,
         "vigencia_actual_estado_valido": estado == "no_verificada",
         "procedencia_primaria_verificada": procedencia["verificada"],
         "procedencia_fuente": procedencia["fuente"],
@@ -231,9 +232,9 @@ def validate_fuente(fuente: dict) -> list[str]:
             f"{fid}: ninguna traza cubre disposiciones ni declara no_cubre_slice"
         )
 
-    rev = fuente.get("revision_procedencia", fuente.get("revision_vigencia")) or {}
+    rev = fuente.get("revision_procedencia") or {}
     if not isinstance(rev, dict) or not rev.get("revisado_por") or not rev.get("fecha"):
-        errs.append(f"{fid}: falta revision_procedencia/revision_vigencia.revisado_por/fecha (F5)")
+        errs.append(f"{fid}: falta revision_procedencia.revisado_por/fecha (F5)")
 
     principal = fuente.get("traza_disposicion_principal")
     if principal is not None:
