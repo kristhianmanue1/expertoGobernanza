@@ -25,6 +25,7 @@
     "adicionado_dof": "1983-02-03",
     "ultima_reforma_dof_declarada": "2020-05-08",
     "verificada_contra_dof_nivel1": false,
+    "nota_legado": "verificada_contra_dof_nivel1 expresa vigencia actual; procedencia_primaria_verificada expresa traza histórica del acto",
     "procedencia_primaria_verificada": true,
     "vigencia_actual_estado": "no_verificada",
     "marcador": "procedencia_primaria_reconciliada_slice (F5 2026-08-10; DOF 08-05-2020 codigo=5593045; no aplicabilidad casuística)",

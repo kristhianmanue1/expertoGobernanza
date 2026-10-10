@@ -13,6 +13,7 @@
     "estado": "no_verificada",
     "ultima_reforma_dof_declarada": "2001-12-20",
     "verificada_contra_dof_nivel1": false,
+    "nota_legado": "verificada_contra_dof_nivel1 expresa vigencia actual; procedencia_primaria_verificada expresa traza histórica del acto",
     "procedencia_primaria_verificada": true,
     "vigencia_actual_estado": "no_verificada",
     "marcador": "procedencia_primaria_reconciliada_slice (F5 2026-08-10; DOF 20-12-2001; no aplicabilidad casuística)",

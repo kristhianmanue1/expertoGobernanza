@@ -14,7 +14,7 @@ FIXTURE = ROOT / "tests" / "fixtures" / "piloto-salud-citas.json"
 
 class TestAuditDocument(unittest.TestCase):
     def test_banner_no_afirma_vigencia_actual_tras_h1(self):
-        # H1: CPEUM/LGS con vigencia_verificada true en registry
+        # H1: CPEUM/LGS con procedencia primaria, sin vigencia actual verificada.
         self.assertEqual(ad.corpus_vigencia_banner(), ad.BANNER_NO)
 
     def test_fixture_audit(self):
@@ -40,6 +40,9 @@ class TestAuditDocument(unittest.TestCase):
         self.assertEqual(data["gate_version"], ad.GATE_VERSION)
         self.assertEqual(data["claims"][0]["gate_version"], ad.GATE_VERSION)
         self.assertIn("registry_check", data["claims"][0])
+        self.assertTrue(data["claims"][0]["registry_procedencia_primaria_verificada"])
+        self.assertEqual(data["claims"][0]["registry_procedencia_fuente"], "trazas_publicacion")
+        self.assertEqual(data["claims"][0]["registry_procedencia_razon"], "traza_exacta_con_revision")
 
     def test_lista_plana(self):
         import tempfile

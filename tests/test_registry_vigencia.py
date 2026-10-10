@@ -517,8 +517,15 @@ class TestLiveRegistryFile(unittest.TestCase):
     def test_derivados_no_convierten_procedencia_en_vigencia_actual(self):
         registry = load_registry(REGISTRY)
         esperados = {
-            "CPEUM:4:P4", "LGS:1", "LOAPF:1:P3", "LOAPF:1",
-            "LFEP:1", "LFEP:5", "LSS:1", "LSS:5", "RIIMSS:1",
+            "CPEUM:4:P4": (True, "trazas_publicacion", "traza_exacta_con_revision"),
+            "LGS:1": (True, "trazas_publicacion", "traza_exacta_con_revision"),
+            "LOAPF:1:P3": (True, "traza_disposiciones", "f5_explicito"),
+            "LOAPF:1": (False, "traza_disposiciones", "sin_traza_explicita"),
+            "LFEP:1": (True, "traza_disposiciones", "f5_explicito"),
+            "LFEP:5": (True, "traza_disposiciones", "f5_explicito"),
+            "LSS:1": (False, "traza_disposiciones", "f5_no_verificado"),
+            "LSS:5": (True, "traza_disposiciones", "f5_explicito"),
+            "RIIMSS:1": (True, "traza_disposicion_principal", "traza_exacta_con_revision"),
         }
         comprobados = []
         for path in sorted((ROOT / "corpus/derived").rglob("*.json")):
@@ -537,12 +544,18 @@ class TestLiveRegistryFile(unittest.TestCase):
                     vigencia["procedencia_primaria_verificada"],
                     resultado["procedencia_primaria_verificada"],
                 )
+                self.assertEqual(
+                    (resultado["procedencia_primaria_verificada"],
+                     resultado["procedencia_fuente"], resultado["procedencia_razon"]),
+                    esperados[disposicion_id],
+                )
                 self.assertFalse(vigencia["verificada_contra_dof_nivel1"])
+                self.assertIn("vigencia actual", vigencia["nota_legado"])
                 self.assertEqual(vigencia["vigencia_actual_estado"], "no_verificada")
                 self.assertNotEqual(vigencia.get("estado"), "vigente")
                 self.assertFalse(resultado["verificada"])
         self.assertEqual(len(comprobados), len(esperados))
-        self.assertEqual(set(comprobados), esperados)
+        self.assertEqual(set(comprobados), set(esperados))
 
     def test_file_exists(self):
         self.assertTrue(REGISTRY.is_file())
