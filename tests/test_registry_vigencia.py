@@ -12,6 +12,7 @@ from corpus.registry_rules import (
     validate_fuente,
     validate_registry,
 )
+from corpus.registry_loader import load_registry, fuente_por_instrumento
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / "corpus" / "registry.yaml"
@@ -74,6 +75,21 @@ def _fuente_minima_desde_registry(instrumento_id):
 
 
 class TestRegistryRules(unittest.TestCase):
+    def test_cpeum_2026_body_trace_does_not_verify_health_slice(self):
+        registry = load_registry(REGISTRY)
+        fuente = fuente_por_instrumento(registry, "CPEUM")
+        self.assertIsNotNone(fuente)
+        traces = fuente["trazas_publicacion"]
+        body_trace = next(t for t in traces if "codigo=5800617" in (t.get("url") or ""))
+        self.assertEqual(body_trace["cubre_disposiciones"], [])
+        self.assertTrue(body_trace["no_cubre_slice"])
+        original = resolve_disposicion_vigencia(fuente, "CPEUM:4:P4")
+        self.assertTrue(original["verificada"])
+        without_body = {**fuente, "trazas_publicacion": [t for t in traces if t is not body_trace]}
+        self.assertEqual(resolve_disposicion_vigencia(without_body, "CPEUM:4:P4"), original)
+        without_slice = {**fuente, "trazas_publicacion": [body_trace]}
+        self.assertFalse(resolve_disposicion_vigencia(without_slice, "CPEUM:4:P4")["verificada"])
+
     def test_false_always_ok(self):
         self.assertEqual(validate_fuente({"id": "X", "vigencia_verificada": False}), [])
 
