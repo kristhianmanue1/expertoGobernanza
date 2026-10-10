@@ -95,29 +95,30 @@ def _resolve_source(model):
 def _registry_check(model):
     instrumento = model.get("instrumento")
     if not isinstance(instrumento, dict):
-        return "error", "instrumento_malformado"
+        return "error", "instrumento_malformado", False
     instrumento_id = instrumento.get("id")
     if not isinstance(instrumento_id, str) or not instrumento_id.strip():
-        return "error", "instrumento_malformado"
+        return "error", "instrumento_malformado", False
     try:
         from corpus.registry_loader import fuente_por_instrumento, load_registry
         from corpus.registry_rules import resolve_disposicion_vigencia
         doc = load_registry(pathlib.Path(__file__).resolve().parent / "registry.yaml")
         fuente = fuente_por_instrumento(doc, instrumento_id)
     except Exception as exc:
-        return "error", f"loader:{exc.__class__.__name__}"
+        return "error", f"loader:{exc.__class__.__name__}", False
     if fuente is None:
-        return "missing_evidence", "fuente_ausente"
+        return "missing_evidence", "fuente_ausente", False
     try:
         resolved = resolve_disposicion_vigencia(fuente, model.get("disposicion_id") or "")
     except Exception as exc:
-        return "error", f"resolver:{exc.__class__.__name__}"
+        return "error", f"resolver:{exc.__class__.__name__}", False
     if not isinstance(resolved, dict):
-        return "error", "resolver_salida_invalida"
+        return "error", "resolver_salida_invalida", False
     razon = str(resolved.get("razon") or "")
+    procedencia = resolved.get("procedencia_primaria_verificada") is True
     if resolved.get("verificada") is True:
-        return "verified", razon
-    return "unverified", razon
+        return "verified", razon, procedencia
+    return "unverified", razon, procedencia
 
 
 def verify_claim(claim):
@@ -142,6 +143,7 @@ def verify_claim(claim):
         "source_check": None,
         "registry_check": None,
         "registry_razon": None,
+        "registry_procedencia_primaria_verificada": False,
         "derived_file": None,
         "notes": [_FECHA_NOTA],
     }
@@ -171,9 +173,10 @@ def verify_claim(claim):
     if src["note"]:
         result["notes"].append("fuente: " + src["note"])
 
-    registry_check, registry_razon = _registry_check(m)
+    registry_check, registry_razon, registry_procedencia = _registry_check(m)
     result["registry_check"] = registry_check
     result["registry_razon"] = registry_razon
+    result["registry_procedencia_primaria_verificada"] = registry_procedencia
 
     quote_ok = result["quote_substring_match"]
     hash_blocks = src["source_check"] in {"invalid_declaration", "mismatch", "error"}

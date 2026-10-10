@@ -10,9 +10,11 @@
   },
   "texto_verbatim": "Los organismos descentralizados, las empresas de participación estatal, las instituciones nacionales de crédito, las organizaciones auxiliares nacionales de crédito, las instituciones nacionales de seguros y de fianzas y los fideicomisos, componen la administración pública paraestatal.",
   "vigencia": {
-    "estado": "vigente",
+    "estado": "no_verificada",
     "ultima_reforma_dof_declarada": "1976-12-29",
-    "verificada_contra_dof_nivel1": true,
+    "verificada_contra_dof_nivel1": false,
+    "procedencia_primaria_verificada": true,
+    "vigencia_actual_estado": "no_verificada",
     "marcador": "F5 párrafo 3: publicación original DOF 29-12-1976",
     "traza": "LOAPF original 29-12-1976; el decreto 18-03-2025 reforma sólo el párrafo 2",
     "registry_ref": "corpus/registry.yaml#LOAPF",

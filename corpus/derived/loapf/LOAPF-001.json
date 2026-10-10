@@ -13,6 +13,8 @@
     "estado": "no_agregable_por_fecha_unica",
     "ultima_reforma_dof_declarada": null,
     "verificada_contra_dof_nivel1": false,
+    "procedencia_primaria_verificada": false,
+    "vigencia_actual_estado": "no_verificada",
     "marcador": "[NO-USAR-COMO-SLICE] Art.1 agrega párrafos con trazas distintas; usar LOAPF:1:P3 para Q2",
     "trazas_por_segmento": {
       "LOAPF:1:P2": "reforma DOF 18-03-2025",

@@ -11,11 +11,13 @@
   },
   "texto_verbatim": "La presente ley reglamenta el derecho a la protección de la salud que tiene toda persona en los términos del artículo 4o. de la Constitución Política de los Estados Unidos Mexicanos, establece las bases y modalidades para el acceso a los servicios de salud, distribuye competencias y establece los casos de concurrencia entre la Federación y las entidades federativas en materia de salubridad general. Es de aplicación en toda la República y sus disposiciones son de orden público e interés social.",
   "vigencia": {
-    "estado": "vigente",
+    "estado": "no_verificada",
     "ultima_reforma_dof_declarada": "2023-05-29",
-    "verificada_contra_dof_nivel1": true,
+    "verificada_contra_dof_nivel1": false,
+    "procedencia_primaria_verificada": true,
+    "vigencia_actual_estado": "no_verificada",
     "marcador": "procedencia_primaria_reconciliada_slice (F5 2026-08-10; no aplicabilidad casuística)",
-    "traza": "DOF 29-05-2023 Art.1; revision_vigencia Kristhian Manuel Jiménez",
+    "traza": "DOF 29-05-2023 Art.1; revision_procedencia Kristhian Manuel Jiménez",
     "registry_ref": "corpus/registry.yaml#LGS"
   },
   "fuentes_oficiales": [

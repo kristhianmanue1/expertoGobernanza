@@ -78,8 +78,6 @@ def fuente_por_instrumento(doc: dict, instrumento_id: str) -> dict | None:
 def corpus_vigencia_banner(registry_path: pathlib.Path = REGISTRY) -> str:
     if not pathlib.Path(registry_path).is_file():
         return BANNER_NO
-    doc = load_registry(registry_path)
-    for fuente in doc["fuentes"]:
-        if fuente.get("vigencia_verificada") is True:
-            return BANNER_OK
+    load_registry(registry_path)
+    # R1 sólo comprueba procedencia histórica; no habilita vigencia actual.
     return BANNER_NO

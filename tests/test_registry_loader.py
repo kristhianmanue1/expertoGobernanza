@@ -8,7 +8,6 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from corpus.registry_loader import (
     BANNER_NO,
-    BANNER_OK,
     RegistryLoadError,
     corpus_vigencia_banner,
     load_registry,
@@ -91,7 +90,7 @@ class TestRegistryLoader(unittest.TestCase):
             path.unlink(missing_ok=True)
         self.assertEqual(doc["fuentes"][0]["traza_disposiciones"][0]["disposicion_id"], "X:1")
 
-    def test_banner_no_llama_verify_y_tolera_f5_false(self):
+    def test_banner_no_promueve_el_flag_legado_ni_llama_verify(self):
         path = _write(VALID_TRUE)
         try:
             import corpus.verify_citations as vc
@@ -104,7 +103,7 @@ class TestRegistryLoader(unittest.TestCase):
 
             vc.verify_claim = boom
             try:
-                self.assertEqual(corpus_vigencia_banner(path), BANNER_OK)
+                self.assertEqual(corpus_vigencia_banner(path), BANNER_NO)
             finally:
                 vc.verify_claim = original
             self.assertEqual(called["n"], 0)
@@ -114,7 +113,8 @@ class TestRegistryLoader(unittest.TestCase):
     def test_registry_de_produccion_carga(self):
         doc = load_registry(pathlib.Path("corpus/registry.yaml"))
         self.assertGreaterEqual(len(doc["fuentes"]), 6)
-        self.assertEqual(corpus_vigencia_banner(), BANNER_OK)
+        self.assertTrue(all(f["procedencia_primaria_verificada"] for f in doc["fuentes"]))
+        self.assertEqual(corpus_vigencia_banner(), BANNER_NO)
 
 
 if __name__ == "__main__":

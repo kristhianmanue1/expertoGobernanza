@@ -1,7 +1,7 @@
 """Reglas de vigencia del registry (R1-E1-04 / fuentes-legal-mx.md §4.2).
 
-Validación pura sobre dicts (stdlib). No marca verdad jurídica: solo estructura
-post-adversarial F1–F5 para impedir `vigencia_verificada: true` incompleto.
+Validación pura sobre dicts (stdlib). F1–F5 acreditan procedencia primaria;
+la vigencia actual permanece no verificada hasta un contrato temporal propio.
 """
 from __future__ import annotations
 
@@ -20,11 +20,11 @@ def _resultado_vigencia(
     }
 
 
-def resolve_disposicion_vigencia(fuente: dict, disposicion_id: str) -> dict:
-    """Resuelve vigencia por disposición, de forma explícita y fail-closed.
+def resolve_disposicion_procedencia(fuente: dict, disposicion_id: str) -> dict:
+    """Resuelve sólo la procedencia primaria de una disposición.
 
-    ``vigencia_verificada`` es solo un resumen del instrumento: nunca basta para
-    afirmar la vigencia de cada disposición del slice. Si existe
+    El campo legado ``vigencia_verificada`` se acepta en fixtures anteriores,
+    pero representa procedencia, nunca vigencia actual. Si existe
     ``traza_disposiciones``, esa tabla es autoritativa y no se hace fallback a
     trazas más generales cuando falta una entrada o su F5 es falso.
     """
@@ -36,12 +36,14 @@ def resolve_disposicion_vigencia(fuente: dict, disposicion_id: str) -> dict:
             disposicion_id, False, "ninguna", "fuente_invalida"
         )
 
-    if fuente.get("vigencia_verificada") is not True:
+    if fuente.get(
+        "procedencia_primaria_verificada", fuente.get("vigencia_verificada")
+    ) is not True:
         return _resultado_vigencia(
-            disposicion_id, False, "instrumento", "instrumento_no_verificado"
+            disposicion_id, False, "instrumento", "procedencia_no_verificada"
         )
 
-    revision = fuente.get("revision_vigencia") or {}
+    revision = fuente.get("revision_procedencia", fuente.get("revision_vigencia")) or {}
     revision_ok = (
         isinstance(revision, dict)
         and bool(revision.get("revisado_por"))
@@ -144,15 +146,48 @@ def resolve_disposicion_vigencia(fuente: dict, disposicion_id: str) -> dict:
     )
 
 
+def resolve_disposicion_vigencia(fuente: dict, disposicion_id: str) -> dict:
+    """Separa procedencia histórica y vigencia actual; ésta falla cerrado.
+
+    R1 no tiene contrato temporal para acreditar vigencia actual. Una traza
+    histórica exacta, incluso con F5, no puede convertirla en ``verificada``.
+    """
+    procedencia = resolve_disposicion_procedencia(fuente, disposicion_id)
+    estado = fuente.get("vigencia_actual_estado") if isinstance(fuente, dict) else None
+    razon = (
+        "vigencia_actual_no_verificada"
+        if estado is None or estado == "no_verificada"
+        else "vigencia_actual_estado_no_admitido"
+    )
+    return {
+        "disposicion_id": procedencia["disposicion_id"],
+        "verificada": False,
+        "fuente": "ninguna",
+        "razon": razon,
+        "vigencia_actual_estado": "no_verificada",
+        "procedencia_primaria_verificada": procedencia["verificada"],
+        "procedencia_fuente": procedencia["fuente"],
+        "procedencia_razon": procedencia["razon"],
+    }
+
+
 def validate_fuente(fuente: dict) -> list[str]:
     """Devuelve lista de errores; vacía si la fuente es estructuralmente OK."""
     errs: list[str] = []
     fid = fuente.get("id") or "?"
-    vigencia = fuente.get("vigencia_verificada")
+    legado = fuente.get("vigencia_verificada")
+    if legado is not None and not isinstance(legado, bool):
+        return [f"{fid}: vigencia_verificada exige booleano"]
+    if "procedencia_primaria_verificada" in fuente:
+        if legado is True:
+            errs.append(f"{fid}: vigencia_verificada legado no puede ser true")
+        if fuente.get("vigencia_actual_estado") != "no_verificada":
+            errs.append(f"{fid}: vigencia_actual_estado debe ser no_verificada en R1")
+    vigencia = fuente.get("procedencia_primaria_verificada", legado)
     if vigencia is False or vigencia is None:
         return errs
     if vigencia is not True:
-        return [f"{fid}: vigencia_verificada exige booleano"]
+        return errs + [f"{fid}: procedencia_primaria_verificada exige booleano"]
 
     trazas = fuente.get("trazas_publicacion") or []
     url1 = fuente.get("url_dof_nivel1")
@@ -195,9 +230,9 @@ def validate_fuente(fuente: dict) -> list[str]:
             f"{fid}: ninguna traza cubre disposiciones ni declara no_cubre_slice"
         )
 
-    rev = fuente.get("revision_vigencia") or {}
+    rev = fuente.get("revision_procedencia", fuente.get("revision_vigencia")) or {}
     if not isinstance(rev, dict) or not rev.get("revisado_por") or not rev.get("fecha"):
-        errs.append(f"{fid}: falta revision_vigencia.revisado_por/fecha (F5)")
+        errs.append(f"{fid}: falta revision_procedencia/revision_vigencia.revisado_por/fecha (F5)")
 
     principal = fuente.get("traza_disposicion_principal")
     if principal is not None:

@@ -33,6 +33,8 @@ class TestVerifyGate(unittest.TestCase):
         if r["fuente_sha256_recomputed"]:
             self.assertEqual(r["fuente_sha256_recomputed"], r["fuente_sha256_declared"])
         self.assertEqual(r["response_status"], "medio")
+        self.assertEqual(r["registry_check"], "unverified")
+        self.assertTrue(r["registry_procedencia_primaria_verificada"])
 
     def test_golden_lgs_medio(self):
         r = vc.verify_claim(_claim("LGS:1", LGS_QUOTE))
